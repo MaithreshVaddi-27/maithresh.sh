@@ -1,4 +1,4 @@
-# Maithresh.dev — Portfolio
+# maithresh.sh — Portfolio
 
 Personal portfolio for **Maithresh Vaddi** — AI/ML Engineer & Backend Developer.
 
@@ -58,7 +58,7 @@ sha1sum css/style.css js/main.js js/scene.js assets/svg/*.svg
 
 1. Push this repo to GitHub (see below).
 2. Repo → Settings → Pages → Source: **Deploy from a branch** → Branch: `main` → `/ (root)`.
-3. Site publishes at `https://maithreshvaddi-27.github.io/Maithresh.dev/`.
+3. Site publishes at `https://maithresh.sh/` (or `https://maithreshvaddi-27.github.io/maithresh.sh/`).
 
 ## License
 
