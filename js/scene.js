@@ -81,7 +81,7 @@
         y: height * 0.28,
         vx: (Math.random() - 0.5) * 0.35,
         vy: (Math.random() - 0.5) * 0.35,
-        label: 'TrustRAG :: NLI',
+        label: 'RAG :: NLI Engine',
         color: '#38bdf8'
       },
       {

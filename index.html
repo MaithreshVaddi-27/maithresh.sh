@@ -26,7 +26,7 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Maithresh Vaddi",
-  "url": "https://maithreshvaddi-27.github.io/Maithresh.dev/",
+  "url": "https://maithresh.sh/",
   "jobTitle": "AI/ML Engineer & Backend Developer",
   "description": "AI/ML Engineer and Backend Developer building production-oriented RAG reliability pipelines, MCP tool-orchestration agents, and automation platforms.",
   "address": { "@type": "PostalAddress", "addressLocality": "Hyderabad", "addressRegion": "Telangana", "addressCountry": "IN" },
@@ -159,8 +159,9 @@
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="eyebrow-icon"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2"/></svg>
             $ whoami --role // maithresh.sh<span class="cursor" style="background: #38bdf8;"></span>
           </div>
-          <h1 style="letter-spacing: -0.03em; line-height: 1.1;">AI Systems, Agentic Runtimes &amp; <span style="color: #38bdf8; text-shadow: 0 0 24px rgba(56,189,248,0.35);">Local-First RAG.</span></h1>
-          <p class="hero-role" style="color: #94a3b8; font-weight: 500;">Maithresh Vaddi — AI/ML Engineer &amp; Backend Developer</p>
+          <p class="hero-name">Maithresh Vaddi</p>
+          <h1 style="letter-spacing: -0.03em; line-height: 1.1;">AI/ML Engineer &amp; <span style="color: #38bdf8; text-shadow: 0 0 24px rgba(56,189,248,0.35);">Agentic Systems Builder.</span></h1>
+          <p class="hero-desc-sub">Production RAG · Local-First Inference · MCP Orchestration</p>
           <p class="hero-desc">Final-year B.Tech CSE undergrad at KMIT Hyderabad. I architect production-grade agentic runtimes, multi-agent pipelines, and local-first MCP orchestration networks — ten solo-built systems, zero API-key dependencies.</p>
           <div class="hero-cta" style="gap: 14px; margin-top: 28px;">
             <a href="#projects" class="btn-nested btn-nested-primary">
@@ -306,11 +307,11 @@
       <!-- Apple-Style Segmented Tab Switcher -->
       <div class="workbench-tabs-container reveal" style="margin-top: 24px;">
         <div class="workbench-tabs" role="tablist">
-          <button class="workbench-tab active" id="tab-trustrag" role="tab" aria-selected="true" aria-controls="pane-trustrag" onclick="switchWorkbenchTab('trustrag')">
+          <button class="workbench-tab" id="tab-trustrag" role="tab" aria-selected="false" aria-controls="pane-trustrag" onclick="switchWorkbenchTab('trustrag')">
             <span style="width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; display: inline-block;"></span>
             <span>01 // TrustRAG (Recovery Loop)</span>
           </button>
-          <button class="workbench-tab" id="tab-docuchat" role="tab" aria-selected="false" aria-controls="pane-docuchat" onclick="switchWorkbenchTab('docuchat')">
+          <button class="workbench-tab active" id="tab-docuchat" role="tab" aria-selected="true" aria-controls="pane-docuchat" onclick="switchWorkbenchTab('docuchat')">
             <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
             <span>02 // DocuChat (MCP Tool Router)</span>
           </button>
@@ -326,7 +327,7 @@
       </div>
 
       <!-- PANE 1: TRUSTRAG -->
-      <div id="pane-trustrag" class="workbench-pane active">
+      <div id="pane-trustrag" class="workbench-pane">
         <div class="doppelrand-shell reveal">
           <div class="doppelrand-core">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px;">
@@ -428,7 +429,7 @@
       </div>
 
       <!-- PANE 2: AGENTIC DOCUCHAT -->
-      <div id="pane-docuchat" class="workbench-pane">
+      <div id="pane-docuchat" class="workbench-pane active">
         <div class="doppelrand-shell reveal">
           <div class="doppelrand-core">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px;">
@@ -702,71 +703,71 @@
                   <svg viewBox="0 0 260 500" role="img" aria-label="TrustRAG reliability pipeline: query goes through hybrid retrieval, grounded generation, and claim verification; if the reliability score fails threshold, one bounded recovery round runs before falling back to an explicit abstain.">
                     <style>
                       .pd-t{ font-family:'JetBrains Mono', ui-monospace, monospace; }
-                      .pd-label{ font-size:9.5px; font-weight:600; fill:#eceff4; letter-spacing:.2px; }
-                      .pd-sub{ font-size:7.6px; fill:#8b95a1; }
-                      .pd-tiny{ font-size:6.8px; fill:#8b95a1; }
+                      .pd-label{ font-size:9.5px; font-weight:600; fill:#f8fafc; letter-spacing:.2px; }
+                      .pd-sub{ font-size:7.6px; fill:#94a3b8; }
+                      .pd-tiny{ font-size:6.8px; fill:#64748b; }
                     </style>
                     <defs>
                       <marker id="pdArrow" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M0,0 L8,4 L0,8 Z" fill="#4c566a"/>
+                        <path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/>
                       </marker>
                     </defs>
-                
+
                     <!-- query -->
-                    <rect x="85" y="8" width="90" height="26" rx="13" fill="none" stroke="#2e3440"/>
+                    <rect x="85" y="8" width="90" height="26" rx="13" fill="none" stroke="#334155"/>
                     <text x="130" y="25" text-anchor="middle" class="pd-t pd-label">QUERY</text>
-                    <line x1="130" y1="34" x2="130" y2="56" stroke="#4c566a" marker-end="url(#pdArrow)"/>
-                
+                    <line x1="130" y1="34" x2="130" y2="56" stroke="#334155" marker-end="url(#pdArrow)"/>
+
                     <!-- retrieve -->
-                    <rect x="20" y="58" width="220" height="54" rx="10" fill="rgba(136,192,208,0.10)" stroke="#88c0d0" stroke-width="1.1"/>
+                    <rect x="20" y="58" width="220" height="54" rx="10" fill="rgba(56,189,248,0.10)" stroke="#38bdf8" stroke-width="1.1"/>
                     <text x="130" y="80" text-anchor="middle" class="pd-t pd-label">HYBRID RETRIEVE</text>
                     <text x="130" y="96" text-anchor="middle" class="pd-t pd-sub">dense BGE-small · BM25 · RRF fusion</text>
-                    <line x1="130" y1="112" x2="130" y2="136" stroke="#4c566a" marker-end="url(#pdArrow)"/>
-                
+                    <line x1="130" y1="112" x2="130" y2="136" stroke="#334155" marker-end="url(#pdArrow)"/>
+
                     <!-- generation -->
-                    <rect x="35" y="138" width="190" height="36" rx="8" fill="none" stroke="#2e3440"/>
+                    <rect x="35" y="138" width="190" height="36" rx="8" fill="none" stroke="#334155"/>
                     <text x="130" y="160" text-anchor="middle" class="pd-t pd-label">GROUNDED GENERATION</text>
-                    <line x1="130" y1="174" x2="130" y2="198" stroke="#4c566a" marker-end="url(#pdArrow)"/>
-                
+                    <line x1="130" y1="174" x2="130" y2="198" stroke="#334155" marker-end="url(#pdArrow)"/>
+
                     <!-- verify -->
-                    <rect x="14" y="200" width="232" height="60" rx="10" fill="rgba(184,221,232,0.10)" stroke="#b8dde8" stroke-width="1.1"/>
+                    <rect x="14" y="200" width="232" height="60" rx="10" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" stroke-width="1.1"/>
                     <text x="130" y="221" text-anchor="middle" class="pd-t pd-label">CLAIM DECOMPOSITION + NLI</text>
                     <text x="130" y="235" text-anchor="middle" class="pd-t pd-sub">fused in one call, not two passes</text>
                     <text x="130" y="250" text-anchor="middle" class="pd-t pd-tiny">SHA-256 · temporal-window evidence audit</text>
-                    <line x1="130" y1="260" x2="130" y2="284" stroke="#4c566a" marker-end="url(#pdArrow)"/>
-                
+                    <line x1="130" y1="260" x2="130" y2="284" stroke="#334155" marker-end="url(#pdArrow)"/>
+
                     <!-- decision diamond -->
-                    <polygon points="130,286 206,320 130,354 54,320" fill="rgba(255,255,255,0.03)" stroke="#5e6779" stroke-width="1.1"/>
+                    <polygon points="130,286 206,320 130,354 54,320" fill="rgba(255,255,255,0.03)" stroke="#475569" stroke-width="1.1"/>
                     <text x="130" y="317" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">SCORE ≥ τ ?</text>
                     <text x="130" y="329" text-anchor="middle" class="pd-t pd-tiny">reliability threshold</text>
-                
+
                     <!-- no branch -> recovery -->
-                    <path d="M54,320 Q38,348 65,372" fill="none" stroke="#4c566a" marker-end="url(#pdArrow)"/>
-                    <text x="34" y="352" class="pd-t pd-tiny" fill="#ebcb8b">no</text>
-                
+                    <path d="M54,320 Q38,348 65,372" fill="none" stroke="#334155" marker-end="url(#pdArrow)"/>
+                    <text x="34" y="352" class="pd-t pd-tiny" fill="#f59e0b">no</text>
+
                     <!-- yes branch -> answer -->
-                    <path d="M206,320 Q222,348 195,372" fill="none" stroke="#4c566a" marker-end="url(#pdArrow)"/>
-                    <text x="204" y="352" class="pd-t pd-tiny" fill="#a3be8c">yes</text>
-                
+                    <path d="M206,320 Q222,348 195,372" fill="none" stroke="#334155" marker-end="url(#pdArrow)"/>
+                    <text x="204" y="352" class="pd-t pd-tiny" fill="#10b981">yes</text>
+
                     <!-- recovery box -->
-                    <rect x="10" y="374" width="110" height="52" rx="10" fill="rgba(235,203,139,0.07)" stroke="#ebcb8b" stroke-width="1.1"/>
+                    <rect x="10" y="374" width="110" height="52" rx="10" fill="rgba(245,158,11,0.08)" stroke="#f59e0b" stroke-width="1.1"/>
                     <text x="65" y="393" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">BOUNDED RECOVERY</text>
                     <text x="65" y="406" text-anchor="middle" class="pd-t pd-tiny">rewrite · re-retrieve · regen</text>
-                    <text x="65" y="418" text-anchor="middle" class="pd-t pd-tiny" fill="#ebcb8b">× 1 round max</text>
-                
+                    <text x="65" y="418" text-anchor="middle" class="pd-t pd-tiny" fill="#f59e0b">× 1 round max</text>
+
                     <!-- answer box -->
-                    <rect x="140" y="374" width="110" height="52" rx="10" fill="rgba(163,190,140,0.07)" stroke="#a3be8c" stroke-width="1.1"/>
+                    <rect x="140" y="374" width="110" height="52" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.1"/>
                     <text x="195" y="396" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">GROUNDED ANSWER</text>
                     <text x="195" y="410" text-anchor="middle" class="pd-t pd-tiny">cited · verified</text>
-                
+
                     <!-- loop back: recovery -> retrieve (bounded retry) -->
-                    <path d="M120,388 C 254,388 254,86 242,86" fill="none" stroke="#5e6779" stroke-dasharray="2.5 3" marker-end="url(#pdArrow)"/>
+                    <path d="M120,388 C 254,388 254,86 242,86" fill="none" stroke="#475569" stroke-dasharray="2.5 3" marker-end="url(#pdArrow)"/>
                     <text x="256" y="240" text-anchor="middle" class="pd-t pd-tiny" transform="rotate(90 256 240)">retries once, then falls through</text>
-                
+
                     <!-- recovery -> abstain -->
-                    <line x1="65" y1="426" x2="65" y2="446" stroke="#4c566a" marker-end="url(#pdArrow)"/>
-                    <rect x="10" y="448" width="110" height="34" rx="8" fill="rgba(191,97,106,0.07)" stroke="#bf616a" stroke-width="1.1"/>
-                    <text x="65" y="468" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px; fill:#d99aa0;">ABSTAIN</text>
+                    <line x1="65" y1="426" x2="65" y2="446" stroke="#334155" marker-end="url(#pdArrow)"/>
+                    <rect x="10" y="448" width="110" height="34" rx="8" fill="rgba(239,68,68,0.08)" stroke="#ef4444" stroke-width="1.1"/>
+                    <text x="65" y="468" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px; fill:#ef4444;">ABSTAIN</text>
                     <text x="65" y="490" text-anchor="middle" class="pd-t pd-tiny">explicit — never a guessed answer</text>
                   </svg>
                 </div>
@@ -789,51 +790,51 @@
                   <svg viewBox="0 0 260 500" role="img" aria-label="Agentic DocuChat architecture: query routing through single-agent LangGraph ReAct machine, dynamic Composio MCP tool dispatch, and streamed synthesis.">
                     <style>
                       .pd-t{ font-family:'JetBrains Mono', ui-monospace, monospace; }
-                      .pd-label{ font-size:9.5px; font-weight:600; fill:#eceff4; letter-spacing:.2px; }
-                      .pd-sub{ font-size:7.6px; fill:#8b95a1; }
-                      .pd-tiny{ font-size:6.8px; fill:#8b95a1; }
+                      .pd-label{ font-size:9.5px; font-weight:600; fill:#f8fafc; letter-spacing:.2px; }
+                      .pd-sub{ font-size:7.6px; fill:#94a3b8; }
+                      .pd-tiny{ font-size:6.8px; fill:#64748b; }
                     </style>
                     <defs>
                       <marker id="pdArrow2" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M0,0 L8,4 L0,8 Z" fill="#4c566a"/>
+                        <path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/>
                       </marker>
                     </defs>
 
                     <!-- query -->
-                    <rect x="70" y="8" width="120" height="26" rx="13" fill="none" stroke="#2e3440"/>
+                    <rect x="70" y="8" width="120" height="26" rx="13" fill="none" stroke="#334155"/>
                     <text x="130" y="25" text-anchor="middle" class="pd-t pd-label">QUERY + PDF CONTEXT</text>
-                    <line x1="130" y1="34" x2="130" y2="56" stroke="#4c566a" marker-end="url(#pdArrow2)"/>
+                    <line x1="130" y1="34" x2="130" y2="56" stroke="#334155" marker-end="url(#pdArrow2)"/>
 
                     <!-- router -->
                     <rect x="20" y="58" width="220" height="54" rx="10" fill="rgba(16,185,129,0.10)" stroke="#10b981" stroke-width="1.1"/>
                     <text x="130" y="80" text-anchor="middle" class="pd-t pd-label">LANGGRAPH REACT ROUTER</text>
                     <text x="130" y="96" text-anchor="middle" class="pd-t pd-sub">single agent · zero swarm token inflation</text>
-                    <line x1="130" y1="112" x2="130" y2="136" stroke="#4c566a" marker-end="url(#pdArrow2)"/>
+                    <line x1="130" y1="112" x2="130" y2="136" stroke="#334155" marker-end="url(#pdArrow2)"/>
 
                     <!-- decision diamond -->
-                    <polygon points="130,138 206,172 130,206 54,172" fill="rgba(255,255,255,0.03)" stroke="#5e6779" stroke-width="1.1"/>
+                    <polygon points="130,138 206,172 130,206 54,172" fill="rgba(255,255,255,0.03)" stroke="#475569" stroke-width="1.1"/>
                     <text x="130" y="169" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">NEEDS EXTERNAL TOOL?</text>
                     <text x="130" y="181" text-anchor="middle" class="pd-t pd-tiny">tool policy evaluation</text>
 
                     <!-- branch no -> ChromaDB -->
-                    <path d="M54,172 Q38,200 65,224" fill="none" stroke="#4c566a" marker-end="url(#pdArrow2)"/>
+                    <path d="M54,172 Q38,200 65,224" fill="none" stroke="#334155" marker-end="url(#pdArrow2)"/>
                     <text x="34" y="204" class="pd-t pd-tiny" fill="#10b981">no</text>
-                    <rect x="10" y="226" width="110" height="56" rx="10" fill="rgba(16,185,129,0.07)" stroke="#10b981" stroke-width="1.1"/>
+                    <rect x="10" y="226" width="110" height="56" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.1"/>
                     <text x="65" y="246" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">CHROMADB VECTORS</text>
                     <text x="65" y="260" text-anchor="middle" class="pd-t pd-tiny">local document chunks</text>
                     <text x="65" y="272" text-anchor="middle" class="pd-t pd-tiny" fill="#94a3b8">retrieve_multi tool</text>
 
                     <!-- branch yes -> MCP Gateway -->
-                    <path d="M206,172 Q222,200 195,224" fill="none" stroke="#4c566a" marker-end="url(#pdArrow2)"/>
+                    <path d="M206,172 Q222,200 195,224" fill="none" stroke="#334155" marker-end="url(#pdArrow2)"/>
                     <text x="204" y="204" class="pd-t pd-tiny" fill="#38bdf8">yes</text>
-                    <rect x="140" y="226" width="110" height="56" rx="10" fill="rgba(56,189,248,0.07)" stroke="#38bdf8" stroke-width="1.1"/>
+                    <rect x="140" y="226" width="110" height="56" rx="10" fill="rgba(56,189,248,0.08)" stroke="#38bdf8" stroke-width="1.1"/>
                     <text x="195" y="246" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">COMPOSIO MCP HUB</text>
                     <text x="195" y="260" text-anchor="middle" class="pd-t pd-tiny">live web radar</text>
                     <text x="195" y="272" text-anchor="middle" class="pd-t pd-tiny" fill="#38bdf8">Tavily JSON-RPC 2.0</text>
 
                     <!-- convergence lines to synthesis -->
-                    <line x1="65" y1="282" x2="105" y2="318" stroke="#4c566a" marker-end="url(#pdArrow2)"/>
-                    <line x1="195" y1="282" x2="155" y2="318" stroke="#4c566a" marker-end="url(#pdArrow2)"/>
+                    <line x1="65" y1="282" x2="105" y2="318" stroke="#334155" marker-end="url(#pdArrow2)"/>
+                    <line x1="195" y1="282" x2="155" y2="318" stroke="#334155" marker-end="url(#pdArrow2)"/>
 
                     <!-- synthesis -->
                     <rect x="14" y="320" width="232" height="56" rx="10" fill="rgba(56,189,248,0.10)" stroke="#38bdf8" stroke-width="1.1"/>
@@ -842,11 +843,11 @@
                     <text x="130" y="368" text-anchor="middle" class="pd-t pd-tiny">Ollama / llama.cpp / Gemini fallback</text>
 
                     <!-- loopback memory -->
-                    <path d="M14,348 C 2,348 2,86 18,86" fill="none" stroke="#5e6779" stroke-dasharray="2.5 3" marker-end="url(#pdArrow2)"/>
+                    <path d="M14,348 C 2,348 2,86 18,86" fill="none" stroke="#475569" stroke-dasharray="2.5 3" marker-end="url(#pdArrow2)"/>
                     <text x="6" y="210" text-anchor="middle" class="pd-t pd-tiny" transform="rotate(-90 6 210)">SQLite conversation memory</text>
 
                     <!-- streamed output -->
-                    <line x1="130" y1="376" x2="130" y2="408" stroke="#4c566a" marker-end="url(#pdArrow2)"/>
+                    <line x1="130" y1="376" x2="130" y2="408" stroke="#334155" marker-end="url(#pdArrow2)"/>
                     <rect x="20" y="410" width="220" height="46" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.1"/>
                     <text x="130" y="432" text-anchor="middle" class="pd-t pd-label">STREAMED TOKEN RESPONSE</text>
                     <text x="130" y="446" text-anchor="middle" class="pd-t pd-tiny">Gradio UI · Server-Sent Events</text>
@@ -871,57 +872,57 @@
                   <svg viewBox="0 0 260 500" role="img" aria-label="Resume Crew architecture: deterministic parsing, hardware acceleration detection, claim matching against JD requirements, and evidence-grounded audit report.">
                     <style>
                       .pd-t{ font-family:'JetBrains Mono', ui-monospace, monospace; }
-                      .pd-label{ font-size:9.5px; font-weight:600; fill:#eceff4; letter-spacing:.2px; }
-                      .pd-sub{ font-size:7.6px; fill:#8b95a1; }
-                      .pd-tiny{ font-size:6.8px; fill:#8b95a1; }
+                      .pd-label{ font-size:9.5px; font-weight:600; fill:#f8fafc; letter-spacing:.2px; }
+                      .pd-sub{ font-size:7.6px; fill:#94a3b8; }
+                      .pd-tiny{ font-size:6.8px; fill:#64748b; }
                     </style>
                     <defs>
                       <marker id="pdArrow3" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M0,0 L8,4 L0,8 Z" fill="#4c566a"/>
+                        <path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/>
                       </marker>
                     </defs>
 
                     <!-- ingest -->
-                    <rect x="60" y="8" width="140" height="26" rx="13" fill="none" stroke="#2e3440"/>
+                    <rect x="60" y="8" width="140" height="26" rx="13" fill="none" stroke="#334155"/>
                     <text x="130" y="25" text-anchor="middle" class="pd-t pd-label">RESUME + JD INGEST</text>
-                    <line x1="130" y1="34" x2="130" y2="56" stroke="#4c566a" marker-end="url(#pdArrow3)"/>
+                    <line x1="130" y1="34" x2="130" y2="56" stroke="#334155" marker-end="url(#pdArrow3)"/>
 
                     <!-- hardware detect -->
                     <rect x="20" y="58" width="220" height="54" rx="10" fill="rgba(245,158,11,0.10)" stroke="#f59e0b" stroke-width="1.1"/>
                     <text x="130" y="80" text-anchor="middle" class="pd-t pd-label">RUNTIME AUTO-PROBE</text>
                     <text x="130" y="96" text-anchor="middle" class="pd-t pd-sub">Apple Silicon Metal / CUDA GPU offload</text>
-                    <line x1="130" y1="112" x2="130" y2="136" stroke="#4c566a" marker-end="url(#pdArrow3)"/>
+                    <line x1="130" y1="112" x2="130" y2="136" stroke="#334155" marker-end="url(#pdArrow3)"/>
 
                     <!-- extraction -->
-                    <rect x="14" y="138" width="232" height="54" rx="10" fill="none" stroke="#2e3440"/>
+                    <rect x="14" y="138" width="232" height="54" rx="10" fill="none" stroke="#334155"/>
                     <text x="130" y="160" text-anchor="middle" class="pd-t pd-label">DETERMINISTIC ATS EXTRACTION</text>
                     <text x="130" y="176" text-anchor="middle" class="pd-t pd-sub">clean AST parse · zero creative embellishment</text>
-                    <line x1="130" y1="192" x2="130" y2="218" stroke="#4c566a" marker-end="url(#pdArrow3)"/>
+                    <line x1="130" y1="192" x2="130" y2="218" stroke="#334155" marker-end="url(#pdArrow3)"/>
 
                     <!-- decision diamond -->
-                    <polygon points="130,220 206,254 130,288 54,254" fill="rgba(255,255,255,0.03)" stroke="#5e6779" stroke-width="1.1"/>
+                    <polygon points="130,220 206,254 130,288 54,254" fill="rgba(255,255,255,0.03)" stroke="#475569" stroke-width="1.1"/>
                     <text x="130" y="251" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">MATCH ≥ CRITERIA?</text>
                     <text x="130" y="263" text-anchor="middle" class="pd-t pd-tiny">strict evidence scoring</text>
 
                     <!-- branch yes -> aligned -->
-                    <path d="M54,254 Q38,282 65,308" fill="none" stroke="#4c566a" marker-end="url(#pdArrow3)"/>
+                    <path d="M54,254 Q38,282 65,308" fill="none" stroke="#334155" marker-end="url(#pdArrow3)"/>
                     <text x="34" y="284" class="pd-t pd-tiny" fill="#10b981">yes</text>
-                    <rect x="10" y="310" width="110" height="56" rx="10" fill="rgba(16,185,129,0.07)" stroke="#10b981" stroke-width="1.1"/>
+                    <rect x="10" y="310" width="110" height="56" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.1"/>
                     <text x="65" y="330" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">VERIFIED ALIGNMENT</text>
                     <text x="65" y="344" text-anchor="middle" class="pd-t pd-tiny">explicit text citation</text>
                     <text x="65" y="356" text-anchor="middle" class="pd-t pd-tiny" fill="#10b981">proven credentials</text>
 
                     <!-- branch no -> skill gap -->
-                    <path d="M206,254 Q222,282 195,308" fill="none" stroke="#4c566a" marker-end="url(#pdArrow3)"/>
+                    <path d="M206,254 Q222,282 195,308" fill="none" stroke="#334155" marker-end="url(#pdArrow3)"/>
                     <text x="204" y="284" class="pd-t pd-tiny" fill="#ef4444">no</text>
-                    <rect x="140" y="310" width="110" height="56" rx="10" fill="rgba(239,68,68,0.07)" stroke="#ef4444" stroke-width="1.1"/>
+                    <rect x="140" y="310" width="110" height="56" rx="10" fill="rgba(239,68,68,0.08)" stroke="#ef4444" stroke-width="1.1"/>
                     <text x="195" y="330" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">SKILL GAP WARNING</text>
                     <text x="195" y="344" text-anchor="middle" class="pd-t pd-tiny">missing requisites</text>
                     <text x="195" y="356" text-anchor="middle" class="pd-t pd-tiny" fill="#ef4444">zero false claims</text>
 
                     <!-- convergence to audit report -->
-                    <line x1="65" y1="366" x2="105" y2="398" stroke="#4c566a" marker-end="url(#pdArrow3)"/>
-                    <line x1="195" y1="366" x2="155" y2="398" stroke="#4c566a" marker-end="url(#pdArrow3)"/>
+                    <line x1="65" y1="366" x2="105" y2="398" stroke="#334155" marker-end="url(#pdArrow3)"/>
+                    <line x1="195" y1="366" x2="155" y2="398" stroke="#334155" marker-end="url(#pdArrow3)"/>
 
                     <rect x="20" y="400" width="220" height="52" rx="10" fill="rgba(245,158,11,0.08)" stroke="#f59e0b" stroke-width="1.1"/>
                     <text x="130" y="422" text-anchor="middle" class="pd-t pd-label">EVIDENCE AUDIT REPORT</text>
@@ -947,57 +948,57 @@
                   <svg viewBox="0 0 260 500" role="img" aria-label="CareerOS-Pro architecture: multi-source crawler, 2-stage hash and vector deduplication, isolated fault-domain circuit breakers, and application queue.">
                     <style>
                       .pd-t{ font-family:'JetBrains Mono', ui-monospace, monospace; }
-                      .pd-label{ font-size:9.5px; font-weight:600; fill:#eceff4; letter-spacing:.2px; }
-                      .pd-sub{ font-size:7.6px; fill:#8b95a1; }
-                      .pd-tiny{ font-size:6.8px; fill:#8b95a1; }
+                      .pd-label{ font-size:9.5px; font-weight:600; fill:#f8fafc; letter-spacing:.2px; }
+                      .pd-sub{ font-size:7.6px; fill:#94a3b8; }
+                      .pd-tiny{ font-size:6.8px; fill:#64748b; }
                     </style>
                     <defs>
                       <marker id="pdArrow4" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M0,0 L8,4 L0,8 Z" fill="#4c566a"/>
+                        <path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/>
                       </marker>
                     </defs>
 
                     <!-- ingest -->
-                    <rect x="60" y="8" width="140" height="26" rx="13" fill="none" stroke="#2e3440"/>
+                    <rect x="60" y="8" width="140" height="26" rx="13" fill="none" stroke="#334155"/>
                     <text x="130" y="25" text-anchor="middle" class="pd-t pd-label">6-SOURCE AGGREGATOR</text>
-                    <line x1="130" y1="34" x2="130" y2="56" stroke="#4c566a" marker-end="url(#pdArrow4)"/>
+                    <line x1="130" y1="34" x2="130" y2="56" stroke="#334155" marker-end="url(#pdArrow4)"/>
 
                     <!-- stage 1 dedup -->
                     <rect x="20" y="58" width="220" height="54" rx="10" fill="rgba(168,85,247,0.10)" stroke="#a855f7" stroke-width="1.1"/>
                     <text x="130" y="80" text-anchor="middle" class="pd-t pd-label">STAGE 1 // HASH DEDUP</text>
                     <text x="130" y="96" text-anchor="middle" class="pd-t pd-sub">canonical normalized Title+Company MD5</text>
-                    <line x1="130" y1="112" x2="130" y2="136" stroke="#4c566a" marker-end="url(#pdArrow4)"/>
+                    <line x1="130" y1="112" x2="130" y2="136" stroke="#334155" marker-end="url(#pdArrow4)"/>
 
                     <!-- stage 2 dedup -->
                     <rect x="14" y="138" width="232" height="54" rx="10" fill="rgba(168,85,247,0.10)" stroke="#a855f7" stroke-width="1.1"/>
                     <text x="130" y="160" text-anchor="middle" class="pd-t pd-label">STAGE 2 // CHROMADB COSINE</text>
                     <text x="130" y="176" text-anchor="middle" class="pd-t pd-sub">dense clustering prunes cross-board variants</text>
-                    <line x1="130" y1="192" x2="130" y2="218" stroke="#4c566a" marker-end="url(#pdArrow4)"/>
+                    <line x1="130" y1="192" x2="130" y2="218" stroke="#334155" marker-end="url(#pdArrow4)"/>
 
                     <!-- decision diamond -->
-                    <polygon points="130,220 206,254 130,288 54,254" fill="rgba(255,255,255,0.03)" stroke="#5e6779" stroke-width="1.1"/>
+                    <polygon points="130,220 206,254 130,288 54,254" fill="rgba(255,255,255,0.03)" stroke="#475569" stroke-width="1.1"/>
                     <text x="130" y="251" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">SOURCE HEALTH STATUS?</text>
                     <text x="130" y="263" text-anchor="middle" class="pd-t pd-tiny">circuit breaker probe</text>
 
                     <!-- branch warn -> circuit breaker -->
-                    <path d="M54,254 Q38,282 65,308" fill="none" stroke="#4c566a" marker-end="url(#pdArrow4)"/>
+                    <path d="M54,254 Q38,282 65,308" fill="none" stroke="#334155" marker-end="url(#pdArrow4)"/>
                     <text x="34" y="284" class="pd-t pd-tiny" fill="#f59e0b">fail</text>
-                    <rect x="10" y="310" width="110" height="56" rx="10" fill="rgba(245,158,11,0.07)" stroke="#f59e0b" stroke-width="1.1"/>
+                    <rect x="10" y="310" width="110" height="56" rx="10" fill="rgba(245,158,11,0.08)" stroke="#f59e0b" stroke-width="1.1"/>
                     <text x="65" y="330" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">CIRCUIT BREAKER</text>
                     <text x="65" y="344" text-anchor="middle" class="pd-t pd-tiny">isolated retry queue</text>
                     <text x="65" y="356" text-anchor="middle" class="pd-t pd-tiny" fill="#f59e0b">zero pipeline halt</text>
 
                     <!-- branch ok -> matched -->
-                    <path d="M206,254 Q222,282 195,308" fill="none" stroke="#4c566a" marker-end="url(#pdArrow4)"/>
+                    <path d="M206,254 Q222,282 195,308" fill="none" stroke="#334155" marker-end="url(#pdArrow4)"/>
                     <text x="204" y="284" class="pd-t pd-tiny" fill="#10b981">pass</text>
-                    <rect x="140" y="310" width="110" height="56" rx="10" fill="rgba(16,185,129,0.07)" stroke="#10b981" stroke-width="1.1"/>
+                    <rect x="140" y="310" width="110" height="56" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.1"/>
                     <text x="195" y="330" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">CLEAN LISTING</text>
                     <text x="195" y="344" text-anchor="middle" class="pd-t pd-tiny">enriched metadata</text>
                     <text x="195" y="356" text-anchor="middle" class="pd-t pd-tiny" fill="#10b981">74% deduplicated</text>
 
                     <!-- convergence to queue -->
-                    <line x1="65" y1="366" x2="105" y2="398" stroke="#4c566a" marker-end="url(#pdArrow4)"/>
-                    <line x1="195" y1="366" x2="155" y2="398" stroke="#4c566a" marker-end="url(#pdArrow4)"/>
+                    <line x1="65" y1="366" x2="105" y2="398" stroke="#334155" marker-end="url(#pdArrow4)"/>
+                    <line x1="195" y1="366" x2="155" y2="398" stroke="#334155" marker-end="url(#pdArrow4)"/>
 
                     <rect x="20" y="400" width="220" height="52" rx="10" fill="rgba(168,85,247,0.08)" stroke="#a855f7" stroke-width="1.1"/>
                     <text x="130" y="422" text-anchor="middle" class="pd-t pd-label">RESILIENT CAREEROS QUEUE</text>
@@ -1023,55 +1024,55 @@
                   <svg viewBox="0 0 260 500" role="img" aria-label="MCP Agents Suite architecture: LangChain orchestrator with InMemorySaver, unified JSON-RPC 2.0 Composio MCP hub, and live market tool integrations.">
                     <style>
                       .pd-t{ font-family:'JetBrains Mono', ui-monospace, monospace; }
-                      .pd-label{ font-size:9.5px; font-weight:600; fill:#eceff4; letter-spacing:.2px; }
-                      .pd-sub{ font-size:7.6px; fill:#8b95a1; }
-                      .pd-tiny{ font-size:6.8px; fill:#8b95a1; }
+                      .pd-label{ font-size:9.5px; font-weight:600; fill:#f8fafc; letter-spacing:.2px; }
+                      .pd-sub{ font-size:7.6px; fill:#94a3b8; }
+                      .pd-tiny{ font-size:6.8px; fill:#64748b; }
                     </style>
                     <defs>
                       <marker id="pdArrow5" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M0,0 L8,4 L0,8 Z" fill="#4c566a"/>
+                        <path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/>
                       </marker>
                     </defs>
 
                     <!-- query -->
-                    <rect x="60" y="8" width="140" height="26" rx="13" fill="none" stroke="#2e3440"/>
+                    <rect x="60" y="8" width="140" height="26" rx="13" fill="none" stroke="#334155"/>
                     <text x="130" y="25" text-anchor="middle" class="pd-t pd-label">CAREER INQUIRY PROMPT</text>
-                    <line x1="130" y1="34" x2="130" y2="56" stroke="#4c566a" marker-end="url(#pdArrow5)"/>
+                    <line x1="130" y1="34" x2="130" y2="56" stroke="#334155" marker-end="url(#pdArrow5)"/>
 
                     <!-- orchestrator -->
                     <rect x="20" y="58" width="220" height="54" rx="10" fill="rgba(56,189,248,0.10)" stroke="#38bdf8" stroke-width="1.1"/>
                     <text x="130" y="80" text-anchor="middle" class="pd-t pd-label">LANGCHAIN ORCHESTRATOR</text>
                     <text x="130" y="96" text-anchor="middle" class="pd-t pd-sub">InMemorySaver multi-turn session persistence</text>
-                    <line x1="130" y1="112" x2="130" y2="136" stroke="#4c566a" marker-end="url(#pdArrow5)"/>
+                    <line x1="130" y1="112" x2="130" y2="136" stroke="#334155" marker-end="url(#pdArrow5)"/>
 
                     <!-- MCP hub -->
-                    <rect x="14" y="138" width="232" height="54" rx="10" fill="rgba(56,189,248,0.15)" stroke="#38bdf8" stroke-width="1.1"/>
+                    <rect x="14" y="138" width="232" height="54" rx="10" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" stroke-width="1.1"/>
                     <text x="130" y="160" text-anchor="middle" class="pd-t pd-label">UNIFIED COMPOSIO MCP GATEWAY</text>
                     <text x="130" y="176" text-anchor="middle" class="pd-t pd-sub">standard JSON-RPC 2.0 protocol · zero client keys</text>
-                    <line x1="130" y1="192" x2="70" y2="228" stroke="#4c566a" marker-end="url(#pdArrow5)"/>
-                    <line x1="130" y1="192" x2="190" y2="228" stroke="#4c566a" marker-end="url(#pdArrow5)"/>
+                    <line x1="130" y1="192" x2="70" y2="228" stroke="#334155" marker-end="url(#pdArrow5)"/>
+                    <line x1="130" y1="192" x2="190" y2="228" stroke="#334155" marker-end="url(#pdArrow5)"/>
 
                     <!-- tool 1: JSearch -->
-                    <rect x="10" y="230" width="110" height="60" rx="10" fill="rgba(255,255,255,0.03)" stroke="#5e6779" stroke-width="1.1"/>
+                    <rect x="10" y="230" width="110" height="60" rx="10" fill="rgba(255,255,255,0.02)" stroke="#334155" stroke-width="1.1"/>
                     <text x="65" y="252" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">JSEARCH API</text>
                     <text x="65" y="266" text-anchor="middle" class="pd-t pd-tiny">live Indian tech hiring</text>
                     <text x="65" y="278" text-anchor="middle" class="pd-t pd-tiny" fill="#38bdf8">verified openings</text>
 
                     <!-- tool 2: Salary -->
-                    <rect x="140" y="230" width="110" height="60" rx="10" fill="rgba(255,255,255,0.03)" stroke="#5e6779" stroke-width="1.1"/>
+                    <rect x="140" y="230" width="110" height="60" rx="10" fill="rgba(255,255,255,0.02)" stroke="#334155" stroke-width="1.1"/>
                     <text x="195" y="252" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px;">SALARY ENGINE</text>
                     <text x="195" y="266" text-anchor="middle" class="pd-t pd-tiny">Glassdoor · AmbitionBox</text>
                     <text x="195" y="278" text-anchor="middle" class="pd-t pd-tiny" fill="#38bdf8">compensation bands</text>
 
                     <!-- convergence -->
-                    <line x1="65" y1="290" x2="105" y2="328" stroke="#4c566a" marker-end="url(#pdArrow5)"/>
-                    <line x1="195" y1="290" x2="155" y2="328" stroke="#4c566a" marker-end="url(#pdArrow5)"/>
+                    <line x1="65" y1="290" x2="105" y2="328" stroke="#334155" marker-end="url(#pdArrow5)"/>
+                    <line x1="195" y1="290" x2="155" y2="328" stroke="#334155" marker-end="url(#pdArrow5)"/>
 
                     <!-- roadmap output -->
                     <rect x="20" y="330" width="220" height="56" rx="10" fill="rgba(56,189,248,0.08)" stroke="#38bdf8" stroke-width="1.1"/>
                     <text x="130" y="352" text-anchor="middle" class="pd-t pd-label">STRUCTURED CAREER ROADMAP</text>
                     <text x="130" y="366" text-anchor="middle" class="pd-t pd-sub">actionable tech targets + salary percentiles</text>
-                    <text x="130" y="378" text-anchor="middle" class="pd-t pd-tiny">plug-and-play across Claude Code, LangGraph & CrewAI</text>
+                    <text x="130" y="378" text-anchor="middle" class="pd-t pd-tiny">plug-and-play across MCP clients, LangGraph &amp; CrewAI</text>
                   </svg>
                 </div>
                 <p class="proj-desc">Two agents orchestrating Composio-hosted MCP tools via LangChain: skill-to-career mapping with live India job search (JSearch API), and compensation research scraping Glassdoor, AmbitionBox, and Levels.fyi into salary bands.</p>
