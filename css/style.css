@@ -304,7 +304,7 @@
   .scroll-progress-fill{
     height:100%; width:0%;
     background: linear-gradient(90deg, var(--accent) 0%, var(--accent-bright) 100%);
-    box-shadow: 0 0 10px rgba(184,221,232,0.55);
+    box-shadow: 0 0 10px rgba(125,211,252,0.55);
   }
   /* Titlebar strip — the whole header reads as one terminal window,
      the same chrome as the ascii-portrait render in the hero, so the
@@ -394,7 +394,7 @@
     padding: 8px 18px; border-radius: var(--radius-sm);
     transition: all 0.2s ease;
   }
-  .nav-cta:hover{ background: var(--accent); color: #05100e; box-shadow: 0 0 20px rgba(136,192,208,0.4); }
+  .nav-cta:hover{ background: var(--accent); color: #05100e; box-shadow: 0 0 20px rgba(56,189,248,0.4); }
 
   /* ── Tactile Matte Noise Overlay ─────────────────────────────
      Ultra-fine SVG feTurbulence grain texture at 3.2% opacity.
@@ -477,7 +477,7 @@
      visibly displaces it. Pure CSS, no extra asset. */
   .hero-portrait::before{
     content:''; position:absolute; inset:-18%; z-index:-1;
-    background: radial-gradient(circle, rgba(136,192,208,0.26), rgba(136,192,208,0.06) 55%, transparent 72%);
+    background: radial-gradient(circle, rgba(56,189,248,0.26), rgba(56,189,248,0.06) 55%, transparent 72%);
     filter: blur(10px); pointer-events:none;
   }
 
@@ -514,7 +514,7 @@
   h1 span{
     background: linear-gradient(100deg, var(--accent) 10%, var(--accent-bright) 90%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
-    filter: drop-shadow(0 0 18px rgba(184,221,232,0.35));
+    filter: drop-shadow(0 0 18px rgba(125,211,252,0.35));
   }
   .hero-role{
     font-family: var(--font-mono); font-size: clamp(0.95rem, 2vw, 1.15rem);
@@ -570,7 +570,7 @@
     transform: translateX(-101%); transition: transform 0.4s var(--ease-in-out);
   }
   .btn-primary{ background: var(--accent); color: #05070c; font-weight: 600; }
-  .btn-primary:hover{ box-shadow: 0 0 32px rgba(136,192,208,0.45); }
+  .btn-primary:hover{ box-shadow: 0 0 32px rgba(56,189,248,0.45); }
   .btn-primary:hover::before{ transform: translateX(0); }
   .btn-ghost{ border: 1px solid var(--line); color: var(--text); }
   .btn-ghost:hover{ border-color: transparent; color: #fff; }
@@ -730,9 +730,9 @@
      rhyme rather than a fourth repeat of the literal dot motif. */
   .stack-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px; }
   .stack-card:nth-child(1)::before{ background: var(--accent-bright); }
-  .stack-card:nth-child(2)::before{ background: rgba(136,192,208,0.65); }
-  .stack-card:nth-child(3)::before{ background: rgba(184,221,232,0.55); }
-  .stack-card:nth-child(4)::before{ background: rgba(136,192,208,0.4); }
+  .stack-card:nth-child(2)::before{ background: rgba(56,189,248,0.65); }
+  .stack-card:nth-child(3)::before{ background: rgba(16,185,129,0.55); }
+  .stack-card:nth-child(4)::before{ background: rgba(245,158,11,0.55); }
   .stack-card h3{
     font-family: var(--font-mono); font-size: 13px; color: var(--accent); margin-bottom: 14px;
     text-transform: uppercase; letter-spacing: 0.5px;
@@ -745,7 +745,7 @@
     background: var(--surface-2); border: 1px solid var(--line); padding: 6px 13px; border-radius: var(--radius-sm);
     transition: transform 0.2s var(--ease-out), border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease;
   }
-  .chip:hover{ transform: translateY(-2px); border-color: var(--accent-dim); color: var(--accent-bright); background: rgba(136,192,208,0.1); }
+  .chip:hover{ transform: translateY(-2px); border-color: var(--accent-dim); color: var(--accent-bright); background: rgba(56,189,248,0.1); }
   @media (prefers-reduced-motion: reduce){ .chip:hover{ transform:none; } }
   .stack-note{ font-size: 12px; color: var(--text-dim); margin-top: 12px; }
 
@@ -770,7 +770,7 @@
     content:''; position:absolute; inset:0; z-index:0;
     /* A quiet tint wash, not a full-saturation color block — the sweep
        is now support for the hover, not the whole effect. */
-    background: linear-gradient(100deg, rgba(136,192,208,0.16), rgba(136,192,208,0.06));
+    background: linear-gradient(100deg, rgba(56,189,248,0.16), rgba(56,189,248,0.06));
     transform: translateX(-101%);
     transition: transform 0.55s var(--ease-in-out);
   }
@@ -781,7 +781,7 @@
     color: var(--text-dim); width: 34px; flex-shrink:0;
     transition: color 0.3s ease, text-shadow 0.3s ease;
   }
-  .proj-row:hover .proj-row-index, .proj-row:focus-visible .proj-row-index{ color: #fff; text-shadow: 0 0 12px rgba(136,192,208,0.75); }
+  .proj-row:hover .proj-row-index, .proj-row:focus-visible .proj-row-index{ color: #fff; text-shadow: 0 0 12px rgba(56,189,248,0.75); }
 
   .proj-row-main{ position:relative; z-index:1; flex: 1; min-width:0; }
   .proj-row-title{
@@ -827,7 +827,7 @@
     transition: color 0.3s ease;
   }
   @media(min-width:640px){ .proj-row-tag{ display:block; } }
-  .proj-row:hover .proj-row-tag, .proj-row:focus-visible .proj-row-tag{ color: rgba(184,221,232,0.85); }
+  .proj-row:hover .proj-row-tag, .proj-row:focus-visible .proj-row-tag{ color: rgba(125,211,252,0.85); }
 
   .proj-row-arrow{
     position:relative; z-index:1; font-size: 20px; color: var(--text-dim);
@@ -853,7 +853,7 @@
        carries the identity as an icon glow + border ring instead. */
     background: linear-gradient(150deg, var(--surface-2), var(--bg-soft));
     border: 1px solid var(--glass-rim-dim);
-    box-shadow: 0 8px 24px -8px rgba(136,192,208,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+    box-shadow: 0 8px 24px -8px rgba(56,189,248,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
     align-items:center; justify-content:center;
   }
   /* Each swatch carries a hand-drawn line icon specific to that
@@ -863,18 +863,18 @@
      glow from. */
   .proj-row-swatch svg{
     width:24px; height:24px; color: var(--accent-bright);
-    filter: drop-shadow(0 0 6px rgba(136,192,208,0.55));
+    filter: drop-shadow(0 0 6px rgba(56,189,248,0.55));
   }
   @media(min-width:640px){ .proj-row-swatch{ display:flex; } }
   .proj-row:hover .proj-row-swatch, .proj-row:focus-visible .proj-row-swatch{ opacity:1; transform: scale(1) rotate(0deg); }
   /* Fill stays constant (dark) across every swatch for a clean, unified
      row — identity comes from a per-project accent border ring instead
      of five competing pale fills. */
-  .proj-row:nth-child(1) .proj-row-swatch{ border-color: rgba(136,192,208,0.55); }
-  .proj-row:nth-child(2) .proj-row-swatch{ border-color: rgba(184,221,232,0.55); }
-  .proj-row:nth-child(3) .proj-row-swatch{ border-color: rgba(94,129,172,0.55); }
-  .proj-row:nth-child(4) .proj-row-swatch{ border-color: rgba(136,192,208,0.4); }
-  .proj-row:nth-child(5) .proj-row-swatch{ border-color: rgba(184,221,232,0.4); }
+  .proj-row:nth-child(1) .proj-row-swatch{ border-color: rgba(56,189,248,0.55); }
+  .proj-row:nth-child(2) .proj-row-swatch{ border-color: rgba(16,185,129,0.55); }
+  .proj-row:nth-child(3) .proj-row-swatch{ border-color: rgba(245,158,11,0.55); }
+  .proj-row:nth-child(4) .proj-row-swatch{ border-color: rgba(168,85,247,0.55); }
+  .proj-row:nth-child(5) .proj-row-swatch{ border-color: rgba(56,189,248,0.55); }
 
   /* Sticky detail stage — desktop only. Content is cloned in from the
      hovered row's own .proj-row-detail by js/main.js, with a quick
@@ -906,8 +906,8 @@
     transition: opacity 0.3s ease, transform 0.3s var(--ease-out), filter 0.3s ease;
   }
   .proj-stage-inner.swapping{ opacity:0; transform: translateY(8px) scale(0.985); filter: blur(3px); }
-  .proj-stage .proj-desc{ color: rgba(236,239,244,0.92); }
-  .proj-stage .proj-highlight{ margin-top:16px; color: rgba(236,239,244,0.86); border-left-color: rgba(136,192,208,0.55); }
+  .proj-stage .proj-desc{ color: rgba(248,250,252,0.92); }
+  .proj-stage .proj-highlight{ margin-top:16px; color: rgba(248,250,252,0.86); border-left-color: rgba(56,189,248,0.55); }
   .proj-stage .proj-highlight b{ color: #fff; }
   .proj-stage .proj-stack{ margin-top:16px; }
   .proj-stage .proj-stack span{ background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
@@ -990,7 +990,7 @@
   }
   .auto-item::before{
     content:''; position:absolute; inset: 0; z-index:0;
-    background: linear-gradient(100deg, rgba(136,192,208,0.10), rgba(136,192,208,0.02));
+    background: linear-gradient(100deg, rgba(56,189,248,0.10), rgba(56,189,248,0.02));
     opacity:0; transition: opacity 0.3s ease;
   }
   .auto-item:hover::before{ opacity:1; }
@@ -1022,7 +1022,7 @@
     opacity:0; transition: opacity 0.3s ease;
   }
   .group-card:hover::before{ opacity:1; }
-  .group-card:hover{ border-color: var(--accent-dim); box-shadow: 0 20px 40px -20px rgba(136,192,208,0.18); }
+  .group-card:hover{ border-color: var(--accent-dim); box-shadow: 0 20px 40px -20px rgba(56,189,248,0.18); }
   .group-card .proj-tag{ color: var(--accent-bright); }
   .group-card p{ font-size:0.88rem; color: var(--text-mute); margin-bottom: 10px; }
   .group-card .scope{ font-size:0.85rem; color: var(--text); background: var(--surface-2); border-radius: var(--radius-sm); padding:10px 12px; margin-bottom:12px; }
@@ -1055,7 +1055,7 @@
     display:inline-flex; align-items:center; gap:9px;
   }
   .contact-icon{ width:15px; height:15px; flex-shrink:0; }
-  .contact-links a:hover{ border-color: var(--accent-dim); color: var(--accent); box-shadow: 0 0 20px rgba(136,192,208,0.22); }
+  .contact-links a:hover{ border-color: var(--accent-dim); color: var(--accent); box-shadow: 0 0 20px rgba(56,189,248,0.22); }
   footer{
     border-top: 1px solid var(--line); padding: 32px 0; text-align:center;
     font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
@@ -1467,4 +1467,26 @@
       overflow-x: auto;
     }
   }
+
+  /* ── Hero Name & Secondary Identity Subtitle ───────────────── */
+  .hero-name {
+    font-family: var(--font-display, 'JetBrains Mono', monospace);
+    font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+    font-weight: 800;
+    color: #f8fafc;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    margin: 0 0 8px 0;
+  }
+  .hero-desc-sub {
+    font-family: var(--font-mono, monospace);
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    letter-spacing: 0.04em;
+    margin: 6px 0 16px 0;
+    opacity: 0.9;
+  }
+
+
 

@@ -17,15 +17,8 @@
   // jump-cut from nothing to something.
   container.innerHTML = '<p class="activity-fallback">Loading activity…</p>';
 
-  // Level 0 was '#2e3440' — measured against the actual page background
-  // (#0a0c0e) that's roughly 3x brighter per channel, so on the live
-  // site every "no contribution" day (the majority of ~365 cells) read
-  // as a lit, near-uniform gray square, and the handful of real commit
-  // days barely stood out. Level 0 now recedes into the card (translucent,
-  // catches the aurora/glass tint instead of asserting its own flat
-  // color) the way GitHub's own empty cells do; levels 1–4 keep the
-  // Nord blue ramp so real activity is what actually reads.
-  const LEVEL_COLOR = ['rgba(255,255,255,0.05)', '#3b5166', '#5e81ac', '#81a1c1', '#88c0d0'];
+  // Contribution activity heatmap palette aligned with Flight Telemetry Ice Cyan tokens
+  const LEVEL_COLOR = ['rgba(255,255,255,0.05)', '#0369a1', '#0284c7', '#38bdf8', '#7dd3fc'];
   const CELL_STROKE = 'rgba(255,255,255,0.05)';
   const CELL = 11, GAP = 3, LEFT_PAD = 28, TOP_PAD = 18;
 
@@ -54,12 +47,12 @@
         lastMonth = m;
         const x = LEFT_PAD + wi * (CELL + GAP);
         const label = d.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' });
-        monthLabels += `<text x="${x}" y="10" font-size="10" fill="#8b95a1" font-family="'JetBrains Mono',monospace">${label}</text>`;
+        monthLabels += `<text x="${x}" y="10" font-size="10" fill="#94a3b8" font-family="'JetBrains Mono',monospace">${label}</text>`;
       });
 
       const dayLabels = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
       const dayLabelSvg = dayLabels.map((l, i) => l
-        ? `<text x="0" y="${TOP_PAD + i * (CELL + GAP) + 9}" font-size="10" fill="#8b95a1" font-family="'JetBrains Mono',monospace">${l}</text>`
+        ? `<text x="0" y="${TOP_PAD + i * (CELL + GAP) + 9}" font-size="10" fill="#94a3b8" font-family="'JetBrains Mono',monospace">${l}</text>`
         : '').join('');
 
       let rects = '';
