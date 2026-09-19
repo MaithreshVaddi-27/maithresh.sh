@@ -1,6 +1,18 @@
+# OS
 .DS_Store
 Thumbs.db
-*.log
+
+# Editor
 .vscode/
 .idea/
+
+# Deps
 node_modules/
+*.log
+
+# Internal tooling — never deploy
+.superpowers/
+.claude/
+
+# Test / scratch
+tests/
