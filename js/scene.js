@@ -7,7 +7,7 @@
  * Features:
  * - Mathematical coordinate matrix (28px spacing) with micro-crosshairs (+)
  * - Spring-damped cursor proximity illumination in Subdued Ice Cyan (#38BDF8)
- * - 4 subtle floating Agentic Nodes (TrustRAG, LangGraph, LocalLLM, MCP)
+ * - Soft cursor spotlight bloom following the pointer
  * - Battery-throttled rAF loop (0% CPU when tab hidden or backgrounded)
  * - Respects prefers-reduced-motion
  */
@@ -40,7 +40,6 @@
   };
 
   let dots = [];
-  let agentNodes = [];
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -53,7 +52,6 @@
     ctx.scale(dpr, dpr);
 
     buildGrid();
-    buildAgentNodes();
   }
 
   function buildGrid() {
@@ -74,43 +72,6 @@
     }
   }
 
-  function buildAgentNodes() {
-    agentNodes = [
-      {
-        x: width * 0.18,
-        y: height * 0.28,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        label: 'RAG :: NLI Engine',
-        color: '#38bdf8'
-      },
-      {
-        x: width * 0.82,
-        y: height * 0.32,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        label: 'LangGraph // Recovery',
-        color: '#10b981'
-      },
-      {
-        x: width * 0.25,
-        y: height * 0.76,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        label: 'Local GGUF Runtime',
-        color: '#38bdf8'
-      },
-      {
-        x: width * 0.78,
-        y: height * 0.72,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        label: 'MCP Agent Mesh',
-        color: '#f59e0b'
-      }
-    ];
-  }
-
   // Pointer tracking
   window.addEventListener('pointermove', (e) => {
     mouse.targetX = e.clientX;
@@ -125,10 +86,7 @@
   });
 
   // Render Loop
-  let tick = 0;
-
   function render() {
-    tick += 0.015;
 
     // Smooth mouse interpolation (spring feel)
     if (!reduceMotion) {
@@ -189,51 +147,6 @@
       ctx.beginPath();
       ctx.arc(mouse.x, mouse.y, SPOTLIGHT_RADIUS, 0, Math.PI * 2);
       ctx.fill();
-    }
-
-    // 3. Draw & Animate Agentic Anchor Nodes
-    if (!reduceMotion) {
-      for (let i = 0; i < agentNodes.length; i++) {
-        const n = agentNodes[i];
-        n.x += n.vx;
-        n.y += n.vy;
-
-        // Bounce gently off viewport edges
-        if (n.x < 40 || n.x > width - 40) n.vx *= -1;
-        if (n.y < 40 || n.y > height - 40) n.vy *= -1;
-
-        // Interactive cursor tethering line
-        const mDist = Math.hypot(mouse.x - n.x, mouse.y - n.y);
-        if (mDist < 160) {
-          const tetherFactor = 1 - mDist / 160;
-          ctx.strokeStyle = `rgba(56, 189, 248, ${tetherFactor * 0.45})`;
-          ctx.lineWidth = 1;
-          ctx.setLineDash([3, 3]);
-          ctx.beginPath();
-          ctx.moveTo(n.x, n.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.stroke();
-          ctx.setLineDash([]);
-        }
-
-        // Draw node pulse
-        const pulse = Math.sin(tick * 2 + i) * 1.5;
-        ctx.fillStyle = n.color;
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, 3 + pulse * 0.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Node halo
-        ctx.fillStyle = `rgba(56, 189, 248, 0.12)`;
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, 10 + pulse, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Node Label
-        ctx.fillStyle = 'rgba(148, 163, 184, 0.75)';
-        ctx.font = '10px ui-monospace, SFMono-Regular, Menlo, monospace';
-        ctx.fillText(n.label, n.x + 14, n.y + 3.5);
-      }
     }
 
     if (isRunning) {
