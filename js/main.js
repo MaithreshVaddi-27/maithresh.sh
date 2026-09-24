@@ -977,3 +977,33 @@ if (document.readyState === 'loading') {
   onScroll();
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 })();
+
+// ── Hero stat count-up ──
+// Numerals ease from 0 to their authored value the first time they
+// enter the viewport; suffixes (like %) are preserved. Skipped under
+// prefers-reduced-motion, where the final value simply stands.
+(function () {
+  const nums = document.querySelectorAll('.hero-stat-n');
+  if (!nums.length || reduceMotion) return;
+  const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      obs.unobserve(el);
+      const match = el.textContent.trim().match(/^(\d+)(.*)$/);
+      if (!match) return;
+      const target = parseInt(match[1], 10);
+      const suffix = match[2];
+      const dur = 1100;
+      const t0 = performance.now();
+      const step = (now) => {
+        const p = Math.min((now - t0) / dur, 1);
+        el.textContent = Math.round(target * easeOut(p)) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }, { threshold: 0.5 });
+  nums.forEach((el) => io.observe(el));
+})();
