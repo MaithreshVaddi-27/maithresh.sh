@@ -1688,3 +1688,10 @@ h1, h2, .hero-name{ text-wrap: balance; }
 .to-top{ border-radius: 12px; }
 .nav-toggle{ border-radius: 8px; }
 .skip-link{ border-radius: 8px; }
+
+/* ══ HUMANIZER + MOBILE PASS ══ */
+@media(max-width:560px){
+  /* Automation rows: status becomes an inline kicker, text gets full width */
+  .auto-item{ grid-template-columns: 1fr; gap: 8px; }
+  .auto-status{ padding-top: 0; }
+}
