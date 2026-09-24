@@ -8,6 +8,8 @@ Thumbs.db
 
 # Deps
 node_modules/
+package.json
+package-lock.json
 *.log
 
 # Internal tooling — never deploy
@@ -16,3 +18,7 @@ node_modules/
 
 # Test / scratch
 tests/
+test_*.md
+test_*.txt
+*.tmp
+*.bak
