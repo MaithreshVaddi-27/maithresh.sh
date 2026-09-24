@@ -467,8 +467,8 @@
   .hero-portrait{ width:100%; max-width: 420px; margin: 0 auto; position:relative; }
   .hero-portrait .ascii-card{ margin-top:0; }
   @media(min-width:960px){
-    .hero-grid{ display:grid; grid-template-columns: 490px 1fr; align-items:center; gap:52px; }
-    .hero-portrait{ max-width:none; margin:0; }
+    .hero-grid{ display:grid; grid-template-columns: 490px 1fr; align-items:start; gap:52px; }
+    .hero-portrait{ max-width:none; margin:56px 0 0; }
   }
   @media(min-width:1300px){
     .hero-grid{ grid-template-columns: 555px 1fr; gap:60px; }
@@ -505,6 +505,10 @@
     display:flex; align-items:center; gap:10px; margin-bottom: 22px;
     opacity:0; animation: fadeUp 0.7s ease 0.2s forwards;
   }
+  /* Hero eyebrow hugs its content — a full-bleed bar reads as a text
+     input, not a status chip. Scoped to the hero so section eyebrows
+     (already inline-flex) are untouched. */
+  .hero-text > .eyebrow{ width: fit-content; max-width: 100%; }
   .eyebrow-icon{ width:14px; height:14px; flex-shrink:0; }
   .eyebrow .cursor{
     display:inline-block; width:8px; height:16px; background: var(--accent);
@@ -512,7 +516,7 @@
   }
   h1{
     font-family: var(--font-display); font-weight: 700;
-    font-size: clamp(2.35rem, 8.2vw, 6.1rem); line-height: 0.99; letter-spacing: -0.03em;
+    font-size: clamp(2.35rem, 7vw, 5rem); line-height: 0.99; letter-spacing: -0.03em;
     font-optical-sizing: auto;
     max-width: 920px;
     opacity:0; animation: fadeUp 0.8s var(--ease-out) 0.35s forwards;
@@ -1356,6 +1360,12 @@
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
+  /* Desktop: wrap instead of silently clipping the 4th tab — a hidden
+     tab with no scroll affordance reads as a bug, not a carousel. */
+  @media(min-width:900px){
+    .workbench-tabs-container{ overflow: visible; }
+    .workbench-tabs{ flex-wrap: wrap; row-gap: 6px; }
+  }
   .workbench-tabs-container::-webkit-scrollbar {
     display: none;
   }
@@ -1477,7 +1487,7 @@
   /* ── Hero Name & Secondary Identity Subtitle ───────────────── */
   .hero-name {
     font-family: var(--font-display, 'JetBrains Mono', monospace);
-    font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+    font-size: clamp(1.7rem, 2.8vw, 2.6rem);
     font-weight: 800;
     color: #f8fafc;
     letter-spacing: -0.035em;
@@ -1502,7 +1512,7 @@
    150–300ms transitions · cursor-pointer on all pressables · AAA contrast guardrails */
 
 /* Section rhythm — Apple 96px gaps, consistent band dividers */
-section{ scroll-margin-top: 96px; }
+section{ scroll-margin-top: 120px; }
 #certifications{ padding: 96px 0; }
 #education{ padding-bottom: 24px; }
 
