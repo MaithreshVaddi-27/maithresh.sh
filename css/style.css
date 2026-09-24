@@ -275,8 +275,11 @@
   .wrap{ max-width: 1140px; margin: 0 auto; padding: 0 28px; }
 
   /* ── NAV ─────────────────────────────────────────────── */
+  /* Sticky (not fixed): the header lives in normal flow directly below
+     the telemetry strip, so the two can never overlap — at any viewport
+     width or wrapped telemetry height. top:0 pins it once scrolled. */
   header{
-    position: fixed; top:0; left:0; right:0; z-index: 100;
+    position: sticky; top:0; left:0; right:0; z-index: 100;
     backdrop-filter: blur(22px) saturate(180%);
     -webkit-backdrop-filter: blur(22px) saturate(180%);
     background: rgba(5,6,7,0.62);
@@ -358,7 +361,10 @@
 
   @media (max-width: 759px){
     .navlinks{
-      position: fixed; top: 60px; left:0; right:0; z-index: 99;
+      /* Absolute against the sticky header (its positioned ancestor),
+         so the dropdown always opens exactly below the bar — no magic
+         top offset to drift out of sync on scroll. */
+      position: absolute; top: 100%; left:0; right:0; z-index: 99;
       flex-direction: column; gap: 0; list-style:none;
       background: rgba(5,6,7,0.97); border-bottom: 1px solid var(--line);
       max-height: 0; overflow: hidden; opacity: 0;
@@ -434,7 +440,7 @@
       linear-gradient(to bottom, rgba(5,6,7,0.55) 0%, transparent 12%, transparent 88%, rgba(5,6,7,0.7) 100%);
   }
   .hero-inner{
-    position:relative; z-index:2; max-width: 1180px; margin:0 auto; padding: 140px 28px 100px;
+    position:relative; z-index:2; max-width: 1180px; margin:0 auto; padding: 64px 28px 100px;
     width:100%;
     will-change: transform, opacity;
   }
@@ -506,7 +512,7 @@
   }
   h1{
     font-family: var(--font-display); font-weight: 700;
-    font-size: clamp(2.7rem, 8.2vw, 6.1rem); line-height: 0.99; letter-spacing: -0.03em;
+    font-size: clamp(2.35rem, 8.2vw, 6.1rem); line-height: 0.99; letter-spacing: -0.03em;
     font-optical-sizing: auto;
     max-width: 920px;
     opacity:0; animation: fadeUp 0.8s var(--ease-out) 0.35s forwards;
@@ -763,7 +769,7 @@
   .proj-list{ flex:1; min-width:0; display:flex; flex-direction:column; border-top: 1px solid var(--line); }
   .proj-row{
     position: relative; display:flex; align-items:center; gap: 20px;
-    padding: 26px 4px; border-bottom: 1px solid var(--line);
+    padding: 22px 4px; border-bottom: 1px solid var(--line);
     color: var(--text); overflow: hidden;
   }
   .proj-row::before{
@@ -786,7 +792,7 @@
   .proj-row-main{ position:relative; z-index:1; flex: 1; min-width:0; }
   .proj-row-title{
     font-family: var(--font-display); font-weight: 700;
-    font-size: clamp(1.3rem, 3vw, 2.1rem); letter-spacing: -0.01em;
+    font-size: clamp(1.05rem, 1.8vw, 1.45rem); letter-spacing: -0.01em;
     transition: transform 0.4s var(--ease-out), color 0.3s ease;
   }
   /* Letters are wrapped in spans by js/main.js on load, for the
@@ -883,7 +889,7 @@
   .proj-stage{ display:none; }
   @media(min-width:900px){
     .proj-stage{
-      display:block; width: 320px; flex-shrink:0; position: sticky; top: 110px;
+      display:block; width: 360px; flex-shrink:0; position: sticky; top: 110px;
       background: var(--elev-3-bg); backdrop-filter: blur(var(--elev-3-blur)) saturate(var(--elev-3-sat));
       -webkit-backdrop-filter: blur(var(--elev-3-blur)) saturate(var(--elev-3-sat));
       border: 1px solid var(--elev-3-border); border-radius: var(--radius);
@@ -892,7 +898,7 @@
     }
     .proj-stage::before{
       content: '$ preview.sh'; position:absolute; top:0; left:0; right:0; height:34px;
-      display:flex; align-items:center; padding: 0 18px;
+      display:flex; align-items:center; padding: 0 18px 0 66px;
       font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
       border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0;
     }
@@ -917,11 +923,11 @@
      rather than describing in prose alone. Scoped narrow so it reads
      as a spec sheet inset, not a full-bleed illustration. */
   .proj-diagram{
-    max-width: 230px; margin: 0 auto 18px; opacity: 0.96;
+    max-width: 300px; margin: 0 auto 18px; opacity: 0.96;
   }
   .proj-stage .proj-diagram{ margin-top: 2px; }
   .proj-diagram svg{ display:block; width:100%; height:auto; }
-  @media(max-width:899px){ .proj-diagram{ max-width: 260px; margin: 0 0 18px; } }
+  @media(max-width:899px){ .proj-diagram{ max-width: 340px; margin: 0 0 18px; } }
 
   /* ── Liquid Glass sheen ───────────────────────────────
      A static specular highlight — diagonal, brightest at the top-left
@@ -1490,3 +1496,195 @@
 
 
 
+
+/* ══ ULTRA-PREMIUM POLISH PASS (ui-ux-pro-max × Apple HIG) ══
+   Dark OLED + Liquid Glass + Bento · 4/8/16/24/48/96 rhythm ·
+   150–300ms transitions · cursor-pointer on all pressables · AAA contrast guardrails */
+
+/* Section rhythm — Apple 96px gaps, consistent band dividers */
+section{ scroll-margin-top: 96px; }
+#certifications{ padding: 96px 0; }
+#education{ padding-bottom: 24px; }
+
+/* Certifications — Bento trio matching group-grid grammar */
+.cert-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:20px; margin-top:28px; }
+@media(max-width:700px){ .cert-grid{ grid-template-columns:1fr; } }
+.cert-card{
+  background: var(--elev-2-bg); backdrop-filter: blur(var(--elev-2-blur)) saturate(var(--elev-2-sat));
+  -webkit-backdrop-filter: blur(var(--elev-2-blur)) saturate(var(--elev-2-sat));
+  border:1px solid var(--elev-2-border); border-radius:18px; padding:22px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.06), var(--inner-glow);
+  transition: transform .25s var(--ease-out), border-color .2s ease, box-shadow .25s ease;
+}
+.cert-card:hover{ transform: translateY(-3px); border-color: var(--glass-rim); box-shadow: 0 12px 40px rgba(0,0,0,.35), 0 0 24px rgba(56,189,248,.08); }
+.cert-card h4{ font-family:var(--font-display); font-size:1.02rem; letter-spacing:-.01em; margin:12px 0 8px; }
+.cert-card p{ color:var(--text-mute); font-size:.92rem; line-height:1.65; }
+
+/* Education meta line — quiet caption under degree */
+.ed-meta{ display:block; margin-top:6px; font-size:.82rem; color:var(--text-dim); line-height:1.55; max-width:60ch; }
+
+/* Accent chips — hero skills keep quiet luxury, no neon */
+.chip-accent{ border-color: rgba(56,189,248,.45); color:#7dd3fc; background: rgba(56,189,248,.08); }
+
+/* Pressable affordances — every clickable card shows intent */
+.proj-row, .stack-card, .group-card, .cert-card, .auto-item, .more-item,
+.chip, .contact-links a, .workbench-tab, .more-toggle{
+  cursor:pointer; transition: transform .2s var(--ease-out), border-color .2s ease, box-shadow .25s ease, background .2s ease;
+}
+.chip:hover{ border-color: rgba(56,189,248,.5); color:#fff; transform: translateY(-1px); }
+.contact-links a:hover{ border-color: rgba(56,189,248,.55); color:#fff; box-shadow: 0 0 20px rgba(56,189,248,.15); transform: translateY(-1px); }
+.auto-item:hover, .more-item:hover{ border-color: var(--glass-rim); }
+.workbench-tab:hover{ color:#fff; }
+.proj-row:hover{ background: rgba(255,255,255,.025); }
+.proj-row:hover .proj-row-arrow{ transform: translate(2px,-2px); color: var(--accent); }
+.proj-row-arrow{ transition: transform .2s var(--ease-out), color .2s ease; }
+
+/* Touch targets ≥44px (Apple HIG) */
+.nav-toggle, .workbench-tab, .more-toggle, .contact-links a{ min-height:44px; }
+
+/* Back-to-top — floating glass pill, appears after scroll */
+.to-top{
+  position:fixed; right:22px; bottom:22px; z-index:120;
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background: var(--elev-3-bg); backdrop-filter: blur(var(--elev-3-blur)) saturate(var(--elev-3-sat));
+  border:1px solid var(--elev-3-border); color:var(--accent);
+  font-size:18px; cursor:pointer; opacity:0; visibility:hidden; transform: translateY(8px);
+  transition: opacity .25s var(--ease-out), transform .25s var(--ease-out), visibility .25s;
+}
+.to-top.show{ opacity:1; visibility:visible; transform:none; }
+.to-top:hover{ box-shadow: 0 0 20px rgba(56,189,248,.35); transform: translateY(-2px); }
+
+/* Print — recruiters print portfolios; keep it legible */
+@media print{
+  header, .scroll-progress, .preloader, .top-telemetry-bar, #hero-canvas, .hero-fade,
+  .cmd-console-overlay, .to-top, .scroll-hint{ display:none !important; }
+  body{ background:#fff; color:#000; }
+  .stack-card, .group-card, .cert-card, .terminal{ background:#fff; border:1px solid #ccc; backdrop-filter:none; }
+}
+
+/* ══ REFINEMENT PASS 2 — nav density, single-row education, telemetry trim ══ */
+
+/* Six nav items: tighten rhythm on narrow-desktop so nothing wraps */
+@media(min-width:760px) and (max-width:1020px){
+  .navlinks{ gap: 16px; }
+  .navlinks a{ font-size: 11.5px; }
+  nav{ padding: 14px 20px; }
+}
+
+/* Single-row education: center the lone entry, remove orphan divider stack */
+#education .ed-row:only-child{ border-bottom: 1px solid var(--line); }
+
+/* Telemetry bar: hide geo readout on small screens to prevent wrap */
+@media(max-width:900px){
+  .top-telemetry-bar div:last-child span:first-child{ display:none; }
+}
+
+/* ══ FEATURED PROJECTS — schematic blend + per-project accent ══
+   Each row owns one accent (cyan / green / amber / purple). The accent
+   runs end-to-end: row hover wash → index glow → swatch ring (existing)
+   → sticky stage frame → schematic inset. The SVG schematics stop
+   floating on transparent ground and sit in the same dark instrument
+   inset as the workbench pipeline visualizers. */
+
+/* Per-row accent tokens */
+.proj-row[data-accent="cyan"]{ --proj: #38bdf8; --proj-soft: rgba(56,189,248,.16); --proj-faint: rgba(56,189,248,.06); --proj-line: rgba(56,189,248,.55); --proj-text: rgba(125,211,252,.85); }
+.proj-row[data-accent="green"]{ --proj: #10b981; --proj-soft: rgba(16,185,129,.16); --proj-faint: rgba(16,185,129,.06); --proj-line: rgba(16,185,129,.55); --proj-text: rgba(110,231,183,.9); }
+.proj-row[data-accent="amber"]{ --proj: #f59e0b; --proj-soft: rgba(245,158,11,.16); --proj-faint: rgba(245,158,11,.06); --proj-line: rgba(245,158,11,.55); --proj-text: rgba(252,211,77,.9); }
+.proj-row[data-accent="purple"]{ --proj: #a855f7; --proj-soft: rgba(168,85,247,.18); --proj-faint: rgba(168,85,247,.07); --proj-line: rgba(168,85,247,.55); --proj-text: rgba(216,180,254,.9); }
+
+/* Row hover wash + index glow follow the row's own accent */
+.proj-row[data-accent]::before{ background: linear-gradient(100deg, var(--proj-soft), var(--proj-faint)); }
+.proj-row[data-accent]:hover .proj-row-index, .proj-row[data-accent]:focus-visible .proj-row-index{ color:#fff; text-shadow: 0 0 12px var(--proj); }
+.proj-row[data-accent]:hover .proj-row-tag, .proj-row[data-accent]:focus-visible .proj-row-tag{ color: var(--proj-text); }
+
+/* Schematic inset — same instrument-panel surface as the workbench
+   .pipeline-container, so hover SVGs read as one family with it */
+.proj-diagram{
+  background-color: #06090e;
+  background-image: radial-gradient(rgba(255,255,255,.055) 1px, transparent 1px);
+  background-size: 14px 14px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 18px 14px 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45);
+  transition: border-color .3s ease, box-shadow .3s ease;
+}
+
+/* Sticky stage follows the hovered project's accent */
+.proj-stage{ transition: border-color .3s ease, box-shadow .3s ease; }
+.proj-stage[data-accent="cyan"]{ border-color: rgba(56,189,248,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(56,189,248,.12), inset 0 1px 0 rgba(255,255,255,.07); }
+.proj-stage[data-accent="green"]{ border-color: rgba(16,185,129,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(16,185,129,.12), inset 0 1px 0 rgba(255,255,255,.07); }
+.proj-stage[data-accent="amber"]{ border-color: rgba(245,158,11,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(245,158,11,.12), inset 0 1px 0 rgba(255,255,255,.07); }
+.proj-stage[data-accent="purple"]{ border-color: rgba(168,85,247,.42); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(168,85,247,.14), inset 0 1px 0 rgba(255,255,255,.07); }
+.proj-stage[data-accent="cyan"] .proj-highlight{ border-left-color: rgba(56,189,248,.55); }
+.proj-stage[data-accent="green"] .proj-highlight{ border-left-color: rgba(16,185,129,.55); }
+.proj-stage[data-accent="amber"] .proj-highlight{ border-left-color: rgba(245,158,11,.55); }
+.proj-stage[data-accent="purple"] .proj-highlight{ border-left-color: rgba(168,85,247,.6); }
+.proj-stage[data-accent="cyan"] .proj-diagram{ border-color: rgba(56,189,248,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(56,189,248,.08); }
+.proj-stage[data-accent="green"] .proj-diagram{ border-color: rgba(16,185,129,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(16,185,129,.08); }
+.proj-stage[data-accent="amber"] .proj-diagram{ border-color: rgba(245,158,11,.32); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(245,158,11,.08); }
+.proj-stage[data-accent="purple"] .proj-diagram{ border-color: rgba(168,85,247,.34); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(168,85,247,.1); }
+
+@media (prefers-reduced-transparency: reduce){
+  .proj-diagram{ background-image: none; }
+}
+
+/* ══ SVG BLEND LAYER — every schematic speaks the site palette ══
+   Page CSS beats SVG presentation attributes, so this re-seats all
+   schematic internals onto palette tokens without touching SVG markup:
+   node grounds → --bg-surface-core, idle connectors → text-dim hairline,
+   microcopy → text-dim, base arrowheads → match connectors. Accent
+   fills/strokes (cyan/green/amber/purple) are left exactly as authored. */
+.proj-diagram svg rect[fill="#0d1424"],
+.pipeline-container svg rect[fill="#0d1424"]{ fill: #0c101a; }
+.proj-diagram svg :is(line, path)[stroke="#334155"],
+.pipeline-container svg :is(line, path)[stroke="#334155"]{ stroke: rgba(148,163,184,.38); }
+.proj-diagram svg .pd-tiny,
+.pipeline-container svg text[fill="#64748b"]{ fill: #94a3b8; opacity: .72; }
+.proj-diagram svg marker path[fill="#64748b"],
+.pipeline-container svg marker path[fill="#334155"]{ fill: rgba(148,163,184,.55); }
+
+/* ══ RESPONSIVE HARDENING ══ */
+.top-telemetry-bar{ flex-wrap: wrap; row-gap: 4px; }
+.workbench-tab{ flex-shrink: 0; }
+h1, h2, .hero-name{ text-wrap: balance; }
+@media(max-width:640px){
+  /* Tiny screens: keep status + console, drop the pointer readout */
+  .top-telemetry-bar #telemetry-ptr{ display: none; }
+  .hero-cta .btn-nested{ flex: 1 1 100%; justify-content: center; }
+}
+
+/* ══ ATTRACTION PASS — quiet premium touches ══ */
+/* Instrument readouts brighten on hover */
+.hero-stat{ transition: transform .25s var(--ease-out); }
+.hero-stat:hover{ transform: translateY(-2px); }
+.hero-stat:hover .hero-stat-n{ color: #fff; text-shadow: 0 0 16px rgba(56,189,248,.5); }
+.hero-stat-n{ transition: color .25s ease, text-shadow .25s ease; }
+/* Section headlines get a soft accent underline that grows in */
+.section-head h2{
+  background-image: linear-gradient(90deg, var(--accent), transparent);
+  background-size: 64px 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 10px;
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-stat:hover{ transform: none; }
+}
+
+/* ══ UNIFIED BUTTON SYSTEM — one premium shape everywhere ══
+   Slight 10px radius: neither square nor pill. Every pressable —
+   nested CTAs, ghost/primary buttons, nav CTA, contact links,
+   expand toggle, segmented tabs, icon buttons — shares it. */
+.btn-nested{ border-radius: 10px; }
+.btn-nested-badge{ border-radius: 7px; }
+.btn, .btn-primary, .btn-ghost, .nav-cta,
+.contact-links a, .more-toggle{ border-radius: 10px; }
+/* Segmented control keeps its grouping, loses the pill */
+.workbench-tabs{ border-radius: 14px; }
+.workbench-tab{ border-radius: 9px; }
+/* Icon + utility buttons join the same family */
+.to-top{ border-radius: 12px; }
+.nav-toggle{ border-radius: 8px; }
+.skip-link{ border-radius: 8px; }

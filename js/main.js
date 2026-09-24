@@ -218,6 +218,9 @@ if (!reduceMotion && typeof window.Lenis !== 'undefined' && hasGSAP) {
   function fillStage(row) {
     const detail = row.querySelector('.proj-row-detail');
     if (!stageInner || !detail) return;
+    // Carry the row's accent onto the stage frame so the panel border,
+    // highlight rule, and schematic inset all re-tint per project.
+    if (stage && row.dataset.accent) stage.dataset.accent = row.dataset.accent;
     // Generation token guards against a rapid hover across multiple
     // rows resolving out of order — without this, quickly moving the
     // mouse row1 → row2 → row3 could let row1's delayed swap land last,
@@ -447,7 +450,7 @@ if (moreToggle && moreBody && moreArrow) {
   moreToggle.addEventListener('click', () => {
     const open = moreBody.classList.toggle('open');
     moreToggle.setAttribute('aria-expanded', open);
-    moreArrow.textContent = open ? '− hide' : '+ show 5 more';
+    moreArrow.textContent = open ? '− hide' : '+ show 6 more';
     if (hasGSAP) ScrollTrigger.refresh(); // layout height changed
   });
 }
@@ -964,3 +967,13 @@ if (document.readyState === 'loading') {
   if (window.initCommandConsole) window.initCommandConsole();
 }
 
+
+// Back-to-top — floating glass pill (ultra-premium pass)
+(function () {
+  const btn = document.getElementById('toTop');
+  if (!btn) return;
+  const onScroll = () => btn.classList.toggle('show', window.scrollY > 900);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
