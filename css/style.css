@@ -1705,3 +1705,39 @@ h1, h2, .hero-name{ text-wrap: balance; }
   .auto-item{ grid-template-columns: 1fr; gap: 8px; }
   .auto-status{ padding-top: 0; }
 }
+
+/* ══ HOVER & MOTION — refined animation layer ══
+   Five restrained layers that complement the existing system
+   (lifts, sheens, reveals, draw-ins) without reintroducing
+   the busy mouse-tracked effects removed earlier. */
+
+/* 1. Primary-button shine sweep */
+.btn-nested-primary{ position: relative; overflow: hidden; isolation: isolate; }
+.btn-nested-primary::after{
+  content:''; position:absolute; top:0; bottom:0; width:45%; z-index:0;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent);
+  transform: translateX(-120%) skewX(-12deg);
+  transition: transform .7s var(--ease-out);
+  pointer-events:none;
+}
+.btn-nested-primary:hover::after{ transform: translateX(280%) skewX(-12deg); }
+.btn-nested-primary > *{ position:relative; z-index:1; }
+
+/* 2. Workbench pane entrance (display toggle kills transitions, keyframes survive it) */
+@keyframes paneIn{ from{ opacity:0; transform: translateY(10px); } to{ opacity:1; transform:none; } }
+.workbench-pane.active{ animation: paneIn .38s var(--ease-out); }
+
+/* 3. Pipeline node hover — neutral brighten, works under every pane accent */
+.pipeline-node{ transition: filter .25s ease; }
+.pipeline-node:hover{ filter: brightness(1.35) drop-shadow(0 0 10px rgba(125,211,252,.35)); }
+
+/* 4. Contact icon nudge */
+.contact-links a .contact-icon{ transition: transform .2s var(--ease-out); }
+.contact-links a:hover .contact-icon{ transform: translate(2px,-2px); }
+
+@media (prefers-reduced-motion: reduce){
+  .btn-nested-primary::after{ display:none; }
+  .workbench-pane.active{ animation:none; }
+  .pipeline-node:hover{ filter:none; }
+  .contact-links a:hover .contact-icon{ transform:none; }
+}
