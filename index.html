@@ -773,13 +773,13 @@
 
                     <!-- loop back: recovery -> retrieve (bounded retry) -->
                     <path d="M120,388 C 242,388 242,86 230,86" fill="none" stroke="#475569" stroke-dasharray="2.5 3" marker-end="url(#pdArrow)"/>
-                    <text x="244" y="240" text-anchor="middle" class="pd-t pd-tiny" transform="rotate(90 244 240)">2 attempts max, then falls through</text>
+                    <text x="242" y="240" text-anchor="middle" class="pd-t pd-tiny" transform="rotate(90 242 240)">2 attempts max</text>
 
                     <!-- recovery -> abstain -->
                     <line x1="65" y1="426" x2="65" y2="446" stroke="#334155" marker-end="url(#pdArrow)"/>
                     <rect x="10" y="448" width="110" height="34" rx="8" fill="rgba(239,68,68,0.08)" stroke="#ef4444" stroke-width="1.1"/>
                     <text x="65" y="468" text-anchor="middle" class="pd-t pd-label" style="font-size:8.6px; fill:#ef4444;">ABSTAIN</text>
-                    <text x="65" y="490" text-anchor="middle" class="pd-t pd-tiny">explicit — never a guessed answer</text>
+                     <text x="65" y="490" text-anchor="middle" class="pd-t pd-tiny">explicit — never guessed</text>
                   </svg>
                 </div>
                 <p class="proj-desc">Standard RAG systems fail silently — this doesn't. A local-first reliability loop: hybrid retrieve (dense BGE-small + BM25 + RRF) → grounded generation → claim decomposition fused with NLI verification in one call → SHA-256 + temporal-window evidence audit → reliability scoring against configurable thresholds → if it fails, a budget-aware LangGraph recovery loop (rewrite → re-retrieve → regenerate, capped at 2 attempts) → grounded answer or explicit ABSTAIN. Runs entirely on Ollama/llama.cpp — no API keys required.</p>
