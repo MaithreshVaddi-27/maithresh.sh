@@ -336,12 +336,14 @@
     font-family: var(--font-mono); font-weight:600; font-size: 15px;
     color: var(--text); letter-spacing: 0.5px;
     display:flex; align-items:center; gap:8px;
+    white-space: nowrap; flex-shrink: 0;
   }
   .logo::before{ content:''; width:7px; height:7px; border-radius:50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
-  .navlinks{ display:flex; gap: 26px; list-style:none; }
+  .navlinks{ display:flex; gap: 20px; list-style:none; }
   .navlinks a{
     font-family: var(--font-mono); font-size: 12.5px; color: var(--text-mute);
     transition: color 0.2s ease; position: relative;
+    white-space: nowrap;
   }
   .navlinks a::after{
     content:''; position:absolute; left:0; right:0; bottom:-4px; height:1px;
@@ -1183,6 +1185,9 @@
   }
 
   /* ── Detached Liquid Glass Dock ───────────────────────────── */
+  /* Same shape family as the button system (14px container radius over
+     10px controls) and same palette glass as the cards: cyan-tinted rim
+     + inner top highlight instead of the generic white border. */
   .glass-dock {
     position: sticky;
     top: 16px;
@@ -1193,12 +1198,12 @@
     background: var(--bg-surface-glass);
     backdrop-filter: blur(28px) saturate(190%);
     -webkit-backdrop-filter: blur(28px) saturate(190%);
-    border: 1px solid var(--border-glass);
-    border-radius: 9999px;
+    border: 1px solid rgba(125, 211, 252, 0.16);
+    border-radius: 14px;
     padding: 8px 24px;
     max-width: 1160px;
     margin: 0 auto 36px auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 24px rgba(56, 189, 248, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 
   /* ── Biometric HUD Viewfinder ────────────────────────────── */
@@ -1470,7 +1475,7 @@
     .glass-dock {
       margin: 8px 12px 24px 12px;
       padding: 8px 16px;
-      border-radius: 20px;
+      border-radius: 14px;
     }
     .top-telemetry-bar {
       font-size: 9.5px;
@@ -1740,4 +1745,101 @@ h1, h2, .hero-name{ text-wrap: balance; }
   .workbench-pane.active{ animation:none; }
   .pipeline-node:hover{ filter:none; }
   .contact-links a:hover .contact-icon{ transform:none; }
+}
+
+/* ══ ULTRA-PREMIUM PASS — data-backed finishing layer ══
+   Sources: ui-ux-pro-max (motion-driven portfolio, animation UX,
+   landing conversion) + apple-ui-design (clarity, deference, depth).
+   Rules honored: hover never carries essential info (all hover targets
+   are also focus/tap reachable), transitions 150–300ms, infinite motion
+   only where it signals live status, reduced-motion kills everything. */
+
+/* 1. Availability badge — hero conversion signal, live-status pulse */
+.hero-availability{
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--text-mute);
+  background: var(--elev-1-bg);
+  backdrop-filter: blur(var(--elev-1-blur)) saturate(var(--elev-1-sat));
+  -webkit-backdrop-filter: blur(var(--elev-1-blur)) saturate(var(--elev-1-sat));
+  border: 1px solid var(--elev-1-border); border-radius: 10px;
+  padding: 8px 14px; margin-bottom: 20px;
+  opacity: 0; animation: fadeUp 0.7s ease 0.3s forwards;
+}
+.avail-dot{
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  background: var(--green); box-shadow: 0 0 10px var(--green);
+  animation: availPulse 2.2s ease-in-out infinite;
+}
+@keyframes availPulse{
+  0%, 100%{ opacity: 1; box-shadow: 0 0 10px var(--green); }
+  50%{ opacity: 0.45; box-shadow: 0 0 3px var(--green); }
+}
+
+/* 2. Nav active state — segmented pill matching the workbench tabs.
+   Base links carry a transparent border + matching padding so swapping
+   states never shifts siblings by a pixel. */
+.navlinks a{
+  border: 1px solid transparent; border-radius: 8px; padding: 6px 12px;
+}
+.navlinks a.active{ color: #fff; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.3); }
+.navlinks a.active::after{ display: none; }
+
+/* 3. Scrollbar — thin, palette-seated, both engines */
+::-webkit-scrollbar{ width: 10px; }
+::-webkit-scrollbar-track{ background: var(--bg); }
+::-webkit-scrollbar-thumb{ background: #1e293b; border-radius: 8px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover{ background: var(--accent-bright-dim); }
+html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
+
+/* 4. Headline gradient drift — 9s ambient, frozen under reduced motion */
+h1 span{
+  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-bright) 40%, var(--accent) 90%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 18px rgba(125,211,252,0.35));
+  animation: headlineDrift 9s ease-in-out infinite alternate;
+}
+@keyframes headlineDrift{ from{ background-position: 0% center; } to{ background-position: 100% center; } }
+
+/* 5. Group-card repo links — proper hover treatment with arrow nudge */
+.proj-link{
+  font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim);
+  display: inline-flex; align-items: center; gap: 4px;
+  transition: color 0.2s ease, gap 0.2s var(--ease-out);
+}
+.proj-link:hover{ color: var(--accent); gap: 8px; }
+
+/* 6. Footer — split status line with live dot */
+.footer-inner{
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; flex-wrap: wrap;
+}
+.footer-inner > span:first-child{ display: inline-flex; align-items: center; gap: 9px; }
+.foot-dot{
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  background: var(--green); box-shadow: 0 0 8px var(--green);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .avail-dot{ animation: none; }
+  h1 span{ animation: none; }
+}
+@media (max-width: 640px){
+  .footer-inner{ justify-content: center; text-align: center; }
+}
+
+/* ══ MOBILE CHROME — telemetry + dock fit at 390px ══ */
+@media (max-width: 640px){
+  /* Telemetry collapses to status + console only; everything else is
+     decorative at this width and was wrapping into a ragged block. */
+  .top-telemetry-bar{ flex-direction: row; justify-content: space-between; align-items: center; }
+  .top-telemetry-bar > div:first-child > span:nth-child(n+3){ display: none; }
+  .top-telemetry-bar > div:last-child > span{ display: none; }
+}
+@media (max-width: 480px){
+  /* Dock: drop the duplicate ⌘K shortcut (console stays reachable from
+     the telemetry bar) and the logo path suffix so logo + toggle +
+     CONNECT fit without pushing content off-screen. */
+  .glass-dock .btn-nested-secondary{ display: none; }
+  .glass-dock .logo span:last-child{ display: none; }
 }
