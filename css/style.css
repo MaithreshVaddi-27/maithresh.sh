@@ -17,7 +17,6 @@
        relationships between tokens intact so the "instrument panel"
        character doesn't shift, only its brightness floor does. Every
        ratio below is equal or better than the previous pass. */
-    --bg-void: #07090e;
     --bg: #07090e;
     --bg-soft: #0c101a;
     --bg-surface-glass: rgba(13, 19, 32, 0.72);
@@ -27,12 +26,13 @@
     --surface-2: #121826;
     --line: #1e293b;
     --text: #f8fafc;
+    --text-primary: #f8fafc;
     --text-mute: #cbd5e1;
+    --text-muted: #cbd5e1;
     --text-dim: #94a3b8;
     --accent-cyan: #38bdf8;
-    --accent-cyan-deep: #0284c7;
     --accent-cyan-glow: rgba(56, 189, 248, 0.15);
-    --accent: #38bdf8;
+    --accent: var(--accent-cyan);
     --accent-dim: rgba(56, 189, 248, 0.12);
     --accent-bright: #7dd3fc;
     --accent-bright-dim: #0369a1;
@@ -202,6 +202,11 @@
     53%{ opacity: 0.5; }
   }
   @media (prefers-reduced-transparency: reduce){
+    body::before{ display: none; }
+  }
+  /* Decorative scanlines stay desktop-only: on small screens they cost
+     GPU compositing and muddy small type for zero information. */
+  @media (max-width: 640px){
     body::before{ display: none; }
   }
 
@@ -421,7 +426,7 @@
 
   /* ── HERO ────────────────────────────────────────────── */
   .hero{
-    position: relative; min-height: 100vh; display:flex; align-items:center;
+    position: relative; min-height: 100vh; min-height: 100dvh; display:flex; align-items:center;
     overflow: hidden;
   }
   #hero-canvas{
@@ -518,7 +523,7 @@
   }
   h1{
     font-family: var(--font-display); font-weight: 700;
-    font-size: clamp(2.35rem, 7vw, 5rem); line-height: 0.99; letter-spacing: -0.03em;
+    font-size: clamp(2.35rem, 7vw, 5rem); line-height: 1.04; letter-spacing: -0.03em;
     font-optical-sizing: auto;
     max-width: 920px;
     opacity:0; animation: fadeUp 0.8s var(--ease-out) 0.35s forwards;
@@ -1078,7 +1083,7 @@
      ══════════════════════════════════════════════════════════════ */
 
   /* ── Doppelrand (Double-Bezel) Nested Architecture ───────── */
-  .doppelrand-shell {
+  .wb-shell {
     position: relative;
     background: var(--bg-surface-glass);
     backdrop-filter: blur(28px) saturate(190%);
@@ -1091,7 +1096,7 @@
     overflow: hidden;
   }
 
-  .doppelrand-shell::before {
+  .wb-shell::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -1107,15 +1112,15 @@
     z-index: 1;
   }
 
-  .doppelrand-shell:hover::before {
+  .wb-shell:hover::before {
     opacity: 1;
   }
 
-  .doppelrand-shell:hover {
+  .wb-shell:hover {
     border-color: rgba(56, 189, 248, 0.35);
   }
 
-  .doppelrand-core {
+  .wb-core {
     background: var(--bg-surface-core);
     border: 1px solid var(--border-subtle);
     border-radius: 16px;
@@ -1226,25 +1231,9 @@
   .hud-reticle-bl { bottom: 6px; left: 6px; }
   .hud-reticle-br { bottom: 6px; right: 6px; }
 
-  /* ── Interactive SVG Pipeline Visualizer ──────────────────── */
-  .pipeline-container {
-    background: #06090e;
-    border: 1px solid var(--border-subtle);
-    border-radius: 16px;
-    padding: 20px;
-    position: relative;
-    margin: 18px 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  #pipelineSvg,
-  #trustrag-pipeline-svg {
-    width: 100%;
-    min-width: 560px;
-    height: auto;
-    display: block;
-  }
+  /* ── Interactive SVG Pipeline Visualizer ────────────────────
+     (Surface lives in .pipeline-card below, in the production pass —
+      kept adjacent to the diagram rules for discoverability.) */
 
   .pipeline-node {
     transition: stroke 0.3s ease, fill 0.3s ease;
@@ -1321,11 +1310,12 @@
     width: 100%;
   }
 
-  .cmd-console-list {
-    max-height: 320px;
-    overflow-y: auto;
-    padding: 8px 12px;
-  }
+.cmd-console-list {
+  list-style: none; margin: 0;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 8px 12px;
+}
 
   .cmd-console-item {
     display: flex;
@@ -1614,7 +1604,7 @@ section{ scroll-margin-top: 120px; }
 .proj-row[data-accent]:hover .proj-row-tag, .proj-row[data-accent]:focus-visible .proj-row-tag{ color: var(--proj-text); }
 
 /* Schematic inset — same instrument-panel surface as the workbench
-   .pipeline-container, so hover SVGs read as one family with it */
+   .pipeline-card, so hover SVGs read as one family with it */
 .proj-diagram{
   background-color: #06090e;
   background-image: radial-gradient(rgba(255,255,255,.055) 1px, transparent 1px);
@@ -1652,13 +1642,13 @@ section{ scroll-margin-top: 120px; }
    microcopy → text-dim, base arrowheads → match connectors. Accent
    fills/strokes (cyan/green/amber/purple) are left exactly as authored. */
 .proj-diagram svg rect[fill="#0d1424"],
-.pipeline-container svg rect[fill="#0d1424"]{ fill: #0c101a; }
+.pipeline-card svg rect[fill="#0d1424"]{ fill: #0c101a; }
 .proj-diagram svg :is(line, path)[stroke="#334155"],
-.pipeline-container svg :is(line, path)[stroke="#334155"]{ stroke: rgba(148,163,184,.38); }
+.pipeline-card svg :is(line, path)[stroke="#334155"]{ stroke: rgba(148,163,184,.38); }
 .proj-diagram svg .pd-tiny,
-.pipeline-container svg text[fill="#64748b"]{ fill: #94a3b8; opacity: .72; }
+.pipeline-card svg text[fill="#64748b"]{ fill: #94a3b8; opacity: .72; }
 .proj-diagram svg marker path[fill="#64748b"],
-.pipeline-container svg marker path[fill="#334155"]{ fill: rgba(148,163,184,.55); }
+.pipeline-card svg marker path[fill="#334155"]{ fill: rgba(148,163,184,.55); }
 
 /* ══ RESPONSIVE HARDENING ══ */
 .top-telemetry-bar{ flex-wrap: wrap; row-gap: 4px; }
@@ -1843,3 +1833,205 @@ h1 span{
   .glass-dock .btn-nested-secondary{ display: none; }
   .glass-dock .logo span:last-child{ display: none; }
 }
+
+/* ══ PRODUCTION PASS — externalized component classes ══
+   Every presentational inline style in index.html now lives here.
+   Zero `style=""` attributes ship in production markup. */
+
+/* Telemetry strip */
+.top-telemetry-bar{
+  background: rgba(7,9,14,.9); border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 5px 16px; font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 101; position: relative;
+}
+.telem-group{ display: flex; align-items: center; gap: 8px; }
+.telem-group--right{ gap: 14px; }
+.telem-dot{ width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); flex-shrink: 0; }
+.telem-status{ color: var(--text-mute); font-weight: 600; }
+.telem-sep{ opacity: .4; }
+.telem-ptr{ color: var(--accent); letter-spacing: .02em; }
+.telem-hi{ color: var(--accent); }
+.telem-dim{ color: var(--text-mute); }
+/* Small terminal-style utility button (telemetry ⌘K, palette ESC) */
+.tbtn{
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px; padding: 2px 7px; color: var(--accent);
+  font-family: inherit; font-size: 10px; cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+.tbtn:hover{ background: rgba(56,189,248,.14); border-color: rgba(56,189,248,.4); }
+
+/* Brand lockup */
+.brand-dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(56,189,248,.7); flex-shrink: 0; }
+.brand-word{ font-family: var(--font-mono); font-weight: 700; font-size: 14px; color: var(--text); letter-spacing: -.02em; }
+.brand-word .brand-accent{ color: var(--accent); }
+.brand-path{ font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); margin-left: 2px; }
+
+/* Compact nested buttons (sim controls, dock shortcut) */
+.btn-nested--sm{ padding: 5px 12px; font-size: 11px; }
+.btn-nested--connect{ padding: 5px 5px 5px 14px; }
+.nav-actions{ display: flex; align-items: center; gap: 10px; }
+.btn-nested--connect{ padding: 5px 5px 5px 14px; }
+
+/* Hero lead line — carries the old display-h1 treatment now that the
+   name owns the single <h1> */
+.hero-lead{
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(2rem, 6vw, 4rem); line-height: 1.06; letter-spacing: -0.02em;
+  font-optical-sizing: auto; max-width: 920px;
+  opacity: 0; animation: fadeUp .8s var(--ease-out) .35s forwards;
+}
+.hero-lead span{
+  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-bright) 90%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 18px rgba(125,211,252,.35));
+}
+
+/* Hero eyebrow variant + portrait card */
+.eyebrow--hero{ background: rgba(56,189,248,.08); border: 1px solid rgba(56,189,248,.25); color: var(--accent); }
+.ascii-card--hero{ border-radius: 12px; overflow: hidden; background: #07090e; }
+
+/* HUD viewfinder meta rows */
+.hud-meta{
+  font-family: var(--font-mono); font-size: 10px; color: var(--accent);
+  letter-spacing: .08em; margin-bottom: 8px;
+  display: flex; justify-content: space-between;
+}
+.hud-ok{ color: var(--green); }
+.hud-meta-row{
+  margin-top: 10px; display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 9.5px; color: var(--text-dim);
+}
+
+/* Pipeline cards — shared surface, responsive diagram scaling */
+.pipeline-card{
+  background: #06090e; border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px; padding: 20px; overflow-x: auto;
+}
+.pipeline-card svg{ display: block; width: 100%; height: auto; min-width: 560px; }
+@media (max-width: 720px){
+  .pipeline-card{ padding: 14px; }
+  .pipeline-card svg{ min-width: 520px; }
+}
+/* Simulation control rows */
+.sim-controls{ display: flex; gap: 10px; flex-wrap: wrap; }
+.pane-head{
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px; flex-wrap: wrap; gap: 14px;
+}
+.pane-title{ display: flex; align-items: center; gap: 10px; }
+.pane-dot{ width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.pane-dot--cyan{ background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
+.pane-dot--green{ background: #10b981; box-shadow: 0 0 10px #10b981; }
+.pane-dot--amber{ background: #f59e0b; box-shadow: 0 0 10px #f59e0b; }
+.pane-dot--purple{ background: #a855f7; box-shadow: 0 0 10px #a855f7; }
+.pane-name{ font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--text); }
+.pane-sub{ font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); }
+
+/* Interview-defense callout internals */
+.idef-head{ display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.idef-dot{ width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.idef-dot--cyan{ background: #38bdf8; }
+.idef-dot--green{ background: #10b981; }
+.idef-dot--amber{ background: #f59e0b; }
+.idef-dot--purple{ background: #a855f7; }
+.idef-title{ font-size: 12px; letter-spacing: .05em; }
+.idef-title--cyan{ color: #38bdf8; }
+.idef-title--green{ color: #10b981; }
+.idef-title--amber{ color: #f59e0b; }
+.idef-title--purple{ color: #a855f7; }
+.idef-text{ margin: 0 0 10px; font-size: 12px; color: var(--text-mute); line-height: 1.6; }
+.idef-text:last-child{ margin-bottom: 0; }
+.idef-text strong{ color: var(--text); }
+.idef-hi{ color: var(--accent); }
+.idef-bad{ color: var(--red); font-weight: 700; }
+
+/* Workbench tab status dots */
+.tab-status-dot--cyan{ background: #38bdf8; box-shadow: 0 0 6px #38bdf8; }
+.tab-status-dot--green{ background: #10b981; box-shadow: 0 0 6px #10b981; }
+.tab-status-dot--amber{ background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
+.tab-status-dot--purple{ background: #a855f7; box-shadow: 0 0 6px #a855f7; }
+
+/* Command palette internals */
+.cmd-prompt{ font-family: var(--font-mono); color: var(--accent); font-weight: 700; }
+.cmd-glyph{ color: var(--accent); }
+.cmd-glyph--amber{ color: var(--amber); }
+.cmd-glyph--dim{ color: var(--text-dim); }
+.cmd-item-main{ display: flex; align-items: center; gap: 10px; }
+.cmd-item-body{ display: flex; flex-direction: column; gap: 2px; }
+.cmd-item-title{ color: var(--text); font-weight: 600; }
+.cmd-item-sub{ font-size: 10.5px; color: var(--text-dim); }
+.cmd-tag{ font-size: 10px; padding: 2px 6px; border-radius: 4px; }
+.cmd-tag--cyan{ color: var(--accent); background: rgba(56,189,248,.1); }
+.cmd-tag--amber{ color: var(--amber); background: rgba(245,158,11,.1); }
+.cmd-tag--dim{ color: var(--text-dim); background: rgba(255,255,255,.06); }
+.cmd-tag--ext{ color: var(--accent); background: rgba(56,189,248,.1); }
+.cmd-kbd{ background: rgba(255,255,255,.08); padding: 1px 4px; border-radius: 3px; }
+
+/* Project metric chips — numbers pulled out of the prose */
+.proj-metrics{ display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; }
+.proj-metric{
+  font-family: var(--font-mono); font-size: 11px; color: var(--text-mute);
+  border: 1px solid var(--border-subtle); border-radius: 7px; padding: 4px 10px;
+  background: rgba(255,255,255,.02);
+}
+.proj-metric b{ color: var(--proj, var(--accent)); font-weight: 700; }
+
+/* Stack chip progressive disclosure */
+.stack-card .chips.is-collapsed .chip:nth-child(n+9){ display: none; }
+.chips-toggle{
+  font-family: var(--font-mono); font-size: 11px; color: var(--accent);
+  background: none; border: 1px solid var(--border-subtle); border-radius: 7px;
+  padding: 4px 12px; margin-top: 10px; cursor: pointer;
+  transition: border-color .2s ease, background .2s ease;
+}
+.chips-toggle:hover{ border-color: rgba(56,189,248,.5); background: rgba(56,189,248,.08); }
+
+/* Journey timeline */
+.journey-list{ list-style: none; display: grid; gap: 0; margin-top: 8px; }
+.journey-item{
+  display: grid; grid-template-columns: 72px 1fr; gap: 18px;
+  padding: 18px 0; border-bottom: 1px solid var(--line);
+}
+.journey-item:last-child{ border-bottom: none; }
+.journey-year{ font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--accent); padding-top: 2px; }
+.journey-item h4{ font-size: 1rem; letter-spacing: -.01em; margin-bottom: 6px; }
+.journey-item p{ color: var(--text-mute); font-size: .93rem; max-width: 62ch; }
+
+/* Contact availability note */
+.contact-note{
+  font-family: var(--font-mono); font-size: 12.5px; color: var(--text-mute);
+  margin-top: 22px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+}
+.contact-note b{ color: var(--green); font-weight: 600; }
+
+/* Screen-reader-only live region */
+.sr-only{
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* SVG diagram microcopy + transitions (replaces SVG-internal styles) */
+.pipeline-card line{ transition: stroke .4s ease; }
+.pipeline-card rect{ transition: all .4s ease; }
+.pd-sm{ font-size: 8.6px; }
+.pd-bad{ fill: #ef4444; }
+.svg-defs{ position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* Section + eyebrow variants */
+#workbench{ padding: 60px 0; }
+.section-eyebrow--panel{
+  background: rgba(56,189,248,.08); border: 1px solid rgba(56,189,248,.25);
+  color: var(--accent);
+}
+.section-eyebrow--center{ justify-content: center; display: flex; }
+
+/* About lead + terminal spacing */
+.about-lead{ margin-top: 22px; }
+.t-line--spaced{ margin-top: 14px; }
+
+/* Group card compact titles */
+.proj-top{ display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.proj-title{ font-family: var(--font-display); font-weight: 700; letter-spacing: -.01em; }
+.proj-title--sm{ font-size: 1.05rem; }
