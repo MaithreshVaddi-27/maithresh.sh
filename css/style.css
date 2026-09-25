@@ -1809,6 +1809,13 @@ h1 span{
   .avail-dot{ animation: none; }
   h1 span{ animation: none; }
 }
+/* Gradient display text must never go invisible: if background-clip:text
+   is unsupported, fall back to a solid accent instead of transparent. */
+@supports not ((background-clip: text) or (-webkit-background-clip: text)){
+  h1 span, .hero-lead span{
+    background: none; color: var(--accent-bright); filter: none; animation: none;
+  }
+}
 @media (max-width: 640px){
   .footer-inner{ justify-content: center; text-align: center; }
 }
@@ -1886,6 +1893,27 @@ h1 span{
 /* Hero eyebrow variant + portrait card */
 .eyebrow--hero{ background: rgba(56,189,248,.08); border: 1px solid rgba(56,189,248,.25); color: var(--accent); }
 .ascii-card--hero{ border-radius: 12px; overflow: hidden; background: #07090e; }
+/* Portrait can never render as an empty black box: while the SVG is in
+   flight the card shows its own terminal-tinted ground, and if the file
+   ever fails (offline CDN, blocked asset) a branded fallback replaces
+   the broken-image glyph instead of a void. */
+.ascii-card--hero{
+  min-height: 420px;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(56,189,248,.10), transparent 65%),
+    linear-gradient(180deg, #07090e, #0c101a);
+}
+.portrait-fallback{
+  display: none; position: absolute; inset: 0;
+  align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-weight: 800; font-size: clamp(2rem, 6vw, 3.4rem);
+  letter-spacing: -.03em; color: var(--text);
+}
+.portrait-fallback em{ font-style: normal; color: var(--accent); }
+.ascii-card--hero{ position: relative; }
+.ascii-card--hero.is-broken img{ display: none; }
+.ascii-card--hero.is-broken .portrait-fallback{ display: flex; }
+@media (max-width: 640px){ .ascii-card--hero{ min-height: 300px; } }
 
 /* HUD viewfinder meta rows */
 .hud-meta{
