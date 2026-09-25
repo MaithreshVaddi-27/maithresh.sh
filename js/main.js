@@ -1101,6 +1101,18 @@ if (document.readyState === 'loading') {
   if (year) year.textContent = String(new Date().getFullYear());
 })();
 
+// Portrait failure guard — the hero card never renders as an empty void
+(function () {
+  const card = document.querySelector('.ascii-card--hero');
+  const img = card ? card.querySelector('img') : null;
+  if (!card || !img) return;
+  const check = () => {
+    if (img.complete && img.naturalWidth === 0) card.classList.add('is-broken');
+  };
+  img.addEventListener('error', () => card.classList.add('is-broken'));
+  check();
+})();
+
 // ── Hero stat count-up ──
 // Numerals ease from 0 to their authored value the first time they
 // enter the viewport; suffixes (like %) are preserved. Skipped under
