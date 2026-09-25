@@ -692,6 +692,8 @@
   #contribGraph{ display:block; width:100%; }
   #contribGraph svg rect{ cursor: pointer; transition: stroke .15s ease, stroke-width .15s ease; }
   #contribGraph svg rect:hover{ stroke: #7dd3fc; stroke-width: 1.5; }
+  /* Contribution snake — theme-cyan head with glow, decorative only */
+  .snake-head{ fill: #38bdf8; filter: drop-shadow(0 0 6px rgba(56,189,248,.9)); }
   /* Live stat readouts + Less→More legend — instrument chrome for the graph */
   .activity-stats{
     display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;
