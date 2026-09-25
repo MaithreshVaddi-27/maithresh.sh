@@ -68,6 +68,7 @@
       });
 
       container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" width="100%" height="auto" role="img" aria-label="GitHub contribution graph, last 12 months">${monthLabels}${dayLabelSvg}${rects}</svg>`;
+      startContribSnake(container.querySelector('svg'));
 
       // Instrument readouts: total, active days, current streak
       const active = days.filter((d) => d.count > 0);
@@ -938,6 +939,68 @@ window.runCareerOSSim = function(mode) {
     }
   }, 1200);
 };
+
+// ── Contribution snake ─────────────────────────────────────
+// A cyan sensor-snake loops the heatmap column by column, flashing the
+// cells it eats. Decorative: skipped under reduced-motion, parked while
+// the graph is off-screen or the tab hidden. One interval, a handful of
+// attribute writes per tick — negligible cost.
+function startContribSnake(svg) {
+  if (!svg || reduceMotion) return;
+  const cells = Array.from(svg.querySelectorAll('rect')).map((el) => ({
+    el,
+    x: parseFloat(el.getAttribute('x')) + 5.5,
+    y: parseFloat(el.getAttribute('y')) + 5.5,
+  }));
+  if (cells.length < 8) return;
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const head = document.createElementNS(NS, 'circle');
+  head.setAttribute('r', '7');
+  head.setAttribute('class', 'snake-head');
+  head.setAttribute('aria-hidden', 'true');
+  svg.appendChild(head);
+
+  let idx = 0, visible = true, restTicks = 0;
+  const STEP_MS = 90, REST_TICKS = 45;
+
+  function eat(cell) {
+    const el = cell.el;
+    if (!el.dataset.origFill) el.dataset.origFill = el.getAttribute('fill');
+    el.setAttribute('fill', '#7dd3fc');
+    el.setAttribute('stroke', '#7dd3fc');
+    setTimeout(() => {
+      el.setAttribute('fill', el.dataset.origFill || '');
+      el.setAttribute('stroke', 'rgba(255,255,255,0.05)');
+    }, 650);
+  }
+
+  function tick() {
+    if (document.hidden || !visible) return;
+    if (restTicks > 0) { restTicks--; return; }
+    const cell = cells[idx];
+    head.setAttribute('cx', cell.x);
+    head.setAttribute('cy', cell.y);
+    eat(cell);
+    idx++;
+    if (idx >= cells.length) {
+      idx = 0;
+      restTicks = REST_TICKS;
+      head.setAttribute('cx', -50);
+      head.setAttribute('cy', -50);
+    }
+  }
+
+  // Eaten cells flash bright, then cool back to their level color
+  setInterval(tick, STEP_MS);
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(
+      (entries) => { visible = entries.some((e) => e.isIntersecting); },
+      { threshold: 0 }
+    ).observe(svg);
+  }
+}
 
 // ── Command Console Dialog Modal (⌘K) ─────────────────────────
 window.initCommandConsole = function() {
