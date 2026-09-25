@@ -1988,17 +1988,6 @@ h1 span{
 }
 .chips-toggle:hover{ border-color: rgba(56,189,248,.5); background: rgba(56,189,248,.08); }
 
-/* Journey timeline */
-.journey-list{ list-style: none; display: grid; gap: 0; margin-top: 8px; }
-.journey-item{
-  display: grid; grid-template-columns: 72px 1fr; gap: 18px;
-  padding: 18px 0; border-bottom: 1px solid var(--line);
-}
-.journey-item:last-child{ border-bottom: none; }
-.journey-year{ font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--accent); padding-top: 2px; }
-.journey-item h4{ font-size: 1rem; letter-spacing: -.01em; margin-bottom: 6px; }
-.journey-item p{ color: var(--text-mute); font-size: .93rem; max-width: 62ch; }
-
 /* Contact availability note */
 .contact-note{
   font-family: var(--font-mono); font-size: 12.5px; color: var(--text-mute);
