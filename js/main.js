@@ -1084,8 +1084,12 @@ if (document.readyState === 'loading') {
 // Back-to-top — floating glass pill (ultra-premium pass)
 (function () {
   const btn = document.getElementById('toTop');
+  const header = document.querySelector('header');
   if (!btn) return;
-  const onScroll = () => btn.classList.toggle('show', window.scrollY > 900);
+  const onScroll = () => {
+    btn.classList.toggle('show', window.scrollY > 900);
+    if (header) header.classList.toggle('is-scrolled', window.scrollY > 24);
+  };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
