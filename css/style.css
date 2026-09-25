@@ -533,11 +533,6 @@
     -webkit-background-clip: text; background-clip: text; color: transparent;
     filter: drop-shadow(0 0 18px rgba(125,211,252,0.35));
   }
-  .hero-role{
-    font-family: var(--font-mono); font-size: clamp(0.95rem, 2vw, 1.15rem);
-    color: var(--text-mute); margin-top: 22px; max-width: 620px;
-    opacity:0; animation: fadeUp 0.7s ease 0.5s forwards;
-  }
   .hero-desc{
     font-size: 1.02rem; color: var(--text-mute); max-width: 560px; margin-top: 20px;
     opacity:0; animation: fadeUp 0.7s ease 0.65s forwards;
