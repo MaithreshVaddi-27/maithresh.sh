@@ -26,7 +26,9 @@
   let isRunning = false;
 
   // Configuration Tokens
-  const SPACING = 28;
+  // Wider spacing on narrow screens: fewer dots to shade every frame,
+  // and the matrix still reads at phone scale.
+  const SPACING = window.matchMedia('(max-width: 640px)').matches ? 46 : 28;
   const BASE_RADIUS = 1.0;
   const MAX_RADIUS = 2.6;
   const SPOTLIGHT_RADIUS = 140;
@@ -177,11 +179,41 @@
     }
   });
 
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', () => {
+    resize();
+    // Resizing clears the canvas — repaint the single static frame when
+    // the loop is intentionally off (reduced motion).
+    if (reduceMotion && !isRunning) render();
+  });
 
   // Initialize
   resize();
-  start();
+  if (reduceMotion) {
+    // Reduced motion: paint one static frame, never start the loop.
+    // The matrix remains as texture; nothing moves, nothing costs CPU.
+    render();
+  } else {
+    start();
+  }
+
+  // Scroll-aware pause: the canvas is a fixed full-viewport substrate,
+  // but once the hero scrolls out there is nothing new to see — stop
+  // shading dots until the hero returns.
+  if ('IntersectionObserver' in window) {
+    const hero = document.querySelector('.hero');
+    if (hero) {
+      new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (reduceMotion) return;
+            if (entry.isIntersecting) start();
+            else stop();
+          });
+        },
+        { threshold: 0 }
+      ).observe(hero);
+    }
+  }
 
   // Smooth appearance
   canvas.classList.add('ready');

@@ -22,7 +22,7 @@
   const CELL_STROKE = 'rgba(255,255,255,0.05)';
   const CELL = 11, GAP = 3, LEFT_PAD = 28, TOP_PAD = 18;
 
-  fetch('https://github-contributions-api.jogruber.de/v4/MaithreshVaddi-27?y=last')
+  fetch('https://github-contributions-api.jogruber.de/v4/MaithreshVaddi-27?y=last', { signal: AbortSignal.timeout(8000) })
     .then((res) => { if (!res.ok) throw new Error('bad response'); return res.json(); })
     .then((data) => {
       const days = data && data.contributions;
