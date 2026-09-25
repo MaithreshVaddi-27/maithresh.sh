@@ -27,8 +27,9 @@
 
   // Configuration Tokens
   // Wider spacing on narrow screens: fewer dots to shade every frame,
-  // and the matrix still reads at phone scale.
-  const SPACING = window.matchMedia('(max-width: 640px)').matches ? 46 : 28;
+  // and the matrix still reads at phone scale. Re-evaluated on every
+  // resize so rotating / docking the window re-tunes density live.
+  let SPACING = 28;
   const BASE_RADIUS = 1.0;
   const MAX_RADIUS = 2.6;
   const SPOTLIGHT_RADIUS = 140;
@@ -47,6 +48,7 @@
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     width = window.innerWidth;
     height = window.innerHeight;
+    SPACING = width < 640 ? 46 : 28;
 
     canvas.width = width * dpr;
     canvas.height = height * dpr;
