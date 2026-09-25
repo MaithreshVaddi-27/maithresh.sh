@@ -389,23 +389,10 @@ if (hasGSAP) {
 })();
 
 // ── Hero stat count-up ───────────────────────────────────────
-// The three telemetry numbers count up from zero once on load rather
-// than appearing static — timed to land just after their own fadeUp
-// (see .hero-stats animation-delay in style.css) so the number itself
-// feels like it's still arriving when it becomes readable.
-(function () {
-  if (reduceMotion || !hasGSAP) return;
-  document.querySelectorAll('.hero-stat-n').forEach((el) => {
-    const target = parseInt(el.textContent, 10);
-    if (Number.isNaN(target)) return;
-    const digits = el.textContent.trim().length;
-    const proxy = { val: 0 };
-    gsap.to(proxy, {
-      val: target, duration: 1.3, delay: 1.15, ease: 'power2.out',
-      onUpdate: () => { el.textContent = String(Math.round(proxy.val)).padStart(digits, '0'); },
-    });
-  });
-})();
+// Implemented once, at the end of this file: numerals ease from 0 on
+// first viewport entry with suffixes (like %) preserved, and skipped
+// under prefers-reduced-motion. (An earlier on-load duplicate was
+// removed — it dropped suffixes and double-drove the same nodes.)
 
 // ── Nav scrollspy ─────────────────────────────────────────────
 // Highlights the nav link for whichever section currently occupies
@@ -450,7 +437,7 @@ if (moreToggle && moreBody && moreArrow) {
   moreToggle.addEventListener('click', () => {
     const open = moreBody.classList.toggle('open');
     moreToggle.setAttribute('aria-expanded', open);
-    moreArrow.textContent = open ? '− hide' : '+ show 6 more';
+    moreArrow.textContent = open ? '− hide' : '+ show 5 more';
     if (hasGSAP) ScrollTrigger.refresh(); // layout height changed
   });
 }
@@ -472,6 +459,125 @@ window.switchWorkbenchTab = function(tabId) {
     pane.classList.toggle('active', isTarget);
   });
 };
+
+// ── Delegated UI actions (no inline onclick in production markup) ─
+// All [data-wbtab], [data-sim] and [data-action] controls route through
+// here — keeps index.html free of inline handlers (CSP-friendly) and
+// externalizes every behavior into js/main.js.
+(function () {
+  const SIM_LABELS = {
+    'trustrag:valid': 'TrustRAG high-confidence query',
+    'trustrag:fail': 'TrustRAG unverified-claim recovery',
+    'docuchat:tool': 'DocuChat MCP web dispatch',
+    'docuchat:local': 'DocuChat local ChromaDB cache hit',
+    'resumecrew:match': 'Resume Crew high-alignment match',
+    'resumecrew:gap': 'Resume Crew skill-gap rejection',
+    'careeros:dedup': 'CareerOS-Pro two-stage deduplication',
+    'careeros:resilient': 'CareerOS-Pro source-failure circuit breaker',
+  };
+  const SIM_RUNNERS = {
+    trustrag: (m) => window.runTrustRagSim && window.runTrustRagSim(m),
+    docuchat: (m) => window.runDocuChatSim && window.runDocuChatSim(m),
+    resumecrew: (m) => window.runResumeCrewSim && window.runResumeCrewSim(m),
+    careeros: (m) => window.runCareerOSSim && window.runCareerOSSim(m),
+  };
+  function announce(text) {
+    const live = document.getElementById('simLive');
+    if (live) live.textContent = text;
+  }
+
+  document.addEventListener('click', (e) => {
+    const tabBtn = e.target.closest('[data-wbtab]');
+    if (tabBtn) {
+      activateWorkbenchTab(tabBtn.dataset.wbtab, false);
+      return;
+    }
+    const simBtn = e.target.closest('[data-sim]');
+    if (simBtn) {
+      const [system, mode] = (simBtn.dataset.sim || '').split(':');
+      if (SIM_RUNNERS[system]) SIM_RUNNERS[system](mode);
+      if (SIM_LABELS[simBtn.dataset.sim]) announce('Running simulation: ' + SIM_LABELS[simBtn.dataset.sim] + '.');
+      return;
+    }
+    const actionBtn = e.target.closest('[data-action]');
+    if (actionBtn) {
+      const action = actionBtn.dataset.action;
+      if (action === 'palette' && window.openCommandPalette) window.openCommandPalette();
+      else if (action === 'close-palette' && window.closeCommandPalette) window.closeCommandPalette();
+    }
+  });
+
+  // ── Workbench tabs: roving tabindex + arrow-key navigation ──
+  const tablist = document.querySelector('.workbench-tabs[role="tablist"]');
+  const tabs = tablist ? Array.from(tablist.querySelectorAll('[data-wbtab]')) : [];
+  window.activateWorkbenchTab = function (tabId, focusTab) {
+    if (window.switchWorkbenchTab) window.switchWorkbenchTab(tabId);
+    tabs.forEach((t) => t.setAttribute('tabindex', t.dataset.wbtab === tabId ? '0' : '-1'));
+    if (focusTab) {
+      const target = tabs.find((t) => t.dataset.wbtab === tabId);
+      if (target) target.focus();
+    }
+  };
+  if (tablist) {
+    tablist.addEventListener('keydown', (e) => {
+      const current = tabs.indexOf(document.activeElement);
+      if (current === -1) return;
+      let next = -1;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (current + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (current - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = tabs.length - 1;
+      if (next !== -1) {
+        e.preventDefault();
+        window.activateWorkbenchTab(tabs[next].dataset.wbtab, true);
+      }
+    });
+  }
+
+  // ── Command palette focus trap (Tab cycles inside the modal) ──
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const modal = document.getElementById('cmd-console-modal');
+    if (!modal || !modal.classList.contains('active')) return;
+    const focusables = Array.from(
+      modal.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])')
+    ).filter((el) => el.offsetParent !== null);
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
+  // ── Stack chip progressive disclosure ──
+  // Long chip walls collapse past 8 with an inline toggle — keeps the
+  // honest inventory (nothing removed from the DOM) while restoring scan.
+  document.querySelectorAll('.stack-card .chips').forEach((box) => {
+    const chips = box.querySelectorAll('.chip');
+    if (chips.length <= 8) return;
+    box.classList.add('is-collapsed');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chips-toggle';
+    const update = () => {
+      const collapsed = box.classList.contains('is-collapsed');
+      btn.textContent = collapsed ? `+ show ${chips.length - 8} more` : '− show less';
+      btn.setAttribute('aria-expanded', String(!collapsed));
+    };
+    btn.addEventListener('click', () => {
+      box.classList.toggle('is-collapsed');
+      update();
+      if (hasGSAP && window.ScrollTrigger) ScrollTrigger.refresh();
+    });
+    update();
+    box.after(btn);
+  });
+})();
 
 // ── Interactive TrustRAG SVG Pipeline Simulation ─────────────
 window.runTrustRagSim = function(mode) {
@@ -946,7 +1052,7 @@ window.updatePointerTelemetry = function(e) {
   }
 
   // Doppelrand card specular highlight coordinate tracking
-  const targetShell = e.target && e.target.closest ? e.target.closest('.doppelrand-shell') : null;
+  const targetShell = e.target && e.target.closest ? e.target.closest('.wb-shell') : null;
   if (targetShell) {
     const rect = targetShell.getBoundingClientRect();
     const relX = Math.round(e.clientX - rect.left);
