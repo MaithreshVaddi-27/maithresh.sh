@@ -68,6 +68,30 @@
       });
 
       container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" width="100%" height="auto" role="img" aria-label="GitHub contribution graph, last 12 months">${monthLabels}${dayLabelSvg}${rects}</svg>`;
+
+      // Instrument readouts: total, active days, current streak
+      const active = days.filter((d) => d.count > 0);
+      let streak = 0;
+      for (let i = days.length - 1; i >= 0; i--) {
+        if (days[i].count > 0) streak++;
+        else break;
+      }
+      const total = active.reduce((sum, d) => sum + d.count, 0);
+      const set = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = String(val);
+      };
+      set('statTotal', total);
+      set('statActive', active.length);
+      set('statStreak', streak);
+      const stats = document.getElementById('contribStats');
+      if (stats) stats.hidden = false;
+
+      // Less → More legend swatches (colors live in .legend-cells CSS)
+      const legend = document.getElementById('legendCells');
+      if (legend) {
+        legend.innerHTML = LEVEL_COLOR.map(() => '<span></span>').join('');
+      }
     })
     .catch(() => {
       const card = container.closest('.activity-card');

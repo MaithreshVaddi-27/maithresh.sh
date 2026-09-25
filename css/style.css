@@ -690,7 +690,27 @@
      main.js) — cells are drawn directly in Nord colors, so there's no
      third-party image to color-correct the way ghchart needed. */
   #contribGraph{ display:block; width:100%; }
-  #contribGraph svg rect{ cursor: pointer; }
+  #contribGraph svg rect{ cursor: pointer; transition: stroke .15s ease, stroke-width .15s ease; }
+  #contribGraph svg rect:hover{ stroke: #7dd3fc; stroke-width: 1.5; }
+  /* Live stat readouts + Less→More legend — instrument chrome for the graph */
+  .activity-stats{
+    display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+  .activity-stat b{ color: var(--accent); font-weight: 700; margin-right: 5px; font-variant-numeric: tabular-nums; }
+  .contrib-legend{
+    display: flex; justify-content: flex-end; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 10.5px; color: var(--text-dim);
+    padding: 10px 8px 2px;
+  }
+  .legend-cells{ display: inline-flex; gap: 3px; }
+  .legend-cells span{ width: 11px; height: 11px; border-radius: 2px; }
+  .legend-cells span:nth-child(1){ background: rgba(255,255,255,0.05); }
+  .legend-cells span:nth-child(2){ background: #0369a1; }
+  .legend-cells span:nth-child(3){ background: #0284c7; }
+  .legend-cells span:nth-child(4){ background: #38bdf8; }
+  .legend-cells span:nth-child(5){ background: #7dd3fc; }
   /* Shown only if the jogruber.de contribution-data fetch fails (see
      the .catch in main.js) — the live graph has no local backup by
      design, so failure degrades to a link instead of an empty box. */
