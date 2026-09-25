@@ -17,12 +17,32 @@
   // jump-cut from nothing to something.
   container.innerHTML = '<p class="activity-fallback">Loading activity…</p>';
 
+  // Third-party payload is rendered via innerHTML below — escape every
+  // interpolated field so a malformed upstream record can never break
+  // markup or inject attributes.
+  const escapeHtml = (v) => String(v)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
   // Contribution activity heatmap palette aligned with Flight Telemetry Ice Cyan tokens
   const LEVEL_COLOR = ['rgba(255,255,255,0.05)', '#0369a1', '#0284c7', '#38bdf8', '#7dd3fc'];
   const CELL_STROKE = 'rgba(255,255,255,0.05)';
   const CELL = 11, GAP = 3, LEFT_PAD = 28, TOP_PAD = 18;
 
-  fetch('https://github-contributions-api.jogruber.de/v4/MaithreshVaddi-27?y=last', { signal: AbortSignal.timeout(8000) })
+  // AbortSignal.timeout is absent on older engines — fall back to a
+  // manual controller so the request (and its .catch fallback) still runs.
+  function fetchTimeoutSignal(ms) {
+    if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
+      return AbortSignal.timeout(ms);
+    }
+    const ctrl = new AbortController();
+    setTimeout(() => ctrl.abort(), ms);
+    return ctrl.signal;
+  }
+
+  fetch('https://github-contributions-api.jogruber.de/v4/MaithreshVaddi-27?y=last', { signal: fetchTimeoutSignal(8000) })
     .then((res) => { if (!res.ok) throw new Error('bad response'); return res.json(); })
     .then((data) => {
       const days = data && data.contributions;
@@ -47,7 +67,7 @@
         lastMonth = m;
         const x = LEFT_PAD + wi * (CELL + GAP);
         const label = d.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' });
-        monthLabels += `<text x="${x}" y="10" font-size="10" fill="#94a3b8" font-family="'JetBrains Mono',monospace">${label}</text>`;
+        monthLabels += `<text x="${x}" y="10" font-size="10" fill="#94a3b8" font-family="'JetBrains Mono',monospace">${escapeHtml(label)}</text>`;
       });
 
       const dayLabels = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
@@ -61,8 +81,9 @@
           if (!d) return;
           const x = LEFT_PAD + wi * (CELL + GAP);
           const y = TOP_PAD + di * (CELL + GAP);
-          const color = LEVEL_COLOR[d.level] || LEVEL_COLOR[0];
-          const label = `${d.count} contribution${d.count === 1 ? '' : 's'} on ${d.date}`;
+          const color = LEVEL_COLOR[Number(d.level) | 0] || LEVEL_COLOR[0];
+          const count = Number(d.count) || 0;
+          const label = `${count} contribution${count === 1 ? '' : 's'} on ${escapeHtml(d.date)}`;
           rects += `<rect x="${x}" y="${y}" width="${CELL}" height="${CELL}" rx="2" fill="${color}" stroke="${CELL_STROKE}" stroke-width="1"><title>${label}</title></rect>`;
         });
       });
@@ -71,13 +92,14 @@
       startContribSnake(container.querySelector('svg'));
 
       // Instrument readouts: total, active days, current streak
-      const active = days.filter((d) => d.count > 0);
+      const counts = days.map((d) => Number(d.count) || 0);
+      const active = counts.filter((c) => c > 0);
       let streak = 0;
-      for (let i = days.length - 1; i >= 0; i--) {
-        if (days[i].count > 0) streak++;
+      for (let i = counts.length - 1; i >= 0; i--) {
+        if (counts[i] > 0) streak++;
         else break;
       }
-      const total = active.reduce((sum, d) => sum + d.count, 0);
+      const total = active.reduce((sum, c) => sum + c, 0);
       const set = (id, val) => {
         const el = document.getElementById(id);
         if (el) el.textContent = String(val);
@@ -1118,10 +1140,10 @@ window.initCommandConsole = function() {
         const el = document.getElementById(target);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       } else if (action === 'resume') {
-        window.open('assets/maithresh_vaddi_resume.pdf', '_blank');
+        window.open('assets/maithresh_vaddi_resume.pdf', '_blank', 'noopener');
         closeCommandPalette();
       } else if (action === 'github') {
-        window.open('https://github.com/MaithreshVaddi-27', '_blank');
+        window.open('https://github.com/MaithreshVaddi-27', '_blank', 'noopener');
         closeCommandPalette();
       }
     });

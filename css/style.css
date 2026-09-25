@@ -700,6 +700,9 @@
     font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
     margin-bottom: 12px;
   }
+  /* The UA [hidden] style loses to the flex display above — re-assert it
+     so the stats row never flashes "—" placeholders before data lands. */
+  .activity-stats[hidden]{ display: none; }
   .activity-stat b{ color: var(--accent); font-weight: 700; margin-right: 5px; font-variant-numeric: tabular-nums; }
   .contrib-legend{
     display: flex; justify-content: flex-end; align-items: center; gap: 6px;
