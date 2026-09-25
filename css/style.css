@@ -343,7 +343,6 @@
     display:flex; align-items:center; gap:8px;
     white-space: nowrap; flex-shrink: 0;
   }
-  .logo::before{ content:''; width:7px; height:7px; border-radius:50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
   .navlinks{ display:flex; gap: 20px; list-style:none; }
   .navlinks a{
     font-family: var(--font-mono); font-size: 12.5px; color: var(--text-mute);
@@ -982,7 +981,7 @@
   .more-toggle{
     font-family: var(--font-mono); font-size: 13px; color: var(--text-mute);
     border: 1px dashed var(--line); border-radius: var(--radius-sm); padding: 14px 20px;
-    width: 100%; text-align:left; background: transparent;
+    width: 100%; text-align:left; background: transparent; cursor: pointer;
     display:flex; justify-content:space-between; align-items:center;
   }
   .more-toggle:hover{ border-color: var(--accent-dim); color: var(--accent); }
@@ -2069,6 +2068,30 @@ footer::before{
 /* 6. Metric chips get the same hover language as stack chips */
 .proj-metric{ transition: transform .2s var(--ease-out), border-color .2s ease, color .2s ease; }
 .proj-metric:hover{ transform: translateY(-1px); border-color: rgba(56,189,248,.5); color: #fff; }
+
+/* 7. Personalized instrument cursor — cyan dot + trailing reticle ring.
+   Enabled only for fine pointers without reduced-motion (see main.js);
+   text fields keep their native I-beam, touch never sees this. */
+.cursor-dot, .cursor-ring{
+  position: fixed; top: 0; left: 0; z-index: 10001; pointer-events: none;
+  border-radius: 50%; opacity: 0;
+}
+.cursor-dot{
+  width: 6px; height: 6px; background: var(--accent);
+  box-shadow: 0 0 10px rgba(56,189,248,.9), 0 0 26px rgba(56,189,248,.45);
+}
+.cursor-ring{
+  width: 30px; height: 30px; border: 1px solid rgba(56,189,248,.55);
+  box-shadow: 0 0 18px rgba(56,189,248,.18), inset 0 0 12px rgba(56,189,248,.08);
+  transition: width .22s var(--ease-out), height .22s var(--ease-out), background .22s ease, border-color .22s ease;
+}
+.cursor-ring.is-active{
+  width: 46px; height: 46px;
+  background: rgba(56,189,248,.10); border-color: rgba(125,211,252,.9);
+}
+body.cursor-on, body.cursor-on a, body.cursor-on button{ cursor: none; }
+body.cursor-on input{ cursor: text; }
+body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring{ opacity: 0 !important; }
 
 @media (prefers-reduced-motion: reduce){
   .hud-viewfinder{ animation: none; }
