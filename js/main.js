@@ -1113,6 +1113,85 @@ if (document.readyState === 'loading') {
   check();
 })();
 
+// ── Personalized instrument cursor ──────────────────────────
+// Cyan sensor dot (1:1 with the pointer) + a lerped reticle ring that
+// widens over anything pressable. One rAF loop, transform-only,
+// parked while the tab is hidden. Never enabled for touch pointers,
+// reduced-motion users, or text entry (native I-beam preserved).
+(function () {
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  if (!finePointer || reduceMotion) return;
+
+  const dot = document.createElement('div');
+  dot.className = 'cursor-dot';
+  dot.setAttribute('aria-hidden', 'true');
+  const ring = document.createElement('div');
+  ring.className = 'cursor-ring';
+  ring.setAttribute('aria-hidden', 'true');
+  document.body.append(dot, ring);
+
+  let mx = -100, my = -100, rx = -100, ry = -100;
+  let shown = false, running = false, raf = 0;
+  const HALF_DOT = 3, HALF_RING = 15, HALF_RING_ACTIVE = 23;
+
+  function place() {
+    dot.style.transform = `translate(${mx - HALF_DOT}px, ${my - HALF_DOT}px)`;
+    rx += (mx - rx) * 0.2;
+    ry += (my - ry) * 0.2;
+    const half = ring.classList.contains('is-active') ? HALF_RING_ACTIVE : HALF_RING;
+    ring.style.transform = `translate(${rx - half}px, ${ry - half}px)`;
+    if (running) raf = requestAnimationFrame(place);
+  }
+  function start() {
+    if (running) return;
+    running = true;
+    raf = requestAnimationFrame(place);
+  }
+  function stop() {
+    running = false;
+    if (raf) cancelAnimationFrame(raf);
+  }
+
+  window.addEventListener('pointermove', (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    if (!shown) {
+      shown = true;
+      document.body.classList.add('cursor-on');
+      dot.style.opacity = '1';
+      ring.style.opacity = '1';
+      start();
+    }
+  }, { passive: true });
+
+  document.documentElement.addEventListener('pointerleave', () => {
+    document.body.classList.add('cursor-hidden');
+  });
+  document.documentElement.addEventListener('pointerenter', () => {
+    document.body.classList.remove('cursor-hidden');
+  });
+
+  // Reticle widens over pressables; custom chrome steps aside for text entry
+  const PRESSABLE = 'a, button, [role="tab"], [role="button"], .cmd-console-item, input[type="checkbox"], input[type="radio"], summary';
+  document.addEventListener('pointerover', (e) => {
+    if (e.target.closest && e.target.closest(PRESSABLE)) ring.classList.add('is-active');
+    if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) {
+      document.body.classList.add('cursor-hidden');
+    }
+  });
+  document.addEventListener('pointerout', (e) => {
+    if (e.target.closest && e.target.closest(PRESSABLE)) ring.classList.remove('is-active');
+    if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) {
+      document.body.classList.remove('cursor-hidden');
+    }
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else if (shown) start();
+  });
+})();
+
 // ── Hero stat count-up ──
 // Numerals ease from 0 to their authored value the first time they
 // enter the viewport; suffixes (like %) are preserved. Skipped under
