@@ -940,6 +940,8 @@ window.initCommandConsole = function() {
 
   window.openCommandPalette = function() {
     modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    window.__paletteTrigger = document.activeElement;
     input.focus();
     input.value = '';
     filterItems('');
@@ -949,6 +951,11 @@ window.initCommandConsole = function() {
 
   window.closeCommandPalette = function() {
     modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    if (window.__paletteTrigger && window.__paletteTrigger.focus) {
+      window.__paletteTrigger.focus();
+      window.__paletteTrigger = null;
+    }
   };
 
   function filterItems(query) {
@@ -1082,6 +1089,12 @@ if (document.readyState === 'loading') {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
+// Footer year — never ships a stale copyright
+(function () {
+  const year = document.getElementById('year');
+  if (year) year.textContent = String(new Date().getFullYear());
 })();
 
 // ── Hero stat count-up ──
