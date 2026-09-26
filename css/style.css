@@ -1814,7 +1814,6 @@ h1 span{
 .brand-dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(56,189,248,.7); flex-shrink: 0; }
 .brand-word{ font-family: var(--font-mono); font-weight: 700; font-size: 14px; color: var(--text); letter-spacing: -.02em; }
 .brand-word .brand-accent{ color: var(--accent); }
-.brand-path{ font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); margin-left: 2px; }
 
 /* Compact nested buttons (sim controls, dock shortcut) */
 .btn-nested--sm{ padding: 5px 12px; font-size: 11px; }
