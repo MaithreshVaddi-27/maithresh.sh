@@ -319,6 +319,18 @@ function runChecks() {
     }
   });
 
+  // Check 33: CRT + boot-reveal ship as a unit (CSS treatment, JS
+  // grouping/stagger, reduced-motion gates on both sides)
+  if (!css.includes('.activity-graph-frame::after') || !css.includes('repeating-linear-gradient')) {
+    errors.push('CRT scanline treatment (.activity-graph-frame::after) must ship in css');
+  }
+  if (!css.includes('@keyframes cweekIn') || !js.includes('<g class="cweek">')) {
+    errors.push('boot reveal needs both the cweekIn keyframes (css) and week grouping (js)');
+  }
+  if (!js.includes("reduce)').matches") || !css.includes('.activity-graph-frame.boot')) {
+    errors.push('boot reveal must be gated on reduced-motion in js and css');
+  }
+
   if (errors.length > 0) {
     console.error('❌ Verification Failed with ' + errors.length + ' errors:');
     errors.forEach(e => console.error('  - ' + e));

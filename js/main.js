@@ -68,16 +68,19 @@
         lastMonth = m;
         const x = LEFT_PAD + wi * (CELL + GAP);
         const label = d.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' });
-        monthLabels += `<text x="${x}" y="10" font-size="10" fill="#94a3b8" font-family="'JetBrains Mono',monospace">${escapeHtml(label)}</text>`;
+        monthLabels += `<text class="clab" x="${x}" y="10" font-size="10" fill="#94a3b8" font-family="'JetBrains Mono',monospace">${escapeHtml(label)}</text>`;
       });
 
       const dayLabels = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
       const dayLabelSvg = dayLabels.map((l, i) => l
-        ? `<text x="0" y="${TOP_PAD + i * (CELL + GAP) + 9}" font-size="10" fill="#94a3b8" font-family="'JetBrains Mono',monospace">${l}</text>`
+        ? `<text class="clab" x="0" y="${TOP_PAD + i * (CELL + GAP) + 9}" font-size="10" fill="#94a3b8" font-family="'JetBrains Mono',monospace">${l}</text>`
         : '').join('');
 
+      // One <g class="cweek"> per calendar week so the boot reveal can
+      // stagger columns left→right (see .activity-graph-frame.boot CSS).
       let rects = '';
       weeks.forEach((week, wi) => {
+        let cells = '';
         week.forEach((d, di) => {
           if (!d) return;
           const x = LEFT_PAD + wi * (CELL + GAP);
@@ -85,11 +88,23 @@
           const color = LEVEL_COLOR[Number(d.level) | 0] || LEVEL_COLOR[0];
           const count = Number(d.count) || 0;
           const label = `${count} contribution${count === 1 ? '' : 's'} on ${escapeHtml(d.date)}`;
-          rects += `<rect x="${x}" y="${y}" width="${CELL}" height="${CELL}" rx="2" fill="${color}" stroke="${CELL_STROKE}" stroke-width="1"><title>${label}</title></rect>`;
+          cells += `<rect x="${x}" y="${y}" width="${CELL}" height="${CELL}" rx="2" fill="${color}" stroke="${CELL_STROKE}" stroke-width="1"><title>${label}</title></rect>`;
         });
+        if (cells) rects += `<g class="cweek">${cells}</g>`;
       });
 
       container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="GitHub contribution graph, last 12 months">${monthLabels}${dayLabelSvg}${rects}</svg>`;
+      // Boot reveal: stagger week columns (skipped entirely under
+      // reduced motion — the graph simply appears; CSS holds a matching
+      // media guard as backup).
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // .boot lives on the frame (the CSS selector's scope), not the graph.
+        const frame = container.closest('.activity-graph-frame');
+        if (frame) frame.classList.add('boot');
+        container.querySelectorAll('.cweek').forEach((g, i) => {
+          g.style.setProperty('--rd', `${i * 70}ms`);
+        });
+      }
       startContribSnake(container.querySelector('svg'));
 
       // Instrument readouts: total, active days, current streak
