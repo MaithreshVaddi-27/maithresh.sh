@@ -621,6 +621,10 @@
      main.js) — cells are drawn directly in Nord colors, so there's no
      third-party image to color-correct the way ghchart needed. */
   #contribGraph{ display:block; width:100%; }
+  /* Width comes from the container; height follows the viewBox aspect
+     (set as CSS, not as an SVG attribute — height="auto" is invalid
+     SVG and logs a console error). */
+  #contribGraph svg{ display:block; width:100%; height:auto; }
   #contribGraph svg rect{ cursor: pointer; transition: stroke .15s ease, stroke-width .15s ease; }
   #contribGraph svg rect:hover{ stroke: #7dd3fc; stroke-width: 1.5; }
   /* Contribution snake — theme-cyan head with glow, decorative only */
