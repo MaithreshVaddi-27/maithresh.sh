@@ -105,3 +105,38 @@ Credentials→Certifications) kept as terse-nav-label convention.
 Suite **31/31** (+Check 31: nav order, no-`h4`/no-div-titles, single
 scroll-margin) · `?v=` bumped to `20260926-3` (HTML+CSS changed) ·
 nesting 0 errors · dup IDs clean · palette steady at 32 in-family hex.
+
+## Phase 9 — Measured perf + supply-chain (2026-09-26, uncommitted)
+
+First real Lighthouse run (headless Chrome, mobile, live origin) instead
+of static estimates: **Performance 72 · Accessibility 100 ·
+Best-Practices 96 · SEO 100.**
+
+| # | Finding (measured, not inferred) | Severity | Location | Fix |
+|---|----------------------------------|----------|----------|-----|
+| 26 | Console error on every load: `<svg> attribute height: Expected length, "auto"` — invalid attribute on the injected contrib-graph SVG | High (live runtime error) | `js/main.js:91` | Attribute dropped; sizing moved to `#contribGraph svg{width:100%;height:auto}` CSS (attribute `height="auto"` is invalid SVG) |
+| 27 | CDN supply chain unsigned (accepted risk A) — now computable: files downloaded, genuineness verified (GSAP banner, Lenis version marker), SHA-384 pinned | Medium (OWASP A08) | `index.html:1397-1399` | `integrity` + `crossorigin="anonymous"` on all 3 version-pinned scripts |
+| 28 | Unminified CSS/JS costing ~16 KiB + parse time (measured `wastedBytes` 10 KiB CSS / 6 KiB JS) | Medium (measured) | `css/`, `js/` | Source-retained minification: `style.css`→`style.min.css` (99.7→60.8 KB), `main.js`→`main.min.js` (53.3→26.7 KB), `scene.js`→`scene.min.js` (6.4→2.2 KB); deploys serve `.min` (`?v=20260926-4`); regenerate commands live in Check 32 |
+
+Minifier: `clean-css-cli` (CSS) + `terser -c -m` (JS). Safety: all
+cross-IIFE names are `window.*` properties (never mangled); locals are
+function-scoped; markers + `node --check` verified on artifacts.
+
+Remaining measured items (platform-limited, documented): `cache-insight`
+flags GitHub Pages' short cache on versioned URLs — unfixable here
+(`_headers`/`netlify.toml` activate on Cloudflare/Netlify); `unused-css`
+12 KB is below-fold/state rules, not dead code (Phase 5 purged the real
+dead); LCP element is the preloaded hero portrait (4.5 s emulated-mobile
+— render-blocking chain now shortened by minification). Re-run Lighthouse
+post-deploy to record the delta.
+
+Testimonials: still blocked — no genuine quotes available, never fabricate.
+
+## Verification evidence (Phase 9)
+
+Suite **32/32** (+Check 32: min artifacts exist/fresh/marked, HTML ships
+`.min`) · artifacts `node --check` clean · Lighthouse a11y/SEO 100.
+
+Suite **31/31** (+Check 31: nav order, no-`h4`/no-div-titles, single
+scroll-margin) · `?v=` bumped to `20260926-3` (HTML+CSS changed) ·
+nesting 0 errors · dup IDs clean · palette steady at 32 in-family hex.

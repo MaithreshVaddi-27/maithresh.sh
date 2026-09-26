@@ -289,6 +289,36 @@ function runChecks() {
     errors.push(`exactly one scroll-margin-top anchor offset must ship (found ${margins})`);
   }
 
+  // Check 32: Minified ship artifacts are fresh and carry the behavior
+  // (sources stay readable; deploys serve .min — regenerate with:
+  //  npx -y clean-css-cli -o css/style.min.css css/style.css &&
+  //  npx -y terser js/main.js -o js/main.min.js -c -m &&
+  //  npx -y terser js/scene.js -o js/scene.min.js -c -m)
+  const pairs = [
+    ['css/style.css', 'css/style.min.css', '.pd-t'],
+    ['js/main.js', 'js/main.min.js', 'runTrustRagSim'],
+    ['js/scene.js', 'js/scene.min.js', 'hero-canvas'],
+  ];
+  pairs.forEach(([src, min, marker]) => {
+    const srcP = path.join(__dirname, '..', src);
+    const minP = path.join(__dirname, '..', min);
+    if (!fs.existsSync(minP)) {
+      errors.push(`missing ship artifact ${min} (regenerate from ${src})`);
+      return;
+    }
+    if (fs.statSync(minP).mtimeMs < fs.statSync(srcP).mtimeMs) {
+      errors.push(`${min} is older than ${src} — regenerate before shipping`);
+    }
+    if (!fs.readFileSync(minP, 'utf8').includes(marker)) {
+      errors.push(`${min} missing marker ${marker} — suspect minification`);
+    }
+  });
+  ['css/style.min.css', 'js/main.min.js', 'js/scene.min.js'].forEach(ref => {
+    if (!html.includes(ref)) {
+      errors.push(`index.html must ship ${ref} (not the unminified source)`);
+    }
+  });
+
   if (errors.length > 0) {
     console.error('❌ Verification Failed with ' + errors.length + ' errors:');
     errors.forEach(e => console.error('  - ' + e));
