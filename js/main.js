@@ -24,7 +24,8 @@
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 
   // Contribution activity heatmap palette aligned with Flight Telemetry Ice Cyan tokens
   const LEVEL_COLOR = ['rgba(255,255,255,0.05)', '#0369a1', '#0284c7', '#38bdf8', '#7dd3fc'];
@@ -273,7 +274,15 @@ if (!reduceMotion && typeof window.Lenis !== 'undefined' && hasGSAP) {
     // mouse row1 → row2 → row3 could let row1's delayed swap land last,
     // showing the wrong project's details while hovering row3.
     const myToken = ++fillStage.token;
-    const swap = () => { stageInner.innerHTML = detail.innerHTML; animateDiagram(stageInner); };
+    const swap = () => {
+      stageInner.innerHTML = detail.innerHTML;
+      // The detail carries SVG marker/node IDs — cloning them would
+      // duplicate IDs in the live DOM. Strip them from the clone:
+      // url(#…) marker refs still resolve to the row originals, and the
+      // sim runners query pane-level IDs, never stage internals.
+      stageInner.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+      animateDiagram(stageInner);
+    };
     if (reduceMotion || !stageInner.childNodes.length) {
       swap();
       return;
@@ -626,8 +635,20 @@ window.switchWorkbenchTab = function(tabId) {
   });
 })();
 
+// ── Simulation serialization ─────────────────────────────────
+// The workbench sims stage their outcome writes on fixed timeouts.
+// Without invalidation, a rapid re-click lets the FIRST invocation's
+// late timeout land last and display the wrong outcome. Each sim takes
+// a generation token on entry; every staged write bails unless its
+// token is still current — the same guard fillStage() already uses.
+function nextSimToken(fn) {
+  fn._token = (fn._token || 0) + 1;
+  return fn._token;
+}
+
 // ── Interactive TrustRAG SVG Pipeline Simulation ─────────────
 window.runTrustRagSim = function(mode) {
+  const myToken = nextSimToken(window.runTrustRagSim);
   const n1 = document.querySelector('#svgNode1 rect');
   const n2 = document.querySelector('#svgNode2 rect');
   const n3 = document.querySelector('#svgNode3 rect');
@@ -659,6 +680,7 @@ window.runTrustRagSim = function(mode) {
 
   // Step 2: Hybrid Retrieval (400ms)
   setTimeout(() => {
+    if (myToken !== window.runTrustRagSim._token) return;
     if (l1) {
       l1.setAttribute('stroke', '#38bdf8');
       l1.setAttribute('marker-end', 'url(#arrowActive)');
@@ -669,6 +691,7 @@ window.runTrustRagSim = function(mode) {
 
   // Step 3: Fused Claim NLI Verification (800ms)
   setTimeout(() => {
+    if (myToken !== window.runTrustRagSim._token) return;
     if (l2) {
       l2.setAttribute('stroke', '#38bdf8');
       l2.setAttribute('marker-end', 'url(#arrowActive)');
@@ -679,6 +702,7 @@ window.runTrustRagSim = function(mode) {
 
   // Step 4: Outcome Branch (1200ms)
   setTimeout(() => {
+    if (myToken !== window.runTrustRagSim._token) return;
     if (mode === 'valid') {
       if (l3) {
         l3.setAttribute('stroke', '#10b981');
@@ -711,6 +735,7 @@ window.runTrustRagSim = function(mode) {
 
 // ── Interactive Agentic DocuChat Pipeline Simulation ─────────
 window.runDocuChatSim = function(mode) {
+  const myToken = nextSimToken(window.runDocuChatSim);
   const n1 = document.querySelector('#dcNode1 rect');
   const n2 = document.querySelector('#dcNode2 rect');
   const n3 = document.querySelector('#dcNode3 rect');
@@ -742,6 +767,7 @@ window.runDocuChatSim = function(mode) {
 
   // Step 2: LangGraph ReAct Router (400ms)
   setTimeout(() => {
+    if (myToken !== window.runDocuChatSim._token) return;
     if (l1) {
       l1.setAttribute('stroke', '#10b981');
       l1.setAttribute('marker-end', 'url(#arrowSuccess)');
@@ -752,6 +778,7 @@ window.runDocuChatSim = function(mode) {
 
   // Step 3: MCP Tool Dispatch (800ms)
   setTimeout(() => {
+    if (myToken !== window.runDocuChatSim._token) return;
     const isTool = (mode === 'tool' || mode === 'mcp');
     const color = isTool ? '#38bdf8' : '#10b981';
     const fill = isTool ? '#0d223a' : '#0c271c';
@@ -765,6 +792,7 @@ window.runDocuChatSim = function(mode) {
 
   // Step 4: Outcome (1200ms)
   setTimeout(() => {
+    if (myToken !== window.runDocuChatSim._token) return;
     const isTool = (mode === 'tool' || mode === 'mcp');
     if (isTool) {
       if (l3) {
@@ -798,6 +826,7 @@ window.runDocuChatSim = function(mode) {
 
 // ── Interactive Resume Crew Pipeline Simulation ──────────────
 window.runResumeCrewSim = function(mode) {
+  const myToken = nextSimToken(window.runResumeCrewSim);
   const n1 = document.querySelector('#rcNode1 rect');
   const n2 = document.querySelector('#rcNode2 rect');
   const n3 = document.querySelector('#rcNode3 rect');
@@ -829,6 +858,7 @@ window.runResumeCrewSim = function(mode) {
 
   // Step 2: Hardware Acceleration (400ms)
   setTimeout(() => {
+    if (myToken !== window.runResumeCrewSim._token) return;
     if (l1) {
       l1.setAttribute('stroke', '#f59e0b');
       l1.setAttribute('marker-end', 'url(#arrowWarn)');
@@ -839,6 +869,7 @@ window.runResumeCrewSim = function(mode) {
 
   // Step 3: AST Claim Matcher (800ms)
   setTimeout(() => {
+    if (myToken !== window.runResumeCrewSim._token) return;
     if (l2) {
       l2.setAttribute('stroke', '#f59e0b');
       l2.setAttribute('marker-end', 'url(#arrowWarn)');
@@ -849,6 +880,7 @@ window.runResumeCrewSim = function(mode) {
 
   // Step 4: Outcome (1200ms)
   setTimeout(() => {
+    if (myToken !== window.runResumeCrewSim._token) return;
     if (mode === 'match' || mode === 'pass') {
       if (l3) {
         l3.setAttribute('stroke', '#10b981');
@@ -881,6 +913,7 @@ window.runResumeCrewSim = function(mode) {
 
 // ── Interactive CareerOS-Pro Pipeline Simulation ─────────────
 window.runCareerOSSim = function(mode) {
+  const myToken = nextSimToken(window.runCareerOSSim);
   const n1 = document.querySelector('#coNode1 rect');
   const n2 = document.querySelector('#coNode2 rect');
   const n3 = document.querySelector('#coNode3 rect');
@@ -912,6 +945,7 @@ window.runCareerOSSim = function(mode) {
 
   // Step 2: Stage 1 Hash Dedup (400ms)
   setTimeout(() => {
+    if (myToken !== window.runCareerOSSim._token) return;
     if (l1) {
       l1.setAttribute('stroke', '#a855f7');
       l1.setAttribute('marker-end', 'url(#arrowActive)');
@@ -922,6 +956,7 @@ window.runCareerOSSim = function(mode) {
 
   // Step 3: Stage 2 Vector Dedup (800ms)
   setTimeout(() => {
+    if (myToken !== window.runCareerOSSim._token) return;
     if (l2) {
       l2.setAttribute('stroke', '#a855f7');
       l2.setAttribute('marker-end', 'url(#arrowActive)');
@@ -932,6 +967,7 @@ window.runCareerOSSim = function(mode) {
 
   // Step 4: Outcome (1200ms)
   setTimeout(() => {
+    if (myToken !== window.runCareerOSSim._token) return;
     if (mode === 'dedup' || mode === 'normal') {
       if (l3) {
         l3.setAttribute('stroke', '#10b981');
@@ -1050,6 +1086,10 @@ window.initCommandConsole = function() {
   window.openCommandPalette = function() {
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
+    // Park background landmarks outside the accessibility tree while the
+    // dialog owns interaction (the Tab trap covers keyboards; inert
+    // covers screen-reader browsing).
+    document.querySelectorAll('header, main, footer').forEach((el) => { el.inert = true; });
     window.__paletteTrigger = document.activeElement;
     input.focus();
     input.value = '';
@@ -1061,6 +1101,7 @@ window.initCommandConsole = function() {
   window.closeCommandPalette = function() {
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
+    document.querySelectorAll('header, main, footer').forEach((el) => { el.inert = false; });
     if (window.__paletteTrigger && window.__paletteTrigger.focus) {
       window.__paletteTrigger.focus();
       window.__paletteTrigger = null;
@@ -1167,7 +1208,7 @@ window.updatePointerTelemetry = function(e) {
     telemetryPtrEl.textContent = `PTR: [X: ${x}, Y: ${y}]`;
   }
 
-  // Doppelrand card specular highlight coordinate tracking
+  // Workbench card specular highlight coordinate tracking
   const targetShell = e.target && e.target.closest ? e.target.closest('.wb-shell') : null;
   if (targetShell) {
     const rect = targetShell.getBoundingClientRect();

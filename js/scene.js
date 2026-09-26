@@ -33,6 +33,7 @@
   const BASE_RADIUS = 1.0;
   const MAX_RADIUS = 2.6;
   const SPOTLIGHT_RADIUS = 140;
+  const SPOTLIGHT_RADIUS_SQ = SPOTLIGHT_RADIUS * SPOTLIGHT_RADIUS;
 
   const mouse = {
     x: -1000,
@@ -110,9 +111,12 @@
       const d = dots[i];
       const dx = mouse.x - d.x;
       const dy = mouse.y - d.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      // Compare squared distances — sqrt is only needed for dots that
+      // actually fall inside the spotlight below.
+      const distSq = dx * dx + dy * dy;
 
-      if (dist < SPOTLIGHT_RADIUS) {
+      if (distSq < SPOTLIGHT_RADIUS_SQ) {
+        const dist = Math.sqrt(distSq);
         const factor = 1 - dist / SPOTLIGHT_RADIUS;
         const radius = BASE_RADIUS + factor * (MAX_RADIUS - BASE_RADIUS);
         const alpha = 0.12 + factor * 0.82;
