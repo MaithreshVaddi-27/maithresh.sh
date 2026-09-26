@@ -22,7 +22,6 @@
     --bg-surface-glass: rgba(13, 19, 32, 0.72);
     --bg-surface-core: #0c101a;
     --bg-surface-subtle: #080b12;
-    --surface: #0c101a;
     --surface-2: #121826;
     --line: #1e293b;
     --text: #f8fafc;
@@ -31,27 +30,18 @@
     --text-muted: #cbd5e1;
     --text-dim: #94a3b8;
     --accent-cyan: #38bdf8;
-    --accent-cyan-glow: rgba(56, 189, 248, 0.15);
     --accent: var(--accent-cyan);
     --accent-dim: rgba(56, 189, 248, 0.12);
     --accent-bright: #7dd3fc;
     --accent-bright-dim: #0369a1;
-    --accent-mint: #10b981;
-    --accent-mint-glow: rgba(16, 185, 129, 0.15);
-    --accent-amber: #f59e0b;
-    --accent-amber-glow: rgba(245, 158, 11, 0.15);
-    --accent-coral: #ef4444;
     --green: #10b981;
-    --green-dim: rgba(16, 185, 129, 0.15);
     --amber: #f59e0b;
-    --amber-dim: rgba(245, 158, 11, 0.15);
     --red: #ef4444;
     --glass: 13, 19, 32;
     --radius: 12px;
     --radius-sm: 6px;
     --border-subtle: rgba(255, 255, 255, 0.08);
     --border-glass: rgba(255, 255, 255, 0.12);
-    --specular-rim: rgba(255, 255, 255, 0.14);
     --inner-glow: inset 0 1px 1px rgba(255, 255, 255, 0.12);
     --spring-snap: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -147,7 +137,7 @@
     .terminal, .stack-card, .group-card, .proj-stage, .activity-card{
       border-color: rgba(255,255,255,0.4);
     }
-    .chip, .proj-stack span, .navlinks a, .btn-ghost, .nav-cta, .contact-links a{
+    .chip, .proj-stack span, .navlinks a, .contact-links a{
       border-color: rgba(255,255,255,0.5);
     }
   }
@@ -238,8 +228,6 @@
      tappable surface in the page feels inert until the action already
      completed. Scale-down is tiny (0.97–0.985) and near-instant
      (100ms) — a press cue, not a bounce. */
-  .btn:active,
-  .nav-cta:active,
   .more-toggle:active,
   .contact-links a:active,
   .navlinks a:active,
@@ -251,7 +239,7 @@
   }
   .proj-row:active{ background: rgba(255,255,255,0.02); }
   @media (prefers-reduced-motion: reduce){
-    .btn:active, .nav-cta:active, .more-toggle:active,
+    .more-toggle:active,
     .contact-links a:active, .navlinks a:active, .nav-toggle:active,
     .stack-card:active, .chip:active{ transform:none; }
   }
@@ -314,25 +302,6 @@
     background: linear-gradient(90deg, var(--accent) 0%, var(--accent-bright) 100%);
     box-shadow: 0 0 10px rgba(125,211,252,0.55);
   }
-  /* Titlebar strip — the whole header reads as one terminal window,
-     the same chrome as the ascii-portrait render in the hero, so the
-     page opens already speaking the visual language that render uses
-     instead of introducing it only once you scroll to it. */
-  .term-bar{
-    display:flex; align-items:center; gap:14px;
-    max-width: 1140px; margin: 0 auto; padding: 7px 28px;
-    border-bottom: 1px solid var(--line);
-  }
-  .term-bar .dots{ display:flex; gap:6px; flex-shrink:0; }
-  .term-bar .dots span{ width:9px; height:9px; border-radius:50%; }
-  .term-bar .dots span:nth-child(1){ background: var(--red); }
-  .term-bar .dots span:nth-child(2){ background: var(--amber); }
-  .term-bar .dots span:nth-child(3){ background: var(--green); }
-  .term-bar .path{
-    font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-    flex:1; text-align:center; letter-spacing: 0.2px;
-  }
-  @media(max-width:640px){ .term-bar .path{ font-size:10px; } }
   nav{
     max-width: 1140px; margin: 0 auto; padding: 14px 28px;
     display:flex; align-items:center; justify-content: space-between;
@@ -381,7 +350,6 @@
     .navlinks a{ display:block; padding: 16px 28px; font-size: 14px; }
     .nav-cta-mobile{ display:block; }
     .nav-cta-mobile a{ color: var(--accent); }
-    .nav-cta{ display:none; }
   }
 
   .nav-toggle{
@@ -400,14 +368,6 @@
   @media (max-width: 759px){
     .nav-toggle{ display:flex; }
   }
-  .nav-cta{
-    font-family: var(--font-mono); font-size: 13px;
-    border: 1px solid var(--accent-dim); color: var(--accent);
-    padding: 8px 18px; border-radius: var(--radius-sm);
-    transition: all 0.2s ease;
-  }
-  .nav-cta:hover{ background: var(--accent); color: #05100e; box-shadow: 0 0 20px rgba(56,189,248,0.4); }
-
   /* ── Tactile Matte Noise Overlay ─────────────────────────────
      Ultra-fine SVG feTurbulence grain texture at 3.2% opacity.
      Eradicates OLED gradient banding and provides a tactile,
@@ -493,18 +453,6 @@
     filter: blur(10px); pointer-events:none;
   }
 
-  /* Precision corner frame — four independent HUD-style brackets
-     rather than a solid border, so the card reads as "targeted" /
-     instrumented rather than just boxed. Drawn as one small inline
-     SVG per corner so each can sit flush in its own corner
-     regardless of card aspect ratio. */
-  .hero-portrait .frame-corner{ position:absolute; width:28px; height:28px; color: var(--accent); opacity:0.85; pointer-events:none; z-index:2; }
-  .hero-portrait .frame-corner svg{ width:100%; height:100%; }
-  .hero-portrait .fc-tl{ top:-10px; left:-10px; }
-  .hero-portrait .fc-tr{ top:-10px; right:-10px; transform: scaleX(-1); }
-  .hero-portrait .fc-bl{ bottom:-10px; left:-10px; transform: scaleY(-1); }
-  .hero-portrait .fc-br{ bottom:-10px; right:-10px; transform: scale(-1,-1); }
-
   .hero-portrait .ascii-card{ transition: transform 0.3s var(--ease-out); will-change: transform; }
   .eyebrow{
     font-family: var(--font-mono); font-size: 13px; color: var(--accent);
@@ -556,7 +504,6 @@
     padding: 0 28px; border-left: 1px solid var(--line);
   }
   .hero-stat:first-child{ padding-left:0; border-left:none; }
-  .hero-stat-icon{ display:block; width:17px; height:17px; color: var(--accent); opacity:0.8; margin-bottom:8px; }
   .hero-stat-n{
     display:block; font-family: var(--font-mono); font-weight:700;
     font-size: 1.7rem; color: var(--accent-bright); font-variant-numeric: tabular-nums;
@@ -570,22 +517,6 @@
     .hero-stat{ padding: 0 18px; }
     .hero-stat-n{ font-size: 1.4rem; }
   }
-  .btn{
-    font-family: var(--font-mono); font-size: 14px; padding: 14px 28px; border-radius: var(--radius-sm);
-    transition: box-shadow 0.2s ease, transform 0.15s ease-out, color 0.35s ease; display:inline-flex; align-items:center; gap:8px;
-    will-change: transform; position: relative; overflow: hidden; isolation: isolate;
-  }
-  .btn::before{
-    content:''; position:absolute; inset:0; z-index:-1;
-    background: linear-gradient(100deg, var(--accent), var(--accent-bright));
-    transform: translateX(-101%); transition: transform 0.4s var(--ease-in-out);
-  }
-  .btn-primary{ background: var(--accent); color: #05070c; font-weight: 600; }
-  .btn-primary:hover{ box-shadow: 0 0 32px rgba(56,189,248,0.45); }
-  .btn-primary:hover::before{ transform: translateX(0); }
-  .btn-ghost{ border: 1px solid var(--line); color: var(--text); }
-  .btn-ghost:hover{ border-color: transparent; color: #fff; }
-  .btn-ghost:hover::before{ transform: translateX(0); }
 
   @keyframes fadeUp{ from{ opacity:0; transform: translateY(18px); filter: blur(6px);} to{ opacity:1; transform: translateY(0); filter: blur(0);} }
   @keyframes blink{ 0%,50%{opacity:1;} 51%,100%{opacity:0;} }
@@ -626,7 +557,7 @@
   }
 
   /* ── SECTIONS ────────────────────────────────────────── */
-  section{ padding: 108px 0; position:relative; scroll-margin-top: 100px; }
+  section{ padding: 108px 0; position:relative; }
   .section-head{ margin-bottom: 52px; max-width: 640px; }
   .section-eyebrow{
     font-family: var(--font-mono); font-size: 12.5px; color: var(--accent);
@@ -821,6 +752,7 @@
 
   .proj-row-main{ position:relative; z-index:1; flex: 1; min-width:0; }
   .proj-row-title{
+    margin: 0;
     font-family: var(--font-display); font-weight: 700;
     font-size: clamp(1.05rem, 1.8vw, 1.45rem); letter-spacing: -0.01em;
     transition: transform 0.4s var(--ease-out), color 0.3s ease;
@@ -1014,7 +946,7 @@
   .more-body.open{ display:grid; grid-template-columns: 1fr; gap:16px; }
   @media(min-width:760px){ .more-body.open{ grid-template-columns: 1fr 1fr; } }
   .more-item{ padding: 16px 0; border-top: 1px solid var(--line); }
-  .more-item h4{ font-family: var(--font-display); font-size: 0.98rem; margin-bottom: 6px; }
+  .more-item h3{ margin-top: 0; font-family: var(--font-display); font-size: 0.98rem; margin-bottom: 6px; }
   .more-item p{ font-size: 0.85rem; color: var(--text-mute); margin-bottom: 8px; }
   .more-item .proj-tag{ margin-bottom:6px; }
 
@@ -1044,7 +976,7 @@
   .auto-item:last-child{ border-bottom: 1px solid var(--line); }
   .auto-status{ font-family: var(--font-mono); font-size: 11px; color: var(--accent); padding-top:3px; }
   .auto-status.is-live{ color: var(--green); }
-  .auto-item h4{ font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 6px; }
+  .auto-item h3{ margin-top: 0; font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 6px; }
   .auto-item p{ color: var(--text-mute); font-size: 0.9rem; margin-bottom: 8px; max-width: 620px; }
   .auto-item .proj-stack{ margin-top: 4px; }
 
@@ -1077,7 +1009,7 @@
   .ed-row:last-child{ border-bottom: 1px solid var(--line); }
   .ed-icon{ width:34px; height:34px; flex-shrink:0; padding:7px; border-radius:10px; color: var(--accent); background: var(--accent-dim); border:1px solid var(--glass-rim-dim); }
   .ed-left{ flex:1 1 320px; }
-  .ed-left h4{ font-family: var(--font-display); font-size:1.05rem; }
+  .ed-left h3{ margin: 0; font-family: var(--font-display); font-size:1.05rem; }
   .ed-left span{ font-size:0.85rem; color: var(--text-mute); }
   .ed-right{ font-family: var(--font-mono); font-size:0.82rem; color: var(--text-dim); text-align:right; }
 
@@ -1101,7 +1033,7 @@
      APPLE FLUID DESIGN & TERMINAL HUD ARCHITECTURE EXTENSIONS
      ══════════════════════════════════════════════════════════════ */
 
-  /* ── Doppelrand (Double-Bezel) Nested Architecture ───────── */
+  /* ── Workbench Shell (Double-Bezel) Nested Architecture ─── */
   .wb-shell {
     position: relative;
     background: var(--bg-surface-glass);
@@ -1256,10 +1188,6 @@
 
   .pipeline-node {
     transition: stroke 0.3s ease, fill 0.3s ease;
-  }
-
-  .pipeline-link {
-    transition: stroke 0.3s ease, stroke-width 0.3s ease;
   }
 
   /* ── Interview Defense Callouts ────────────────────────────── */
@@ -1426,15 +1354,6 @@
     color: var(--accent-cyan);
     box-shadow: 0 0 16px rgba(56, 189, 248, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
-  .workbench-tab .tab-index {
-    font-size: 10px;
-    opacity: 0.6;
-    font-weight: 700;
-  }
-  .workbench-tab.active .tab-index {
-    color: var(--accent-cyan);
-    opacity: 1;
-  }
   .workbench-tab .tab-status-dot {
     width: 6px;
     height: 6px;
@@ -1458,7 +1377,7 @@
   }
 
   /* ── Apple Fluid Press Feedback (Direct Tactile Response) ──── */
-  button:active, .btn:active, .btn-nested:active, .dock-link:active, .more-toggle:active {
+  button:active, .btn-nested:active, .more-toggle:active {
     transform: scale(0.97);
     transition: transform 0.08s ease-out !important;
   }
@@ -1541,7 +1460,7 @@ section{ scroll-margin-top: 120px; }
   transition: transform .25s var(--ease-out), border-color .2s ease, box-shadow .25s ease;
 }
 .cert-card:hover{ transform: translateY(-3px); border-color: var(--glass-rim); box-shadow: 0 12px 40px rgba(0,0,0,.35), 0 0 24px rgba(56,189,248,.08); }
-.cert-card h4{ font-family:var(--font-display); font-size:1.02rem; letter-spacing:-.01em; margin:12px 0 8px; }
+.cert-card h3{ font-family:var(--font-display); font-size:1.02rem; letter-spacing:-.01em; margin:12px 0 8px; }
 .cert-card p{ color:var(--text-mute); font-size:.92rem; line-height:1.65; }
 
 /* Education meta line — quiet caption under degree */
@@ -1612,10 +1531,10 @@ section{ scroll-margin-top: 120px; }
    inset as the workbench pipeline visualizers. */
 
 /* Per-row accent tokens */
-.proj-row[data-accent="cyan"]{ --proj: #38bdf8; --proj-soft: rgba(56,189,248,.16); --proj-faint: rgba(56,189,248,.06); --proj-line: rgba(56,189,248,.55); --proj-text: rgba(125,211,252,.85); }
-.proj-row[data-accent="green"]{ --proj: #10b981; --proj-soft: rgba(16,185,129,.16); --proj-faint: rgba(16,185,129,.06); --proj-line: rgba(16,185,129,.55); --proj-text: rgba(110,231,183,.9); }
-.proj-row[data-accent="amber"]{ --proj: #f59e0b; --proj-soft: rgba(245,158,11,.16); --proj-faint: rgba(245,158,11,.06); --proj-line: rgba(245,158,11,.55); --proj-text: rgba(252,211,77,.9); }
-.proj-row[data-accent="purple"]{ --proj: #a855f7; --proj-soft: rgba(168,85,247,.18); --proj-faint: rgba(168,85,247,.07); --proj-line: rgba(168,85,247,.55); --proj-text: rgba(216,180,254,.9); }
+.proj-row[data-accent="cyan"]{ --proj: #38bdf8; --proj-soft: rgba(56,189,248,.16); --proj-faint: rgba(56,189,248,.06); --proj-text: rgba(125,211,252,.85); }
+.proj-row[data-accent="green"]{ --proj: #10b981; --proj-soft: rgba(16,185,129,.16); --proj-faint: rgba(16,185,129,.06); --proj-text: rgba(110,231,183,.9); }
+.proj-row[data-accent="amber"]{ --proj: #f59e0b; --proj-soft: rgba(245,158,11,.16); --proj-faint: rgba(245,158,11,.06); --proj-text: rgba(252,211,77,.9); }
+.proj-row[data-accent="purple"]{ --proj: #a855f7; --proj-soft: rgba(168,85,247,.18); --proj-faint: rgba(168,85,247,.07); --proj-text: rgba(216,180,254,.9); }
 
 /* Row hover wash + index glow follow the row's own accent */
 .proj-row[data-accent]::before{ background: linear-gradient(100deg, var(--proj-soft), var(--proj-faint)); }
@@ -1703,7 +1622,6 @@ h1, h2, .hero-name{ text-wrap: balance; }
    expand toggle, segmented tabs, icon buttons — shares it. */
 .btn-nested{ border-radius: 10px; }
 .btn-nested-badge{ border-radius: 7px; }
-.btn, .btn-primary, .btn-ghost, .nav-cta,
 .contact-links a, .more-toggle{ border-radius: 10px; }
 /* Segmented control keeps its grouping, loses the pill */
 .workbench-tabs{ border-radius: 14px; }
@@ -2067,7 +1985,7 @@ header.is-scrolled .glass-dock{
 .more-item{ transition: background .2s ease, padding-left .25s var(--ease-out); border-radius: 8px; }
 .more-item:hover{ background: rgba(255,255,255,.025); padding-left: 10px; }
 .more-item:hover h4{ color: var(--accent-bright); }
-.more-item h4{ transition: color .2s ease; }
+.more-item h3{ transition: color .2s ease; }
 
 /* 3. Portrait ambient float — slow instrument hover, frozen if reduced motion */
 @keyframes hudFloat{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-7px); } }
@@ -2129,6 +2047,10 @@ body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring{ opacity: 0 !imp
 /* SVG diagram microcopy + transitions (replaces SVG-internal styles) */
 .pipeline-card line{ transition: stroke .4s ease; }
 .pipeline-card rect{ transition: all .4s ease; }
+.proj-diagram svg .pd-t{ font-family: 'JetBrains Mono', ui-monospace, monospace; }
+.proj-diagram svg .pd-label{ font-size: 9.5px; font-weight: 600; fill: #f8fafc; letter-spacing: .2px; }
+.proj-diagram svg .pd-sub{ font-size: 7.6px; fill: #94a3b8; }
+.proj-diagram svg .pd-tiny{ font-size: 6.8px; fill: #64748b; }
 .pd-sm{ font-size: 8.6px; }
 .pd-bad{ fill: #ef4444; }
 .svg-defs{ position: absolute; width: 0; height: 0; overflow: hidden; }
@@ -2147,5 +2069,5 @@ body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring{ opacity: 0 !imp
 
 /* Group card compact titles */
 .proj-top{ display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.proj-title{ font-family: var(--font-display); font-weight: 700; letter-spacing: -.01em; }
+.proj-title{ margin: 0; font-family: var(--font-display); font-weight: 700; letter-spacing: -.01em; }
 .proj-title--sm{ font-size: 1.05rem; }
