@@ -137,6 +137,13 @@ Testimonials: still blocked — no genuine quotes available, never fabricate.
 Suite **32/32** (+Check 32: min artifacts exist/fresh/marked, HTML ships
 `.min`) · artifacts `node --check` clean · Lighthouse a11y/SEO 100.
 
+Post-deploy re-run (same mobile preset, live origin): **Performance
+72 → 85 (+13) · Best-Practices 96 → 100 · A11y/SEO hold at 100 ·
+console errors 1 → 0 · LCP 4.5 s → 3.6 s · FCP 3.4 s → 3.0 s ·
+TTI 0.92 · unminified-css/js 0/0.5 → 1.0.** No further code changes
+indicated; residual LCP is the emulated-mobile render-blocking font
+chain + hero-portrait transfer, both already minimized.
+
 Suite **31/31** (+Check 31: nav order, no-`h4`/no-div-titles, single
 scroll-margin) · `?v=` bumped to `20260926-3` (HTML+CSS changed) ·
 nesting 0 errors · dup IDs clean · palette steady at 32 in-family hex.
