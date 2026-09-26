@@ -16,8 +16,7 @@ package-lock.json
 .superpowers/
 .claude/
 
-# Test / scratch
-tests/
+# Test scratch (ad-hoc local files only — the tracked tests/ suite always ships)
 test_*.md
 test_*.txt
 *.tmp
