@@ -89,7 +89,7 @@
         });
       });
 
-      container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" width="100%" height="auto" role="img" aria-label="GitHub contribution graph, last 12 months">${monthLabels}${dayLabelSvg}${rects}</svg>`;
+      container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="GitHub contribution graph, last 12 months">${monthLabels}${dayLabelSvg}${rects}</svg>`;
       startContribSnake(container.querySelector('svg'));
 
       // Instrument readouts: total, active days, current streak
