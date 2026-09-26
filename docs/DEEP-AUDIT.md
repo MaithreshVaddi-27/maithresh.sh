@@ -144,6 +144,27 @@ TTI 0.92 · unminified-css/js 0/0.5 → 1.0.** No further code changes
 indicated; residual LCP is the emulated-mobile render-blocking font
 chain + hero-portrait transfer, both already minimized.
 
+## Phase 10 — CRT signal-board + boot reveal (2026-09-26, uncommitted)
+
+Keeps the live canvas engine (real API data, no cron, no third party)
+and adds the two treatments from the animation research: a static CRT
+texture (scanlines + vignette + ice-cyan phosphor inset glow, pure CSS,
+pointer-transparent so cells stay hoverable) and a one-shot boot reveal
+(week columns wipe left→right with rise, 70 ms stagger, `forwards` fill).
+
+Implementation: heatmap builder wraps each week in `<g class="cweek">`
+and tags labels `clab`; `.boot` goes on the frame (the CSS selector's
+scope — caught during build, not after); stagger arrives via `--rd`.
+Skipped entirely under reduced motion (JS gate + matching CSS media
+guard). New paint uses only `rgba()` white/cyan/ink — zero new hex,
+palette steady at 32.
+
+## Verification evidence (Phase 10)
+
+Suite **33/33** (+Check 33: CRT layer + `cweekIn` + grouping + dual
+reduced-motion gates) · min artifacts regenerated · `?v=20260926-5` ·
+nesting clean · `node --check` clean.
+
 Suite **31/31** (+Check 31: nav order, no-`h4`/no-div-titles, single
 scroll-margin) · `?v=` bumped to `20260926-3` (HTML+CSS changed) ·
 nesting 0 errors · dup IDs clean · palette steady at 32 in-family hex.
