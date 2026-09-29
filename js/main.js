@@ -1195,9 +1195,6 @@ window.initCommandConsole = function() {
         closeCommandPalette();
         const el = document.getElementById(target);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      } else if (action === 'resume') {
-        window.open('assets/maithresh_vaddi_resume.pdf', '_blank', 'noopener');
-        closeCommandPalette();
       } else if (action === 'github') {
         window.open('https://github.com/MaithreshVaddi-27', '_blank', 'noopener');
         closeCommandPalette();

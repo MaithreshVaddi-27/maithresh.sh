@@ -118,7 +118,8 @@ project's standard flow). HTML gets Cloudflare's default short cache.
 
 ### Gotchas (latest docs)
 
-- `.nojekyll` is ignored by Pages (harmless — it's for GitHub Pages).
+- `.nojekyll` (formerly in the repo) is ignored by Workers — only relevant
+  if you ever return to GitHub Pages, where you'd recreate it.
 - **CAA records** on the zone can block certificate issuance for the custom
   domain — allow `letsencrypt.org` and/or `pki.goog` if you use CAA.
 - Moving the DNS entry away from Pages and back causes downtime until the
@@ -193,11 +194,11 @@ Gotchas: none for static. Optional `netlify.toml` for long caching:
 
 ## 4. GitHub Pages — the zero-new-accounts option
 
-Why fourth: this repo already contains `.nojekyll` (the classic Pages
-marker), so you may already be hosted here. Free, custom-domain friendly,
-zero setup beyond a branch. Downsides for "load faster online": no edge
-cache control, single-origin serving, noticeably slower global TTFB than
-1–3 above.
+Why fourth: free, custom-domain friendly, zero setup beyond a branch.
+Downsides for "load faster online": no edge cache control, single-origin
+serving, noticeably slower global TTFB than 1–3 above. (The repo's
+`.nojekyll` marker was removed when hosting moved off GitHub Pages;
+recreate it if you ever return here.)
 
 ### Steps
 1. Push to GitHub → repo Settings → Pages → Source: **Deploy from branch**,
@@ -207,9 +208,10 @@ cache control, single-origin serving, noticeably slower global TTFB than
    then add `A` records (`185.199.108.153` … `.111`) + `www CNAME` at DNS.
    Enforce HTTPS in the Pages settings.
 
-Gotchas: keep `.nojekyll` (prevents Jekyll processing of `_`-prefixed
-paths). No custom headers — caching is GitHub's default (10 min on HTML),
-so repeat loads are slower than Cloudflare/Vercel edge.
+Gotchas: recreate `.nojekyll` at repo root (prevents Jekyll processing of
+`_`-prefixed paths — `_headers` especially). No custom headers — caching is
+GitHub's default (10 min on HTML), so repeat loads are slower than
+Cloudflare/Vercel edge.
 
 ---
 

@@ -197,22 +197,20 @@ function runChecks() {
     errors.push('index.html canonical/OG URLs must point at https://maithresh-sh.pages.dev/');
   }
 
-  // Check 25: Résumé asset wired (palette data-action="resume" → real PDF)
-  if (!html.includes('data-action="resume"')) {
-    errors.push('index.html command palette must expose a data-action="resume" item');
+  // Check 25: Résumé PDF feature was removed — no dangling references
+  if (html.includes('data-action="resume"') || js.includes('maithresh_vaddi_resume')) {
+    errors.push('resume feature was removed: index.html/js must not reference data-action="resume" or the resume PDF');
   }
-  if (!fs.existsSync(path.join(__dirname, '../assets/maithresh_vaddi_resume.pdf'))) {
-    errors.push('assets/maithresh_vaddi_resume.pdf must exist (palette resume target)');
+  if (fs.existsSync(path.join(__dirname, '../assets/maithresh_vaddi_resume.pdf'))) {
+    errors.push('assets/maithresh_vaddi_resume.pdf was removed — delete it if it reappears');
   }
 
   // Check 26: Immutable edge-cache rules ship for versioned static assets
+  // (_headers is honored natively by both Cloudflare Pages and Workers
+  // static assets; netlify.toml/.nojekyll were removed as host leftovers)
   const headersPath = path.join(__dirname, '../_headers');
-  const netlifyPath = path.join(__dirname, '../netlify.toml');
   if (!fs.existsSync(headersPath) || !fs.readFileSync(headersPath, 'utf8').includes('immutable')) {
     errors.push('_headers must define immutable caching for /css/*, /js/*, /assets/*');
-  }
-  if (!fs.existsSync(netlifyPath) || !fs.readFileSync(netlifyPath, 'utf8').includes('immutable')) {
-    errors.push('netlify.toml must mirror immutable caching for /css/*, /js/*, /assets/*');
   }
 
   // Check 27: Solo-system counts read eleven everywhere (reconciled total)
