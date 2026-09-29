@@ -126,8 +126,8 @@ so content edits show up immediately.
 - Moving the DNS entry away from Pages and back causes downtime until the
   domain re-activates — prefer a temporary Redirect Rule instead.
 - Free plan: 500 builds/month, 1 concurrent build, 20-min build timeout —
-  irrelevant for this no-build site.
-- `_headers` caps at 100 rules (this repo uses 3); `_redirects` caps at
+  comfortably enough for a Vite build that finishes in well under a second.
+- `_headers` caps at 100 rules (this repo uses 1); `_redirects` caps at
   2,100 redirects.
 - Related docs: [Deploy anything](https://developers.cloudflare.com/pages/framework-guides/deploy-anything/),
   [Git integration](https://developers.cloudflare.com/pages/get-started/git-integration/),
@@ -168,15 +168,17 @@ want custom cache headers.
 
 Why third: free starter (100 GB bandwidth/mo), drag-and-drop deploys,
 trivial custom headers via `netlify.toml` (e.g. immutable caching for
-`css/`, `js/`, `assets/`). Great if you ever want Netlify Forms later.
+`assets/`). Great if you ever want Netlify Forms later.
 
 ### Option A — Drag and drop
-1. Zip the project folder (or drag the folder) onto app.netlify.com/drop.
+1. `npm run build`, then drag the generated `dist/` folder onto
+   app.netlify.com/drop. The repo root won't work — the published folder must
+   be the build output.
 2. Instant live URL.
 
 ### Option B — Git integration
 1. Add New Site → Import from Git → pick repo.
-2. Build command: **empty**. Publish directory: **`.`** (or `/`).
+2. Build command: `npm run build`. Publish directory: **`dist`**.
 
 ### Custom domain
 Site settings → Domain management → Add `maithresh.sh` → follow DNS
@@ -186,7 +188,7 @@ HTTPS automatic.
 Gotchas: none for static. Optional `netlify.toml` for long caching:
 ```toml
 [[headers]]
-  for = "/css/*"
+  for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 ```
@@ -202,17 +204,19 @@ serving, noticeably slower global TTFB than 1–3 above. (The repo's
 recreate it if you ever return here.)
 
 ### Steps
-1. Push to GitHub → repo Settings → Pages → Source: **Deploy from branch**,
-   branch `main`, folder `/ (root)`.
+1. `npm run build`, then repo Settings → Pages → Source: **Deploy from a
+   branch**, branch `main`, folder **`/dist`** — not the repo root, which is
+   source now.
 2. Site serves at `https://<user>.github.io/<repo>/` (or user-site root).
-3. Custom domain: add file `CNAME` containing `maithresh.sh` at repo root,
-   then add `A` records (`185.199.108.153` … `.111`) + `www CNAME` at DNS.
-   Enforce HTTPS in the Pages settings.
+3. Custom domain: set the domain in Pages settings (or drop a `CNAME` file
+   containing `maithresh.sh` **inside `dist/`**, since that's the published
+   folder), then add `A` records (`185.199.108.153` … `.111`) + `www CNAME`
+   at DNS. Enforce HTTPS in the Pages settings.
 
-Gotchas: recreate `.nojekyll` at repo root (prevents Jekyll processing of
-`_`-prefixed paths — `_headers` especially). No custom headers — caching is
-GitHub's default (10 min on HTML), so repeat loads are slower than
-Cloudflare/Vercel edge.
+Gotchas: `_headers` is inert here (Pages ignores it) and `.nojekyll` is
+unnecessary — the site is already at `/dist`, outside Jekyll's processing.
+Caching falls back to GitHub's default (10 min on HTML), so repeat loads are
+slower than a Cloudflare/Vercel edge.
 
 ---
 
@@ -220,11 +224,11 @@ Cloudflare/Vercel edge.
 
 Why fifth: free static hosting with git auto-deploys and free SSL, but
 slower dashboard/build UX than the top three and no advantage for a
-no-build site.
+single-page Vite build.
 
 ### Steps
 1. dashboard.render.com → New → Static Site → connect repo.
-2. Build command: **empty** (or `echo static`). Publish directory: **`.`**.
+2. Build command: `npm run build`. Publish directory: **`dist`**.
 3. Add custom domain under Settings → follow DNS instructions.
 
 Gotchas: free tier sleeps **web services**, but static sites stay always-on —
@@ -238,9 +242,11 @@ Why sixth: tiny, fast, free (`surge.sh` subdomain) CLI publishing with
 easy custom domains — but a thin CDN compared to 1–3, and no git previews.
 
 ### Steps
-1. `npm i -g surge && surge` inside the project folder.
-2. Accept/choose domain (`maithresh.surge.sh` free).
-3. Custom domain: `surge ./ maithresh.sh` after adding the `CNAME` DNS
+1. `npm run build`, then `npm i -g surge`.
+2. `surge dist` — surge publishes the folder you point it at, so this must be
+   the build output, not the repo root.
+3. Accept/choose domain (`maithresh.surge.sh` free).
+4. Custom domain: `surge dist maithresh.sh` after adding the `CNAME` DNS
    record pointing at `na-west1.surge.sh`.
 
 Gotchas: `CNAME` file convention also works for domain memory. No free
