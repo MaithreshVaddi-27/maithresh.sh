@@ -336,7 +336,7 @@ export default function Projects({ projects }) {
           </div>
           <h2>Featured systems</h2>
           <p className="section-sub">
-            Five solo-built systems. Each one states the engineering problem, the constraint that
+            Five highlights from 11+ solo-built systems. Each states the engineering problem, the constraint that
             shaped the design, and the limitation I haven't solved yet — hover or focus a row for
             the architecture.
           </p>
