@@ -292,7 +292,8 @@
      the document, same accent gradient as the headline highlight.
      Sits above the header (z-index 101) so it's visible at every
      scroll position, not just at the very top. Driven 1:1 off scroll
-     position (see js/main.js), so it's exempt from reduced-motion —
+     position (see useScrollProgress in hooks/useChrome.js),
+     so it's exempt from reduced-motion —
      it's a status readout, not an independent animation. */
   .scroll-progress{
     position: fixed; top:0; left:0; width:100%; height:2px; z-index:101; pointer-events:none;
@@ -325,8 +326,8 @@
   }
   .navlinks a:hover{ color: #fff; }
   .navlinks a:hover::after{ transform: scaleX(1); }
-  /* Active section indicator — set by IntersectionObserver in
-     js/main.js as each section crosses the viewport's reading band.
+  /* Active section indicator — set by the IntersectionObserver in useScrollSpy
+     (hooks/useChrome.js) as each section crosses the viewport's reading band.
      Reuses the hover underline/color rather than a second visual
      language, so "current section" and "about to hover" read as the
      same kind of state, just with different triggers. */
@@ -394,7 +395,7 @@
   }
   /* Canvas fades in once the 3D scene is actually rendering a frame.
      If Three.js fails to load, scene.js hides the canvas outright
-     (see js/scene.js) rather than leaving it stuck invisible. */
+     (see src/scene.js) rather than leaving it stuck invisible. */
   #hero-canvas.ready{ opacity: 1; }
   .hero-fade{
     position: fixed; inset:0; z-index:1; pointer-events:none;
@@ -474,11 +475,6 @@
     font-optical-sizing: auto;
     max-width: 920px;
     opacity:0; animation: fadeUp 0.8s var(--ease-out) 0.35s forwards;
-  }
-  h1 span{
-    background: linear-gradient(100deg, var(--accent) 10%, var(--accent-bright) 90%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    filter: drop-shadow(0 0 18px rgba(125,211,252,0.35));
   }
   .hero-desc{
     font-size: 1.02rem; color: var(--text-mute); max-width: 560px; margin-top: 20px;
@@ -576,7 +572,6 @@
   .section-sub{ color: var(--text-mute); margin-top: 14px; font-size: 1rem; max-width: 560px; }
 
   .reveal{ opacity:0; transform: translateY(26px) scale(0.98); filter: blur(4px); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out), filter 0.8s ease; }
-  .reveal.in{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); }
 
   /* ── ABOUT ───────────────────────────────────────────── */
   .about-grid{ display:grid; grid-template-columns: 1fr; gap: 40px; align-items:start; }
@@ -632,7 +627,8 @@
     background: repeating-linear-gradient(0deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 3px);
   }
   /* ── Heatmap boot reveal — week columns wipe left→right w/ rise ──
-     Stagger arrives via --rd, set per .cweek group in js/main.js; the
+     Stagger arrives via --rd, set per .cweek group in
+     ContributionGraph.jsx; the
      .boot class is only added when reduced-motion is off, and the
      keyframes fill forwards and play once (no loop). Belt-and-braces
      media guard below covers any path that adds .boot anyway. */
@@ -657,15 +653,14 @@
   .activity-graph-frame a{ display:block; border-radius: inherit; transition: opacity 0.2s ease, transform 0.2s var(--ease-out); }
   .activity-graph-frame a:hover{ opacity: 0.88; transform: scale(1.004); }
   /* Rendered client-side from raw contribution data (see the fetch in
-     main.js) — cells are drawn directly in Nord colors, so there's no
-     third-party image to color-correct the way ghchart needed. */
-  #contribGraph{ display:block; width:100%; }
+     ContributionGraph.jsx) — cells are drawn directly in Nord colors, so
+     there's no third-party image to color-correct the way ghchart needed. */
   /* Width comes from the container; height follows the viewBox aspect
      (set as CSS, not as an SVG attribute — height="auto" is invalid
      SVG and logs a console error). */
-  #contribGraph svg{ display:block; width:100%; height:auto; }
-  #contribGraph svg rect{ cursor: pointer; transition: stroke .15s ease, stroke-width .15s ease; }
-  #contribGraph svg rect:hover{ stroke: #7dd3fc; stroke-width: 1.5; }
+  .activity-graph-frame svg{ display:block; width:100%; height:auto; }
+  .activity-graph-frame rect{ cursor: pointer; transition: stroke .15s ease, stroke-width .15s ease; }
+  .activity-graph-frame rect:hover{ stroke: #7dd3fc; stroke-width: 1.5; }
   /* Contribution snake — theme-cyan head with glow, decorative only */
   .snake-head{ fill: #38bdf8; filter: drop-shadow(0 0 6px rgba(56,189,248,.9)); }
   /* Live stat readouts + Less→More legend — instrument chrome for the graph */
@@ -676,7 +671,6 @@
   }
   /* The UA [hidden] style loses to the flex display above — re-assert it
      so the stats row never flashes "—" placeholders before data lands. */
-  .activity-stats[hidden]{ display: none; }
   .activity-stat b{ color: var(--accent); font-weight: 700; margin-right: 5px; font-variant-numeric: tabular-nums; }
   .contrib-legend{
     display: flex; justify-content: flex-end; align-items: center; gap: 6px;
@@ -691,7 +685,8 @@
   .legend-cells span:nth-child(4){ background: #38bdf8; }
   .legend-cells span:nth-child(5){ background: #7dd3fc; }
   /* Shown only if the jogruber.de contribution-data fetch fails (see
-     the .catch in main.js) — the live graph has no local backup by
+     the catch in ContributionGraph.jsx) — the live graph has no
+     local backup by
      design, so failure degrades to a link instead of an empty box. */
   .activity-fallback{ font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); text-align:center; padding: 28px 16px; }
   .activity-fallback a{ color: var(--accent); }
@@ -800,23 +795,16 @@
     font-size: clamp(1.05rem, 1.8vw, 1.45rem); letter-spacing: -0.01em;
     transition: transform 0.4s var(--ease-out), color 0.3s ease;
   }
-  /* Letters are wrapped in spans by js/main.js on load, for the
-     per-letter hover ripple — grouped one level up into per-word spans
-     so the browser can only wrap *between* words, never mid-word. */
   .proj-row:hover .proj-row-title, .proj-row:focus-visible .proj-row-title{ transform: translateX(6px); color: #fff; }
 
   /* The row's own detail block is the single source of truth for
-     content (js/main.js reads it to populate the sticky stage), but
-     it's only ever *displayed* inline on narrow screens where there's
-     no room for a side panel and no real hover concept anyway. */
-  /* The row's own detail block is the single source of truth for
-     content (js/main.js reads it to populate the sticky stage). On
-     desktop it's visually hidden but NOT display:none — display:none
-     would remove it from the accessibility tree entirely, so a screen
-     reader reading the page linearly (not just tabbing link-to-link)
-     would silently skip every project description. This keeps it
-     readable to assistive tech while invisible/non-reflowing for
-     sighted users, who see the same content in the sticky stage panel. */
+     content — DetailBody renders it both here and in the sticky stage,
+     so the two can't drift. It's only ever *displayed* inline on
+     narrow screens, where there's no room for a side panel and no real
+     hover concept. On desktop it's visually hidden but NOT
+     display:none, which would drop it from the accessibility tree and
+     make a screen reader reading linearly skip every project
+     description. */
   .proj-row-detail{
     position: absolute; width: 1px; height: 1px; overflow: hidden;
     clip: rect(0,0,0,0); white-space: nowrap;
@@ -893,8 +881,8 @@
   .proj-row:nth-child(5) .proj-row-swatch{ border-color: rgba(56,189,248,0.55); }
 
   /* Sticky detail stage — desktop only. Content is cloned in from the
-     hovered row's own .proj-row-detail by js/main.js, with a quick
-     crossfade between swaps. Stays visible/sticky while you scroll the
+     same DetailBody as the row, with a quick crossfade
+     between swaps. Stays visible/sticky while you scroll the
      list, never causes the list itself to reflow. */
   .proj-stage{ display:none; }
   @media(min-width:900px){
@@ -1566,7 +1554,7 @@ section{ scroll-margin-top: 120px; }
   .navlinks a{ font-size: 11.5px; }
   nav{ padding: 14px 16px; }
   .nav-actions{ gap: 8px; }
-  .btn-nested--connect{ padding: 5px 12px; }
+  .nav-actions .btn-nested--connect{ padding: 5px 12px; }
   /* The ↗ badge is decorative; the label already reads "CONNECT". */
   .btn-nested--connect .btn-nested-badge{ display: none; }
 }
@@ -1775,13 +1763,6 @@ h1, h2, .hero-name{ text-wrap: balance; }
 html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 
 /* 4. Headline gradient drift — 9s ambient, frozen under reduced motion */
-h1 span{
-  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-bright) 40%, var(--accent) 90%);
-  background-size: 200% auto;
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  filter: drop-shadow(0 0 18px rgba(125,211,252,0.35));
-  animation: headlineDrift 9s ease-in-out infinite alternate;
-}
 @keyframes headlineDrift{ from{ background-position: 0% center; } to{ background-position: 100% center; } }
 
 /* 5. Group-card repo links — proper hover treatment with arrow nudge */
@@ -1805,12 +1786,11 @@ h1 span{
 
 @media (prefers-reduced-motion: reduce){
   .avail-dot{ animation: none; }
-  h1 span{ animation: none; }
 }
 /* Gradient display text must never go invisible: if background-clip:text
    is unsupported, fall back to a solid accent instead of transparent. */
 @supports not ((background-clip: text) or (-webkit-background-clip: text)){
-  h1 span, .hero-lead span{
+  .hero-lead span{
     background: none; color: var(--accent-bright); filter: none; animation: none;
   }
 }
@@ -1871,7 +1851,6 @@ h1 span{
 .btn-nested--sm{ padding: 5px 12px; font-size: 11px; }
 .btn-nested--connect{ padding: 5px 5px 5px 14px; }
 .nav-actions{ display: flex; align-items: center; gap: 10px; }
-.btn-nested--connect{ padding: 5px 5px 5px 14px; }
 
 /* Hero lead line — carries the old display-h1 treatment now that the
    name owns the single <h1> */
@@ -1985,7 +1964,6 @@ h1 span{
 .cmd-tag{ font-size: 10px; padding: 2px 6px; border-radius: 4px; }
 .cmd-tag--cyan{ color: var(--accent); background: rgba(56,189,248,.1); }
 .cmd-tag--amber{ color: var(--amber); background: rgba(245,158,11,.1); }
-.cmd-tag--dim{ color: var(--text-dim); background: rgba(255,255,255,.06); }
 .cmd-tag--ext{ color: var(--accent); background: rgba(56,189,248,.1); }
 .cmd-kbd{ background: rgba(255,255,255,.08); padding: 1px 4px; border-radius: 3px; }
 
@@ -2039,7 +2017,7 @@ header.is-scrolled .glass-dock{
 .auto-item:hover{ transform: translateY(-2px); background: rgba(56,189,248,.03); }
 .more-item{ transition: background .2s ease, padding-left .25s var(--ease-out); border-radius: 8px; }
 .more-item:hover{ background: rgba(255,255,255,.025); padding-left: 10px; }
-.more-item:hover h4{ color: var(--accent-bright); }
+.more-item:hover h3{ color: var(--accent-bright); }
 .more-item h3{ transition: color .2s ease; }
 
 /* 3. Portrait ambient float — slow instrument hover, frozen if reduced motion */
@@ -2068,7 +2046,8 @@ footer::before{
 .proj-metric:hover{ transform: translateY(-1px); border-color: rgba(56,189,248,.5); color: #fff; }
 
 /* 7. Personalized instrument cursor — cyan dot + trailing reticle ring.
-   Enabled only for fine pointers without reduced-motion (see main.js);
+   Enabled only for fine pointers without reduced-motion (see
+   hooks/useInstrumentCursor.js);
    text fields keep their native I-beam, touch never sees this. */
 .cursor-dot, .cursor-ring{
   position: fixed; top: 0; left: 0; z-index: 10001; pointer-events: none;

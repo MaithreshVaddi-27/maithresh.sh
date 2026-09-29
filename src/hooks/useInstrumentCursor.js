@@ -63,11 +63,17 @@ export function useInstrumentCursor() {
       start()
     }
     const onOver = (e) => {
-      if (e.target.closest?.(PRESSABLE)) overPressable.current = true
+      if (e.target.closest?.(PRESSABLE)) {
+        overPressable.current = true
+        ring.classList.add('is-active')
+      }
       if (e.target.closest?.(TEXT_ENTRY)) setHidden(true)
     }
     const onOut = (e) => {
-      if (e.target.closest?.(PRESSABLE)) overPressable.current = false
+      if (e.target.closest?.(PRESSABLE)) {
+        overPressable.current = false
+        ring.classList.remove('is-active')
+      }
       if (e.target.closest?.(TEXT_ENTRY)) setHidden(false)
     }
     const onVisibility = () => (document.hidden ? stop() : shown && start())

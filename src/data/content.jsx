@@ -22,6 +22,7 @@ export const STACK = [
     icon: 'brain',
     accent: ['LangChain', 'LangGraph', 'CrewAI'],
     chips: [
+      'LangChain', 'LangGraph', 'CrewAI',
       'MCP server + client (JSON-RPC 2.0, Composio)', 'RAG', 'Hybrid dense + BM25 (RRF)',
       'Cross-encoder reranking', 'NLI claim verification', 'Qdrant', 'ChromaDB',
       'ONNX Runtime', 'HF Embeddings (bge-small, bge-base, mpnet)', 'Gemini API',
