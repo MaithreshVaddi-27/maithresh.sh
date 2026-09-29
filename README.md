@@ -58,10 +58,7 @@ Deploys serve the `.min` files with a `?v=YYYYMMDD-n` query string
 (current: `?v=20260926-5`). After editing any source, regenerate + bump:
 
 ```bash
-npx -y clean-css-cli -o css/style.min.css css/style.css
-npx -y terser js/main.js -o js/main.min.js -c -m
-npx -y terser js/scene.js -o js/scene.min.js -c -m
-node tests/verify-redesign.js   # Check 32 fails if a .min is stale — that's the point
+npm run build   # minifies CSS + JS, then runs the 33-check verify gate
 # then bump ?v= in index.html (css + both js) and commit
 ```
 
@@ -71,17 +68,19 @@ without renaming means the CDN edge keeps serving old bytes.
 
 ## Deploy (Cloudflare Pages)
 
-Live at **https://maithresh-sh.pages.dev/** (static site, no build step).
+Live at **https://maithresh-sh.pages.dev/** (static site — `npm run build`
+just regenerates the minified artifacts and runs the verify gate).
 
 - **Dashboard (git-integrated):** Workers & Pages → Create application →
   Pages tab → Connect to Git → pick this repo → Production branch `main`,
-  Framework preset None, Build command blank (or `exit 0`), Build output
+  Framework preset None, Build command `npm run build`, Build output
   directory `/`. Every push to `main` auto-deploys; other branches get
   preview URLs.
 - **CLI (Direct Upload):**
   ```bash
+  npm run build                        # refresh .min artifacts + verify gate
   npx wrangler login
-  npx wrangler pages project create   # name: maithresh-sh, branch: main
+  npx wrangler pages project create    # name: maithresh-sh, branch: main
   npx wrangler pages deploy .
   ```
 - Full walkthrough, custom-domain, and caching details:
