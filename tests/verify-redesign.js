@@ -183,13 +183,18 @@ function runChecks() {
     }
   });
 
-  // Check 24: Canonical + OG URLs must resolve (maithresh.sh is NXDOMAIN —
-  // point at the live github.io origin; brand text maithresh.sh is fine)
+  // Check 24: Canonical + OG URLs must point at the live origin
+  // (Cloudflare Pages: https://maithresh-sh.pages.dev/ — the old github.io
+  // path is retired; switch these if the maithresh.sh custom domain ever
+  // goes live. Brand text maithresh.sh is fine.)
   if (html.includes('href="https://maithresh.sh/') || html.includes('content="https://maithresh.sh/')) {
-    errors.push('index.html must not link canonical/OG URLs to non-resolving https://maithresh.sh/ (use the github.io origin)');
+    errors.push('index.html must not link canonical/OG URLs to https://maithresh.sh/ (use the live pages.dev origin)');
   }
-  if (!html.includes('https://maithreshvaddi-27.github.io/maithresh.sh/')) {
-    errors.push('index.html canonical/OG URLs must point at https://maithreshvaddi-27.github.io/maithresh.sh/');
+  if (html.includes('https://maithreshvaddi-27.github.io/maithresh.sh/')) {
+    errors.push('stale origin: index.html must point canonical/OG at https://maithresh-sh.pages.dev/, not the old github.io path');
+  }
+  if (!html.includes('https://maithresh-sh.pages.dev/')) {
+    errors.push('index.html canonical/OG URLs must point at https://maithresh-sh.pages.dev/');
   }
 
   // Check 25: Résumé asset wired (palette data-action="resume" → real PDF)

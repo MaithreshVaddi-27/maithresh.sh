@@ -1,8 +1,8 @@
 # maithresh.sh — Cyber-Terminal Portfolio
 
-[![Live](https://img.shields.io/badge/live-maithreshvaddi--27.github.io-maithresh.sh-38BDF8?style=flat-square)](https://maithreshvaddi-27.github.io/maithresh.sh/)
-[![Lighthouse Perf](https://img.shields.io/badge/lighthouse--mobile-85-10B981?style=flat-square)](https://maithreshvaddi-27.github.io/maithresh.sh/)
-[![Lighthouse A11y](https://img.shields.io/badge/a11y-100-10B981?style=flat-square)](https://maithreshvaddi-27.github.io/maithresh.sh/)
+[![Live](https://img.shields.io/badge/live-maithresh--sh.pages.dev-38BDF8?style=flat-square)](https://maithresh-sh.pages.dev/)
+[![Lighthouse Perf](https://img.shields.io/badge/lighthouse--mobile-85-10B981?style=flat-square)](https://maithresh-sh.pages.dev/)
+[![Lighthouse A11y](https://img.shields.io/badge/a11y-100-10B981?style=flat-square)](https://maithresh-sh.pages.dev/)
 [![Checks](https://img.shields.io/badge/verify-33%2F33-10B981?style=flat-square)](./tests/verify-redesign.js)
 
 Personal portfolio for **Maithresh Vaddi** — AI/ML Engineer & Agentic Systems Builder.
@@ -34,7 +34,7 @@ python3 -m http.server 8000
 ├── index.html
 ├── robots.txt
 ├── sitemap.xml
-├── _headers / netlify.toml   # immutable edge caching (Cloudflare/Netlify; harmless on Pages)
+├── _headers / netlify.toml   # immutable edge caching (Cloudflare/Netlify; harmless elsewhere)
 ├── css/
 │   ├── style.css             # source of truth — edit this
 │   └── style.min.css         # ship artifact — regenerate, never hand-edit
@@ -69,13 +69,23 @@ The hero portrait SVG under `assets/svg/` carries its hash directly in the
 filename (`maithresh-terminal-portrait.<hash>.svg`). Editing its *content*
 without renaming means the CDN edge keeps serving old bytes.
 
-## Deploy (GitHub Pages)
+## Deploy (Cloudflare Pages)
 
-1. Push to GitHub.
-2. Repo → Settings → Pages → Source: **Deploy from a branch** → Branch: `main` → `/ (root)`.
-3. Site publishes at `https://maithreshvaddi-27.github.io/maithresh.sh/`.
-   (`maithresh.sh` custom domain is reserved but DNS-unresolved — canonical/OG
-   point at the github.io origin until then.)
+Live at **https://maithresh-sh.pages.dev/** (static site, no build step).
+
+- **Dashboard (git-integrated):** Workers & Pages → Create application →
+  Pages tab → Connect to Git → pick this repo → Production branch `main`,
+  Framework preset None, Build command blank (or `exit 0`), Build output
+  directory `/`. Every push to `main` auto-deploys; other branches get
+  preview URLs.
+- **CLI (Direct Upload):**
+  ```bash
+  npx wrangler login
+  npx wrangler pages project create   # name: maithresh-sh, branch: main
+  npx wrangler pages deploy .
+  ```
+- Full walkthrough, custom-domain, and caching details:
+  [docs/free-deploy-options.md](docs/free-deploy-options.md#1-cloudflare-pages--recommended).
 
 ## License
 
