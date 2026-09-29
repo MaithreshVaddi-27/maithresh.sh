@@ -1,0 +1,74 @@
+# GitHub Pages deploy.
+#
+# This project has two homes and they need different builds:
+#   - Cloudflare Pages serves dist/ at the root domain, so base must stay '/'.
+#   - GitHub Pages serves a *project* site from /<repo>/, so base must be
+#     '/maithresh.sh/' or every emitted /assets/* URL 404s and the page renders
+#     as a blank shell. That is exactly what was live before this workflow
+#     existed: Pages was publishing the repo's source index.html, which loads
+#     /src/main.jsx — raw JSX a browser cannot execute.
+#
+# vite.config.js reads VITE_BASE, so the only thing this workflow has to do is
+# set it and upload dist/.
+
+name: deploy pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; serialize and cancel superseded runs on the same
+# ref so a rapid push sequence can't publish a stale bundle last.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build for the project subpath
+        env:
+          VITE_BASE: /maithresh.sh/
+        run: npm run build
+
+      # The base differs between the two deploy targets, so a hash left over
+      # from a local build would silently ship the wrong URLs.
+      - name: Confirm assets are rebased onto the subpath
+        run: |
+          if grep -qE '(src|href)="/assets/' dist/index.html; then
+            echo "::error::dist/index.html still references root-absolute /assets/ — VITE_BASE did not apply"
+            exit 1
+          fi
+          grep -qE '(src|href)="/maithresh\.sh/assets/' dist/index.html \
+            || { echo "::error::expected /maithresh.sh/assets/ in dist/index.html"; exit 1; }
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
