@@ -64,7 +64,7 @@ export default function ContributionGraph() {
 // nothing to escape and nothing to strip.
 function ActivityCard({ days }) {
   const [head, setHead] = useState(-1)
-  useSnake(head, setHead)
+  useSnake(setHead)
 
   const firstDow = new Date(`${days[0].date}T00:00:00Z`).getUTCDay()
   const padded = Array.from({ length: firstDow }, () => null).concat(days)
@@ -171,7 +171,7 @@ function ActivityCard({ days }) {
 
 // Cyan sensor-snake loops the heatmap cell by cell. Decorative: skipped under
 // reduced-motion, parked while the card is off-screen or the tab is hidden.
-function useSnake(head, setHead) {
+function useSnake(setHead) {
   useEffect(() => {
     const frame = document.querySelector('.activity-graph-frame')
     const count = frame?.querySelectorAll('.cweek rect').length ?? 0

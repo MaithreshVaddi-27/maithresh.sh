@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Icon from './Icon'
 import { STACK } from '../data/content'
 import { ScrollTrigger } from '../hooks/useChrome'
@@ -10,6 +10,10 @@ const VISIBLE = 8
 // class toggle in CSS, so React only owns the boolean.
 function Chips({ card }) {
   const [open, setOpen] = useState(false)
+  // Expanding adds rows, so every ScrollTrigger below this point is measuring a
+  // stale layout. This has to run *after* the class lands — calling refresh()
+  // inside the click handler measures the old, still-collapsed geometry.
+  useEffect(() => { ScrollTrigger.refresh() }, [open])
   if (card.chips.length <= VISIBLE) {
     return (
       <div className="chips">
@@ -27,7 +31,7 @@ function Chips({ card }) {
         type="button"
         className="chips-toggle"
         aria-expanded={open}
-        onClick={() => { setOpen((v) => !v); ScrollTrigger.refresh() }}
+        onClick={() => setOpen((v) => !v)}
       >
         {collapsed ? `+ show ${card.chips.length - VISIBLE} more` : '− show less'}
       </button>

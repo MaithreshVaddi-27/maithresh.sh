@@ -366,8 +366,13 @@ export default function Projects({ projects }) {
             ))}
           </div>
 
-          <aside
-            className="proj-stage reveal"
+          {/* `div`, not `aside`: this sits inside <main>, and a complementary
+              landmark nested in another landmark is an axe violation. It's a
+              sticky visual stage, not page-level complementary content.
+              No `.reveal` either — the stage is display:none until its section
+              goes sticky, so a scroll reveal bound to it can never fire. */}
+          <div
+            className="proj-stage"
             id="projStage"
             data-accent={projects[active].accent}
             aria-live="polite"
@@ -375,7 +380,7 @@ export default function Projects({ projects }) {
             <div ref={stageRef} className={`proj-stage-inner${swapping ? ' swapping' : ''}`}>
               <DetailBody project={projects[active]} idPrefix="Stage" />
             </div>
-          </aside>
+          </div>
         </div>
 
         <MoreProjects open={showMore} onToggle={() => setShowMore((v) => !v)} />
