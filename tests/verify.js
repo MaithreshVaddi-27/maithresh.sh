@@ -44,6 +44,9 @@ const content = read('src/data/content.jsx')
 const consoleSrc = read('src/components/CommandConsole.jsx')
 const scene = read('src/scene.js')
 const motion = read('src/hooks/useMotion.js')
+const app = read('src/App.jsx')
+const main = read('src/main.jsx')
+const hero = read('src/components/Hero.jsx')
 // Every source file under src/ — not just the required subset. A gate that
 // only inspects the files it happens to name is blind to the rest of the app.
 const srcFiles = []
@@ -194,6 +197,91 @@ need(/removeEventListener\('pointermove'/.test(scene), 'scene.js must remove its
 const headers = read('_headers')
 need(headers.includes('immutable'), '_headers must define immutable caching for hashed assets')
 need(headers.includes('/assets/*'), '_headers must cover the Vite /assets/* output path')
+
+// ── Responsive: no hidden-scroll traps ─────────────────────────────────
+// Both of these shipped as "infinite" horizontal scrollers on phones with the
+// scrollbar suppressed, so content was simply absent with no way to know. The
+// tab rule in particular was gated to min-width:900px while its own comment
+// described a *mobile* problem. A selector audit can't catch this class — it
+// needs the layout rule itself asserted.
+need(!/\.workbench-tabs-container\{[^}]*overflow-x:\s*auto/.test(css),
+  'workbench tabs must not be a hidden horizontal scroller (scrollbar is suppressed)')
+// Gating the tab layout behind a min-width query is the regression itself, so
+// assert the absence of that shape rather than one exact ordering of it: no
+// min-width media query anywhere may mention the tab bar. A targeted regex
+// for "@media(min-width:900px){.workbench-tabs" passed while the bug was
+// present, because it only matched one particular brace/whitespace layout.
+const minWidthBlocks = [...css.matchAll(/@media\s*\(\s*min-width[^)]*\)\s*\{/g)].map((m) => {
+  let i = m.index + m[0].length
+  let depth = 1
+  while (i < css.length && depth > 0) {
+    if (css[i] === '{') depth++
+    else if (css[i] === '}') depth--
+    i++
+  }
+  return css.slice(m.index, i)
+})
+need(!minWidthBlocks.some((b) => b.includes('.workbench-tabs')),
+  'the tab layout must not be gated behind a min-width breakpoint — that hides tabs on phones')
+need(/\.workbench-tabs\{[^}]*flex-wrap:\s*wrap/.test(css),
+  'workbench tabs must wrap so all four are reachable without scrolling')
+
+// The pipeline is a 940-unit viewBox. Below ~700px of rendered width the 13px
+// node titles scale under ~10px and the sub-labels under ~7.5px, which is
+// present-but-unreadable on a phone. Floor the width and signal that it pans.
+const pipeFloor = css.match(/@media\s*\(max-width:\s*720px\)\{[\s\S]*?\.pipeline-card svg\{[^}]*min-width:\s*(\d+)px/)
+need(!!pipeFloor, 'pipeline diagram must declare a min-width on narrow screens')
+need(pipeFloor && +pipeFloor[1] >= 640,
+  `pipeline min-width must keep node titles legible (got ${pipeFloor?.[1]}px; under ~640 the 13px titles render under 10px)`)
+need(/\.pipeline-card\{[\s\S]*?mask-image/.test(css),
+  'the panning pipeline needs an edge affordance — macOS/iOS scrollbars are invisible until you scroll')
+
+// ── External CSS link ───────────────────────────────────────────────────
+// styles.css used to be imported from main.jsx, so dev served it by JS
+// injection and the document had no stylesheet link at all.
+need(/<link[^>]+rel=["']stylesheet["'][^>]+href=["']\/src\/styles\.css["']/.test(html),
+  'index.html must link styles.css externally, not import it from JS')
+need(!/import\s+['"]\.\/styles\.css['"]/.test(main),
+  'main.jsx must not import the stylesheet — that defers CSS to the module graph')
+need(!/import\s+['"]\.\/styles\.css['"]/.test(app),
+  'no component may import the stylesheet; it belongs on the <link>')
+
+// ── Mobile-only a11y traps ──────────────────────────────────────────────
+// Both of these only appear below 640/720px, so they are invisible to a
+// desktop-only audit and invisible in a desktop screenshot.
+const nav = read('src/components/Nav.jsx')
+need(/className="logo"[^>]*aria-label=/.test(nav),
+  'the logo link needs an explicit aria-label: .brand-word is display:none under 640px, which leaves the link unnamed (axe link-name)')
+need(/className="brand-dot"[^>]*aria-hidden/.test(nav),
+  'the brand dot is decorative and must be aria-hidden')
+need(/className="pipeline-card"[^>]*tabIndex=\{0\}/.test(workbench),
+  'the pipeline card pans below 720px, so it must be keyboard-focusable (WCAG 2.1.1 / axe scrollable-region-focusable)')
+need(/className="pipeline-card"[^>]*aria-label=/.test(workbench),
+  'the focusable pipeline scroll region needs an accessible name')
+
+// ── Resilience ──────────────────────────────────────────────────────────
+// One render throw used to blank the entire page. The boundary must wrap the
+// content, not sit inside it, and must keep the chrome reachable.
+need(app.includes("import ErrorBoundary"), 'App must import the error boundary')
+need(/<ErrorBoundary>[\s\S]*<Hero \/>[\s\S]*<Contact \/>[\s\S]*<\/ErrorBoundary>/.test(app),
+  'ErrorBoundary must wrap the whole <main> content, hero through contact')
+need(read('src/components/ErrorBoundary.jsx').includes('componentDidCatch'),
+  'the error boundary must implement componentDidCatch to log the real stack')
+
+// ── Dead CSS / vanilla leftovers ────────────────────────────────────────
+// Every one of these shipped as a live-looking rule that matched nothing.
+need(!css.includes('#contribGraph'),
+  '#contribGraph is a dead id — the container is .activity-graph-frame')
+need(!/\bh1 span\b/.test(css),
+  'h1 span rules are dead: the name has not been split into spans')
+need(!css.includes('.reveal.in'),
+  '.reveal.in is dead — GSAP writes inline styles, it never adds the class')
+need(!/\.more-item:hover h4/.test(css),
+  '.more-item:hover must target h3 (the markup heading), not h4')
+for (const stale of ['js/main.js', 'js/scene.js', 'style.min', 'main.min']) {
+  need(!css.includes(stale) && !app.includes(stale),
+    `no source may reference the deleted vanilla file "${stale}"`)
+}
 
 // ── Report ──────────────────────────────────────────────────────────────
 if (errors.length) {
