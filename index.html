@@ -52,6 +52,10 @@
      and emits its own modulepreload, so preloading the unhashed path here
      would just download the same 38 KB SVG twice. -->
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- External stylesheet, linked rather than imported from JS: Vite hashes this
+     into dist/assets/*.css and rewrites the href, and the browser gets the CSS
+     in the initial HTML instead of waiting on the module graph. -->
+<link rel="stylesheet" href="/src/styles.css">
 </head>
 <body>
 <div id="root"></div>
