@@ -18,7 +18,7 @@ export function Automation() {
             <span>$ ls automation/</span>
           </div>
           <h2>Automation &amp; workflow engineering</h2>
-          <p className="section-sub">Thirteen workflows across three platforms — all built, broken, and fixed by me, solo.</p>
+          <p className="section-sub">Thirteen live workflows across n8n, Make.com, and RPA — three platforms chosen on purpose, so each does the job it’s actually best at.</p>
         </div>
         <div className="auto-list reveal">
           {AUTOMATIONS.map((item) => (
@@ -50,7 +50,7 @@ export function GroupPlatforms() {
             <span>$ ls team/</span>
           </div>
           <h2>Group AI platforms</h2>
-          <p className="section-sub">Two builds where I owned the ML-integration layer on a four-person team.</p>
+          <p className="section-sub">Two four-person team builds where I owned the ML layer — one where I trained the model, one where I integrated it. I keep that distinction sharp.</p>
         </div>
         <div className="group-grid">
           {GROUP_PROJECTS.map((card) => (
@@ -112,7 +112,7 @@ export function Certifications() {
             <span>$ cat certifications.md</span>
           </div>
           <h2>Certifications &amp; training</h2>
-          <p className="section-sub">Applied programs behind the builds above. Each one maps to a shipped system.</p>
+          <p className="section-sub">Applied training behind the builds above. Each one maps to something shipped — not a certificate for its own sake.</p>
         </div>
         <div className="cert-grid">
           {CERTS.map((cert) => (
@@ -140,8 +140,8 @@ export function Contact() {
           </div>
           <h2>Let’s build something that ships.</h2>
           <p className="section-sub">
-            Open to AI/ML, GenAI, Agentic AI, and Automation internship roles. Based in Hyderabad —
-            happy to go remote.
+            Open to AI/ML, GenAI, Agentic AI, and Automation internships — backend or platform
+            heavy. Based in Hyderabad, happy to work remote.
           </p>
           <p className="contact-note">
             <b>● Available now</b><span>·</span><span>Hyderabad / Remote</span><span>·</span>

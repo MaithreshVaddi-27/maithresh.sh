@@ -9,6 +9,13 @@ export default function Preloader() {
 
   useEffect(() => {
     if (reduceMotion) return
+    // Declared before `finish` closes over it: if the document is already
+    // complete when this mounts, `finish` runs synchronously below, and a
+    // `const timer` further down would still be in its TDZ — a
+    // "Cannot access 'timer' before initialization" ReferenceError that
+    // white-screens the whole app on a fast load or an HMR reload.
+    let timer = 0
+    let p = 0
     const finish = () => {
       clearInterval(timer)
       setProgress(100)
@@ -20,8 +27,7 @@ export default function Preloader() {
       finish()
       return
     }
-    let p = 0
-    const timer = setInterval(() => {
+    timer = setInterval(() => {
       p = Math.min(p + (90 - p) * 0.08 + 0.4, 90)
       setProgress(p)
     }, 90)
