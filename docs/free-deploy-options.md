@@ -34,9 +34,10 @@ static output. The versioned `?v=` URLs cache perfectly at the edge.
    - Project name: `maithresh-sh` (this becomes `maithresh-sh.pages.dev`)
    - Production branch: `main`
    - Framework preset: **None**
-   - Build command: `exit 0` — the docs now recommend this even for sites
-     with no build step (it unlocks Pages Functions features later). Leaving
-     it **blank** also works for a pure static deploy.
+   - Build command: `npm run build` — regenerates the minified `.min`
+     artifacts and runs the 33-check verify gate before shipping. (The
+     generic Cloudflare default for no-build sites is `exit 0`; that also
+     works since committed `.min` files are kept fresh.)
    - Build output directory: `/` (repo root — `index.html` sits at root)
    - Root directory (advanced): leave empty (site is at repo root)
 7. Select **Save and Deploy**. The `*.pages.dev` URL goes live on first build.
@@ -50,6 +51,7 @@ The docs' current flow is create-then-deploy:
 
 ```bash
 npx wrangler login                       # one-time browser auth
+npm run build                            # refresh .min artifacts + verify gate
 npx wrangler pages project create        # prompts for name + production branch
 #   project name:  maithresh-sh
 #   production branch: main
