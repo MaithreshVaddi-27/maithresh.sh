@@ -283,6 +283,27 @@ for (const stale of ['js/main.js', 'js/scene.js', 'style.min', 'main.min']) {
     `no source may reference the deleted vanilla file "${stale}"`)
 }
 
+// ── Repo hygiene ────────────────────────────────────────────────────────
+// The deploy docs survived the vanilla→Vite move with a pre-bundled css/ + js/
+// layout and a "no build step" premise in three of five targets. A stale
+// publish directory is the kind of thing that only fails after a deploy.
+const gitignore = read('.gitignore')
+need(/^dist\/$/m.test(gitignore), '.gitignore must ignore the build output')
+need(/\.freebuff\//.test(gitignore),
+  '.freebuff/ must be in .gitignore — it was only in .git/info/exclude, which is local to one clone')
+
+const deployDoc = read('docs/free-deploy-options.md')
+need(!/for = "\/css\/\*"/.test(deployDoc) && !deployDoc.includes('folder `/ (root)`'),
+  'deploy doc must not still describe the pre-Vite css/ + js/ layout or a repo-root publish folder')
+need(deployDoc.includes('Build output directory: `dist`'),
+  'deploy doc must state `dist` as the Cloudflare build output directory')
+need(!/no-build site/.test(deployDoc),
+  'deploy doc must not still call this a no-build site')
+
+const readme = read('README.md')
+need(readme.includes('Responsive behaviour') && readme.includes('ErrorBoundary.jsx'),
+  'README must document the responsive guarantees and the error boundary')
+
 // ── Report ──────────────────────────────────────────────────────────────
 if (errors.length) {
   console.error(`❌ Verification failed with ${errors.length} error(s):`)
