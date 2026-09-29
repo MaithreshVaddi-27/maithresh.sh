@@ -17,25 +17,120 @@ Why first for this project: unlimited free bandwidth, one of the fastest
 global CDNs, automatic asset caching, free SSL, and zero build config for
 static output. The versioned `?v=` URLs cache perfectly at the edge.
 
-### Option A — Git integration (recommended)
-1. Push this repo to GitHub (already a git repo).
-2. Go to dash.cloudflare.com → Workers & Pages → Create → Pages → Connect to Git.
-3. Select the repo. Framework preset: **None**. Build command: **(leave empty)**.
-   Build output directory: **`/`** (repo root — `index.html` sits at root).
-4. Deploy. You get `https://maithresh-sh.pages.dev` instantly.
+> Per the latest Cloudflare docs (developers.cloudflare.com/pages), Pages now
+> lives under the unified **Workers & Pages** area of the dashboard. Free-plan
+> limits that matter here: 500 builds/month, 20,000 files, 25 MiB per file,
+> unlimited preview deployments — all far above what this portfolio needs.
 
-### Option B — Direct upload (no git needed)
-1. `npx wrangler pages deploy . --project-name maithresh-sh`
-   (deploys the current folder as-is; add `--commit-dirty=true` if needed).
+### Option A — Git integration (recommended)
+
+1. Push this repo to GitHub (already a git repo).
+2. In the Cloudflare dashboard, go to **Workers & Pages**.
+3. Select **Create application** → **Pages** tab → **Connect to Git**
+   (labelled "Import an existing Git repository" in the docs).
+4. Sign in with GitHub and authorize Cloudflare Pages.
+5. Select this repository and **Begin setup**.
+6. In **Set up builds and deployments**:
+   - Project name: `maithresh-sh` (this becomes `maithresh-sh.pages.dev`)
+   - Production branch: `main`
+   - Framework preset: **None**
+   - Build command: `exit 0` — the docs now recommend this even for sites
+     with no build step (it unlocks Pages Functions features later). Leaving
+     it **blank** also works for a pure static deploy.
+   - Build output directory: `/` (repo root — `index.html` sits at root)
+   - Root directory (advanced): leave empty (site is at repo root)
+7. Select **Save and Deploy**. The `*.pages.dev` URL goes live on first build.
+
+Every push to `main` auto-redeploys production; pushes to any other branch
+generate a preview deployment URL. Previews are free and unlimited.
+
+### Option B — Direct Upload via Wrangler (no git needed)
+
+The docs' current flow is create-then-deploy:
+
+```bash
+npx wrangler login                       # one-time browser auth
+npx wrangler pages project create        # prompts for name + production branch
+#   project name:  maithresh-sh
+#   production branch: main
+npx wrangler pages deploy .              # deploys this folder as-is
+```
+
+(`npx wrangler pages deploy` also creates the project on the fly if it does
+not exist yet — you get the same name/branch prompts. Preview deploys:
+`npx wrangler pages deploy . --branch=preview`.)
+
+### Option B2 — Drag and drop (no CLI)
+
+1. **Workers & Pages** → **Create application** → **Get started** →
+   **Drag and drop your files**.
+2. Enter project name `maithresh-sh`, drag the project folder in, **Deploy site**.
+3. Later updates: open the project → **Create a new deployment** → choose
+   production or preview → re-drag the folder.
+
+> ⚠️ **Pick once:** a project started with Git integration can never be
+> switched to Direct Upload, and vice versa. Changing later means creating a
+> new project. Also: dashboard drag-and-drop is not available for
+> Git-integrated projects (Wrangler deploys still work).
 
 ### Custom domain `maithresh.sh`
-1. Pages project → Custom domains → Set up `maithresh.sh` (+ `www` → redirect).
-2. If DNS is already on Cloudflare: automatic. If not: add the shown
-   `CNAME`/flattened record at your registrar, or transfer nameservers.
-3. SSL is automatic. Turn on **Always Use HTTPS**.
 
-Gotchas: none significant. `.nojekyll` is ignored (harmless).
-Preview deployments per commit are free and unlimited.
+1. **Workers & Pages** → select the Pages project → **Custom domains** →
+   **Set up a domain** → enter `maithresh.sh` → **Continue**.
+2. **Apex domains require the domain as a Cloudflare zone.** Add
+   `maithresh.sh` as a zone on this Cloudflare account and point your
+   registrar's nameservers to Cloudflare's. Once nameservers resolve,
+   Cloudflare creates the CNAME (flattened at apex) automatically.
+3. Add `www.maithresh.sh` the same way (subdomains only need a CNAME record
+   pointing to `maithresh-sh.pages.dev`; on a Cloudflare zone it is added
+   automatically after you confirm).
+4. Redirect `www` → apex: add a `_redirects` file at repo root
+   (`www.maithresh.sh/* https://maithresh.sh/:splat 301`) or a Cloudflare
+   **Redirect Rule** — the rule is easier and doesn't need a redeploy.
+5. SSL is automatic (universal cert per hostname). Turn on **Always Use
+   HTTPS** under zone → SSL/TLS → Edge Certificates.
+
+Do **not** just hand-add a CNAME at your registrar without going through
+"Set up a domain" first — the domain will fail to resolve (522).
+
+### Caching on Pages — already wired up
+
+The repo-root `_headers` file is picked up by Pages automatically (it ships
+with the site, at the build output directory root):
+
+```
+/css/*, /js/*, /assets/*  →  Cache-Control: public, max-age=31536000, immutable
+```
+
+Keep bumping `?v=` on every CSS/JS edit so edge caches invalidate (the
+project's standard flow). HTML gets Cloudflare's default short cache.
+
+### Verify after deploy
+
+- `https://maithresh-sh.pages.dev/` and `https://maithresh.sh/` both serve
+  `index.html` (Pages serves root `index.html` at `/` — this repo satisfies
+  that requirement).
+- DevTools → Network: `style.min.css`, `main.min.js`, `scene.min.js` responses
+  carry `cache-control: public, max-age=31536000, immutable`.
+- `cf-cache-status` header appears on asset responses (edge cache hit/miss).
+
+### Gotchas (latest docs)
+
+- `.nojekyll` is ignored by Pages (harmless — it's for GitHub Pages).
+- **CAA records** on the zone can block certificate issuance for the custom
+  domain — allow `letsencrypt.org` and/or `pki.goog` if you use CAA.
+- Moving the DNS entry away from Pages and back causes downtime until the
+  domain re-activates — prefer a temporary Redirect Rule instead.
+- Free plan: 500 builds/month, 1 concurrent build, 20-min build timeout —
+  irrelevant for this no-build site.
+- `_headers` caps at 100 rules (this repo uses 3); `_redirects` caps at
+  2,100 redirects.
+- Related docs: [Deploy anything](https://developers.cloudflare.com/pages/framework-guides/deploy-anything/),
+  [Git integration](https://developers.cloudflare.com/pages/get-started/git-integration/),
+  [Direct Upload](https://developers.cloudflare.com/pages/get-started/direct-upload/),
+  [Custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/),
+  [Headers](https://developers.cloudflare.com/pages/configuration/headers/),
+  [Limits](https://developers.cloudflare.com/pages/platform/limits/).
 
 ---
 
