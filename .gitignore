@@ -11,6 +11,13 @@ node_modules/
 .wrangler/
 *.log
 
+# Build output (rebuilt by `npm run build`, deployed from dist/)
+dist/
+
+# Local browser-automation scratch
+.playwright-cli/
+output/playwright/
+
 # Internal tooling — never deploy
 .superpowers/
 .claude/

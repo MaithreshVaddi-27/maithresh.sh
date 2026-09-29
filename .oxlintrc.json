@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": ["dist", "node_modules", ".wrangler"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    // React 19 auto-batches; a bare call as a statement is the one real smell
+    // worth keeping, everything else in the default set stays on.
+    "no-empty": ["error", { "allowEmptyCatch": true }]
+  },
+  "env": {
+    "browser": true,
+    "es2024": true
+  }
+}

@@ -1,10 +1,9 @@
 # Free Deployment Options — maithresh.sh
 
-Project profile: **pure static site** — `index.html` + `css/` + `js/` + `assets/`,
-no build step, no framework, no server code. Custom domain `maithresh.sh`.
-Static assets are already cache-busted with `?v=` query strings
-(`style.css`, `main.js`, `scene.js`), so any host that honors long cache
-lifetimes on versioned URLs is ideal.
+Project profile: **React 19 + Vite static SPA** — build emits plain files into
+`dist/` (HTML, hashed CSS/JS, images). No server code. Custom domain
+`maithresh.sh`. Every emitted asset is content-hashed, so any host that honors
+long cache lifetimes on hashed URLs is ideal and needs no manual cache-busting.
 
 Sorted **best-first for this exact project**. All options below are free
 for a site of this size and support the custom domain with free SSL.
@@ -14,8 +13,8 @@ for a site of this size and support the custom domain with free SSL.
 ## 1. Cloudflare Pages — RECOMMENDED
 
 Why first for this project: unlimited free bandwidth, one of the fastest
-global CDNs, automatic asset caching, free SSL, and zero build config for
-static output. The versioned `?v=` URLs cache perfectly at the edge.
+global CDNs, automatic asset caching, free SSL, and a build step that already
+exists. The content-hashed URLs cache perfectly at the edge.
 
 > Per the latest Cloudflare docs (developers.cloudflare.com/pages), Pages now
 > lives under the unified **Workers & Pages** area of the dashboard. Free-plan
@@ -34,11 +33,11 @@ static output. The versioned `?v=` URLs cache perfectly at the edge.
    - Project name: `maithresh-sh` (this becomes `maithresh-sh.pages.dev`)
    - Production branch: `main`
    - Framework preset: **None**
-   - Build command: `npm run build` — regenerates the minified `.min`
-     artifacts and runs the 33-check verify gate before shipping. (The
-     generic Cloudflare default for no-build sites is `exit 0`; that also
-     works since committed `.min` files are kept fresh.)
-   - Build output directory: `/` (repo root — `index.html` sits at root)
+   - Build command: `npm run build` — runs the Vite build (minify + content
+     hashing) and then the verification gate, so a regression fails the deploy
+     rather than shipping. `npm ci` must run first; set the install command to
+     `npm ci` if the default `npm install` is not used.
+   - Build output directory: `dist`
    - Root directory (advanced): leave empty (site is at repo root)
 7. Select **Save and Deploy**. The `*.pages.dev` URL goes live on first build.
 
@@ -51,22 +50,22 @@ The docs' current flow is create-then-deploy:
 
 ```bash
 npx wrangler login                       # one-time browser auth
-npm run build                            # refresh .min artifacts + verify gate
+npm run build                            # build + verify gate
 npx wrangler pages project create        # prompts for name + production branch
 #   project name:  maithresh-sh
 #   production branch: main
-npx wrangler pages deploy .              # deploys this folder as-is
+npm run deploy                           # wrangler pages deploy dist
 ```
 
-(`npx wrangler pages deploy` also creates the project on the fly if it does
-not exist yet — you get the same name/branch prompts. Preview deploys:
-`npx wrangler pages deploy . --branch=preview`.)
+(`npm run deploy` also creates the project on the fly if it does not exist
+yet — you get the same name/branch prompts. Preview deploys:
+`npm run deploy -- --branch=preview`.)
 
 ### Option B2 — Drag and drop (no CLI)
 
 1. **Workers & Pages** → **Create application** → **Get started** →
    **Drag and drop your files**.
-2. Enter project name `maithresh-sh`, drag the project folder in, **Deploy site**.
+2. Enter project name `maithresh-sh` and drag the **`dist/`** folder in, **Deploy site**.
 3. Later updates: open the project → **Create a new deployment** → choose
    production or preview → re-drag the folder.
 
@@ -97,22 +96,24 @@ Do **not** just hand-add a CNAME at your registrar without going through
 
 ### Caching on Pages — already wired up
 
-The repo-root `_headers` file is picked up by Pages automatically (it ships
-with the site, at the build output directory root):
+The repo-root `_headers` is copied into `dist/` by the Vite build and picked up
+by Pages automatically:
 
 ```
-/css/*, /js/*, /assets/*  →  Cache-Control: public, max-age=31536000, immutable
+/assets/*  →  Cache-Control: public, max-age=31536000, immutable
 ```
 
-Keep bumping `?v=` on every CSS/JS edit so edge caches invalidate (the
-project's standard flow). HTML gets Cloudflare's default short cache.
+Everything Vite emits lands in `/assets/` under a content hash, so a source
+edit produces a new filename and the edge cache invalidates on its own — no
+manual `?v=` query strings. `index.html` gets Cloudflare's default short cache
+so content edits show up immediately.
 
 ### Verify after deploy
 
 - `https://maithresh-sh.pages.dev/` and `https://maithresh.sh/` both serve
   `index.html` (Pages serves root `index.html` at `/` — this repo satisfies
   that requirement).
-- DevTools → Network: `style.min.css`, `main.min.js`, `scene.min.js` responses
+- DevTools → Network: the hashed `/assets/*.css` and `/assets/*.js` responses
   carry `cache-control: public, max-age=31536000, immutable`.
 - `cf-cache-status` header appears on asset responses (edge cache hit/miss).
 
@@ -250,7 +251,7 @@ automatic branch previews.
 ## Post-deploy checklist (any host)
 
 - [ ] Open `https://maithresh.sh/` + `https://www.maithresh.sh/` — both load, HTTPS valid.
-- [ ] Hard-refresh once, then reload: `css/`, `js/`, portrait SVG served from cache.
+- [ ] Hard-refresh once, then reload: hashed `/assets/*` files served from cache.
 - [ ] `⌘K` palette, workbench sims, mobile nav toggle all work on the live URL.
 - [ ] Test on a phone over cellular (hero canvas + 37 KB portrait are the heaviest first-paint items).
-- [ ] Keep the `?v=` versions bumped on every CSS/JS edit so edge caches invalidate.
+- [ ] Confirm a content-hashed filename actually changed for the file you edited (that is the cache invalidation).

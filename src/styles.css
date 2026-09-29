@@ -793,7 +793,7 @@
   }
   .proj-row:hover .proj-row-index, .proj-row:focus-visible .proj-row-index{ color: #fff; text-shadow: 0 0 12px rgba(56,189,248,0.75); }
 
-  .proj-row-main{ position:relative; z-index:1; flex: 1; min-width:0; }
+  .proj-row-main{ position:relative; z-index:1; flex: 1 1 auto; min-width:0; }
   .proj-row-title{
     margin: 0;
     font-family: var(--font-display); font-weight: 700;
@@ -832,9 +832,14 @@
     .proj-row-detail .proj-stack{ margin-top: 12px; }
   }
 
+  /* min-width:0 is load-bearing: a nowrap flex item defaults to min-width:auto,
+     which pins it at the full width of its text and starves .proj-row-main
+     until the project title wraps one word per line. Letting the tag shrink and
+     ellipsize keeps the title on one or two lines instead. */
   .proj-row-tag{
     position:relative; z-index:1; font-family: var(--font-mono); font-size: 12px;
     color: var(--text-dim); white-space:nowrap; display:none;
+    flex: 0 6 auto; min-width:0; overflow:hidden; text-overflow:ellipsis;
     transition: color 0.3s ease;
   }
   @media(min-width:640px){ .proj-row-tag{ display:block; } }
@@ -2113,3 +2118,10 @@ body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring{ opacity: 0 !imp
 .proj-top{ display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .proj-title{ margin: 0; font-family: var(--font-display); font-weight: 700; letter-spacing: -.01em; }
 .proj-title--sm{ font-size: 1.05rem; }
+
+  /* ⌘K empty state — without it a filter that matches nothing looks like a
+     broken console rather than an honest "no such command". */
+  .cmd-console-empty{
+    padding: 22px 18px; font-family: var(--font-mono); font-size: 12.5px;
+    color: var(--text-dim); text-align: center; list-style: none;
+  }
