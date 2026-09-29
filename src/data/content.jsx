@@ -193,8 +193,8 @@ export const CONTACT_LINKS = [
 
 export const CONSOLE_ITEMS = [
   { target: 'workbench', glyph: '»', title: 'Architecture Workbench', sub: 'Run the pipeline for each system, then read the design trade-off I can defend', tag: '#workbench', tagTone: 'cyan', keywords: 'trustrag docuchat resumecrew careeros resume crew sim architecture' },
-  { target: 'projects', glyph: '#', title: 'Featured systems', sub: 'Five highlights from 11 solo-built agent repositories — problem, constraint, and what I haven’t solved yet', tag: '#projects', tagTone: 'amber', glyphTone: 'amber', keywords: 'repos github trust rag mcp agents projects' },
-  { target: 'automation', glyph: '*', title: 'Automation & workflow suites', sub: '13 live workflows across n8n, Make.com, and RPA', tag: '#automation' },
+  { target: 'projects', glyph: '#', title: 'Featured systems', sub: 'Five highlights from 11+ solo-built agent repositories — problem, constraint, and what I haven’t solved yet', tag: '#projects', tagTone: 'amber', glyphTone: 'amber', keywords: 'repos github trust rag mcp agents projects' },
+  { target: 'automation', glyph: '*', title: 'Automation & workflow suites', sub: '13+ live workflows across n8n, Make.com, and RPA', tag: '#automation' },
   { target: 'stack', glyph: '≡', title: 'Technical stack', sub: 'LLM, automation, backend and cloud tooling', tag: '#stack', keywords: 'tools langchain langgraph ollama' },
   { target: 'about', glyph: '=', title: 'cat about.md', sub: 'Background, how I work, and what I can defend', tag: '#about', glyphTone: 'dim' },
   { target: 'contact', glyph: '✉', title: 'Contact', sub: 'Internship inquiries — replies within 48 hours', tag: '#contact', tagTone: 'cyan' },

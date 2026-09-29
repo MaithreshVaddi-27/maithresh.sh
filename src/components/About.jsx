@@ -14,7 +14,7 @@ const TERMINAL = [
   ['based: Hyderabad, Telangana, IN', true],
   ['status: open to AI/ML internships', true],
   ['$ ls systems/ --count', false, true],
-  ['11 solo-built · LangGraph · CrewAI · MCP', true],
+  ['11+ solo-built · LangGraph · CrewAI · MCP', true],
   ['$ curl -s stack.local/llm', false, true],
   ['Qwen3-4B-GGUF, gemma3:4b — local, offline', true],
   ['$ echo $NEXT', false, true],
@@ -52,7 +52,7 @@ export default function About() {
               The part people underestimate: <strong>debugging is the job.</strong> Fixing a
               self-overwriting output path, making a Pygame loop survive a Pyodide/WASM browser
               build, pinning a transitive MCP dependency that broke the LangChain adapters. Those
-              hours taught me more than the happy path did. Thirteen n8n / Make.com / RPA workflows
+              hours taught me more than the happy path did. 13+ n8n / Make.com / RPA workflows
               and two team platforms round it out, where I owned the ML integration layer.
             </p>
             <p>

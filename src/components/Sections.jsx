@@ -18,7 +18,7 @@ export function Automation() {
             <span>$ ls automation/</span>
           </div>
           <h2>Automation &amp; workflow engineering</h2>
-          <p className="section-sub">Thirteen live workflows across n8n, Make.com, and RPA — three platforms chosen on purpose, so each does the job it’s actually best at.</p>
+          <p className="section-sub">13+ live workflows across n8n, Make.com, and RPA — three platforms chosen on purpose, so each does the job it’s actually best at.</p>
         </div>
         <div className="auto-list reveal">
           {AUTOMATIONS.map((item) => (
