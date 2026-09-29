@@ -3,14 +3,15 @@
   "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "maithresh.sh — cyber-terminal portfolio. React 19 + Vite SPA; npm run build runs the verify gate then emits dist/ for Cloudflare Pages.",
+  "description": "maithresh.sh \u2014 cyber-terminal portfolio. React 19 + Vite SPA; npm run build runs the verify gate then emits dist/ for Cloudflare Pages.",
   "scripts": {
     "dev": "vite",
     "build": "vite build && npm run verify",
     "preview": "vite preview",
     "lint": "oxlint",
     "verify": "node tests/verify.js",
-    "deploy": "wrangler pages deploy dist"
+    "deploy": "wrangler pages deploy dist",
+    "refresh:contrib": "node scripts-refresh-contrib.mjs"
   },
   "dependencies": {
     "gsap": "^3.13.0",

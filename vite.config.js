@@ -8,7 +8,16 @@ import { cpSync, mkdirSync } from 'node:fs'
 // rather than duplicating them into public/.
 const STATIC_FILES = ['assets', '_headers', 'robots.txt', 'sitemap.xml']
 
+// Vite's default base is '/', which is correct for Cloudflare Pages (root
+// domain) but wrong for a GitHub Pages *project* site, which is served from
+// /<repo>/. Under a subpath every emitted /assets/* URL 404s and the page
+// renders as a blank shell. Cloudflare builds set nothing and keep '/'; the
+// GitHub Pages workflow sets VITE_BASE=/maithresh.sh/. The dev server also
+// stays on '/' so `npm run dev` isn't tucked under a subpath.
+const BASE = process.env.VITE_BASE || '/'
+
 export default defineConfig({
+  base: BASE,
   plugins: [
     react(),
     {

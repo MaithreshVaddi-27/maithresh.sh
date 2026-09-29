@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { GITHUB } from '../data/content'
+import snapshot from '../data/contributions.json'
 import { reduceMotion } from '../hooks/useMotion'
 
 // Palette aligned with the Flight Telemetry ice-cyan tokens. Level 0 is a visible
@@ -19,22 +20,25 @@ const API = 'https://github-contributions-api.jogruber.de/v4/MaithreshVaddi-27?y
 const CACHE = 'contrib-cache-v1'
 
 export default function ContributionGraph() {
-  const [data, setData] = useState(null)
+  // Paint from the committed snapshot on the first frame. The live endpoint is a
+  // free third-party service that takes 1-3s and can vanish without notice;
+  // making the primary conversion section wait on it — or collapse to a bare
+  // text link when it does — is not a risk worth taking for a decorative graph.
+  // The fetch still runs and upgrades the data when it succeeds.
+  const [data, setData] = useState(snapshot)
+  const [live, setLive] = useState(false)
   const [failed, setFailed] = useState(false)
 
   useEffect(() => {
-    const cached = sessionStorage.getItem(CACHE)
-    if (cached) {
-      try { return setData(JSON.parse(cached)) } catch { sessionStorage.removeItem(CACHE) }
-    }
     const ctrl = new AbortController()
-    const timer = setTimeout(() => ctrl.abort(), 8000)
+    const timer = setTimeout(() => ctrl.abort(), 6000)
     fetch(API, { signal: ctrl.signal })
       .then((r) => { if (!r.ok) throw new Error('bad response'); return r.json() })
       .then((json) => {
         if (!json?.contributions?.length) throw new Error('no data')
-        sessionStorage.setItem(CACHE, JSON.stringify(json))
-        setData(json)
+        try { sessionStorage.setItem(CACHE, JSON.stringify(json)) } catch { /* private mode */ }
+        setData({ contributions: json.contributions, fetchedAt: new Date().toISOString().slice(0, 10) })
+        setLive(true)
       })
       .catch((err) => {
         // A cleanup-triggered abort is not a failure. Without this guard
@@ -46,7 +50,7 @@ export default function ContributionGraph() {
     return () => ctrl.abort()
   }, [])
 
-  if (failed) {
+  if (failed && !data?.contributions?.length) {
     return (
       <div className="activity-card">
         <p className="activity-fallback">
@@ -55,21 +59,14 @@ export default function ContributionGraph() {
       </div>
     )
   }
-  if (!data) {
-    return (
-      <div className="activity-card">
-        <p className="activity-fallback">Loading activity…</p>
-      </div>
-    )
-  }
-  return <ActivityCard days={data.contributions} />
+  return <ActivityCard days={data.contributions} live={live} fetchedAt={data.fetchedAt} failed={failed} />
 }
 
 // Third-party payload used to be spliced in with innerHTML, which is why the
 // vanilla build needed an escapeHtml() and a bespoke SVG-string builder. Here it
 // renders as real JSX — third-party strings become text nodes, so there is
 // nothing to escape and nothing to strip.
-function ActivityCard({ days }) {
+function ActivityCard({ days, live, fetchedAt, failed }) {
   const frameRef = useRef(null)
   // hit: index into `flat` for the brick the beam is currently lighting, or -1.
   const [hit, setHit] = useState(-1)
@@ -140,7 +137,11 @@ function ActivityCard({ days }) {
           `wc -l` emits a single integer, so the three-figure readout below is a
           pipeline: count, then active days, then the trailing streak. */}
       <p className="activity-caption">
-        $ git log --author=maithresh --all --date=short <span>· live, last 12 months</span>
+        $ git log --author=maithresh --all --date=short{' '}
+        <span>
+          · {live ? 'live' : `snapshot ${fetchedAt}`}, last 12 months
+          {failed && !live ? ' · live feed unreachable' : ''}
+        </span>
       </p>
       <div className="activity-stats">
         <span className="activity-stat"><b>{total}</b>contributions</span>
