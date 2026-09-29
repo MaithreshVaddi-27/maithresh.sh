@@ -1338,12 +1338,12 @@
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
-  /* Desktop: wrap instead of silently clipping the 4th tab — a hidden
-     tab with no scroll affordance reads as a bug, not a carousel. */
-  @media(min-width:900px){
-    .workbench-tabs-container{ overflow: visible; }
-    .workbench-tabs{ flex-wrap: wrap; row-gap: 6px; }
-  }
+  /* Wrap rather than scroll: a tab you can't see, behind a scrollbar we
+     suppress, reads as a bug — not a carousel. This was gated to min-width
+     900px, which meant desktop got all four tabs and phones got 1.2 of
+     them. inline-flex only wraps when it has to, so this is unconditional. */
+  .workbench-tabs-container{ overflow: visible; }
+  .workbench-tabs{ flex-wrap: wrap; row-gap: 6px; }
   .workbench-tabs-container::-webkit-scrollbar {
     display: none;
   }
@@ -1642,6 +1642,26 @@ h1, h2, .hero-name{ text-wrap: balance; }
   .hero-cta .btn-nested{ flex: 1 1 100%; justify-content: center; }
 }
 
+/* ── Fatal render error ──────────────────────────────────────────
+   Only visible if a child component throws. Deliberately plain: the
+   point is to keep the nav and telemetry usable so the visitor can
+   still get somewhere, not to look designed. */
+.fatal-error{
+  display: flex; align-items: center; justify-content: center;
+  min-height: 62vh; padding: 48px 28px; text-align: center;
+}
+.fatal-error-card{
+  max-width: 520px;
+  background: var(--bg-surface-glass); border: 1px solid var(--border-glass);
+  border-radius: 20px; padding: 32px; box-shadow: var(--inner-glow);
+}
+.fatal-error-code{
+  font-family: var(--font-mono); font-size: 12px; color: var(--accent);
+  margin: 0 0 14px; letter-spacing: .04em;
+}
+.fatal-error-card h2{ font-size: 1.28rem; margin: 0 0 12px; letter-spacing: -.01em; }
+.fatal-error-body{ color: var(--text-dim); font-size: .95rem; line-height: 1.6; margin: 0 0 22px; }
+
 /* ══ ATTRACTION PASS — quiet premium touches ══ */
 /* Instrument readouts brighten on hover */
 .hero-stat{ transition: transform .25s var(--ease-out); }
@@ -1910,8 +1930,17 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 }
 .pipeline-card svg{ display: block; width: 100%; height: auto; min-width: 560px; }
 @media (max-width: 720px){
-  .pipeline-card{ padding: 14px; }
-  .pipeline-card svg{ min-width: 520px; }
+  /* Reclaim the horizontal budget: at 375px the chain wrap(28) + shell(8) +
+     core(24) + card(14) left only ~251px for a 940-unit diagram. */
+  .wb-core{ padding: 14px; }
+  .pipeline-card{ padding: 10px; }
+  .pipeline-card svg{ min-width: 700px; }
+  /* Right-edge fade says "pans" without adding markup. Desktop never pans,
+     so it doesn't need one. */
+  .pipeline-card{
+    -webkit-mask-image: linear-gradient(90deg, #000 90%, rgba(0,0,0,.15) 100%);
+    mask-image: linear-gradient(90deg, #000 90%, rgba(0,0,0,.15) 100%);
+  }
 }
 /* Simulation control rows */
 .sim-controls{ display: flex; gap: 10px; flex-wrap: wrap; }

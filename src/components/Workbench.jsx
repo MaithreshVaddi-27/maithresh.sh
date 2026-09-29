@@ -23,7 +23,9 @@ function Pipeline({ pane, sim }) {
   }
 
   return (
-    <div className="pipeline-card">
+    /* Focusable because it scrolls on narrow screens: a scroll container a
+       keyboard can't reach is a WCAG 2.1.1 failure, and the diagram pans. */
+    <div className="pipeline-card" tabIndex={0} role="group" aria-label={`${pane.name} pipeline diagram`}>
       <svg id={pane.svgId} viewBox="0 0 940 180" width="100%" height="180" role="img" aria-label={pane.ariaLabel}>
         {LINKS.map((l, i) => {
           const lit = i < step

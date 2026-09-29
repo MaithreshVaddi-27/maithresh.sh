@@ -14,6 +14,8 @@ from real, verified projects — no filler.
 ## Stack
 
 - **React 19 + Vite 8**, plain JavaScript (no TypeScript)
+- CSS is **linked from `index.html`**, not imported from JS — the browser gets
+  it in the initial HTML instead of waiting on the module graph
 - [GSAP](https://gsap.com/) + ScrollTrigger and [Lenis](https://lenis.darkroom.engineering/) — installed from npm, bundled into their own chunk, synced to a single rAF clock
 - Canvas 2D dot-matrix engine (`src/scene.js`) — proximity illumination, DPR-aware, pauses off-screen
 - Vite handles minification, content hashing and asset caching headers
@@ -36,11 +38,12 @@ npm run lint
 ├── vite.config.js
 ├── _headers                   # immutable edge caching for hashed /assets/*
 ├── src/
-│   ├── main.jsx               # mount
+│   ├── main.jsx               # mount (no CSS import — see the <link>)
 │   ├── App.jsx                # page composition
 │   ├── styles.css             # design system — the single stylesheet
 │   ├── scene.js               # hero canvas engine (mount fn + teardown)
 │   ├── components/            # one component per section
+│   │   └── ErrorBoundary.jsx  # keeps nav/footer alive if a render throws
 │   ├── data/                  # repeated content + the workbench pane model
 │   └── hooks/                 # motion, chrome, cursor
 ├── tests/
@@ -66,6 +69,31 @@ npm run lint
   is genuinely modal for screen readers rather than only keyboard-trapped.
 - **Contribution graph** — third-party API data renders as JSX, so it becomes
   text nodes. No `innerHTML`, no escaping helper.
+
+## Responsive behaviour
+
+The layout is verified from **320px to 2560px** with no horizontal page scroll
+at any width. Two cases needed explicit handling, and both are now asserted in
+`tests/verify.js` so they can't silently regress:
+
+- **Workbench tabs** wrap instead of scrolling. They were a horizontal
+  scroller on phones with `scrollbar-width: none`, which showed 1.2 of 4 tabs
+  with no way to know more existed — and the wrap rule that was supposed to
+  prevent exactly that was gated to `min-width: 900px`, i.e. desktop only.
+- **The pipeline diagram** is a 940-unit `viewBox`. It cannot fit a phone, so
+  below 720px it pans inside its card with a 700px floor (without it the 13px
+  node titles scaled to 7.2px and sub-labels to 5.3px) plus a right-edge fade,
+  because macOS and iOS scrollbars stay invisible until you actually scroll.
+
+## Resilience & accessibility
+
+- A render error in any section shows a recoverable panel instead of a blank
+  page — the nav, telemetry bar and footer stay live so a visitor can leave.
+- axe-core reports **0 violations**; the command console is a real modal
+  (`inert` on the background landmarks, focus trapped and restored), the
+  workbench tablist is a proper roving-tabindex tablist, and project
+  descriptions stay in the accessibility tree on desktop.
+- Verified on the production build: **CLS 0**, FCP ~230ms, ~93 KB gzipped JS.
 
 ## Deploy (Cloudflare Pages)
 
