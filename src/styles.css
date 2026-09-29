@@ -1556,11 +1556,19 @@ section{ scroll-margin-top: 120px; }
 
 /* ══ REFINEMENT PASS 2 — nav density, single-row education, telemetry trim ══ */
 
-/* Six nav items: tighten rhythm on narrow-desktop so nothing wraps */
+/* Six nav items: tighten rhythm on narrow-desktop so nothing wraps.
+   Measured: at 768px the previous values overflowed the viewport by 41px
+   (scrollWidth 809 vs clientWidth 768), so the whole page scrolled sideways.
+   The band only needs to reclaim ~45px; this reclaims ~70px. >=1024 keeps the
+   full-size treatment. */
 @media(min-width:760px) and (max-width:1020px){
-  .navlinks{ gap: 16px; }
+  .navlinks{ gap: 12px; }
   .navlinks a{ font-size: 11.5px; }
-  nav{ padding: 14px 20px; }
+  nav{ padding: 14px 16px; }
+  .nav-actions{ gap: 8px; }
+  .btn-nested--connect{ padding: 5px 12px; }
+  /* The ↗ badge is decorative; the label already reads "CONNECT". */
+  .btn-nested--connect .btn-nested-badge{ display: none; }
 }
 
 /* Single-row education: center the lone entry, remove orphan divider stack */

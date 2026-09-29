@@ -83,6 +83,7 @@ export default function Workbench({ onAnnounce }) {
   }
 
   // Roving tabindex: one tab stop for the whole tablist, arrows/Home/End move.
+  const tabRefs = useRef({})
   const onTablistKey = (e) => {
     const i = PANES.findIndex((p) => p.id === activeId)
     const last = PANES.length - 1
@@ -93,8 +94,9 @@ export default function Workbench({ onAnnounce }) {
     else if (e.key === 'End') next = last
     if (next === null) return
     e.preventDefault()
-    setActiveId(PANES[next].id)
-    document.getElementById(`tab-${PANES[next].id}`)?.focus()
+    const id = PANES[next].id
+    setActiveId(id)
+    tabRefs.current[id]?.focus()
   }
 
   return (
@@ -121,6 +123,7 @@ export default function Workbench({ onAnnounce }) {
                 key={pane.id}
                 type="button"
                 id={`tab-${pane.id}`}
+                ref={(el) => { tabRefs.current[pane.id] = el }}
                 role="tab"
                 className={`workbench-tab${pane.id === activeId ? ' active' : ''}`}
                 aria-selected={pane.id === activeId}
@@ -144,7 +147,13 @@ export default function Workbench({ onAnnounce }) {
             tabIndex="0"
             aria-labelledby={`tab-${pane.id}`}
           >
-            <div className="wb-shell reveal">
+            {/* No `.reveal` here on purpose. Three of the four panes are
+                display:none, and a ScrollTrigger bound to a zero-height box
+                measures degenerate — which left the one *visible* pane stuck at
+                opacity 0, i.e. the default tab rendered as an empty section.
+                Pane visibility is React state; `.workbench-pane.active` already
+                animates it via `paneIn`. Scroll has no business here. */}
+            <div className="wb-shell">
               <div className="wb-core">
                 <div className="pane-head">
                   <div className="pane-title">

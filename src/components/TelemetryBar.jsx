@@ -1,6 +1,10 @@
 export default function TelemetryBar({ onOpenConsole }) {
   return (
-    <div className="top-telemetry-bar">
+    // Top-level <aside>: this bar is a sibling of <header>/<main>/<footer>, so
+    // as bare divs its readout text sat outside every landmark (axe `region`).
+    // A complementary landmark is the honest role for a status strip, and
+    // being top-level keeps it clear of `landmark-…-is-top-level`.
+    <aside className="top-telemetry-bar" aria-label="Session telemetry">
       <div className="telem-group">
         <span className="telem-dot" />
         <span className="telem-status">SYS_STATUS: NOMINAL</span>
@@ -16,6 +20,6 @@ export default function TelemetryBar({ onOpenConsole }) {
         <span className="telem-sep">//</span>
         <button type="button" className="tbtn" onClick={onOpenConsole}>⌘K CONSOLE</button>
       </div>
-    </div>
+    </aside>
   )
 }
