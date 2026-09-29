@@ -46,6 +46,9 @@ const scene = read('src/scene.js')
 const motion = read('src/hooks/useMotion.js')
 const app = read('src/App.jsx')
 const main = read('src/main.jsx')
+const metaOf = (attr) => (html.match(new RegExp(`${attr} content="([^"]*)"`)) || [])[1] || ''
+const ogDesc = metaOf('property="og:description"')
+const twDesc = metaOf('name="twitter:description"')
 // Every source file under src/ — not just the required subset. A gate that
 // only inspects the files it happens to name is blind to the rest of the app.
 const srcFiles = []
@@ -72,6 +75,43 @@ for (const dep of ['react', 'react-dom', 'gsap', 'lenis']) {
 }
 need(!pkg.dependencies?.['clean-css-cli'] && !pkg.dependencies?.terser,
   'clean-css-cli/terser are dead now that Vite minifies — drop them')
+
+// ── Deploy integrity ─────────────────────────────────────────────────────
+// The site is served from two different subpaths: Cloudflare Pages at '/' and
+// GitHub Pages at '/maithresh.sh/'. A hardcoded root-absolute asset URL renders
+// as a blank shell on one of them, so no src/ file may reference /assets/ or
+// /src/ by absolute path — Vite has to see it to rebase it.
+const stripComments = (t) => t.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1')
+for (const rel of srcFiles) {
+  // Comments are allowed to *discuss* the rule (as the Hero import comment does);
+  // only real string literals count.
+  const body = stripComments(read(rel))
+  const bad = body.match(/(?:src|href)\s*=\s*["'`]\/(?:assets|src)\//g)
+  need(!bad, `${rel} references a root-absolute /$1/ path — breaks the GitHub Pages subpath deploy`)
+  const badStr = body.match(/["'`]\/assets\//g)
+  need(!badStr, `${rel} hardcodes an "/assets/..." string — import the asset so Vite can rebase it`)
+}
+need(existsSync(join(root, '.github/workflows/deploy-pages.yml')),
+  'GitHub Pages deploy workflow must exist, or /maithresh.sh/ serves raw source')
+// Must actually wire `base` to the env var, not merely mention it: a gate that
+// only greps for the string passed even with the `base:` line deleted.
+const viteCfg = read('vite.config.js')
+need(/const\s+BASE\s*=\s*process\.env\.VITE_BASE/.test(viteCfg),
+  'vite.config.js must read base from process.env.VITE_BASE')
+need(/\bbase:\s*BASE\b/.test(viteCfg),
+  'vite.config.js must set `base: BASE` or a subpath deploy 404s every asset')
+
+// The contact section must never depend on a third-party API to paint. A
+// committed snapshot is the baseline; the live feed only upgrades it.
+const contribSnap = JSON.parse(read('src/data/contributions.json'))
+need(Array.isArray(contribSnap.contributions) && contribSnap.contributions.length >= 350,
+  'contributions.json snapshot must hold a full ~52-week calendar')
+need(typeof contribSnap.fetchedAt === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(contribSnap.fetchedAt),
+  'contributions.json must record fetchedAt so the UI can disclose a stale snapshot')
+need(/useState\(snapshot\)/.test(read('src/components/ContributionGraph.jsx')),
+  'the contribution graph must paint from the snapshot first, not wait on the network')
+need(/refresh:contrib/.test(read('package.json')),
+  'a refresh:contrib script must exist so the committed snapshot can be regenerated')
 
 // ── Head / meta (lives in index.html, not a component) ──────────────────
 need(html.includes('maithresh.sh'), 'index.html must carry the "maithresh.sh" brand')
@@ -159,6 +199,19 @@ need(source.includes('13+ PIPELINES') && content.includes('13+'),
   'automation counts must be stated as 13+ across telemetry and console')
 for (const stale of ['ten solo-built systems', 'Ten of those are solo builds', '10 solo-built']) {
   need(!content.includes(stale), `stale count "${stale}" contradicts the reconciled 11 solo systems`)
+}
+// The OG and Twitter descriptions must be byte-identical after the count is
+// normalised — a scraper can hit either card, and they had drifted apart.
+need(
+  ogDesc.replace(/11\+?/g, 'N').replace(/13\+?/g, 'M')
+    === twDesc.replace(/11\+?/g, 'N').replace(/13\+?/g, 'M'),
+  'og:description and twitter:description must agree once counts are normalised')
+need(ogDesc.includes('11+') && ogDesc.includes('13+'),
+  'social meta must state counts as 11+/13+, not bare integers')
+// A bare suite-size count drifts the next time a workflow lands. The rollup
+// lives in the section header; per-card badges carry status, not a number.
+for (const stale of ['10 workflows', '2 scenarios', 'Ten workflows', 'Two scenarios']) {
+  need(!content.includes(stale), `per-card count "${stale}" goes stale and reads as the site-wide total`)
 }
 need(!content.includes('data-action="resume"') && !existsSync(join(root, 'assets/maithresh_vaddi_resume.pdf')),
   'the removed résumé feature must stay removed')

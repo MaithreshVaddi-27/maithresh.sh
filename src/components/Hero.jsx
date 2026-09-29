@@ -2,11 +2,14 @@ import { useEffect, useRef } from 'react'
 import Icon from './Icon'
 import { MARQUEE } from '../data/content'
 import { startHeroScene } from '../scene'
+// Imported, not hardcoded to '/assets/...': Vite then fingerprints it and rewrites
+// it against `base`, so the portrait resolves under a subpath deploy too.
+import portraitUrl from '../../assets/svg/maithresh-terminal-portrait.59fb7aed.svg?url'
 
 const STATS = [
   ['8-stage', 'verify-then-answer RAG pipeline'],
   ['5 + 1', 'job APIs + scraper, LLM-free parsing'],
-  ['13', 'shipped n8n / Make / RPA workflows'],
+  ['13+', 'shipped n8n / Make / RPA workflows'],
 ]
 
 export function Hero() {
@@ -40,7 +43,7 @@ export function Hero() {
               </div>
               <div className="ascii-card ascii-card--hero">
                 <img
-                  src="/assets/svg/maithresh-terminal-portrait.59fb7aed.svg"
+                  src={portraitUrl}
                   alt="whoami --ascii render of Maithresh Vaddi"
                   width="840"
                   height="875"
