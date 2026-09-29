@@ -1,18 +1,27 @@
 {
   "name": "maithresh-sh",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "maithresh.sh — cyber-terminal portfolio. Pure static site; npm scripts handle minification, the 33-check verify gate, and Cloudflare Pages deploy.",
+  "type": "module",
+  "description": "maithresh.sh — cyber-terminal portfolio. React 19 + Vite SPA; npm run build runs the verify gate then emits dist/ for Cloudflare Pages.",
   "scripts": {
-    "min:css": "cleancss -o css/style.min.css css/style.css",
-    "min:js": "terser js/main.js -o js/main.min.js -c -m && terser js/scene.js -o js/scene.min.js -c -m",
-    "verify": "node tests/verify-redesign.js",
-    "build": "npm run min:css && npm run min:js && npm run verify",
-    "deploy": "wrangler pages deploy ."
+    "dev": "vite",
+    "build": "vite build && npm run verify",
+    "preview": "vite preview",
+    "lint": "oxlint",
+    "verify": "node tests/verify.js",
+    "deploy": "wrangler pages deploy dist"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "lenis": "^1.3.11",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "clean-css-cli": "^5.6.3",
-    "terser": "^5.36.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "vite": "^8.3.0",
     "wrangler": "^4.143.0"
   }
 }

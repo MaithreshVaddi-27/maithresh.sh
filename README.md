@@ -3,7 +3,7 @@
 [![Live](https://img.shields.io/badge/live-maithresh--sh.pages.dev-38BDF8?style=flat-square)](https://maithresh-sh.pages.dev/)
 [![Lighthouse Perf](https://img.shields.io/badge/lighthouse--mobile-85-10B981?style=flat-square)](https://maithresh-sh.pages.dev/)
 [![Lighthouse A11y](https://img.shields.io/badge/a11y-100-10B981?style=flat-square)](https://maithresh-sh.pages.dev/)
-[![Checks](https://img.shields.io/badge/verify-33%2F33-10B981?style=flat-square)](./tests/verify-redesign.js)
+[![Checks](https://img.shields.io/badge/verify-passing-10B981?style=flat-square)](./tests/verify.js)
 
 Personal portfolio for **Maithresh Vaddi** — AI/ML Engineer & Agentic Systems Builder.
 
@@ -13,76 +13,78 @@ from real, verified projects — no filler.
 
 ## Stack
 
-- Vanilla HTML/CSS/JS — no build step, no bundler
-- Canvas 2D dot-matrix engine (`js/scene.js`) — proximity illumination, DPR-aware, pauses off-screen
-- [GSAP](https://gsap.com/) + ScrollTrigger (SRI-pinned) — scroll-linked animation
-- [Lenis](https://lenis.darkroom.engineering/) (SRI-pinned) — smooth scroll, synced to GSAP's ticker
-- Ship artifacts are minified (`clean-css-cli`, `terser`); sources stay readable
+- **React 19 + Vite 8**, plain JavaScript (no TypeScript)
+- [GSAP](https://gsap.com/) + ScrollTrigger and [Lenis](https://lenis.darkroom.engineering/) — installed from npm, bundled into their own chunk, synced to a single rAF clock
+- Canvas 2D dot-matrix engine (`src/scene.js`) — proximity illumination, DPR-aware, pauses off-screen
+- Vite handles minification, content hashing and asset caching headers
+- `npm run build` runs the build **and** the verification gate, so a regression fails the build rather than shipping
 
 ## Run locally
 
-Serve over HTTP (ES modules + live API fetch need it — `file://` won't work):
-
 ```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # → dist/ (minified, hashed) + verification gate
+npm run preview    # serve the real build
+npm run lint
 ```
 
 ## Project structure
 
 ```
-├── index.html
-├── robots.txt
-├── sitemap.xml
-├── _headers                  # immutable edge caching (honored by Cloudflare Pages)
-├── css/
-│   ├── style.css             # source of truth — edit this
-│   └── style.min.css         # ship artifact — regenerate, never hand-edit
-├── js/
-│   ├── main.js / scene.js    # sources
-│   ├── main.min.js / scene.min.js  # ship artifacts
+├── index.html                 # <head> only — meta, JSON-LD, fonts. Body is a React root.
+├── vite.config.js
+├── _headers                   # immutable edge caching for hashed /assets/*
+├── src/
+│   ├── main.jsx               # mount
+│   ├── App.jsx                # page composition
+│   ├── styles.css             # design system — the single stylesheet
+│   ├── scene.js               # hero canvas engine (mount fn + teardown)
+│   ├── components/            # one component per section
+│   ├── data/                  # repeated content + the workbench pane model
+│   └── hooks/                 # motion, chrome, cursor
 ├── tests/
-│   └── verify-redesign.js    # 33-check quality gate (node tests/verify-redesign.js)
+│   └── verify.js              # build gate (node tests/verify.js)
 ├── docs/
-│   └── free-deploy-options.md # deployment walkthrough (Cloudflare Pages + fallbacks)
-└── assets/
-    ├── og-image.jpg
-    └── svg/       # hero portrait render — filename carries a content hash (see below)
+│   └── free-deploy-options.md # deployment walkthrough
+└── assets/                    # og-image + hero portrait SVG
 ```
 
-## Cache-busting (read this before every deploy)
+## How the interactive pieces work
 
-Deploys serve the `.min` files with a `?v=YYYYMMDD-n` query string
-(current: `?v=20260926-5`). After editing any source, regenerate + bump:
-
-```bash
-npm run build   # minifies CSS + JS, then runs the 33-check verify gate
-# then bump ?v= in index.html (css + both js) and commit
-```
-
-The hero portrait SVG under `assets/svg/` carries its hash directly in the
-filename (`maithresh-terminal-portrait.<hash>.svg`). Editing its *content*
-without renaming means the CDN edge keeps serving old bytes.
+- **Workbench** — the four pipeline visualizers share one geometry and one
+  `Pipeline` component; each pane declares only its copy, palette and the two
+  outcomes it can land on. A simulation is `{ step, mode }` state, and every
+  node/connector colour is *derived* from that state. Re-clicking clears the
+  pending timeouts, which is the entire serialization story — a stale outcome
+  can't land after a newer one.
+- **Projects** — the sticky stage renders the same detail component as the row,
+  with schematic marker ids namespaced per location. Rows keep the
+  visually-hidden wrapper so project descriptions stay in the accessibility tree
+  on desktop while still rendering inline under 900px.
+- **⌘K console** — React state plus `inert` on the page landmarks, so the dialog
+  is genuinely modal for screen readers rather than only keyboard-trapped.
+- **Contribution graph** — third-party API data renders as JSX, so it becomes
+  text nodes. No `innerHTML`, no escaping helper.
 
 ## Deploy (Cloudflare Pages)
 
-Live at **https://maithresh-sh.pages.dev/** (static site — `npm run build`
-just regenerates the minified artifacts and runs the verify gate).
+Live at **https://maithresh-sh.pages.dev/**
 
-- **Dashboard (git-integrated):** Workers & Pages → Create application →
-  Pages tab → Connect to Git → pick this repo → Production branch `main`,
-  Framework preset None, Build command `npm run build`, Build output
-  directory `/`. Every push to `main` auto-deploys; other branches get
-  preview URLs.
-- **CLI (Direct Upload):**
+- **Dashboard (git-integrated):** Workers & Pages → Pages → Connect to Git →
+  this repo → branch `main`, framework preset **None**, build command
+  `npm run build`, output directory **`dist`**. Every push to `main` deploys.
+- **CLI (direct upload):**
   ```bash
-  npm run build                        # refresh .min artifacts + verify gate
-  npx wrangler login
-  npx wrangler pages project create    # name: maithresh-sh, branch: main
-  npx wrangler pages deploy .
+  npm run build
+  npx wrangler pages project create    # name: maithresh-sh
+  npm run deploy                      # wrangler pages deploy dist
   ```
-- Full walkthrough, custom-domain, and caching details:
-  [docs/free-deploy-options.md](docs/free-deploy-options.md#1-cloudflare-pages--recommended).
+- Full walkthrough: [docs/free-deploy-options.md](docs/free-deploy-options.md)
+
+Vite content-hashes everything it emits into `dist/assets/`, so `_headers` can
+serve that directory `immutable` for a year — no manual `?v=` cache-busting
+strings to remember.
 
 ## License
 

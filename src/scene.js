@@ -10,11 +10,14 @@
  * - Soft cursor spotlight bloom following the pointer
  * - Battery-throttled rAF loop (0% CPU when tab hidden or backgrounded)
  * - Respects prefers-reduced-motion
+ *
+ * Now a module with a teardown function instead of a self-executing IIFE that
+ * hunted for #hero-canvas: React owns the element's lifetime, and StrictMode
+ * double-mounts in dev, so every listener and observer needs a way out.
  */
 
-(function initDotMatrix() {
-  const canvas = document.getElementById('hero-canvas');
-  if (!canvas) return;
+export function startHeroScene(canvas) {
+  if (!canvas) return () => {}
 
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
@@ -78,17 +81,18 @@
   }
 
   // Pointer tracking
-  window.addEventListener('pointermove', (e) => {
+  const onPointerMove = (e) => {
     mouse.targetX = e.clientX;
     mouse.targetY = e.clientY;
     mouse.active = true;
-  });
-
-  window.addEventListener('pointerleave', () => {
+  };
+  const onPointerLeave = () => {
     mouse.targetX = -1000;
     mouse.targetY = -1000;
     mouse.active = false;
-  });
+  };
+  window.addEventListener('pointermove', onPointerMove, { passive: true });
+  window.addEventListener('pointerleave', onPointerLeave);
 
   // Render Loop
   function render() {
@@ -177,20 +181,16 @@
   }
 
   // Battery & Tab-visibility optimization: pause loop when hidden
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      stop();
-    } else {
-      start();
-    }
-  });
+  const onVisibility = () => (document.hidden ? stop() : start());
+  document.addEventListener('visibilitychange', onVisibility);
 
-  window.addEventListener('resize', () => {
+  const onResize = () => {
     resize();
     // Resizing clears the canvas — repaint the single static frame when
     // the loop is intentionally off (reduced motion).
     if (reduceMotion && !isRunning) render();
-  });
+  };
+  window.addEventListener('resize', onResize);
 
   // Initialize
   resize();
@@ -205,22 +205,31 @@
   // Scroll-aware pause: the canvas is a fixed full-viewport substrate,
   // but once the hero scrolls out there is nothing new to see — stop
   // shading dots until the hero returns.
+  let heroObserver = null
   if ('IntersectionObserver' in window) {
     const hero = document.querySelector('.hero');
     if (hero) {
-      new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (reduceMotion) return;
-            if (entry.isIntersecting) start();
-            else stop();
-          });
+      heroObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (reduceMotion) return
+          if (entry.isIntersecting) start()
+          else stop()
         },
         { threshold: 0 }
-      ).observe(hero);
+      )
+      heroObserver.observe(hero)
     }
   }
 
   // Smooth appearance
-  canvas.classList.add('ready');
-})();
+  canvas.classList.add('ready')
+
+  return () => {
+    stop()
+    window.removeEventListener('pointermove', onPointerMove)
+    window.removeEventListener('pointerleave', onPointerLeave)
+    window.removeEventListener('resize', onResize)
+    document.removeEventListener('visibilitychange', onVisibility)
+    heroObserver?.disconnect()
+  }
+}
