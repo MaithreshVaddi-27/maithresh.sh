@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { reduceMotion } from './useMotion'
 
 const DOT = 3
@@ -13,8 +13,12 @@ const TEXT_ENTRY = 'input, textarea, select, [contenteditable]'
 // parked while the tab is hidden. Never on touch pointers, reduced-motion, or
 // during text entry (the native I-beam is preserved).
 export function useInstrumentCursor() {
-  const [overPressable, setOverPressable] = useState(false)
   const [hidden, setHidden] = useState(false)
+  // Read through a ref, not state: this effect owns the rAF loop and the two
+  // cursor nodes, so depending on hover state tore both down and rebuilt them
+  // on every pointerover — which also reset the lerp to -100 and made the
+  // reticle visibly jump to the corner each time you crossed a link.
+  const overPressable = useRef(false)
 
   useEffect(() => {
     if (!window.matchMedia('(pointer: fine)').matches || reduceMotion) return
@@ -34,7 +38,7 @@ export function useInstrumentCursor() {
       dot.style.transform = `translate(${mx - DOT}px, ${my - DOT}px)`
       rx += (mx - rx) * 0.2
       ry += (my - ry) * 0.2
-      const half = overPressable ? RING_ACTIVE : RING
+      const half = overPressable.current ? RING_ACTIVE : RING
       ring.style.transform = `translate(${rx - half}px, ${ry - half}px)`
       if (running) raf = requestAnimationFrame(place)
     }
@@ -59,11 +63,11 @@ export function useInstrumentCursor() {
       start()
     }
     const onOver = (e) => {
-      if (e.target.closest?.(PRESSABLE)) setOverPressable(true)
+      if (e.target.closest?.(PRESSABLE)) overPressable.current = true
       if (e.target.closest?.(TEXT_ENTRY)) setHidden(true)
     }
     const onOut = (e) => {
-      if (e.target.closest?.(PRESSABLE)) setOverPressable(false)
+      if (e.target.closest?.(PRESSABLE)) overPressable.current = false
       if (e.target.closest?.(TEXT_ENTRY)) setHidden(false)
     }
     const onVisibility = () => (document.hidden ? stop() : shown && start())
@@ -88,7 +92,7 @@ export function useInstrumentCursor() {
       dot.remove()
       ring.remove()
     }
-  }, [overPressable])
+  }, [])
 
   useEffect(() => {
     document.body.classList.toggle('cursor-hidden', hidden)
