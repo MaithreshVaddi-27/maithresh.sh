@@ -670,8 +670,17 @@
   .activity-graph-frame svg{ display:block; width:100%; height:auto; }
   .activity-graph-frame rect{ cursor: pointer; transition: stroke .15s ease, stroke-width .15s ease; }
   .activity-graph-frame rect:hover{ stroke: #7dd3fc; stroke-width: 1.5; }
-  /* Contribution snake — theme-cyan head with glow, decorative only */
-  .snake-head{ fill: #38bdf8; filter: drop-shadow(0 0 6px rgba(56,189,248,.9)); }
+  /* Breakout probe beam — the ricocheting puck. Same glow vocabulary as the old
+     snake head, so the swap reads as a re-tune rather than a different product. */
+  .probe-beam{ fill: #7dd3fc; filter: drop-shadow(0 0 8px rgba(56,189,248,1)); }
+  .probe-beam-halo{ fill: none; stroke: rgba(125,211,252,.35); stroke-width: 1; }
+  /* Impact readout: count for the day currently being struck, plus its ring. */
+  .brick-hit{ animation: brickHit .3s ease-out; }
+  .brick-hit-n{
+    fill: #7dd3fc; font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+    text-anchor: middle; filter: drop-shadow(0 0 4px rgba(56,189,248,.9));
+  }
+  @keyframes brickHit{ from{ opacity: 0 } to{ opacity: 1 } }
   /* Live stat readouts + Less→More legend — instrument chrome for the graph */
   .activity-stats{
     display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;
@@ -688,11 +697,12 @@
   }
   .legend-cells{ display: inline-flex; gap: 3px; }
   .legend-cells span{ width: 11px; height: 11px; border-radius: 2px; }
-  .legend-cells span:nth-child(1){ background: rgba(255,255,255,0.05); }
-  .legend-cells span:nth-child(2){ background: #0369a1; }
-  .legend-cells span:nth-child(3){ background: #0284c7; }
-  .legend-cells span:nth-child(4){ background: #38bdf8; }
-  .legend-cells span:nth-child(5){ background: #7dd3fc; }
+  /* Hot-day swatch: the amber tier sits outside the cyan ramp, so it gets its own
+     mark in the legend rather than pretending to be another ramp step. */
+  .legend-hot{
+    width: 11px; height: 11px; border-radius: 2px; background: var(--amber);
+    margin-left: 10px; margin-right: -2px;
+  }
   /* Shown only if the jogruber.de contribution-data fetch fails (see
      the catch in ContributionGraph.jsx) — the live graph has no
      local backup by
@@ -1902,6 +1912,18 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
   .top-telemetry-bar{ flex-direction: row; justify-content: space-between; align-items: center; }
   .top-telemetry-bar > div:first-child > span:nth-child(n+3){ display: none; }
   .top-telemetry-bar > div:last-child > span{ display: none; }
+
+  /* Contribution grid: 53 columns cannot fit a 390px phone at a legible cell
+     size — squeezed to width the whole SVG collapsed to ~48px tall and the
+     month/weekday labels were clipped away entirely. Let the frame scroll
+     sideways and pin a min-width so cells stay readable instead of shrinking
+     into an unreadable strip. `overflow:hidden` on .activity-graph-frame is what
+     the scroll-edge fade pseudo-elements hang off, so the fade is dropped here
+     and the frame just becomes a scroll container. */
+  .activity-graph-frame{ overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; padding: 16px 6px 10px; }
+  .activity-graph-frame::before, .activity-graph-frame::after{ display: none; }
+  .activity-graph-frame svg{ min-width: 680px; }
+  .contrib-legend{ position: sticky; left: 0; justify-content: flex-start; }
 }
 @media (max-width: 480px){
   /* Dock: drop the duplicate ⌘K shortcut (console stays reachable from
