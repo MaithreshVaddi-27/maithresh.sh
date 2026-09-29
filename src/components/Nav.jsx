@@ -12,8 +12,11 @@ export default function Nav({ onOpenConsole, scrolled }) {
   return (
     <header className={scrolled ? 'is-scrolled' : ''}>
       <nav className="glass-dock" aria-label="Main Navigation">
-        <a href="#top" className="logo" onClick={close}>
-          <span className="brand-dot" />
+        {/* aria-label is load-bearing, not decoration: .brand-word is
+            display:none under 640px, which drops the link's only text from the
+            accessibility tree and leaves an unnamed link (axe link-name). */}
+        <a href="#top" className="logo" aria-label="maithresh.sh — home" onClick={close}>
+          <span className="brand-dot" aria-hidden="true" />
           <span className="brand-word">maithresh<span className="brand-accent">.sh</span></span>
         </a>
         <ul className={`navlinks${open ? ' open' : ''}`} id="navLinks">

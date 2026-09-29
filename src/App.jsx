@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import ErrorBoundary from './components/ErrorBoundary'
 import Preloader from './components/Preloader'
 import TelemetryBar from './components/TelemetryBar'
 import Nav from './components/Nav'
@@ -38,17 +39,19 @@ export default function App() {
       <Nav onOpenConsole={() => setConsoleOpen(true)} scrolled={scrolled} />
 
       <main id="top" tabIndex="-1">
-        <Hero />
-        <Marquee />
-        <About />
-        <Stack />
-        <Workbench onAnnounce={setAnnouncement} />
-        <Projects projects={PROJECTS} />
-        <Automation />
-        <GroupPlatforms />
-        <Education />
-        <Certifications />
-        <Contact />
+        <ErrorBoundary>
+          <Hero />
+          <Marquee />
+          <About />
+          <Stack />
+          <Workbench onAnnounce={setAnnouncement} />
+          <Projects projects={PROJECTS} />
+          <Automation />
+          <GroupPlatforms />
+          <Education />
+          <Certifications />
+          <Contact />
+        </ErrorBoundary>
       </main>
 
       <CommandConsole
