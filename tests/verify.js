@@ -151,8 +151,12 @@ need(!/&(amp|#\d+|#x[0-9a-f]+);/.test(read('src/data/workbench.jsx')),
   'HTML entities in JS string data render literally — use plain characters')
 
 // ── Content invariants ──────────────────────────────────────────────────
-need(source.includes('11 SOLO SYSTEMS') && source.includes('11 solo-built agent repositories'),
-  'telemetry bar + console must both state the reconciled 11 solo systems')
+// Counts are stated as "N+" (11+ solo systems, 13+ workflows) so the page can't
+// go stale as projects land. Both surfaces must still name the floor.
+need(source.includes('11+ SOLO SYSTEMS') && source.includes('11+ solo-built agent repositories'),
+  'telemetry bar + console must both state the reconciled 11+ solo systems')
+need(source.includes('13+ PIPELINES') && content.includes('13+'),
+  'automation counts must be stated as 13+ across telemetry and console')
 for (const stale of ['ten solo-built systems', 'Ten of those are solo builds', '10 solo-built']) {
   need(!content.includes(stale), `stale count "${stale}" contradicts the reconciled 11 solo systems`)
 }
