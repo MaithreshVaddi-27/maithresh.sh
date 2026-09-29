@@ -34,7 +34,7 @@ python3 -m http.server 8000
 ├── index.html
 ├── robots.txt
 ├── sitemap.xml
-├── _headers / netlify.toml   # immutable edge caching (Cloudflare/Netlify; harmless elsewhere)
+├── _headers                  # immutable edge caching (honored by Cloudflare Pages)
 ├── css/
 │   ├── style.css             # source of truth — edit this
 │   └── style.min.css         # ship artifact — regenerate, never hand-edit
@@ -44,11 +44,9 @@ python3 -m http.server 8000
 ├── tests/
 │   └── verify-redesign.js    # 33-check quality gate (node tests/verify-redesign.js)
 ├── docs/
-│   ├── AUDIT.md              # audit record, phases 0–7
-│   └── DEEP-AUDIT.md         # deep-audit findings, phases 6–10
+│   └── free-deploy-options.md # deployment walkthrough (Cloudflare Pages + fallbacks)
 └── assets/
     ├── og-image.jpg
-    ├── maithresh_vaddi_resume.pdf
     └── svg/       # hero portrait render — filename carries a content hash (see below)
 ```
 
