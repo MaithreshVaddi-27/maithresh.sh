@@ -312,6 +312,10 @@
     color: var(--text); letter-spacing: 0.5px;
     display:flex; align-items:center; gap:8px;
     white-space: nowrap; flex-shrink: 0;
+    /* 24px min target (WCAG 2.2 2.5.8). The wordmark is 15px, so pad the hit
+       area and pull it back with a negative margin — the bar height is fixed
+       and a padded link would otherwise shift the flex row. */
+    padding: 5px 6px; margin: -5px -6px;
   }
   .navlinks{ display:flex; gap: 20px; list-style:none; }
   .navlinks a{
@@ -565,9 +569,14 @@
      the way they were before. Sized to sit exactly on the mono
      baseline rather than floating above/below it. */
   .section-eyebrow svg{ width:13px; height:13px; flex-shrink:0; color: var(--accent); opacity:0.9; }
+  /* Section headlines. Mono at 3.6rem is fine for one-word headings but rags
+     badly on a three-word one ("Automation & workflow engineering" broke into
+     three ragged lines). Capping the size and the measure keeps every headline
+     to two lines max. */
   h2{
-    font-family: var(--font-display); font-weight: 700; font-size: clamp(2.2rem, 5vw, 3.6rem);
-    letter-spacing: -0.02em; line-height: 1.08; font-optical-sizing: auto;
+    font-family: var(--font-display); font-weight: 700; font-size: clamp(1.9rem, 3.8vw, 2.9rem);
+    letter-spacing: -0.02em; line-height: 1.12; font-optical-sizing: auto;
+    max-width: 22ch; text-wrap: balance;
   }
   .section-sub{ color: var(--text-mute); margin-top: 14px; font-size: 1rem; max-width: 560px; }
 
@@ -820,17 +829,18 @@
     .proj-row-detail .proj-stack{ margin-top: 12px; }
   }
 
-  /* min-width:0 is load-bearing: a nowrap flex item defaults to min-width:auto,
-     which pins it at the full width of its text and starves .proj-row-main
-     until the project title wraps one word per line. Letting the tag shrink and
-     ellipsize keeps the title on one or two lines instead. */
+  /* The tag lives INSIDE .proj-row-main, under the title, rather than as a
+     sibling flex item. As a sibling it competed with the title for the row's
+     width and got crushed to 0-8px (a `flex: 0 6 auto` + min-width:0 tag
+     starves under a long title — it read as a broken row, not a truncated
+     one). As a block child of the main column it gets the full column width
+     and simply wraps. */
   .proj-row-tag{
-    position:relative; z-index:1; font-family: var(--font-mono); font-size: 12px;
-    color: var(--text-dim); white-space:nowrap; display:none;
-    flex: 0 6 auto; min-width:0; overflow:hidden; text-overflow:ellipsis;
+    position:relative; z-index:1; display:block; margin-top: 6px;
+    font-family: var(--font-mono); font-size: 12px; line-height: 1.5;
+    color: var(--text-dim);
     transition: color 0.3s ease;
   }
-  @media(min-width:640px){ .proj-row-tag{ display:block; } }
   .proj-row:hover .proj-row-tag, .proj-row:focus-visible .proj-row-tag{ color: rgba(125,211,252,0.85); }
 
   .proj-row-arrow{
@@ -1226,7 +1236,14 @@
     transition: stroke 0.3s ease, fill 0.3s ease;
   }
 
-  /* ── Interview Defense Callouts ────────────────────────────── */
+  /* ── Trade-off callouts ─────────────────────────────────────
+     Block, not flex-row. It was `display:flex` + `flex-wrap:wrap`,
+     which only read correctly while each callout had exactly two
+     paragraphs: the head took the left column and the first paragraph
+     the right. A third paragraph wrapped to a new row that started
+     back at the left, so the reading order went head → para1 →
+     para2, which looks like a layout bug. Stacked block: head as a
+     label, paragraphs in one column. */
   .interview-defense-box {
     background: rgba(56, 189, 248, 0.04);
     border-left: 3px solid var(--accent-cyan);
@@ -1234,12 +1251,8 @@
     padding: 16px 20px;
     margin-top: 18px;
     font-family: var(--font-mono);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
   }
+  .interview-defense-box .idef-text{ max-width: 92ch; }
 
   /* ── Command Console Dialog Modal (⌘K) ─────────────────────── */
   .cmd-console-overlay {
@@ -1456,11 +1469,13 @@
   /* ── Hero Name & Secondary Identity Subtitle ───────────────── */
   .hero-name {
     font-family: var(--font-display, 'JetBrains Mono', monospace);
-    font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+    /* The name is the <h1> and the headline, so it has to win the type
+       hierarchy against the role line below it. */
+    font-size: clamp(2.1rem, 4.2vw, 3.6rem);
     font-weight: 800;
     color: #f8fafc;
     letter-spacing: -0.035em;
-    line-height: 1.05;
+    line-height: 1.02;
     margin: 0 0 8px 0;
   }
   .hero-desc-sub {
@@ -1469,7 +1484,7 @@
     font-weight: 600;
     color: var(--accent-cyan);
     letter-spacing: 0.04em;
-    margin: 6px 0 16px 0;
+    margin: 10px 0 18px 0;
     opacity: 0.9;
   }
 
@@ -1505,14 +1520,28 @@ section{ scroll-margin-top: 120px; }
 /* Accent chips — hero skills keep quiet luxury, no neon */
 .chip-accent{ border-color: rgba(56,189,248,.45); color:#7dd3fc; background: rgba(56,189,248,.08); }
 
-/* Pressable affordances — every clickable card shows intent */
-.proj-row, .stack-card, .group-card, .cert-card, .auto-item, .more-item,
+/* Pressable affordances — only genuinely clickable surfaces get the pointer.
+   .auto-item and .more-item are informational rows (the link lives on the
+   h3 title), so giving them cursor:pointer + a hover lift was a false
+   affordance: it promised a click that never happened. */
+.proj-row, .stack-card, .group-card, .cert-card,
 .chip, .contact-links a, .workbench-tab, .more-toggle{
   cursor:pointer; transition: transform .2s var(--ease-out), border-color .2s ease, box-shadow .25s ease, background .2s ease;
+}
+.auto-item, .more-item{
+  transition: border-color .2s ease, background .2s ease, padding-left .25s var(--ease-out);
 }
 .chip:hover{ border-color: rgba(56,189,248,.5); color:#fff; transform: translateY(-1px); }
 .contact-links a:hover{ border-color: rgba(56,189,248,.55); color:#fff; box-shadow: 0 0 20px rgba(56,189,248,.15); transform: translateY(-1px); }
 .auto-item:hover, .more-item:hover{ border-color: var(--glass-rim); }
+/* The title link is the real target on these rows — hover feedback belongs
+   on it, not on the whole row. */
+/* The title link is the real target on these rows — hover feedback belongs
+   on it, not on the whole row. The negative bottom margin gives it the 24px
+   min target height (WCAG 2.2 2.5.8) without adding vertical space, since the
+   link's own line box is only ~20px. */
+.auto-item h3 a{ transition: color .2s ease; display: inline-block; padding: 4px 6px; margin: -4px -6px; }
+.auto-item h3 a:hover{ color: var(--accent-bright); }
 .workbench-tab:hover{ color:#fff; }
 .proj-row:hover{ background: rgba(255,255,255,.025); }
 .proj-row:hover .proj-row-arrow{ transform: translate(2px,-2px); color: var(--accent); }
@@ -1534,12 +1563,56 @@ section{ scroll-margin-top: 120px; }
 .to-top.show{ opacity:1; visibility:visible; transform:none; }
 .to-top:hover{ box-shadow: 0 0 20px rgba(56,189,248,.35); transform: translateY(-2px); }
 
-/* Print — recruiters print portfolios; keep it legible */
+/* Print — recruiters print portfolios; keep it legible. Project rows are
+   hover-revealed, so on paper every detail must be shown expanded and the
+   URL printed after each link (a printed "GitHub ↗" is useless without it). */
 @media print{
   header, .scroll-progress, .preloader, .top-telemetry-bar, #hero-canvas, .hero-fade,
-  .cmd-console-overlay, .to-top, .scroll-hint{ display:none !important; }
+  .cmd-console-overlay, .to-top, .scroll-hint, .workbench, .sim-controls,
+  .proj-diagram, .proj-stage, .proj-row-swatch, .proj-row-arrow,
+  .more-toggle, .activity-graph-frame, body::before, body::after{ display:none !important; }
   body{ background:#fff; color:#000; }
-  .stack-card, .group-card, .cert-card, .terminal{ background:#fff; border:1px solid #ccc; backdrop-filter:none; }
+  /* Text tokens are near-white on a dark theme; on paper they'd be invisible.
+     Invert the neutral text ramp for print so every body/description string
+     actually prints, and drop the accent glows/shadows that only read on dark. */
+  .hero-name, h1, h2, h3, .proj-row-title, .proj-title, .hero-lead,
+  .about-text strong, .principles, .t-out, .proj-row-index{
+    color: #000 !important; text-shadow: none !important;
+  }
+  .hero-desc, .section-sub, .about-text p, .proj-desc, .auto-item p,
+  .more-item p, .idef-text, .group-card p, .cert-card p, .principles li,
+  .hero-desc-sub, .contact-note, .proj-row-tag, .proj-tag, .proj-metric,
+  .stack-card, .group-card, .cert-card, .auto-item, .more-item, .contact-links a{
+    color: #333 !important;
+  }
+  .chip, .proj-stack span, .ed-meta, footer, .foot-note{ color: #555 !important; }
+  .hero-lead span{ color: #0a5a7a !important; }
+  .interview-defense-box{ background:#f4f8fb !important; border-left-color:#0a5a7a !important; }
+  .idef-title, .idef-text strong{ color:#0a3d52 !important; }
+  .section-head h2, .about-text h2{ background-image: none !important; }
+  .stack-card, .group-card, .cert-card, .terminal{
+    background:#fff; border:1px solid #ccc; backdrop-filter:none; box-shadow:none !important;
+  }
+  /* The 1px clip that keeps project detail in the a11y tree on screen would
+     otherwise print as ~2900px of stacked cards per row. Print it open, but
+     as a compact block, not a full expansion. */
+  .proj-row-detail{
+    position: static !important; width:auto !important; height:auto !important;
+    clip:auto !important; white-space:normal !important; overflow:visible !important;
+    font-size: 9.5pt; line-height: 1.35;
+  }
+  .proj-row{ padding: 10px 4px; }
+  .proj-diagram{ display:none !important; }
+  a[href^="http"]::after{ color:#666; }
+  .proj-list, .proj-row-detail{ display:block !important; grid-template-columns:1fr !important; }
+  .proj-row{ break-inside: avoid; page-break-inside: avoid; border-bottom:1px solid #ccc; }
+  .proj-row-detail, .more-body{ position:static !important; opacity:1 !important; visibility:visible !important;
+    max-height:none !important; height:auto !important; overflow:visible !important; }
+  .proj-row a[href^="http"]::after, .contact-links a[href^="http"]::after{
+    content: ' (' attr(href) ')'; font-size:9px; color:#555; word-break:break-all;
+  }
+  .more-body{ display:grid !important; }
+  section{ break-inside: avoid-page; }
 }
 
 /* ══ REFINEMENT PASS 2 — nav density, single-row education, telemetry trim ══ */
@@ -1789,6 +1862,9 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 .proj-link{
   font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim);
   display: inline-flex; align-items: center; gap: 4px;
+  /* 24px min target (WCAG 2.2 2.5.8); negative margin grows the hit area
+     without moving the label out of the card's top row. */
+  padding: 6px 8px; margin: -6px -8px;
   transition: color 0.2s ease, gap 0.2s var(--ease-out);
 }
 .proj-link:hover{ color: var(--accent); gap: 8px; }
@@ -1807,12 +1883,13 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 @media (prefers-reduced-motion: reduce){
   .avail-dot{ animation: none; }
 }
-/* Gradient display text must never go invisible: if background-clip:text
-   is unsupported, fall back to a solid accent instead of transparent. */
+/* Gradient-clipped text must never go invisible: where background-clip:text is
+   unsupported, fall back to a solid accent rather than transparent. The hero
+   role line is a flat accent now, but the section-head h2 underline wash and
+   the .chip-accent tone still rely on the same guard being present, so the
+   @supports block stays as a general safety net. */
 @supports not ((background-clip: text) or (-webkit-background-clip: text)){
-  .hero-lead span{
-    background: none; color: var(--accent-bright); filter: none; animation: none;
-  }
+  .grad-text, .hero-lead span{ background: none; color: var(--accent-bright); }
 }
 @media (max-width: 640px){
   .footer-inner{ justify-content: center; text-align: center; }
@@ -1831,7 +1908,11 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
      the telemetry bar) and the logo path suffix so logo + toggle +
      CONNECT fit without pushing content off-screen. */
   .glass-dock .btn-nested-secondary{ display: none; }
-  .glass-dock .logo span:last-child{ display: none; }
+  /* Hide the ".sh" suffix, not the whole wordmark. This used to read
+     `.logo span:last-child`, which matches `.brand-word` itself (it IS the
+     last child of .logo) — so on every phone the site showed an 8px dot
+     with no name at all. Target the nested accent span instead. */
+  .glass-dock .logo .brand-accent{ display: none; }
 }
 
 /* ══ PRODUCTION PASS — externalized component classes ══
@@ -1856,7 +1937,9 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 /* Small terminal-style utility button (telemetry ⌘K, palette ESC) */
 .tbtn{
   background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-  border-radius: 8px; padding: 2px 7px; color: var(--accent);
+  /* 24px minimum target (WCAG 2.2 2.5.8), not 19px. Padding is asymmetric so
+     the visible pill still hugs the 10px label on the telemetry strip. */
+  border-radius: 8px; padding: 7px 9px; margin: -5px -7px; color: var(--accent);
   font-family: inherit; font-size: 10px; cursor: pointer;
   transition: background .2s ease, border-color .2s ease;
 }
@@ -1872,18 +1955,23 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 .btn-nested--connect{ padding: 5px 5px 5px 14px; }
 .nav-actions{ display: flex; align-items: center; gap: 10px; }
 
-/* Hero lead line — carries the old display-h1 treatment now that the
-   name owns the single <h1> */
+/* Hero role line. Sits BELOW the name in the hierarchy: the name is the
+   <h1> and the headline, so the role line is sized as a statement, not a
+   second headline. It used to be 6vw/4rem — larger than the name itself —
+   which inverted the reading order and wrapped to four ragged lines.
+   The accent is a single quiet color, not a gradient on one phrase. */
 .hero-lead{
-  font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(2rem, 6vw, 4rem); line-height: 1.06; letter-spacing: -0.02em;
-  font-optical-sizing: auto; max-width: 920px;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem); line-height: 1.2; letter-spacing: -0.015em;
+  font-optical-sizing: auto; max-width: 30ch;
   opacity: 0; animation: fadeUp .8s var(--ease-out) .35s forwards;
 }
-.hero-lead span{
-  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-bright) 90%);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  filter: drop-shadow(0 0 18px rgba(125,211,252,.35));
+.hero-lead span{ color: var(--accent-bright); white-space: nowrap; }
+/* nowrap keeps "& Agentic Systems Builder" on one line at desktop widths.
+   Below ~420px the phrase is wider than its column, so let it wrap instead of
+   silently clipping. */
+@media (max-width: 420px){
+  .hero-lead span{ white-space: normal; }
 }
 
 /* Hero eyebrow variant + portrait card */
@@ -2010,7 +2098,9 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 .chips-toggle{
   font-family: var(--font-mono); font-size: 11px; color: var(--accent);
   background: none; border: 1px solid var(--border-subtle); border-radius: 7px;
-  padding: 4px 12px; margin-top: 10px; cursor: pointer;
+  /* 24px min target (WCAG 2.2 2.5.8); negative margin keeps the visual pill
+     the same size while the hit area grows around it. */
+  padding: 6px 12px; margin: 4px 0 10px; cursor: pointer;
   transition: border-color .2s ease, background .2s ease;
 }
 .chips-toggle:hover{ border-color: rgba(56,189,248,.5); background: rgba(56,189,248,.08); }
@@ -2042,8 +2132,11 @@ header.is-scrolled .glass-dock{
 /* 2. Unified card lift — stack / group / automation / more rows */
 .stack-card:hover{ transform: translateY(-3px); }
 .group-card:hover{ transform: translateY(-3px); }
-.auto-item{ transition: transform .25s var(--ease-out), border-color .2s ease, background .2s ease; }
-.auto-item:hover{ transform: translateY(-2px); background: rgba(56,189,248,.03); }
+/* Informational rows: a subtle wash, not a lift — lifting a row that isn't
+   clickable is motion without meaning (apple-design: motion that answers an
+   action, not motion that decorates). */
+.auto-item{ transition: border-color .2s ease, background .2s ease; }
+.auto-item:hover{ background: rgba(56,189,248,.03); }
 .more-item{ transition: background .2s ease, padding-left .25s var(--ease-out); border-radius: 8px; }
 .more-item:hover{ background: rgba(255,255,255,.025); padding-left: 10px; }
 .more-item:hover h3{ color: var(--accent-bright); }
@@ -2128,7 +2221,29 @@ body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring{ opacity: 0 !imp
 
 /* About lead + terminal spacing */
 .about-lead{ margin-top: 22px; }
+/* The About headline is a full sentence, not a label — it needs a wider
+   measure and a smaller size than the section headlines, or it sets as a
+   5-line mono block. */
+.about-lede{
+  font-size: clamp(1.5rem, 2.9vw, 2.05rem) !important;
+  line-height: 1.2 !important; max-width: 30ch !important;
+}
 .t-line--spaced{ margin-top: 14px; }
+
+/* ══ PROSE TYPOGRAPHY — measure, rhythm, orphan control ══
+   Body copy gets a hard character measure (65-70ch) and `text-wrap: pretty`
+   so a paragraph never leaves a single word alone on the last line — the most
+   common typographic tell in a generated-looking page. Display text keeps
+   `balance` (already set above); body gets `pretty`. */
+.hero-desc, .section-sub, .about-text p, .proj-desc, .auto-item p,
+.more-item p, .idef-text, .group-card p, .cert-card p{
+  text-wrap: pretty;
+  max-width: 68ch;
+}
+/* Section subheads sit in their own column and center themselves where the
+   section centers — don't let the 68ch measure fight the centering. */
+.section-sub{ margin-left:auto; margin-right:auto; }
+.contact-section .section-sub{ max-width: 560px; }
 
 /* Group card compact titles */
 .proj-top{ display: flex; justify-content: space-between; align-items: center; gap: 12px; }

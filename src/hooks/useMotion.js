@@ -75,7 +75,15 @@ export function useReveals(rootRef) {
         const grid = root.querySelector(sel)
         if (!grid) return
         Array.from(grid.children).forEach((child, i) => {
-          if (!child.classList.contains('reveal') || reduceMotion) return
+          if (!child.classList.contains('reveal')) return
+          // Reduced motion means no animation — NOT "no reveal". The `.reveal`
+          // base style is opacity:0, so bailing out here left every project row,
+          // stack card, group card, and cert card permanently invisible for
+          // anyone with the setting on. Show them statically instead.
+          if (reduceMotion) {
+            gsap.set(child, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' })
+            return
+          }
           gsap.fromTo(
             child,
             { opacity: 0, y: 50, scale: 0.92, filter: 'blur(6px)' },

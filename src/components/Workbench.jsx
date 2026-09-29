@@ -17,7 +17,6 @@ function Pipeline({ pane, sim }) {
 
   const tone = (i) => {
     if (i > step) return IDLE
-    if (settled && i === 3) return outcome
     if (i === 2 && override) return override
     return pane.base
   }
@@ -44,16 +43,36 @@ function Pipeline({ pane, sim }) {
             <g key={n.title} className="pipeline-node" transform={`translate(${NODES[i].x}, 30)`}>
               <rect width={NODES[i].w} height="120" rx="12" fill={t.fill} stroke={t.stroke} strokeWidth="1.5" />
               <text x={NODES[i].tx} y="32" fontSize="10" fill={t.stroke} fontWeight="700">{n.stage}</text>
-              <text x={NODES[i].tx} y="58" fontSize={i === 3 ? 12 : 13} fill="#f8fafc" fontWeight="600">
-                {i === 3 && settled ? outcome.title : n.title}
-              </text>
-              <text x={NODES[i].tx} y="80" fontSize={i === 3 ? 9.5 : 10} fill={i === 3 ? '#64748b' : '#64748b'}>
-                {i === 3 && settled ? outcome.sub : n.sub}
-              </text>
-              {!settled && i < 3 && <text x={NODES[i].tx} y="98" fontSize="9.5" fill="#94a3b8">{n.tiny}</text>}
+              <text x={NODES[i].tx} y="58" fontSize="13" fill="#f8fafc" fontWeight="600">{n.title}</text>
+              <text x={NODES[i].tx} y="80" fontSize="10" fill="#64748b">{n.sub}</text>
+              <text x={NODES[i].tx} y="98" fontSize="9.5" fill="#94a3b8">{n.tiny}</text>
             </g>
           )
         })}
+        {/* The outcome is a FOURTH box, not a mutation of the third. It used
+            to be drawn by the loop above under an `i === 3` branch — but
+            pane.nodes only ever has 3 entries, so that branch was unreachable
+            and every "OUTCOME" label in the data file was dead code that had
+            never rendered once. Kept as its own node so the settled result of
+            a simulation is actually visible. */}
+        {settled && (
+          <g className="pipeline-node" transform={`translate(${NODES[OUTCOME_STEP].x}, 30)`}>
+            <rect
+              width={NODES[OUTCOME_STEP].w} height="120" rx="12"
+              fill={outcome.fill} stroke={outcome.stroke} strokeWidth="1.5"
+            />
+            <text x={NODES[OUTCOME_STEP].tx} y="32" fontSize="10" fill={outcome.stroke} fontWeight="700">
+              {outcome.label}
+            </text>
+            <text
+              x={NODES[OUTCOME_STEP].tx} y="62" fontSize="12"
+              fill={outcome.titleColor || '#f8fafc'} fontWeight="600"
+            >
+              {outcome.title}
+            </text>
+            <text x={NODES[OUTCOME_STEP].tx} y="86" fontSize="9.5" fill="#64748b">{outcome.sub}</text>
+          </g>
+        )}
       </svg>
     </div>
   )

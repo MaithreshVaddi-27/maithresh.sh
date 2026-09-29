@@ -46,7 +46,6 @@ const scene = read('src/scene.js')
 const motion = read('src/hooks/useMotion.js')
 const app = read('src/App.jsx')
 const main = read('src/main.jsx')
-const hero = read('src/components/Hero.jsx')
 // Every source file under src/ — not just the required subset. A gate that
 // only inspects the files it happens to name is blind to the rest of the app.
 const srcFiles = []

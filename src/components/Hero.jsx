@@ -4,9 +4,9 @@ import { MARQUEE } from '../data/content'
 import { startHeroScene } from '../scene'
 
 const STATS = [
-  ['11', 'solo-built agent systems'],
-  ['13', 'production automations'],
-  ['74%', 'duplicate postings pruned pre-LLM'],
+  ['8-stage', 'verify-then-answer RAG pipeline'],
+  ['5 + 1', 'job APIs + scraper, LLM-free parsing'],
+  ['13', 'shipped n8n / Make / RPA workflows'],
 ]
 
 export function Hero() {
@@ -67,17 +67,23 @@ export function Hero() {
               <span>Open to AI/ML internships · Hyderabad / Remote</span>
             </div>
             <h1 className="hero-name">Maithresh Vaddi</h1>
-            <p className="hero-lead">AI/ML Engineer &amp; <span>Agentic Systems Builder.</span></p>
-            <p className="hero-desc-sub">Production RAG · Local-First Inference · MCP Orchestration</p>
+            <p className="hero-lead">
+              AI/ML Engineer <span>&amp; Agentic Systems Builder</span>
+            </p>
+            <p className="hero-desc-sub">
+              Production RAG Reliability · Local-First Inference · MCP Tool Orchestration
+            </p>
             <p className="hero-desc">
-              Final-year B.Tech CSE undergrad at KMIT Hyderabad. I architect production-grade agentic
-              runtimes, multi-agent pipelines, and local-first MCP orchestration networks: eleven
-              solo-built systems, local-first wherever the architecture allows.
+              Final-year B.Tech CSE undergrad at KMIT Hyderabad. I build local-first agentic
+              systems engineers can inspect: deterministic parsing where it belongs, LLMs
+              isolated to reasoning, every claim traceable — TrustRAG, DocuChat, CareerOS-Pro,
+              Resume Crew, and a 13-workflow automation suite.
             </p>
             <div className="hero-cta">
               <a href="#projects" className="btn-nested btn-nested-primary">
                 <span>$ inspect --systems</span>
                 <span className="btn-nested-badge">↓</span>
+                <span className="sr-only">See the five featured engineering systems</span>
               </a>
               <a href="#contact" className="btn-nested btn-nested-secondary">
                 <span>$ ./contact.sh</span>

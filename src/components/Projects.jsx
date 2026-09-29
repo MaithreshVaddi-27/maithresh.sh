@@ -15,8 +15,8 @@ const TrustRag = ({ p }) => (
     <line x1="130" y1="34" x2="130" y2="56" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="20" y="58" width="220" height="54" rx="10" fill="rgba(56,189,248,0.10)" stroke="#38bdf8" strokeWidth="1.1" />
-    <text x="130" y="80" textAnchor="middle" className="pd-t pd-label">HYBRID RETRIEVE</text>
-    <text x="130" y="96" textAnchor="middle" className="pd-t pd-sub">dense BGE-small · BM25 · RRF fusion</text>
+    <text x="130" y="80" textAnchor="middle" className="pd-t pd-label">ROUTE (NO LLM) → RETRIEVE</text>
+    <text x="130" y="96" textAnchor="middle" className="pd-t pd-sub">BGE-small ONNX dense · BM25 · RRF</text>
     <line x1="130" y1="112" x2="130" y2="136" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="35" y="138" width="190" height="36" rx="8" fill="none" stroke="#334155" />
@@ -25,13 +25,13 @@ const TrustRag = ({ p }) => (
 
     <rect x="14" y="200" width="232" height="60" rx="10" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" strokeWidth="1.1" />
     <text x="130" y="221" textAnchor="middle" className="pd-t pd-label">CLAIM DECOMPOSITION + NLI</text>
-    <text x="130" y="235" textAnchor="middle" className="pd-t pd-sub">fused in one call, not two passes</text>
-    <text x="130" y="250" textAnchor="middle" className="pd-t pd-tiny">SHA-256 · temporal-window evidence audit</text>
+    <text x="130" y="235" textAnchor="middle" className="pd-t pd-sub">supported · contradicted · neutral</text>
+    <text x="130" y="250" textAnchor="middle" className="pd-t pd-tiny">SHA-256 · temporal-validity audit</text>
     <line x1="130" y1="260" x2="130" y2="284" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <polygon points="130,286 206,320 130,354 54,320" fill="rgba(255,255,255,0.03)" stroke="#475569" strokeWidth="1.1" />
-    <text x="130" y="317" textAnchor="middle" className="pd-t pd-label pd-sm">SCORE ≥ τ ?</text>
-    <text x="130" y="329" textAnchor="middle" className="pd-t pd-tiny">reliability threshold</text>
+    <text x="130" y="317" textAnchor="middle" className="pd-t pd-label pd-sm">VERIFIED?</text>
+    <text x="130" y="329" textAnchor="middle" className="pd-t pd-tiny">configurable threshold</text>
 
     <path d="M54,320 Q38,348 65,372" fill="none" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <text x="34" y="352" className="pd-t pd-tiny" fill="#f59e0b">no</text>
@@ -40,12 +40,12 @@ const TrustRag = ({ p }) => (
 
     <rect x="10" y="374" width="110" height="52" rx="10" fill="rgba(245,158,11,0.08)" stroke="#f59e0b" strokeWidth="1.1" />
     <text x="65" y="393" textAnchor="middle" className="pd-t pd-label pd-sm">BOUNDED RECOVERY</text>
-    <text x="65" y="406" textAnchor="middle" className="pd-t pd-tiny">rewrite · re-retrieve · regen</text>
+    <text x="65" y="406" textAnchor="middle" className="pd-t pd-tiny">failure classified, then fixed</text>
     <text x="65" y="418" textAnchor="middle" className="pd-t pd-tiny" fill="#f59e0b">capped at 2 attempts</text>
 
     <rect x="140" y="374" width="110" height="52" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" strokeWidth="1.1" />
     <text x="195" y="396" textAnchor="middle" className="pd-t pd-label pd-sm">GROUNDED ANSWER</text>
-    <text x="195" y="410" textAnchor="middle" className="pd-t pd-tiny">cited · verified</text>
+    <text x="195" y="410" textAnchor="middle" className="pd-t pd-tiny">inline [Segment N] citations</text>
 
     <path d="M120,388 C 242,388 242,86 230,86" fill="none" stroke="#475569" strokeDasharray="2.5 3" markerEnd={`url(#pdArrow${p})`} />
     <text x="242" y="240" textAnchor="middle" className="pd-t pd-tiny" transform="rotate(90 242 240)">2 attempts max</text>
@@ -61,12 +61,12 @@ const DocuChat = ({ p }) => (
   <svg viewBox="0 0 260 500" role="img" aria-label="Agentic DocuChat architecture: query routing through single-agent LangGraph ReAct machine, dynamic Composio MCP tool dispatch, and streamed synthesis.">
     <defs><Arrow id={`pdArrow${p}`} /></defs>
     <rect x="70" y="8" width="120" height="26" rx="13" fill="none" stroke="#334155" />
-    <text x="130" y="25" textAnchor="middle" className="pd-t pd-label">QUERY + PDF CONTEXT</text>
+    <text x="130" y="25" textAnchor="middle" className="pd-t pd-label">QUERY + CONTEXT</text>
     <line x1="130" y1="34" x2="130" y2="56" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="20" y="58" width="220" height="54" rx="10" fill="rgba(16,185,129,0.10)" stroke="#10b981" strokeWidth="1.1" />
-    <text x="130" y="80" textAnchor="middle" className="pd-t pd-label">LANGGRAPH REACT ROUTER</text>
-    <text x="130" y="96" textAnchor="middle" className="pd-t pd-sub">single agent · zero swarm token inflation</text>
+    <text x="130" y="80" textAnchor="middle" className="pd-t pd-label">SINGLE-AGENT ROUTER</text>
+    <text x="130" y="96" textAnchor="middle" className="pd-t pd-sub">provider choice per question</text>
     <line x1="130" y1="112" x2="130" y2="136" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <polygon points="130,138 206,172 130,206 54,172" fill="rgba(255,255,255,0.03)" stroke="#475569" strokeWidth="1.1" />
@@ -78,7 +78,7 @@ const DocuChat = ({ p }) => (
     <rect x="10" y="226" width="110" height="56" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" strokeWidth="1.1" />
     <text x="65" y="246" textAnchor="middle" className="pd-t pd-label pd-sm">CHROMADB VECTORS</text>
     <text x="65" y="260" textAnchor="middle" className="pd-t pd-tiny">local document chunks</text>
-    <text x="65" y="272" textAnchor="middle" className="pd-t pd-tiny" fill="#94a3b8">retrieve_multi tool</text>
+    <text x="65" y="272" textAnchor="middle" className="pd-t pd-tiny" fill="#94a3b8">content-hash IDs · no re-embed</text>
 
     <path d="M206,172 Q222,200 195,224" fill="none" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <text x="204" y="204" className="pd-t pd-tiny" fill="#38bdf8">yes</text>
@@ -91,17 +91,17 @@ const DocuChat = ({ p }) => (
     <line x1="195" y1="282" x2="155" y2="318" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="14" y="320" width="232" height="56" rx="10" fill="rgba(56,189,248,0.10)" stroke="#38bdf8" strokeWidth="1.1" />
-    <text x="130" y="342" textAnchor="middle" className="pd-t pd-label">GROUNDED CITATION SYNTHESIS</text>
-    <text x="130" y="356" textAnchor="middle" className="pd-t pd-sub">source page references + evidence span quotes</text>
-    <text x="130" y="368" textAnchor="middle" className="pd-t pd-tiny">Ollama / llama.cpp / Gemini fallback</text>
+    <text x="130" y="342" textAnchor="middle" className="pd-t pd-label">GROUNDED SYNTHESIS + REPAIR PASS</text>
+    <text x="130" y="356" textAnchor="middle" className="pd-t pd-sub">uncited answers are re-run, not shipped</text>
+    <text x="130" y="368" textAnchor="middle" className="pd-t pd-tiny">Ollama / llama.cpp / Gemini — readiness-checked</text>
 
     <path d="M14,348 C 2,348 2,86 18,86" fill="none" stroke="#475569" strokeDasharray="2.5 3" markerEnd={`url(#pdArrow${p})`} />
     <text x="6" y="210" textAnchor="middle" className="pd-t pd-tiny" transform="rotate(-90 6 210)">SQLite conversation memory</text>
 
     <line x1="130" y1="376" x2="130" y2="408" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <rect x="20" y="410" width="220" height="46" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" strokeWidth="1.1" />
-    <text x="130" y="432" textAnchor="middle" className="pd-t pd-label">STREAMED TOKEN RESPONSE</text>
-    <text x="130" y="446" textAnchor="middle" className="pd-t pd-tiny">Gradio UI · Server-Sent Events</text>
+    <text x="130" y="432" textAnchor="middle" className="pd-t pd-label">STREAMED ANSWER + SOURCES</text>
+    <text x="130" y="446" textAnchor="middle" className="pd-t pd-tiny">Gradio UI · CLI entry point preserved</text>
   </svg>
 )
 
@@ -113,13 +113,13 @@ const ResumeCrew = ({ p }) => (
     <line x1="130" y1="34" x2="130" y2="56" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="20" y="58" width="220" height="54" rx="10" fill="rgba(245,158,11,0.10)" stroke="#f59e0b" strokeWidth="1.1" />
-    <text x="130" y="80" textAnchor="middle" className="pd-t pd-label">RUNTIME AUTO-PROBE</text>
-    <text x="130" y="96" textAnchor="middle" className="pd-t pd-sub">Apple Silicon Metal / CUDA GPU offload</text>
+    <text x="130" y="80" textAnchor="middle" className="pd-t pd-label">PARSE + VALIDATE</text>
+    <text x="130" y="96" textAnchor="middle" className="pd-t pd-sub">PDF / DOCX / TXT / MD · pytest-covered</text>
     <line x1="130" y1="112" x2="130" y2="136" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="14" y="138" width="232" height="54" rx="10" fill="none" stroke="#334155" />
-    <text x="130" y="160" textAnchor="middle" className="pd-t pd-label">DETERMINISTIC ATS EXTRACTION</text>
-    <text x="130" y="176" textAnchor="middle" className="pd-t pd-sub">clean AST parse · zero creative embellishment</text>
+    <text x="130" y="160" textAnchor="middle" className="pd-t pd-label">DETERMINISTIC KEYWORD SCORE</text>
+    <text x="130" y="176" textAnchor="middle" className="pd-t pd-sub">JD requirements as an explicit checklist</text>
     <line x1="130" y1="192" x2="130" y2="218" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <polygon points="130,220 206,254 130,288 54,254" fill="rgba(255,255,255,0.03)" stroke="#475569" strokeWidth="1.1" />
@@ -129,23 +129,23 @@ const ResumeCrew = ({ p }) => (
     <path d="M54,254 Q38,282 65,308" fill="none" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <text x="34" y="284" className="pd-t pd-tiny" fill="#10b981">yes</text>
     <rect x="10" y="310" width="110" height="56" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" strokeWidth="1.1" />
-    <text x="65" y="330" textAnchor="middle" className="pd-t pd-label pd-sm">VERIFIED ALIGNMENT</text>
-    <text x="65" y="344" textAnchor="middle" className="pd-t pd-tiny">explicit text citation</text>
-    <text x="65" y="356" textAnchor="middle" className="pd-t pd-tiny" fill="#10b981">proven credentials</text>
+    <text x="65" y="330" textAnchor="middle" className="pd-t pd-label pd-sm">ALIGNMENT REPORTED</text>
+    <text x="65" y="344" textAnchor="middle" className="pd-t pd-tiny">cites verified CV spans</text>
+    <text x="65" y="356" textAnchor="middle" className="pd-t pd-tiny" fill="#10b981">nothing invented</text>
 
     <path d="M206,254 Q222,282 195,308" fill="none" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <text x="204" y="284" className="pd-t pd-tiny" fill="#ef4444">no</text>
     <rect x="140" y="310" width="110" height="56" rx="10" fill="rgba(239,68,68,0.08)" stroke="#ef4444" strokeWidth="1.1" />
-    <text x="195" y="330" textAnchor="middle" className="pd-t pd-label pd-sm">SKILL GAP WARNING</text>
-    <text x="195" y="344" textAnchor="middle" className="pd-t pd-tiny">missing requisites</text>
-    <text x="195" y="356" textAnchor="middle" className="pd-t pd-tiny" fill="#ef4444">zero false claims</text>
+    <text x="195" y="330" textAnchor="middle" className="pd-t pd-label pd-sm">GAPS NAMED</text>
+    <text x="195" y="344" textAnchor="middle" className="pd-t pd-tiny">missing requirements listed</text>
+    <text x="195" y="356" textAnchor="middle" className="pd-t pd-tiny" fill="#ef4444">plus how to close them</text>
 
     <line x1="65" y1="366" x2="105" y2="398" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <line x1="195" y1="366" x2="155" y2="398" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="20" y="400" width="220" height="52" rx="10" fill="rgba(245,158,11,0.08)" stroke="#f59e0b" strokeWidth="1.1" />
-    <text x="130" y="422" textAnchor="middle" className="pd-t pd-label">EVIDENCE AUDIT REPORT</text>
-    <text x="130" y="438" textAnchor="middle" className="pd-t pd-tiny">CLI + Gradio · 100% offline privacy by default</text>
+    <text x="130" y="422" textAnchor="middle" className="pd-t pd-label">6-PART REPORT + INTERVIEW PREP</text>
+    <text x="130" y="438" textAnchor="middle" className="pd-t pd-tiny">offline via Ollama · telemetry off by default</text>
   </svg>
 )
 
@@ -153,22 +153,22 @@ const CareerOS = ({ p }) => (
   <svg viewBox="0 0 260 500" role="img" aria-label="CareerOS-Pro architecture: multi-source crawler, 2-stage hash and vector deduplication, isolated fault-domain circuit breakers, and application queue.">
     <defs><Arrow id={`pdArrow${p}`} /></defs>
     <rect x="60" y="8" width="140" height="26" rx="13" fill="none" stroke="#334155" />
-    <text x="130" y="25" textAnchor="middle" className="pd-t pd-label">6-SOURCE AGGREGATOR</text>
+    <text x="130" y="25" textAnchor="middle" className="pd-t pd-label">5 APIs + CAREER-PAGE SCRAPER</text>
     <line x1="130" y1="34" x2="130" y2="56" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="20" y="58" width="220" height="54" rx="10" fill="rgba(168,85,247,0.10)" stroke="#a855f7" strokeWidth="1.1" />
-    <text x="130" y="80" textAnchor="middle" className="pd-t pd-label">STAGE 1 // HASH DEDUP</text>
-    <text x="130" y="96" textAnchor="middle" className="pd-t pd-sub">canonical normalized Title+Company MD5</text>
+    <text x="130" y="80" textAnchor="middle" className="pd-t pd-label">STAGE 1 // DETERMINISTIC NORMALIZE</text>
+    <text x="130" y="96" textAnchor="middle" className="pd-t pd-sub">remote · employment · exp level · salary + FX</text>
     <line x1="130" y1="112" x2="130" y2="136" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="14" y="138" width="232" height="54" rx="10" fill="rgba(168,85,247,0.10)" stroke="#a855f7" strokeWidth="1.1" />
-    <text x="130" y="160" textAnchor="middle" className="pd-t pd-label">STAGE 2 // CHROMADB COSINE</text>
-    <text x="130" y="176" textAnchor="middle" className="pd-t pd-sub">dense clustering prunes cross-board variants</text>
+    <text x="130" y="160" textAnchor="middle" className="pd-t pd-label">STAGE 2 // 2-STAGE DEDUP</text>
+    <text x="130" y="176" textAnchor="middle" className="pd-t pd-sub">url_hash exact → content_hash fallback</text>
     <line x1="130" y1="192" x2="130" y2="218" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <polygon points="130,220 206,254 130,288 54,254" fill="rgba(255,255,255,0.03)" stroke="#475569" strokeWidth="1.1" />
-    <text x="130" y="251" textAnchor="middle" className="pd-t pd-label pd-sm">SOURCE HEALTH STATUS?</text>
-    <text x="130" y="263" textAnchor="middle" className="pd-t pd-tiny">circuit breaker probe</text>
+    <text x="130" y="251" textAnchor="middle" className="pd-t pd-label pd-sm">SOURCE HEALTHY?</text>
+    <text x="130" y="263" textAnchor="middle" className="pd-t pd-tiny">per-agent /agents/health</text>
 
     <path d="M54,254 Q38,282 65,308" fill="none" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <text x="34" y="284" className="pd-t pd-tiny" fill="#f59e0b">fail</text>
@@ -180,16 +180,16 @@ const CareerOS = ({ p }) => (
     <path d="M206,254 Q222,282 195,308" fill="none" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <text x="204" y="284" className="pd-t pd-tiny" fill="#10b981">pass</text>
     <rect x="140" y="310" width="110" height="56" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" strokeWidth="1.1" />
-    <text x="195" y="330" textAnchor="middle" className="pd-t pd-label pd-sm">CLEAN LISTING</text>
-    <text x="195" y="344" textAnchor="middle" className="pd-t pd-tiny">enriched metadata</text>
-    <text x="195" y="356" textAnchor="middle" className="pd-t pd-tiny" fill="#10b981">74% deduplicated</text>
+    <text x="195" y="330" textAnchor="middle" className="pd-t pd-label pd-sm">VERIFIED LISTING</text>
+    <text x="195" y="344" textAnchor="middle" className="pd-t pd-tiny">HEAD check → Firecrawl</text>
+    <text x="195" y="356" textAnchor="middle" className="pd-t pd-tiny" fill="#10b981">LLM only explains the match</text>
 
     <line x1="65" y1="366" x2="105" y2="398" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <line x1="195" y1="366" x2="155" y2="398" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="20" y="400" width="220" height="52" rx="10" fill="rgba(168,85,247,0.08)" stroke="#a855f7" strokeWidth="1.1" />
-    <text x="130" y="422" textAnchor="middle" className="pd-t pd-label">RESILIENT CAREEROS QUEUE</text>
-    <text x="130" y="438" textAnchor="middle" className="pd-t pd-tiny">FastAPI · LangGraph State Machine · React 19</text>
+    <text x="130" y="422" textAnchor="middle" className="pd-t pd-label">FALLBACK-CHAINED MATCH EXPLAINER</text>
+    <text x="130" y="438" textAnchor="middle" className="pd-t pd-tiny">FastAPI · LangGraph · React 19 · Qdrant</text>
   </svg>
 )
 
@@ -207,8 +207,8 @@ const CareerMesh = ({ p }) => (
     <line x1="130" y1="34" x2="130" y2="56" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="20" y="58" width="220" height="54" rx="10" fill="rgba(56,189,248,0.10)" stroke="#38bdf8" strokeWidth="1.1" />
-    <text x="130" y="80" textAnchor="middle" className="pd-t pd-label">LANGCHAIN ORCHESTRATOR</text>
-    <text x="130" y="96" textAnchor="middle" className="pd-t pd-sub">InMemorySaver multi-turn session persistence</text>
+    <text x="130" y="80" textAnchor="middle" className="pd-t pd-label">LANGGRAPH AGENT</text>
+    <text x="130" y="96" textAnchor="middle" className="pd-t pd-sub">thread_id checkpointing · multi-turn</text>
     <line x1="130" y1="112" x2="130" y2="136" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="14" y="138" width="232" height="54" rx="10" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" strokeWidth="1.1" />
@@ -219,21 +219,21 @@ const CareerMesh = ({ p }) => (
 
     <rect x="10" y="230" width="110" height="60" rx="10" fill="rgba(255,255,255,0.02)" stroke="#334155" strokeWidth="1.1" />
     <text x="65" y="252" textAnchor="middle" className="pd-t pd-label pd-sm">JSEARCH API</text>
-    <text x="65" y="266" textAnchor="middle" className="pd-t pd-tiny">live Indian tech hiring</text>
-    <text x="65" y="278" textAnchor="middle" className="pd-t pd-tiny" fill="#38bdf8">verified openings</text>
+    <text x="65" y="266" textAnchor="middle" className="pd-t pd-tiny">live job search</text>
+    <text x="65" y="278" textAnchor="middle" className="pd-t pd-tiny" fill="#38bdf8">skill → career map</text>
 
     <rect x="140" y="230" width="110" height="60" rx="10" fill="rgba(255,255,255,0.02)" stroke="#334155" strokeWidth="1.1" />
-    <text x="195" y="252" textAnchor="middle" className="pd-t pd-label pd-sm">SALARY ENGINE</text>
-    <text x="195" y="266" textAnchor="middle" className="pd-t pd-tiny">Glassdoor · AmbitionBox</text>
-    <text x="195" y="278" textAnchor="middle" className="pd-t pd-tiny" fill="#38bdf8">compensation bands</text>
+    <text x="195" y="252" textAnchor="middle" className="pd-t pd-label pd-sm">FIRECRAWL</text>
+    <text x="195" y="266" textAnchor="middle" className="pd-t pd-tiny">Glassdoor · Levels.fyi</text>
+    <text x="195" y="278" textAnchor="middle" className="pd-t pd-tiny" fill="#38bdf8">salary bands</text>
 
     <line x1="65" y1="290" x2="105" y2="328" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <line x1="195" y1="290" x2="155" y2="328" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
     <rect x="20" y="330" width="220" height="56" rx="10" fill="rgba(56,189,248,0.08)" stroke="#38bdf8" strokeWidth="1.1" />
-    <text x="130" y="352" textAnchor="middle" className="pd-t pd-label">STRUCTURED CAREER ROADMAP</text>
-    <text x="130" y="366" textAnchor="middle" className="pd-t pd-sub">actionable tech targets + salary percentiles</text>
-    <text x="130" y="378" textAnchor="middle" className="pd-t pd-tiny">plug-and-play across MCP clients, LangGraph &amp; CrewAI</text>
+    <text x="130" y="352" textAnchor="middle" className="pd-t pd-label">GROUNDED CAREER ANSWER</text>
+    <text x="130" y="366" textAnchor="middle" className="pd-t pd-sub">targets + salary context, tool-sourced</text>
+    <text x="130" y="378" textAnchor="middle" className="pd-t pd-tiny">known limitation: tool use is prompted, not forced</text>
   </svg>
 )
 
@@ -334,10 +334,11 @@ export default function Projects({ projects }) {
             <Icon name="folder" />
             <span>$ ls projects/ --featured</span>
           </div>
-          <h2>Featured projects</h2>
+          <h2>Featured systems</h2>
           <p className="section-sub">
-            Five solo-built systems spanning agentic runtimes, RAG pipelines, and local-first AI.
-            Hover a row for the details.
+            Five solo-built systems. Each one states the engineering problem, the constraint that
+            shaped the design, and the limitation I haven't solved yet — hover or focus a row for
+            the architecture.
           </p>
         </div>
 
@@ -357,10 +358,10 @@ export default function Projects({ projects }) {
                 <span className="proj-row-index">{String(i + 1).padStart(2, '0')}</span>
                 <div className="proj-row-main">
                   <h3 className="proj-row-title">{project.title}</h3>
+                  <span className="proj-row-tag">{project.tag}</span>
                   <Detail project={project} />
                 </div>
                 <span className="proj-row-swatch" aria-hidden="true"><Icon name={project.swatch} width={1.6} /></span>
-                <span className="proj-row-tag">{project.tag}</span>
                 <span className="proj-row-arrow" aria-hidden="true"><Icon name="arrowOut" size={14} width={2} /></span>
               </a>
             ))}

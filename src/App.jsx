@@ -31,7 +31,6 @@ export default function App() {
   return (
     <div ref={root}>
       <a href="#top" className="skip-link">Skip to content</a>
-      <Preloader />
       <TelemetryBar onOpenConsole={() => setConsoleOpen(true)} />
       <div className="scroll-progress" aria-hidden="true">
         <div className="scroll-progress-fill" id="scrollProgressFill" />
@@ -39,7 +38,11 @@ export default function App() {
       <Nav onOpenConsole={() => setConsoleOpen(true)} scrolled={scrolled} />
 
       <main id="top" tabIndex="-1">
+        {/* Inside the boundary, not above it: the preloader is a fixed
+            full-viewport overlay, so if it ever throws outside the boundary
+            the visitor gets a blank page with no nav and no error card. */}
         <ErrorBoundary>
+          <Preloader />
           <Hero />
           <Marquee />
           <About />
