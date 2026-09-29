@@ -8,8 +8,6 @@ Thumbs.db
 
 # Deps
 node_modules/
-package.json
-package-lock.json
 *.log
 
 # Internal tooling — never deploy
