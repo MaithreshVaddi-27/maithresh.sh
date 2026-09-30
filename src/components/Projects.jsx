@@ -264,6 +264,20 @@ function DetailBody({ project, idPrefix }) {
         ))}
       </div>
       <Stack items={project.stack} />
+      {/* Explicit exit: rows select a preview but never navigate, so the
+          repository link lives here — in both the row (mobile inline) and
+          the stage (desktop panel), never a bare URL hunt. */}
+      <div className="proj-actions">
+        <a
+          className="btn-nested btn-nested-primary btn-nested--sm"
+          href={project.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>View repository</span>
+          <span className="btn-nested-badge">↗</span>
+        </a>
+      </div>
     </>
   )
 }
@@ -300,6 +314,7 @@ export default function Projects({ projects }) {
     }, 180)
   }
   useEffect(() => () => clearTimeout(timer.current), [])
+  const step = (dir) => select((active + dir + projects.length) % projects.length)
 
   // Connectors trace themselves in rather than appearing with the rest of the
   // schematic — reads as "data moving through the pipeline". Boxes and the
@@ -337,33 +352,47 @@ export default function Projects({ projects }) {
           <h2>Featured systems</h2>
           <p className="section-sub">
             Highlights from 11+ solo-built systems. Each states the engineering problem, the constraint that
-            shaped the design, and the limitation I haven't solved yet — hover or focus a row for
-            the architecture.
+            shaped the design, and the limitation I haven't solved yet — select a system to inspect
+            its architecture.
           </p>
         </div>
 
         <div className="proj-layout">
-          <div className="proj-list">
+          <div className="proj-list" role="list" aria-label="Featured systems">
             {projects.map((project, i) => (
-              <a
-                className="proj-row reveal"
+              // Rows select a preview but never navigate: on touch there is no
+              // hover, so tapping must preview in place (stage on desktop,
+              // inline detail on mobile) instead of yeeting the visitor to
+              // GitHub. The repository exit lives explicitly in the detail.
+              // The title button sits INSIDE the h3 — a heading inside a
+              // button would break the parser and split the DOM.
+              <div
+                className={`proj-row reveal${i === active ? ' active' : ''}`}
                 key={project.title}
+                role="listitem"
                 data-accent={project.accent}
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 onMouseEnter={() => select(i)}
                 onFocus={() => select(i)}
               >
                 <span className="proj-row-index">{String(i + 1).padStart(2, '0')}</span>
                 <div className="proj-row-main">
-                  <h3 className="proj-row-title">{project.title}</h3>
+                  <h3 className="proj-row-title">
+                    <button
+                      type="button"
+                      className="proj-row-select"
+                      aria-pressed={i === active}
+                      aria-label={`Preview ${project.title} architecture`}
+                      onClick={() => select(i)}
+                    >
+                      {project.title}
+                    </button>
+                  </h3>
                   <span className="proj-row-tag">{project.tag}</span>
                   <Detail project={project} />
                 </div>
                 <span className="proj-row-swatch" aria-hidden="true"><Icon name={project.swatch} width={1.6} /></span>
-                <span className="proj-row-arrow" aria-hidden="true"><Icon name="arrowOut" size={14} width={2} /></span>
-              </a>
+                <span className="proj-row-arrow" aria-hidden="true"><Icon name="chev" size={16} width={2} /></span>
+              </div>
             ))}
           </div>
 
@@ -378,6 +407,15 @@ export default function Projects({ projects }) {
             data-accent={projects[active].accent}
             aria-live="polite"
           >
+            <div className="proj-stage-bar">
+              <span className="proj-stage-count" aria-hidden="true">
+                {String(active + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+              </span>
+              <div className="proj-stage-nav">
+                <button type="button" aria-label="Previous system" onClick={() => step(-1)}>←</button>
+                <button type="button" aria-label="Next system" onClick={() => step(1)}>→</button>
+              </div>
+            </div>
             <div ref={stageRef} className={`proj-stage-inner${swapping ? ' swapping' : ''}`}>
               <DetailBody project={projects[active]} idPrefix="Stage" />
             </div>
