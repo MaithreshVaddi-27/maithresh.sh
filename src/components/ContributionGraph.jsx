@@ -12,8 +12,12 @@ const LEVEL_COLOR = ['transparent', '#0c4a6e', '#0369a1', '#0284c7', '#38bdf8']
 const HOT = '#bae6fd'
 // Eaten bricks don't vanish — they fall back to a ghost tint so the grid keeps
 // its structure and the eaten trail reads as a consumed path, not holes.
-const EATEN_FILL = 'rgba(56,189,248,0.06)'
-const EATEN_STROKE = 'rgba(125,211,252,0.07)'
+// The ghost must stay clearly BRIGHTER than a never-contributed day: at 0.06/0.07
+// these matched the empty-cell stroke exactly, so a consumed cell looked identical
+// to a blank one and the heatmap read as empty within seconds of play. The beam
+// scores ~94% of the calendar in ~12s, so the trail is the main thing on screen.
+const EATEN_FILL = 'rgba(56,189,248,0.15)'
+const EATEN_STROKE = 'rgba(125,211,252,0.22)'
 const CELL_STROKE = 'rgba(56,189,248,0.10)'
 const CELL = 11, GAP = 3, LEFT_PAD = 28, TOP_PAD = 20
 const DAYS = ['', 'Mon', '', 'Wed', '', 'Fri', '']
@@ -570,7 +574,20 @@ function useBreakout(frameRef, days, mode, setHit) {
     const onVis = () => { prev = performance.now() }   // don't bank time while hidden
     document.addEventListener('visibilitychange', onVis)
 
+    // Keep the beam inside the arena, flipping the velocity off whichever wall
+    // it hit. Extracted so it can run after the step's displacement is pinned
+    // (a bounce repositions the beam, which can nudge it past an edge).
+    const walls = () => {
+      if (px < padX + R) { px = padX + R; vx = Math.abs(vx) }
+      if (px > W - R) { px = W - R; vx = -Math.abs(vx) }
+      if (py < padY + R) { py = padY + R; vy = Math.abs(vy) }
+      if (py > H - R) { py = H - R; vy = -Math.abs(vy) }
+    }
+
     const step = () => {
+      // Origin of this substep, so the frame's net displacement can be pinned
+      // to SPEED at the tail.
+      const ox = px, oy = py
       // Hungry steering, ~every 1s (60 substeps): blend half the velocity
       // toward the nearest unstruck brick. On a sparse calendar pure ricochet
       // can wander minutes of empty grid between strikes, which reads as a
@@ -580,7 +597,6 @@ function useBreakout(frameRef, days, mode, setHit) {
       if (++sinceNudge >= 60) {
         sinceNudge = 0
         if (seen.size >= bricks.length) seen.clear()
-        sinceNudge = 0
         let best = -1, bestD = Infinity
         for (let i = 0; i < bricks.length; i++) {
           if (seen.has(i)) continue
@@ -600,10 +616,7 @@ function useBreakout(frameRef, days, mode, setHit) {
         }
       }
       px += vx; py += vy
-      if (px < padX + R) { px = padX + R; vx = Math.abs(vx) }
-      if (px > W - R) { px = W - R; vx = -Math.abs(vx) }
-      if (py < padY + R) { py = padY + R; vy = Math.abs(vy) }
-      if (py > H - R) { py = H - R; vy = -Math.abs(vy) }
+      walls()
       for (let i = 0; i < bricks.length; i++) {
         if (cool[i] > 0) { cool[i]--; continue }
         const b = bricks[i]
@@ -624,6 +637,16 @@ function useBreakout(frameRef, days, mode, setHit) {
         holding = b.order; dwell = 20
         break
       }
+      // Constant speed. The collision handler snaps the beam to a fixed `reach`
+      // from the brick, so before this the net per-frame move swung from ~0
+      // (stalled) to ~3.7× SPEED (teleport) depending on the approach angle —
+      // the "laggy, then suddenly very fast" feel. Rescale the frame's
+      // displacement to exactly SPEED so a bounce only changes direction.
+      const dx = px - ox, dy = py - oy
+      const d = Math.hypot(dx, dy) || 1
+      px = ox + (dx / d) * SPEED
+      py = oy + (dy / d) * SPEED
+      walls()
       if (dwell > 0) { dwell--; setHitRef.current(holding) }
       else if (holding !== -1) { holding = -1; setHitRef.current(-1) }
     }
