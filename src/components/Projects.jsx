@@ -291,48 +291,38 @@ function DetailBody({ project, idPrefix }) {
   return (
     <>
       {Diagram && <div className="proj-diagram"><Diagram p={idPrefix} /></div>}
-      <p className="proj-desc">{project.desc}</p>
-      <div className="proj-highlight">{project.highlight}</div>
-      <div className="proj-metrics">
-        {project.metrics.map(([value, label]) => (
-          <span className="proj-metric" key={value}><b>{value}</b> {label}</span>
-        ))}
-      </div>
-      <Stack items={project.stack} />
-      {/* Explicit exit: rows select a preview but never navigate, so the
-          repository link lives here — in both the row (mobile inline) and
-          the stage (desktop panel), never a bare URL hunt. */}
-      <div className="proj-actions">
-        <a
-          className="btn-nested btn-nested-primary btn-nested--sm"
-          href={project.href}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span>View repository</span>
-          <span className="btn-nested-badge">↗</span>
-        </a>
+      <div className="proj-panel-prose">
+        <p className="proj-desc">{project.desc}</p>
+        <div className="proj-highlight">{project.highlight}</div>
+        <div className="proj-metrics">
+          {project.metrics.map(([value, label]) => (
+            <span className="proj-metric" key={value}><b>{value}</b> {label}</span>
+          ))}
+        </div>
+        <Stack items={project.stack} />
+        {/* Explicit exit: tabs select a system but never navigate, so the
+          repository link lives here — no bare URL hunt. */}
+        <div className="proj-actions">
+          <a
+            className="btn-nested btn-nested-primary btn-nested--sm"
+            href={project.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>View repository</span>
+            <span className="btn-nested-badge">↗</span>
+          </a>
+        </div>
       </div>
     </>
   )
 }
 
-// Inside a row the detail sits in a visually-hidden wrapper: it stays in the
-// accessibility tree (display:none would drop every project description from a
-// linear screen-reader pass) but renders inline under 900px. Inside the sticky
-// stage the wrapper would inherit that hiding, so the stage renders the body
-// bare — same markup, no innerHTML cloning.
-const Detail = ({ project }) => (
-  <div className="proj-row-detail">
-    <DetailBody project={project} idPrefix="Row" />
-  </div>
-)
-
 export default function Projects({ projects }) {
   const [active, setActive] = useState(0)
   const [swapping, setSwapping] = useState(false)
   const [showMore, setShowMore] = useState(false)
-  const stageRef = useRef(null)
+  const panelRef = useRef(null)
   const timer = useRef(0)
 
   // Crossfade the panel on swap. Hovering fast can't land a stale panel because
@@ -351,11 +341,31 @@ export default function Projects({ projects }) {
   useEffect(() => () => clearTimeout(timer.current), [])
   const step = (dir) => select((active + dir + projects.length) % projects.length)
 
+  // Tab labels stay short: the panel title carries the full name, the navbar
+  // only needs to disambiguate five systems at a glance.
+  const SHORT = ['TrustRAG', 'DocuChat', 'Resume Crew', 'CareerOS-Pro', 'MCP Suite']
+
+  // Roving tabindex, mirrored from the workbench tablist: one tab stop for
+  // the whole navbar, arrows/Home/End move within it.
+  const tabRefs = useRef({})
+  const onTablistKey = (e) => {
+    const last = projects.length - 1
+    let next = null
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (active + 1) % projects.length
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (active === 0 ? last : active - 1)
+    else if (e.key === 'Home') next = 0
+    else if (e.key === 'End') next = last
+    if (next === null) return
+    e.preventDefault()
+    select(next)
+    tabRefs.current[next]?.focus()
+  }
+
   // Connectors trace themselves in rather than appearing with the rest of the
   // schematic — reads as "data moving through the pipeline". Boxes and the
   // decision diamond stay static; only flow connectors draw.
   useEffect(() => {
-    const svg = stageRef.current?.querySelector('.proj-diagram svg')
+    const svg = panelRef.current?.querySelector('.proj-diagram svg')
     if (!svg || reduceMotion || svg.getClientRects().length === 0) return
     const connectors = Array.from(svg.querySelectorAll('line, path')).filter(
       (el) => typeof el.getTotalLength === 'function'
@@ -387,72 +397,62 @@ export default function Projects({ projects }) {
           <h2>Featured systems</h2>
           <p className="section-sub">
             Highlights from 11+ solo-built systems. Each states the engineering problem, the constraint that
-            shaped the design, and the limitation I haven't solved yet — select a system to inspect
-            its architecture.
+            shaped the design, and the limitation I haven't solved yet — switch systems in the bar to
+            inspect each architecture end to end.
           </p>
         </div>
 
         <div className="proj-layout">
-          <div className="proj-list" role="list" aria-label="Featured systems">
+          {/* Sub-top navbar: one pill tab per system. Selecting previews the
+              full-width panel below — tabs never navigate, so touch users get
+              the same case study desktop hover users do. */}
+          <div className="proj-tabs reveal" role="tablist" aria-label="Featured systems" onKeyDown={onTablistKey}>
             {projects.map((project, i) => (
-              // Rows select a preview but never navigate: on touch there is no
-              // hover, so tapping must preview in place (stage on desktop,
-              // inline detail on mobile) instead of yeeting the visitor to
-              // GitHub. The repository exit lives explicitly in the detail.
-              // The title button sits INSIDE the h3 — a heading inside a
-              // button would break the parser and split the DOM.
-              <div
-                className={`proj-row reveal${i === active ? ' active' : ''}`}
+              <button
                 key={project.title}
-                role="listitem"
+                type="button"
+                id={`proj-tab-${i}`}
+                ref={(el) => { tabRefs.current[i] = el }}
+                role="tab"
+                className={`proj-tab${i === active ? ' active' : ''}`}
                 data-accent={project.accent}
-                onMouseEnter={() => select(i)}
-                onFocus={() => select(i)}
+                aria-selected={i === active}
+                aria-controls="proj-panel"
+                tabIndex={i === active ? 0 : -1}
+                onClick={() => select(i)}
               >
-                <span className="proj-row-index">{String(i + 1).padStart(2, '0')}</span>
-                <div className="proj-row-main">
-                  <h3 className="proj-row-title">
-                    <button
-                      type="button"
-                      className="proj-row-select"
-                      aria-pressed={i === active}
-                      aria-label={`Preview ${project.title} architecture`}
-                      onClick={() => select(i)}
-                    >
-                      {project.title}
-                    </button>
-                  </h3>
-                  <span className="proj-row-tag">{project.tag}</span>
-                  <Detail project={project} />
-                </div>
-                <span className="proj-row-swatch" aria-hidden="true"><Icon name={project.swatch} width={1.6} /></span>
-                <span className="proj-row-arrow" aria-hidden="true"><Icon name="chev" size={16} width={2} /></span>
-              </div>
+                <span className="proj-tab-dot" aria-hidden="true" />
+                <span>{SHORT[i]}</span>
+              </button>
             ))}
           </div>
 
-          {/* `div`, not `aside`: this sits inside <main>, and a complementary
-              landmark nested in another landmark is an axe violation. It's a
-              sticky visual stage, not page-level complementary content.
-              No `.reveal` either — the stage is display:none until its section
-              goes sticky, so a scroll reveal bound to it can never fire. */}
+          {/* Full-width case-study panel: schematic beside prose on desktop,
+              stacked on mobile. One system at a time, everything about it —
+              diagram, problem, trade-off, metrics, stack, repository exit. */}
           <div
-            className="proj-stage"
-            id="projStage"
+            className="proj-panel reveal"
+            role="tabpanel"
+            id="proj-panel"
             data-accent={projects[active].accent}
-            aria-live="polite"
+            aria-labelledby={`proj-tab-${active}`}
+            tabIndex="0"
           >
-            <div className="proj-stage-bar">
-              <span className="proj-stage-count" aria-hidden="true">
+            <div className="proj-panel-head">
+              <span className="proj-tag">{projects[active].tag}</span>
+              <span className="proj-panel-count" aria-hidden="true">
                 {String(active + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
               </span>
-              <div className="proj-stage-nav">
+              <div className="proj-panel-nav">
                 <button type="button" aria-label="Previous system" onClick={() => step(-1)}>←</button>
                 <button type="button" aria-label="Next system" onClick={() => step(1)}>→</button>
               </div>
             </div>
-            <div ref={stageRef} className={`proj-stage-inner${swapping ? ' swapping' : ''}`}>
-              <DetailBody project={projects[active]} idPrefix="Stage" />
+            <h3 className="proj-panel-title">{projects[active].title}</h3>
+            <div ref={panelRef} className={`proj-panel-inner${swapping ? ' swapping' : ''}`}>
+              <div className="proj-panel-grid">
+                <DetailBody project={projects[active]} idPrefix="Panel" />
+              </div>
             </div>
           </div>
         </div>

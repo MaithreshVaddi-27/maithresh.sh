@@ -181,10 +181,11 @@ need(content.includes('keywords:'), 'console items must carry keywords for the s
 need(content.includes('cmd-console-empty') || consoleSrc.includes('cmd-console-empty'),
   'console needs an empty state so a no-match filter does not look broken')
 
-// The sticky stage renders the detail body bare; the row keeps the visually
-// hidden wrapper that stays in the accessibility tree.
-need(projects.includes('proj-row-detail') && projects.includes('DetailBody'),
-  'Projects must keep the a11y-visible row detail and a separate stage body')
+// Projects must keep the tab navbar (sub-top selector for the five systems)
+// and render the detail through one shared body, so tabs and panel can't
+// drift — same markup, no innerHTML cloning.
+need(projects.includes('proj-tabs') && projects.includes('DetailBody'),
+  'Projects must keep the tab navbar and a shared detail body')
 need(!/innerHTML|insertAdjacentHTML|dangerouslySetInnerHTML/.test(code),
   'no innerHTML / dangerouslySetInnerHTML anywhere — third-party data must render as text nodes')
 need(!/&(amp|#\d+|#x[0-9a-f]+);/.test(read('src/data/workbench.jsx')),
@@ -242,8 +243,8 @@ need(projects.includes('idPrefix'), 'schematic marker ids must be namespaced (ro
 // Heading hierarchy: exactly one h1, no skipped levels, real headings not divs.
 need((allJsx.match(/<h1[\s>]/g) || []).length === 1, 'exactly one <h1> must exist across the app')
 need((allJsx.match(/<h4[\s>]/g) || []).length === 0, 'heading hierarchy must not skip to <h4>')
-need(!/className="proj-row-title"/.test(projects) || projects.includes('<h3 className="proj-row-title"'),
-  'card titles must be real headings')
+need(projects.includes('<h3 className="proj-panel-title"'),
+  'the case-study title must be a real heading')
 
 // ── Canvas scene ────────────────────────────────────────────────────────
 need(scene.includes('dot-matrix') || scene.includes('SPACING'), 'scene.js must keep the dot-matrix engine')
