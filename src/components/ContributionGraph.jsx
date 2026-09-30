@@ -231,6 +231,24 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
                     className="brick-hit-n" x={struck.x + CELL / 2}
                     y={plateTop + 8.5}
                   >{struck.count}</text>
+                  {/* Breakout brick-break shards: five cyan sparks on fixed
+                      golden-angle bearings from the strike point. Deterministic
+                      per cell (seeded by order) — no RNG, stable across renders. */}
+                  {[0, 1, 2, 3, 4].map((k) => {
+                    const a = ((struck.order * 137 + k * 72) * Math.PI) / 180
+                    const dist = CELL * (1.4 + (k % 3) * 0.5)
+                    return (
+                      <circle
+                        key={k}
+                        className="brick-shard"
+                        cx={struck.x + CELL / 2} cy={struck.y + CELL / 2} r={1.4}
+                        style={{
+                          '--dx': `${(Math.cos(a) * dist).toFixed(1)}px`,
+                          '--dy': `${(Math.sin(a) * dist).toFixed(1)}px`,
+                        }}
+                      />
+                    )
+                  })}
                 </g>
               )}
             </svg>
