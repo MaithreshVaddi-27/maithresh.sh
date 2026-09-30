@@ -1,0 +1,47 @@
+# Weekly contribution-snapshot refresh.
+#
+# The contact section paints from a committed baseline
+# (src/data/contributions.json) and upgrades from the live API at runtime.
+# This workflow keeps the baseline from going stale: it re-runs the refresh
+# script and commits only when the data actually changed. The resulting push
+# to main redeploys both targets with fresh animation data.
+
+name: refresh contribution snapshot
+
+on:
+  schedule:
+    # Monday 00:00 UTC — weekly is plenty; the live API covers intraday.
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-contrib
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Regenerate contribution snapshot
+        run: node scripts-refresh-contrib.mjs
+
+      - name: Commit when the snapshot changed
+        run: |
+          if git diff --quiet -- src/data/contributions.json; then
+            echo "snapshot unchanged — nothing to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/contributions.json
+          git commit -m "chore: refresh contribution snapshot"
+          git push

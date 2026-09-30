@@ -66,7 +66,10 @@ export default function ContributionGraph() {
 // nothing to escape and nothing to strip.
 function ActivityCard({ days, live, fetchedAt, failed }) {
   const frameRef = useRef(null)
-  // hit: index into `flat` for the brick the beam is currently lighting, or -1.
+  // hit: document-order index of the struck cell (identical to its index in
+  // `flat`, which is built in document order), or -1 when the beam holds
+  // nothing. The loop must report this order — never the day-index into
+  // `days` — or strikes flash the wrong cell once inactive days intervene.
   const [hit, setHit] = useState(-1)
   useBreakout(frameRef, days, setHit)
 
@@ -95,6 +98,25 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
     flat.push(cell)
     return cell
   }))
+
+  // Session coverage for the EATEN ticker: unique struck orders, summed by
+  // their real contribution counts. Orders are document-order and stable, so
+  // the set survives re-renders; it resets when the dataset itself changes.
+  const [eaten, setEaten] = useState(() => new Set())
+  useEffect(() => { setEaten(new Set()) }, [days])
+  useEffect(() => {
+    if (hit < 0) return
+    const cell = flat[hit]
+    if (!cell) return
+    setEaten((prev) => {
+      if (prev.has(cell.order)) return prev
+      const next = new Set(prev)
+      next.add(cell.order)
+      return next
+    })
+  }, [hit])
+
+  const eatenSum = flat.reduce((sum, c) => sum + (eaten.has(c.order) ? c.count : 0), 0)
 
   const counts = days.map((d) => Number(d.count) || 0)
   const active = counts.filter((c) => c > 0)
@@ -128,6 +150,8 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
   })
 
   const struck = hit >= 0 ? flat[hit] : null
+  // Power-brick moment: strikes on top-quartile days erupt larger, in amber.
+  const struckHot = !!struck && struck.count >= hotFrom
 
   return (
     <div className="activity-card">
@@ -140,6 +164,9 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
           · {live ? 'live' : `snapshot ${fetchedAt}`}, last 12 months
           {failed && !live ? ' · live feed unreachable' : ''}
         </span>
+        {/* Live coverage ticker, omitted under reduced-motion where the beam
+            never runs — a permanent 0/total would read as broken. */}
+        {!reduceMotion && <span> · EATEN {eatenSum}/{total}</span>}
       </p>
       <div className="activity-stats">
         <span className="activity-stat"><b>{total}</b>contributions</span>
@@ -176,9 +203,17 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
                   you what a specific day actually held, while it is being struck. */}
               {struck && (
                 <g className="brick-hit" pointerEvents="none">
+                  {struckHot && (
+                    <circle
+                      cx={struck.x + CELL / 2} cy={struck.y + CELL / 2} r={CELL * 1.6}
+                      fill="none" stroke={HOT} strokeWidth="1" opacity="0.45"
+                    />
+                  )}
                   <circle
-                    cx={struck.x + CELL / 2} cy={struck.y + CELL / 2} r={CELL * 0.85}
-                    fill="none" stroke={struck.count >= hotFrom ? HOT : '#7dd3fc'} strokeWidth="1.5"
+                    cx={struck.x + CELL / 2} cy={struck.y + CELL / 2}
+                    r={struckHot ? CELL * 1.15 : CELL * 0.85}
+                    fill="none" stroke={struck.count >= hotFrom ? HOT : '#7dd3fc'}
+                    strokeWidth={struckHot ? 2 : 1.5}
                   />
                   {/* Backing plate: the row above is often another active day, and a
                       bare number there was unreadable against the brick. */}
@@ -237,7 +272,9 @@ function useBreakout(frameRef, days, setHit) {
       if (Number(d.count) <= 0) return
       const p = i + firstDow
       bricks.push({
-        day: i,
+        // Document-order index into `flat` — this is what the strike readout
+        // consumes, so it must be the active-cell order, not the day index.
+        order: bricks.length,
         x: padX + Math.floor(p / 7) * (cellPx + gapPx) + cellPx / 2,
         y: padY + (p % 7) * (cellPx + gapPx) + cellPx / 2,
       })
@@ -249,6 +286,11 @@ function useBreakout(frameRef, days, setHit) {
     let vx = 0.31, vy = 0.17
     const m = Math.hypot(vx, vy); vx = (vx / m) * 0.36; vy = (vy / m) * 0.36
     let holding = -1, dwell = 0
+    // Coverage memory + steering: the set remembers struck bricks so the beam
+    // can lean toward ground it hasn't covered yet. It lives in this closure
+    // (not state) because the loop reads it 60×/s and must never re-render.
+    const seen = new Set()
+    let sinceNudge = 0
 
     // ponytail: fixed 60Hz substeps so the beam can't tunnel through a brick on a
     // dropped frame, which would read as teleporting. 41 bricks is a cheap scan.
@@ -262,6 +304,30 @@ function useBreakout(frameRef, days, setHit) {
     document.addEventListener('visibilitychange', onVis)
 
     const step = () => {
+      // Coverage steering, ~every 4s (240 substeps): blend 15% of the
+      // velocity toward the nearest unstruck brick. The ricochet feel
+      // survives — the beam just stops re-sweeping covered ground, so
+      // coverage reads as intentional rather than random drift.
+      if (++sinceNudge >= 240) {
+        sinceNudge = 0
+        let best = -1, bestD = Infinity
+        for (let i = 0; i < bricks.length; i++) {
+          if (seen.has(i)) continue
+          const b = bricks[i]
+          const dx = b.x - px, dy = b.y - py
+          const d = dx * dx + dy * dy
+          if (d < bestD) { bestD = d; best = i }
+        }
+        if (best >= 0 && bestD > 1) {
+          const b = bricks[best]
+          const d = Math.sqrt(bestD)
+          const sp = Math.hypot(vx, vy) || 0.36
+          vx = vx * 0.85 + ((b.x - px) / d) * sp * 0.15
+          vy = vy * 0.85 + ((b.y - py) / d) * sp * 0.15
+          const s2 = Math.hypot(vx, vy) || 1
+          vx = (vx / s2) * sp; vy = (vy / s2) * sp
+        }
+      }
       px += vx; py += vy
       if (px < padX + R) { px = padX + R; vx = Math.abs(vx) }
       if (px > W - R) { px = W - R; vx = -Math.abs(vx) }
@@ -283,7 +349,8 @@ function useBreakout(frameRef, days, setHit) {
         vx = (vx / s2) * 0.36; vy = (vy / s2) * 0.36
         px = b.x + nx * reach; py = b.y + ny * reach
         cool[i] = 10
-        holding = b.day; dwell = 20
+        seen.add(i)
+        holding = b.order; dwell = 20
         break
       }
       if (dwell > 0) { dwell--; setHitRef.current(holding) }
