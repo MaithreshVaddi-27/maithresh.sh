@@ -14,9 +14,9 @@ node_modules/
 # Build output (rebuilt by `npm run build`, deployed from dist/)
 dist/
 
-# Local browser-automation scratch
+# Local browser-automation scratch (reports, traces, screenshots)
 .playwright-cli/
-output/playwright/
+output/
 
 # Internal tooling — never deploy, and never tracked
 .superpowers/

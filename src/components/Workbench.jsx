@@ -79,7 +79,7 @@ function Pipeline({ pane, sim }) {
 }
 
 export default function Workbench({ onAnnounce }) {
-  const [activeId, setActiveId] = useState('docuchat')
+  const [activeId, setActiveId] = useState('trustrag')
   const [sims, setSims] = useState({})
   const timers = useRef({})
 

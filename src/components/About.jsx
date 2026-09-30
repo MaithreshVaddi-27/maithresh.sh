@@ -52,8 +52,8 @@ export default function About() {
               The part people underestimate: <strong>debugging is the job.</strong> Fixing a
               self-overwriting output path, making a Pygame loop survive a Pyodide/WASM browser
               build, pinning a transitive MCP dependency that broke the LangChain adapters. Those
-              hours taught me more than the happy path did. 13+ n8n / Make.com / RPA workflows
-              and two team platforms round it out, where I owned the ML integration layer.
+               hours taught me more than the happy path did. 13+ automation workflows
+               and team platforms round it out, where I owned the ML integration layer.
             </p>
             <p>
               Currently hardening TrustRAG’s recovery loop and pushing CareerOS-Pro toward

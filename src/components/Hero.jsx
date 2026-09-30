@@ -9,7 +9,7 @@ import portraitUrl from '../../assets/svg/maithresh-terminal-portrait.59fb7aed.s
 const STATS = [
   ['8-stage', 'verify-then-answer RAG pipeline'],
   ['5 + 1', 'job APIs + scraper, LLM-free parsing'],
-  ['13+', 'shipped n8n / Make / RPA workflows'],
+  ['13+', 'automation workflows shipped'],
 ]
 
 export function Hero() {
@@ -86,7 +86,7 @@ export function Hero() {
               <a href="#projects" className="btn-nested btn-nested-primary">
                 <span>$ inspect --systems</span>
                 <span className="btn-nested-badge">↓</span>
-                <span className="sr-only">See the five featured engineering systems</span>
+                <span className="sr-only">See the featured engineering systems</span>
               </a>
               <a href="#contact" className="btn-nested btn-nested-secondary">
                 <span>$ ./contact.sh</span>

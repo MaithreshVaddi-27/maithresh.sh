@@ -35,23 +35,33 @@ npm run lint
 
 ```
 ├── index.html                 # <head> only — meta, JSON-LD, fonts. Body is a React root.
-├── vite.config.js
-├── _headers                   # immutable edge caching for hashed /assets/*
+├── vite.config.js             # base reads VITE_BASE so Cloudflare (/) and GH Pages (/maithresh.sh/) both work
+├── _headers                   # immutable edge caching for hashed /assets/* (copied into dist/ by the build)
+├── robots.txt / sitemap.xml   # copied into dist/ by the build
+├── .github/workflows/         # deploy-pages.yml — builds with VITE_BASE, uploads dist/
 ├── src/
 │   ├── main.jsx               # mount (no CSS import — see the <link>)
 │   ├── App.jsx                # page composition
 │   ├── styles.css             # design system — the single stylesheet
 │   ├── scene.js               # hero canvas engine (mount fn + teardown)
-│   ├── components/            # one component per section
-│   │   └── ErrorBoundary.jsx  # keeps nav/footer alive if a render throws
-│   ├── data/                  # repeated content + the workbench pane model
-│   └── hooks/                 # motion, chrome, cursor
+│   ├── components/            # one component per section (+ ErrorBoundary.jsx, CommandConsole, Icon)
+│   ├── data/                  # content.jsx, workbench.jsx, contributions.json snapshot
+│   └── hooks/                 # useMotion (reveals), useChrome (scroll/spy), useInstrumentCursor
 ├── tests/
-│   └── verify.js              # build gate (node tests/verify.js)
+│   └── verify.js              # build gate (node tests/verify.js) — runs inside npm run build
+├── scripts-refresh-contrib.mjs # regenerates the contribution snapshot (npm run refresh:contrib)
 ├── docs/
-│   └── free-deploy-options.md # deployment walkthrough
-└── assets/                    # og-image + hero portrait SVG
+│   ├── Project_Portfolio.md  # source of truth for every claim on the site
+│   ├── free-deploy-options.md # deployment walkthrough
+│   └── PORTFOLIO_REVAMP*.md  # phased change trackers
+└── assets/                    # og-image + hero portrait SVG (copied into dist/ by the build)
 ```
+
+Content rules: portfolio inventory counts are always stated as **N+**
+(`11+` systems, `13+` automation workflows) so the page can't go stale as
+new work ships. Architecture specs (8-stage pipeline, two-stage dedup,
+3-agent crews) stay exact — they describe the design, not the inventory.
+Full policy: `docs/Project_Portfolio.md`.
 
 ## How the interactive pieces work
 
