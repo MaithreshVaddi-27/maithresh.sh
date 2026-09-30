@@ -617,7 +617,7 @@
 
   .activity-card{ margin: 36px auto 0; max-width: 1040px; border: 1px solid var(--elev-1-border); border-radius: var(--radius); overflow: hidden; background: var(--elev-1-bg); backdrop-filter: blur(var(--elev-1-blur)) saturate(var(--elev-1-sat)); -webkit-backdrop-filter: blur(var(--elev-1-blur)) saturate(var(--elev-1-sat)); padding: 20px; }
   .activity-caption{ font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim); text-align:center; margin-bottom: 14px; }
-  /* Cyan-monochrome graph: the live/snapshot/EATEN readout speaks in the
+  /* Cyan-monochrome graph: the live/snapshot readout speaks in the
      bright end of the ramp, never green — green belongs to other systems. */
   .activity-caption span{ color: var(--accent-bright); }
   .activity-graph-frame{ position: relative; overflow: hidden; background: #0d1015; border-radius: var(--radius-sm); padding: 12px 6px; }
@@ -661,8 +661,7 @@
     .activity-graph-frame.boot .cweek,
     .activity-graph-frame.boot .clab{ animation: none; opacity: 1; }
   }
-  .activity-graph-frame a{ display:block; border-radius: inherit; transition: opacity 0.2s ease, transform 0.2s var(--ease-out); }
-  .activity-graph-frame a:hover{ opacity: 0.88; transform: scale(1.004); }
+  .activity-graph-frame a{ display:block; border-radius: inherit; }
   /* Rendered client-side from raw contribution data (see the fetch in
      ContributionGraph.jsx) — cells are drawn directly in the ice-cyan ramp
      tokens, so there's no third-party image to color-correct. */
@@ -670,40 +669,16 @@
      (set as CSS, not as an SVG attribute — height="auto" is invalid
      SVG and logs a console error). */
   .activity-graph-frame svg{ display:block; width:100%; height:auto; }
-  .activity-graph-frame rect{ cursor: pointer; transition: stroke .15s ease, stroke-width .15s ease; }
-  .activity-graph-frame rect:hover{ stroke: #7dd3fc; stroke-width: 1.5; }
-  /* Breakout probe beam — the ricocheting puck. Same glow vocabulary as the old
-     snake head, so the swap reads as a re-tune rather than a different product. */
+  /* Cells are not individually actionable (the whole frame links to GitHub),
+     so they keep the default cursor; hover lifts the cell with a cheap
+     brightness bump + brighter stroke — one element, no layout, no filter. */
+  .activity-graph-frame rect{ transition: stroke .15s ease, stroke-width .15s ease, filter .15s ease; }
+  .activity-graph-frame rect:hover{ stroke: #bae6fd; stroke-width: 1.5; filter: brightness(1.4); }
   /* Graph labels speak the ramp too — a deterministic dim-cyan tint rather
      than whatever the SVG default resolves to. Same hue family as the cells,
      dropped to ~55% so the hierarchy (cells first, labels second) holds. */
   .activity-graph-frame .clab{
     fill: rgba(125,211,252,.55); font-family: var(--font-mono); font-size: 10px;
-  }
-  .probe-beam{ fill: #7dd3fc; filter: drop-shadow(0 0 8px rgba(56,189,248,1)); }
-  .probe-beam-halo{ fill: none; stroke: rgba(125,211,252,.35); stroke-width: 1; }
-  /* Breakout ball trail — three fading echoes of the beam, same hue, stepping
-     down in radius (set in JS) and opacity (set inline). No glow filter here:
-     three filtered circles repainting every frame would cost more than the
-     effect is worth; flat cyan reads as motion at this size. */
-  .probe-trail{ fill: #38bdf8; }
-  /* Impact readout: count for the day currently being struck, plus its ring. */
-  .brick-hit{ animation: brickHit .3s ease-out; }
-  .brick-hit-n{
-    fill: #7dd3fc; font-family: var(--font-mono); font-size: 9px; font-weight: 700;
-    text-anchor: middle; filter: drop-shadow(0 0 4px rgba(56,189,248,.9));
-  }
-  @keyframes brickHit{ from{ opacity: 0 } to{ opacity: 1 } }
-  /* Brick-break shards: sparks fly outward and fade within one strike dwell.
-     transform-box keeps the scale centered on each spark; the flight vector
-     arrives per-spark via --dx/--dy inline custom properties. */
-  .brick-shard{
-    fill: #7dd3fc; transform-box: fill-box; transform-origin: center;
-    animation: brickShard .38s ease-out forwards;
-  }
-  @keyframes brickShard{
-    from{ opacity: 1; transform: translate(0,0) scale(1); }
-    to{ opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.4); }
   }
   /* Live stat readouts + Less→More legend — instrument chrome for the graph */
   .activity-stats{
@@ -721,16 +696,10 @@
   }
   .legend-cells{ display: inline-flex; gap: 3px; }
   .legend-cells span{ width: 11px; height: 11px; border-radius: 2px; }
-  /* Peak-day swatch: pale cyan — the brightest point on the ramp. The graph
-     is strictly cyan-monochrome, so the peak tier is a tint, never amber. */
-  .legend-hot{
-    width: 11px; height: 11px; border-radius: 2px; background: #e0f2fe;
-    margin-left: 10px; margin-right: -2px;
-  }
-  /* Shown only if the jogruber.de contribution-data fetch fails (see
-     the catch in ContributionGraph.jsx) — the live graph has no
-     local backup by
-     design, so failure degrades to a link instead of an empty box. */
+  /* Shown only if the fetch fails AND the committed snapshot is empty (see
+     the guard in ContributionGraph.jsx) — normally the snapshot paints first
+     and the live feed only upgrades it, so failure degrades to a link instead
+     of an empty box. */
   .activity-fallback{ font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); text-align:center; padding: 28px 16px; }
   .activity-fallback a{ color: var(--accent); }
 
