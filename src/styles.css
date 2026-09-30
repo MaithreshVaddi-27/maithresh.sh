@@ -129,12 +129,12 @@
        plain hard edge, so swap back to one here instead. */
     header{ background: #0a0c0e; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 1px solid var(--line); }
     header::after{ display: none; }
-    .terminal, .stack-card, .group-card, .proj-stage, .activity-card{
+    .terminal, .stack-card, .group-card, .proj-panel, .activity-card{
       background: #14171b; backdrop-filter: none; -webkit-backdrop-filter: none;
     }
   }
   @media (prefers-contrast: more){
-    .terminal, .stack-card, .group-card, .proj-stage, .activity-card{
+    .terminal, .stack-card, .group-card, .proj-panel, .activity-card{
       border-color: rgba(255,255,255,0.4);
     }
     .chip, .proj-stack span, .navlinks a, .contact-links a{
@@ -237,7 +237,6 @@
     transform: scale(0.97);
     transition: var(--press);
   }
-  .proj-row:active{ background: rgba(255,255,255,0.02); }
   @media (prefers-reduced-motion: reduce){
     .more-toggle:active,
     .contact-links a:active, .navlinks a:active, .nav-toggle:active,
@@ -817,218 +816,104 @@
      hovered one, which reads as janky rather than premium. Rows are
      now a constant height; hovering swaps content into a separate
      sticky panel instead, so nothing in the list ever shifts. */
-  .proj-layout{ display:flex; flex-direction:column; gap: 28px; }
-  @media(min-width:900px){
-    .proj-layout{ flex-direction:row; align-items:flex-start; gap: 40px; }
-  }
+  .proj-layout{ display:flex; flex-direction:column; gap: 26px; }
 
-  .proj-list{ flex:1; min-width:0; display:flex; flex-direction:column; border-top: 1px solid var(--line); }
-  .proj-row{
-    position: relative; display:flex; align-items:center; gap: 20px;
-    padding: 22px 4px; border-bottom: 1px solid var(--line);
-    color: var(--text); overflow: hidden;
+  /* ── Sub-top navbar: one pill tab per system ──────────
+     Same vocabulary as the workbench tabs (mono pill, status dot, spring),
+     but accent-aware: the dot and the active tint follow the selected
+     system's own accent so the navbar always mirrors the panel. Tabs wrap
+     instead of scrolling — a hidden tab behind a suppressed scrollbar reads
+     as a bug, not a carousel. 44px targets per touch rules. */
+  .proj-tabs{
+    display: flex; flex-wrap: wrap; gap: 8px;
   }
-  .proj-row::before{
-    content:''; position:absolute; inset:0; z-index:0;
-    /* A quiet tint wash, not a full-saturation color block — the sweep
-       is now support for the hover, not the whole effect. */
-    background: linear-gradient(100deg, rgba(56,189,248,0.16), rgba(56,189,248,0.06));
-    transform: translateX(-101%);
-    transition: transform 0.55s var(--ease-in-out);
+  .proj-tab{
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 12px 20px; min-height: 44px; border-radius: 9999px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-family: var(--font-mono); font-size: 12.5px; font-weight: 600;
+    letter-spacing: 0.02em; white-space: nowrap; cursor: pointer; user-select: none;
+    transition: color .25s var(--ease-out), border-color .25s var(--ease-out), background .25s var(--ease-in-out), box-shadow .25s ease, transform .1s var(--ease-out);
   }
-  .proj-row:hover::before, .proj-row:focus-visible::before{ transform: translateX(0); }
+  .proj-tab:hover{ color: #fff; border-color: var(--border-glass); background: var(--proj-soft); }
+  .proj-tab:active{ transform: scale(0.97); }
+  .proj-tab-dot{
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+    background: var(--text-dim);
+    transition: background .25s ease, box-shadow .25s ease;
+  }
+  .proj-tab[data-accent="cyan"] .proj-tab-dot{ background: #38bdf8; }
+  .proj-tab[data-accent="green"] .proj-tab-dot{ background: #10b981; }
+  .proj-tab[data-accent="amber"] .proj-tab-dot{ background: #f59e0b; }
+  .proj-tab[data-accent="purple"] .proj-tab-dot{ background: #a855f7; }
+  .proj-tab.active{ color: #fff; background: var(--proj-faint); }
+  .proj-tab.active[data-accent="cyan"]{ border-color: rgba(56,189,248,.5); box-shadow: 0 0 18px rgba(56,189,248,.15), inset 0 1px 0 rgba(255,255,255,.08); }
+  .proj-tab.active[data-accent="green"]{ border-color: rgba(16,185,129,.5); box-shadow: 0 0 18px rgba(16,185,129,.15), inset 0 1px 0 rgba(255,255,255,.08); }
+  .proj-tab.active[data-accent="amber"]{ border-color: rgba(245,158,11,.5); box-shadow: 0 0 18px rgba(245,158,11,.15), inset 0 1px 0 rgba(255,255,255,.08); }
+  .proj-tab.active[data-accent="purple"]{ border-color: rgba(168,85,247,.55); box-shadow: 0 0 18px rgba(168,85,247,.18), inset 0 1px 0 rgba(255,255,255,.08); }
+  .proj-tab.active .proj-tab-dot{ box-shadow: 0 0 8px var(--proj); }
 
-  .proj-row-index{
-    position:relative; z-index:1; font-family: var(--font-mono); font-size: 13px;
-    color: var(--text-dim); width: 34px; flex-shrink:0;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+  /* ── Full-width case-study panel ────────────────────
+     One system at a time, everything about it: the tab navbar above selects,
+     this panel explains — schematic beside prose on desktop, stacked on
+     mobile. A normal in-flow card (no sticky games), so no height can ever
+     tower over an empty column again. */
+  .proj-panel{
+    background: var(--elev-2-bg); backdrop-filter: blur(var(--elev-2-blur)) saturate(var(--elev-2-sat));
+    -webkit-backdrop-filter: blur(var(--elev-2-blur)) saturate(var(--elev-2-sat));
+    border: 1px solid var(--elev-2-border); border-radius: var(--radius);
+    padding: 26px 30px 30px;
+    box-shadow: 0 24px 60px -24px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07);
+    transition: border-color .3s ease, box-shadow .3s ease;
   }
-  .proj-row:hover .proj-row-index, .proj-row:focus-visible .proj-row-index{ color: #fff; text-shadow: 0 0 12px rgba(56,189,248,0.75); }
-
-  .proj-row-main{ position:relative; z-index:1; flex: 1 1 auto; min-width:0; }
-  .proj-row-title{
-    margin: 0;
-    font-family: var(--font-display); font-weight: 700;
-    font-size: clamp(1.05rem, 1.8vw, 1.45rem); letter-spacing: -0.01em;
-    transition: transform 0.4s var(--ease-out), color 0.3s ease;
+  .proj-panel-head{
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding-bottom: 16px; border-bottom: 1px solid var(--line);
   }
-  .proj-row:hover .proj-row-title, .proj-row:focus-visible .proj-row-title{ transform: translateX(6px); color: #fff; }
-
-  /* The row's own detail block is the single source of truth for
-     content — DetailBody renders it both here and in the sticky stage,
-     so the two can't drift. It's only ever *displayed* inline on
-     narrow screens, where there's no room for a side panel and no real
-     hover concept. On desktop it's visually hidden but NOT
-     display:none, which would drop it from the accessibility tree and
-     make a screen reader reading linearly skip every project
-     description. */
-  .proj-row-detail{
-    position: absolute; width: 1px; height: 1px; overflow: hidden;
-    clip: rect(0,0,0,0); white-space: nowrap;
-  }
-  @media(max-width:899px){
-    /* Inline detail follows selection on mobile: only the active row's
-       detail renders inline (inactive rows keep the visually-hidden,
-       screen-reader-visible treatment). Five full case studies stacked
-       unconditionally would bury the list itself. */
-    .proj-row.active .proj-row-detail{
-      position: static; width:auto; height:auto; overflow:visible; clip:auto; white-space:normal;
-      display:block; flex-basis: 100%; margin-top: 14px;
-    }
-    .proj-row{ flex-wrap: wrap; }
-    .proj-row-detail .proj-desc,
-    .proj-row-detail .proj-highlight,
-    .proj-row-detail .proj-stack{ margin-top: 12px; }
-  }
-
-  /* The tag lives INSIDE .proj-row-main, under the title, rather than as a
-     sibling flex item. As a sibling it competed with the title for the row's
-     width and got crushed to 0-8px (a `flex: 0 6 auto` + min-width:0 tag
-     starves under a long title — it read as a broken row, not a truncated
-     one). As a block child of the main column it gets the full column width
-     and simply wraps. */
-  .proj-row-tag{
-    position:relative; z-index:1; display:block; margin-top: 6px;
-    font-family: var(--font-mono); font-size: 12px; line-height: 1.5;
-    color: var(--text-dim);
-    transition: color 0.3s ease;
-  }
-  .proj-row:hover .proj-row-tag, .proj-row:focus-visible .proj-row-tag{ color: rgba(125,211,252,0.85); }
-
-  .proj-row-arrow{
-    position:relative; z-index:1; font-size: 20px; color: var(--text-dim);
-    display: inline-block;
-    transition: color 0.3s ease, transform 0.3s var(--ease-out);
-  }
-  .proj-row:hover .proj-row-arrow, .proj-row:focus-visible .proj-row-arrow{
-    color: #fff; transform: translateX(4px);
-  }
-  @media (prefers-reduced-motion: reduce){
-    .proj-row:hover .proj-row-arrow, .proj-row:focus-visible .proj-row-arrow{ transform:none; }
-  }
-
-  .proj-row-swatch{
-    position:relative; z-index:1; width:52px; height:52px; border-radius: var(--radius-sm);
-    flex-shrink:0; display:none; opacity:0; transform: scale(0.55) rotate(-10deg);
-    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
-    /* Dark badge, not a pale color block — the previous accent→accent-
-       bright gradient (both low-saturation cyans) read as a washed-out,
-       near-transparent square against the rest of the dark theme, and
-       killed contrast on the white icon inside it. Fill now matches the
-       site's own glass-card tokens (surface-2 → bg-soft); the accent
-       carries the identity as an icon glow + border ring instead. */
-    background: linear-gradient(150deg, var(--surface-2), var(--bg-soft));
-    border: 1px solid var(--glass-rim-dim);
-    box-shadow: 0 8px 24px -8px rgba(56,189,248,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
-    align-items:center; justify-content:center;
-  }
-  /* Each swatch carries a hand-drawn line icon specific to that
-     project (shield-check for the reliability engine, chat+doc for
-     DocuChat, etc.) rather than standing in as a plain color block —
-     the glyph is the detail, the dark ground gives it somewhere to
-     glow from. */
-  .proj-row-swatch svg{
-    width:24px; height:24px; color: var(--accent-bright);
-    filter: drop-shadow(0 0 6px rgba(56,189,248,0.55));
-  }
-  @media(min-width:640px){ .proj-row-swatch{ display:flex; } }
-  .proj-row:hover .proj-row-swatch, .proj-row:focus-visible .proj-row-swatch{ opacity:1; transform: scale(1) rotate(0deg); }
-  /* Fill stays constant (dark) across every swatch for a clean, unified
-     row — identity comes from a per-project accent border ring instead
-     of five competing pale fills. */
-  .proj-row:nth-child(1) .proj-row-swatch{ border-color: rgba(56,189,248,0.55); }
-  .proj-row:nth-child(2) .proj-row-swatch{ border-color: rgba(16,185,129,0.55); }
-  .proj-row:nth-child(3) .proj-row-swatch{ border-color: rgba(245,158,11,0.55); }
-  .proj-row:nth-child(4) .proj-row-swatch{ border-color: rgba(168,85,247,0.55); }
-  .proj-row:nth-child(5) .proj-row-swatch{ border-color: rgba(56,189,248,0.55); }
-
-  /* ── Master-detail selection ──────────────────────────
-     Rows select a preview but never navigate (touch has no hover — tapping
-     must preview in place, not yeet the visitor to GitHub). The title button
-     carries the interaction; the `.active` row holds the selected treatment
-     persistently so the list always shows what the stage is displaying. */
-  .proj-row-select{
-    background: none; border: 0; padding: 0; margin: 0;
-    font: inherit; color: inherit; letter-spacing: inherit;
-    text-align: left; cursor: pointer; display: inline;
-  }
-  .proj-row:focus-within::before{ transform: translateX(0); }
-  .proj-row.active::before{ transform: translateX(0); }
-  .proj-row.active .proj-row-index{ color: #fff; text-shadow: 0 0 12px rgba(56,189,248,0.75); }
-  .proj-row.active .proj-row-title{ transform: translateX(6px); color: #fff; }
-  .proj-row.active .proj-row-tag{ color: rgba(125,211,252,0.85); }
-  .proj-row.active .proj-row-arrow{ color: #fff; transform: translateX(4px); }
-  .proj-row.active .proj-row-swatch{ opacity:1; transform: scale(1) rotate(0deg); }
-  /* Accent spine: which system is live, at a glance. Inset shadow rather than
-     a border so the divider rhythm below each row never shifts. */
-  .proj-row.active[data-accent="cyan"]{ box-shadow: inset 2px 0 0 #38bdf8; }
-  .proj-row.active[data-accent="green"]{ box-shadow: inset 2px 0 0 #10b981; }
-  .proj-row.active[data-accent="amber"]{ box-shadow: inset 2px 0 0 #f59e0b; }
-  .proj-row.active[data-accent="purple"]{ box-shadow: inset 2px 0 0 #a855f7; }
-  @media (prefers-reduced-motion: reduce){
-    .proj-row.active .proj-row-title, .proj-row.active .proj-row-arrow{ transform:none; }
-  }
-
-  /* Sticky detail stage — desktop only. Content is cloned in from the
-     same DetailBody as the row, with a quick crossfade
-     between swaps. Stays visible/sticky while you scroll the
-     list, never causes the list itself to reflow. */
-  .proj-stage{ display:none; }
-  @media(min-width:900px){
-    .proj-stage{
-      display:block; width: 360px; flex-shrink:0; position: sticky; top: 110px;
-      background: var(--elev-3-bg); backdrop-filter: blur(var(--elev-3-blur)) saturate(var(--elev-3-sat));
-      -webkit-backdrop-filter: blur(var(--elev-3-blur)) saturate(var(--elev-3-sat));
-      border: 1px solid var(--elev-3-border); border-radius: var(--radius);
-      padding: 52px 28px 28px; min-height: 280px;
-      box-shadow: 0 24px 60px -24px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07);
-    }
-    .proj-stage::before{
-      content: '$ preview.sh'; position:absolute; top:0; left:0; right:0; height:34px;
-      display:flex; align-items:center; padding: 0 18px 0 66px;
-      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-      border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0;
-    }
-    .proj-stage::after{
-      content:''; position:absolute; top:13px; left:18px; width:7px; height:7px; border-radius:50%;
-      background: var(--green); box-shadow: 13px 0 0 var(--amber), 26px 0 0 var(--red);
-    }
-  }
-  .proj-stage-inner{
-    opacity:1; transform: translateY(0) scale(1); filter: blur(0px);
-    transition: opacity 0.3s ease, transform 0.3s var(--ease-out), filter 0.3s ease;
-  }
-  .proj-stage-inner.swapping{ opacity:0; transform: translateY(8px) scale(0.985); filter: blur(3px); }
-  /* Stage instrument bar: position counter + prev/next steppers. 44px targets
-     per touch rules; arrows are text glyphs (terminal-consistent, no icon
-     dependency) with the shared tactile press. */
-  .proj-stage-bar{
-    display:flex; align-items:center; justify-content:space-between;
-    margin-bottom: 18px; padding-bottom: 14px;
-    border-bottom: 1px solid var(--line);
-  }
-  .proj-stage-count{
+  .proj-panel-head .proj-tag{ flex: 1 1 auto; color: var(--proj-text); }
+  .proj-panel-count{
     font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
     color: var(--text-dim); font-variant-numeric: tabular-nums;
   }
-  .proj-stage-nav{ display:flex; gap: 8px; }
-  .proj-stage-nav button{
+  .proj-panel-nav{ display: flex; gap: 8px; margin-left: auto; }
+  .proj-panel-nav button{
     width: 44px; height: 44px; border-radius: 10px; cursor: pointer;
     background: transparent; border: 1px solid var(--border-subtle);
     color: var(--text-mute); font-size: 17px; line-height: 1;
-    display:inline-flex; align-items:center; justify-content:center;
+    display: inline-flex; align-items: center; justify-content: center;
     transition: color .2s var(--ease-out), border-color .2s var(--ease-out), background .2s var(--ease-out), transform .1s var(--ease-out);
   }
-  .proj-stage-nav button:hover{ color: #fff; border-color: var(--border-glass); background: rgba(56,189,248,.06); }
-  .proj-stage-nav button:active{ transform: scale(0.97); }
-  /* Explicit exit for the detail: rows preview in place, this link leaves. */
+  .proj-panel-nav button:hover{ color: #fff; border-color: var(--border-glass); background: rgba(56,189,248,.06); }
+  .proj-panel-nav button:active{ transform: scale(0.97); }
+  .proj-panel-title{
+    margin: 20px 0 0;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.3rem, 2.4vw, 1.8rem); letter-spacing: -0.02em;
+    color: #fff; text-wrap: balance;
+  }
+  .proj-panel-grid{
+    display: grid; grid-template-columns: 330px minmax(0, 1fr);
+    gap: 30px; margin-top: 22px; align-items: start;
+  }
+  @media(max-width:899px){
+    .proj-panel{ padding: 22px 20px 24px; }
+    .proj-panel-grid{ grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .proj-panel-grid .proj-diagram{ max-width: 340px; margin: 0; }
+  }
+  .proj-panel-inner{
+    opacity: 1; transform: translateY(0) scale(1); filter: blur(0px);
+    transition: opacity 0.3s ease, transform 0.3s var(--ease-out), filter 0.3s ease;
+  }
+  .proj-panel-inner.swapping{ opacity: 0; transform: translateY(8px) scale(0.985); filter: blur(3px); }
+  /* Explicit exit for the detail: tabs preview in place, this link leaves. */
   .proj-actions{ margin-top: 18px; }
-  .proj-row-detail .proj-actions{ margin-top: 14px; }
-  .proj-stage .proj-desc{ color: rgba(248,250,252,0.92); }
-  .proj-stage .proj-highlight{ margin-top:16px; color: rgba(248,250,252,0.86); border-left-color: rgba(56,189,248,0.55); }
-  .proj-stage .proj-highlight b{ color: #fff; }
-  .proj-stage .proj-stack{ margin-top:16px; }
-  .proj-stage .proj-stack span{ background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
+  .proj-panel .proj-desc{ color: rgba(248,250,252,0.92); }
+  .proj-panel .proj-highlight{ margin-top: 16px; color: rgba(248,250,252,0.86); border-left-color: rgba(56,189,248,0.55); }
+  .proj-panel .proj-highlight b{ color: #fff; }
+  .proj-panel .proj-stack{ margin-top: 16px; }
+  .proj-panel .proj-stack span{ background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
 
   /* Precision schematics — one per featured project, redrawn as landscape
      flow diagrams (entry → stages → decision → outcomes → terminal) so the
@@ -1038,7 +923,6 @@
   .proj-diagram{
     max-width: 300px; margin: 0 auto 18px; opacity: 0.96;
   }
-  .proj-stage .proj-diagram{ margin-top: 2px; }
   .proj-diagram svg{ display:block; width:100%; height:auto; }
   @media(max-width:899px){ .proj-diagram{ max-width: 340px; margin: 0 0 18px; } }
 
@@ -1538,13 +1422,9 @@
     transform: scale(0.97);
     transition: transform 0.08s ease-out !important;
   }
-  .proj-row:active {
-    transform: scale(0.992);
-    transition: transform 0.08s ease-out !important;
-  }
 
   /* ── Optical Typography Refinements ────────────────────────── */
-  h1, h2, h3, .proj-row-title, .section-head h2 {
+  h1, h2, h3, .proj-panel-title, .section-head h2 {
     letter-spacing: -0.028em;
     font-optical-sizing: auto;
   }
@@ -1552,7 +1432,7 @@
     line-height: 1.6;
     letter-spacing: -0.005em;
   }
-  .section-eyebrow, .proj-row-tag, .top-telemetry-bar {
+  .section-eyebrow, .top-telemetry-bar {
     letter-spacing: 0.04em;
   }
 
@@ -1632,8 +1512,8 @@ section{ scroll-margin-top: 120px; }
    .auto-item and .more-item are informational rows (the link lives on the
    h3 title), so giving them cursor:pointer + a hover lift was a false
    affordance: it promised a click that never happened. */
-.proj-row, .stack-card, .group-card, .cert-card,
-.contact-links a, .workbench-tab, .more-toggle{
+.stack-card, .group-card, .cert-card,
+.contact-links a, .workbench-tab, .proj-tab, .more-toggle{
   cursor:pointer; transition: transform .2s var(--ease-out), border-color .2s ease, box-shadow .25s ease, background .2s ease;
 }
 .auto-item, .more-item{
@@ -1649,12 +1529,9 @@ section{ scroll-margin-top: 120px; }
 .auto-item h3 a{ transition: color .2s ease; display: inline-block; padding: 4px 6px; margin: -4px -6px; }
 .auto-item h3 a:hover{ color: var(--accent-bright); }
 .workbench-tab:hover{ color:#fff; }
-.proj-row:hover{ background: rgba(255,255,255,.025); }
-.proj-row:hover .proj-row-arrow{ transform: translate(2px,-2px); color: var(--accent); }
-.proj-row-arrow{ transition: transform .2s var(--ease-out), color .2s ease; }
 
 /* Touch targets ≥44px (Apple HIG) */
-.nav-toggle, .workbench-tab, .more-toggle, .contact-links a{ min-height:44px; }
+.nav-toggle, .workbench-tab, .proj-tab, .more-toggle, .contact-links a{ min-height:44px; }
 
 /* Back-to-top — floating glass pill, appears after scroll */
 .to-top{
@@ -1669,25 +1546,26 @@ section{ scroll-margin-top: 120px; }
 .to-top.show{ opacity:1; visibility:visible; transform:none; }
 .to-top:hover{ box-shadow: 0 0 20px rgba(56,189,248,.35); transform: translateY(-2px); }
 
-/* Print — recruiters print portfolios; keep it legible. Project rows are
-   hover-revealed, so on paper every detail must be shown expanded and the
-   URL printed after each link (a printed "GitHub ↗" is useless without it). */
+/* Print — recruiters print portfolios; keep it legible. The case-study panel
+   is JS state (one system at a time), so paper gets the selected system with
+   its URL printed after the link (a printed "View repository ↗" is useless
+   without it); tabs and steppers are chrome, not content. */
 @media print{
   header, .scroll-progress, .preloader, .top-telemetry-bar, #hero-canvas, .hero-fade,
   .cmd-console-overlay, .to-top, .scroll-hint, .sim-controls,
-  .proj-diagram, .proj-stage, .proj-row-swatch, .proj-row-arrow,
+  .proj-diagram, .proj-tabs, .proj-panel-nav,
   .more-toggle, .activity-graph-frame, body::before, body::after{ display:none !important; }
   body{ background:#fff; color:#000; }
   /* Text tokens are near-white on a dark theme; on paper they'd be invisible.
      Invert the neutral text ramp for print so every body/description string
      actually prints, and drop the accent glows/shadows that only read on dark. */
-  .hero-name, h1, h2, h3, .proj-row-title, .proj-title, .hero-lead,
-  .about-text strong, .principles, .t-out, .proj-row-index{
+  .hero-name, h1, h2, h3, .proj-panel-title, .proj-title, .hero-lead,
+  .about-text strong, .principles, .t-out{
     color: #000 !important; text-shadow: none !important;
   }
   .hero-desc, .section-sub, .about-text p, .proj-desc, .auto-item p,
   .more-item p, .idef-text, .group-card p, .cert-card p, .principles li,
-  .hero-desc-sub, .contact-note, .proj-row-tag, .proj-tag, .proj-metric,
+  .hero-desc-sub, .contact-note, .proj-tag, .proj-metric,
   .stack-card, .group-card, .cert-card, .auto-item, .more-item, .contact-links a{
     color: #333 !important;
   }
@@ -1699,22 +1577,9 @@ section{ scroll-margin-top: 120px; }
   .stack-card, .group-card, .cert-card, .terminal{
     background:#fff; border:1px solid #ccc; backdrop-filter:none; box-shadow:none !important;
   }
-  /* The 1px clip that keeps project detail in the a11y tree on screen would
-     otherwise print as ~2900px of stacked cards per row. Print it open, but
-     as a compact block, not a full expansion. */
-  .proj-row-detail{
-    position: static !important; width:auto !important; height:auto !important;
-    clip:auto !important; white-space:normal !important; overflow:visible !important;
-    font-size: 9.5pt; line-height: 1.35;
-  }
-  .proj-row{ padding: 10px 4px; }
+  .proj-panel{ break-inside: avoid; page-break-inside: avoid; border:1px solid #ccc; background:#fff !important; }
   .proj-diagram{ display:none !important; }
-  a[href^="http"]::after{ color:#666; }
-  .proj-list, .proj-row-detail{ display:block !important; grid-template-columns:1fr !important; }
-  .proj-row{ break-inside: avoid; page-break-inside: avoid; border-bottom:1px solid #ccc; }
-  .proj-row-detail, .more-body{ position:static !important; opacity:1 !important; visibility:visible !important;
-    max-height:none !important; height:auto !important; overflow:visible !important; }
-  .proj-row a[href^="http"]::after, .contact-links a[href^="http"]::after{
+  .proj-panel .proj-actions a[href^="http"]::after, .contact-links a[href^="http"]::after{
     content: ' (' attr(href) ')'; font-size:9px; color:#555; word-break:break-all;
   }
   .more-body{ display:grid !important; }
@@ -1753,16 +1618,11 @@ section{ scroll-margin-top: 120px; }
    floating on transparent ground and sit in the same dark instrument
    inset as the workbench pipeline visualizers. */
 
-/* Per-row accent tokens */
-.proj-row[data-accent="cyan"]{ --proj: #38bdf8; --proj-soft: rgba(56,189,248,.16); --proj-faint: rgba(56,189,248,.06); --proj-text: rgba(125,211,252,.85); }
-.proj-row[data-accent="green"]{ --proj: #10b981; --proj-soft: rgba(16,185,129,.16); --proj-faint: rgba(16,185,129,.06); --proj-text: rgba(110,231,183,.9); }
-.proj-row[data-accent="amber"]{ --proj: #f59e0b; --proj-soft: rgba(245,158,11,.16); --proj-faint: rgba(245,158,11,.06); --proj-text: rgba(252,211,77,.9); }
-.proj-row[data-accent="purple"]{ --proj: #a855f7; --proj-soft: rgba(168,85,247,.18); --proj-faint: rgba(168,85,247,.07); --proj-text: rgba(216,180,254,.9); }
-
-/* Row hover wash + index glow follow the row's own accent */
-.proj-row[data-accent]::before{ background: linear-gradient(100deg, var(--proj-soft), var(--proj-faint)); }
-.proj-row[data-accent]:hover .proj-row-index, .proj-row[data-accent]:focus-visible .proj-row-index{ color:#fff; text-shadow: 0 0 12px var(--proj); }
-.proj-row[data-accent]:hover .proj-row-tag, .proj-row[data-accent]:focus-visible .proj-row-tag{ color: var(--proj-text); }
+/* Per-system accent tokens — owned by the tab navbar + case-study panel */
+.proj-tab[data-accent="cyan"], .proj-panel[data-accent="cyan"]{ --proj: #38bdf8; --proj-soft: rgba(56,189,248,.16); --proj-faint: rgba(56,189,248,.06); --proj-text: rgba(125,211,252,.85); }
+.proj-tab[data-accent="green"], .proj-panel[data-accent="green"]{ --proj: #10b981; --proj-soft: rgba(16,185,129,.16); --proj-faint: rgba(16,185,129,.06); --proj-text: rgba(110,231,183,.9); }
+.proj-tab[data-accent="amber"], .proj-panel[data-accent="amber"]{ --proj: #f59e0b; --proj-soft: rgba(245,158,11,.16); --proj-faint: rgba(245,158,11,.06); --proj-text: rgba(252,211,77,.9); }
+.proj-tab[data-accent="purple"], .proj-panel[data-accent="purple"]{ --proj: #a855f7; --proj-soft: rgba(168,85,247,.18); --proj-faint: rgba(168,85,247,.07); --proj-text: rgba(216,180,254,.9); }
 
 /* Schematic inset — same instrument-panel surface as the workbench
    .pipeline-card, so hover SVGs read as one family with it */
@@ -1777,20 +1637,20 @@ section{ scroll-margin-top: 120px; }
   transition: border-color .3s ease, box-shadow .3s ease;
 }
 
-/* Sticky stage follows the hovered project's accent */
-.proj-stage{ transition: border-color .3s ease, box-shadow .3s ease; }
-.proj-stage[data-accent="cyan"]{ border-color: rgba(56,189,248,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(56,189,248,.12), inset 0 1px 0 rgba(255,255,255,.07); }
-.proj-stage[data-accent="green"]{ border-color: rgba(16,185,129,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(16,185,129,.12), inset 0 1px 0 rgba(255,255,255,.07); }
-.proj-stage[data-accent="amber"]{ border-color: rgba(245,158,11,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(245,158,11,.12), inset 0 1px 0 rgba(255,255,255,.07); }
-.proj-stage[data-accent="purple"]{ border-color: rgba(168,85,247,.42); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(168,85,247,.14), inset 0 1px 0 rgba(255,255,255,.07); }
-.proj-stage[data-accent="cyan"] .proj-highlight{ border-left-color: rgba(56,189,248,.55); }
-.proj-stage[data-accent="green"] .proj-highlight{ border-left-color: rgba(16,185,129,.55); }
-.proj-stage[data-accent="amber"] .proj-highlight{ border-left-color: rgba(245,158,11,.55); }
-.proj-stage[data-accent="purple"] .proj-highlight{ border-left-color: rgba(168,85,247,.6); }
-.proj-stage[data-accent="cyan"] .proj-diagram{ border-color: rgba(56,189,248,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(56,189,248,.08); }
-.proj-stage[data-accent="green"] .proj-diagram{ border-color: rgba(16,185,129,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(16,185,129,.08); }
-.proj-stage[data-accent="amber"] .proj-diagram{ border-color: rgba(245,158,11,.32); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(245,158,11,.08); }
-.proj-stage[data-accent="purple"] .proj-diagram{ border-color: rgba(168,85,247,.34); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(168,85,247,.1); }
+/* Case-study panel follows the selected system's accent */
+.proj-panel{ transition: border-color .3s ease, box-shadow .3s ease; }
+.proj-panel[data-accent="cyan"]{ border-color: rgba(56,189,248,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(56,189,248,.12), inset 0 1px 0 rgba(255,255,255,.07); }
+.proj-panel[data-accent="green"]{ border-color: rgba(16,185,129,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(16,185,129,.12), inset 0 1px 0 rgba(255,255,255,.07); }
+.proj-panel[data-accent="amber"]{ border-color: rgba(245,158,11,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(245,158,11,.12), inset 0 1px 0 rgba(255,255,255,.07); }
+.proj-panel[data-accent="purple"]{ border-color: rgba(168,85,247,.42); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(168,85,247,.14), inset 0 1px 0 rgba(255,255,255,.07); }
+.proj-panel[data-accent="cyan"] .proj-highlight{ border-left-color: rgba(56,189,248,.55); }
+.proj-panel[data-accent="green"] .proj-highlight{ border-left-color: rgba(16,185,129,.55); }
+.proj-panel[data-accent="amber"] .proj-highlight{ border-left-color: rgba(245,158,11,.55); }
+.proj-panel[data-accent="purple"] .proj-highlight{ border-left-color: rgba(168,85,247,.6); }
+.proj-panel[data-accent="cyan"] .proj-diagram{ border-color: rgba(56,189,248,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(56,189,248,.08); }
+.proj-panel[data-accent="green"] .proj-diagram{ border-color: rgba(16,185,129,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(16,185,129,.08); }
+.proj-panel[data-accent="amber"] .proj-diagram{ border-color: rgba(245,158,11,.32); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(245,158,11,.08); }
+.proj-panel[data-accent="purple"] .proj-diagram{ border-color: rgba(168,85,247,.34); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(168,85,247,.1); }
 
 @media (prefers-reduced-transparency: reduce){
   .proj-diagram{ background-image: none; }

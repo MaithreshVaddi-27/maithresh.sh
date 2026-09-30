@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // Card grids that get the index-staggered reveal pass. Module scope, not an
 // inline literal: a bare `[` after a `})` line is parsed as member access.
-const GRID_SELECTORS = ['.proj-list', '.group-grid', '.stack-groups', '.cert-grid']
+const GRID_SELECTORS = ['.proj-tabs', '.group-grid', '.stack-groups', '.cert-grid']
 
 // One shared flag for the whole page: motion preference can't change mid-session
 // without a reload, so this reads once at module load instead of per-component.
@@ -54,7 +54,7 @@ export function useReveals(rootRef) {
 
       // Grid cards are excluded here and get the index-staggered pass below, so
       // they aren't animated twice.
-      const REVEAL = '.reveal:not(.proj-row):not(.group-card):not(.stack-card):not(.cert-card)'
+      const REVEAL = '.reveal:not(.group-card):not(.stack-card):not(.cert-card)'
       gsap.utils.toArray(REVEAL).forEach((el) => {
         if (reduceMotion) {
           gsap.set(el, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' })

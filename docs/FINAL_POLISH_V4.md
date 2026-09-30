@@ -66,6 +66,29 @@
 - Skills applied: apple-design, ui-ux-pro-max
 - Committed locally — NOT pushed (per request).
 
+## Phase 22 — Full-width case-study panel + tab navbar (2026-09-30) [x] DONE
+Request: sub-top navbar for the section with the project explained across the
+full horizontal width. Replaced the list+sticky-stage with tabs + one
+full-width panel — no side column exists anymore, so no height can ever tower
+over a void again (the capped-scroll fix from the screenshot triage is moot
+by construction; its CSS went out with the stage).
+- **Navbar:** one pill tab per system (accent dot mirrors the panel),
+  roving-tabindex tablist with arrows/Home/End, 44px targets, wraps on mobile.
+- **Panel:** tag + 01/05 counter + prev/next steppers in the head, full title,
+  schematic beside prose on desktop, stacked on mobile. Repo CTA stays
+  explicit in the body. Per-accent frame/highlight/diagram theming retargeted
+  from the old stage onto the panel; metric accents follow via --proj tokens.
+- **Hygiene:** ~200 lines of row/stage/row-detail CSS deleted; print rules
+  repointed (tabs + steppers hidden, selected case study prints with its URL);
+  GRID_SELECTORS, reveal exclusions, typography refs, and the verify gate all
+  updated to the new structure (gate now asserts tabs + shared DetailBody +
+  real h3 panel title). Token-consumption audit passed only after wiring the
+  orphaned --proj* tokens into the new tab/panel states.
+- **Checked:** `verify` ✅ · `lint` ✅ · `build` ✅, plus CDP-driven Chromium
+  probes — tab click lands title/counter/CTA/accent/labelledby, arrow-key
+  advances, zero page errors, screenshot showing the tab bar, panel head,
+  schematic-prose composition rendering together.
+
 ## Phase 21 — Schematics redrawn landscape (2026-09-30) [x] DONE
 Request: the stage SVGs ran far taller than the column deserved — widen the
 diagrams, cut the height, hold a similar display width.
