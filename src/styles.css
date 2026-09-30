@@ -867,7 +867,11 @@
     clip: rect(0,0,0,0); white-space: nowrap;
   }
   @media(max-width:899px){
-    .proj-row-detail{
+    /* Inline detail follows selection on mobile: only the active row's
+       detail renders inline (inactive rows keep the visually-hidden,
+       screen-reader-visible treatment). Five full case studies stacked
+       unconditionally would bury the list itself. */
+    .proj-row.active .proj-row-detail{
       position: static; width:auto; height:auto; overflow:visible; clip:auto; white-space:normal;
       display:block; flex-basis: 100%; margin-top: 14px;
     }
@@ -897,7 +901,7 @@
     transition: color 0.3s ease, transform 0.3s var(--ease-out);
   }
   .proj-row:hover .proj-row-arrow, .proj-row:focus-visible .proj-row-arrow{
-    color: #fff; transform: translate(4px, -4px);
+    color: #fff; transform: translateX(4px);
   }
   @media (prefers-reduced-motion: reduce){
     .proj-row:hover .proj-row-arrow, .proj-row:focus-visible .proj-row-arrow{ transform:none; }
@@ -938,6 +942,33 @@
   .proj-row:nth-child(4) .proj-row-swatch{ border-color: rgba(168,85,247,0.55); }
   .proj-row:nth-child(5) .proj-row-swatch{ border-color: rgba(56,189,248,0.55); }
 
+  /* ── Master-detail selection ──────────────────────────
+     Rows select a preview but never navigate (touch has no hover — tapping
+     must preview in place, not yeet the visitor to GitHub). The title button
+     carries the interaction; the `.active` row holds the selected treatment
+     persistently so the list always shows what the stage is displaying. */
+  .proj-row-select{
+    background: none; border: 0; padding: 0; margin: 0;
+    font: inherit; color: inherit; letter-spacing: inherit;
+    text-align: left; cursor: pointer; display: inline;
+  }
+  .proj-row:focus-within::before{ transform: translateX(0); }
+  .proj-row.active::before{ transform: translateX(0); }
+  .proj-row.active .proj-row-index{ color: #fff; text-shadow: 0 0 12px rgba(56,189,248,0.75); }
+  .proj-row.active .proj-row-title{ transform: translateX(6px); color: #fff; }
+  .proj-row.active .proj-row-tag{ color: rgba(125,211,252,0.85); }
+  .proj-row.active .proj-row-arrow{ color: #fff; transform: translateX(4px); }
+  .proj-row.active .proj-row-swatch{ opacity:1; transform: scale(1) rotate(0deg); }
+  /* Accent spine: which system is live, at a glance. Inset shadow rather than
+     a border so the divider rhythm below each row never shifts. */
+  .proj-row.active[data-accent="cyan"]{ box-shadow: inset 2px 0 0 #38bdf8; }
+  .proj-row.active[data-accent="green"]{ box-shadow: inset 2px 0 0 #10b981; }
+  .proj-row.active[data-accent="amber"]{ box-shadow: inset 2px 0 0 #f59e0b; }
+  .proj-row.active[data-accent="purple"]{ box-shadow: inset 2px 0 0 #a855f7; }
+  @media (prefers-reduced-motion: reduce){
+    .proj-row.active .proj-row-title, .proj-row.active .proj-row-arrow{ transform:none; }
+  }
+
   /* Sticky detail stage — desktop only. Content is cloned in from the
      same DetailBody as the row, with a quick crossfade
      between swaps. Stays visible/sticky while you scroll the
@@ -968,6 +999,31 @@
     transition: opacity 0.3s ease, transform 0.3s var(--ease-out), filter 0.3s ease;
   }
   .proj-stage-inner.swapping{ opacity:0; transform: translateY(8px) scale(0.985); filter: blur(3px); }
+  /* Stage instrument bar: position counter + prev/next steppers. 44px targets
+     per touch rules; arrows are text glyphs (terminal-consistent, no icon
+     dependency) with the shared tactile press. */
+  .proj-stage-bar{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom: 18px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .proj-stage-count{
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
+    color: var(--text-dim); font-variant-numeric: tabular-nums;
+  }
+  .proj-stage-nav{ display:flex; gap: 8px; }
+  .proj-stage-nav button{
+    width: 44px; height: 44px; border-radius: 10px; cursor: pointer;
+    background: transparent; border: 1px solid var(--border-subtle);
+    color: var(--text-mute); font-size: 17px; line-height: 1;
+    display:inline-flex; align-items:center; justify-content:center;
+    transition: color .2s var(--ease-out), border-color .2s var(--ease-out), background .2s var(--ease-out), transform .1s var(--ease-out);
+  }
+  .proj-stage-nav button:hover{ color: #fff; border-color: var(--border-glass); background: rgba(56,189,248,.06); }
+  .proj-stage-nav button:active{ transform: scale(0.97); }
+  /* Explicit exit for the detail: rows preview in place, this link leaves. */
+  .proj-actions{ margin-top: 18px; }
+  .proj-row-detail .proj-actions{ margin-top: 14px; }
   .proj-stage .proj-desc{ color: rgba(248,250,252,0.92); }
   .proj-stage .proj-highlight{ margin-top:16px; color: rgba(248,250,252,0.86); border-left-color: rgba(56,189,248,0.55); }
   .proj-stage .proj-highlight b{ color: #fff; }
