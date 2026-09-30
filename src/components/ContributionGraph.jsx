@@ -123,6 +123,22 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
 
   const eatenSum = flat.reduce((sum, c) => sum + (eaten.has(c.order) ? c.count : 0), 0)
 
+  // Breakout scores through strikes: pacman feeds `eaten` directly in eat(),
+  // the beam only ever reports `hit` — so this effect converts beam strikes
+  // into score. Idempotent: re-adding an order returns the set unchanged, so
+  // pacman's own hit flashes can safely pass through it too.
+  useEffect(() => {
+    if (mode !== 'breakout' || hit < 0) return
+    const cell = flat[hit]
+    if (!cell) return
+    setEaten((prevSet) => {
+      if (prevSet.has(cell.order)) return prevSet
+      const next = new Set(prevSet)
+      next.add(cell.order)
+      return next
+    })
+  }, [hit, mode])
+
   const counts = days.map((d) => Number(d.count) || 0)
   const active = counts.filter((c) => c > 0)
   const total = active.reduce((sum, c) => sum + c, 0)
@@ -319,12 +335,14 @@ function computeBricks(days) {
     if (Number(d.count) <= 0) return
     const p = i + firstDow
     bricks.push({
-      // Flat-index of this day: `flat` is built from the padded array
-      // ([firstDow nulls, ...days]) chunked in order, so day i sits at
-      // flat[firstDow + i]. Reporting anything else (e.g. the active-only
-      // rank) makes strikes flash the wrong cell — typically a zero-count
-      // day, which is exactly the stuck "EATEN 0" symptom.
-      order: firstDow + i,
+      // Day-index order: `flat` is built from the same padded array but
+      // padding nulls return before pushing, so flat[j] is always day j.
+      // Reporting anything else (e.g. an active-only rank, or a padded
+      // offset) makes strikes flash the wrong cell once inactive days
+      // intervene — typically a zero-count day, which is exactly the
+      // stuck "EATEN 0" symptom.
+      order: i,
+      count: Number(d.count) || 0,
       x: LEFT_PAD + Math.floor(p / 7) * (CELL + GAP) + CELL / 2,
       y: TOP_PAD + (p % 7) * (CELL + GAP) + CELL / 2,
     })
@@ -524,7 +542,10 @@ function useBreakout(frameRef, days, mode, setHit) {
     const padX = LEFT_PAD, padY = TOP_PAD
 
     const R = CELL * 0.28
-    let px = W * 0.5, py = padY + CELL
+    // Start on top of the hottest day, already moving into the densest
+    // cluster — opening crossings of empty grid read as a stuck game.
+    const home = bricks.reduce((a, b) => (b.count > a.count ? b : a), bricks[0])
+    let px = home.x, py = home.y - CELL * 4
     let vx = 8.4, vy = 4.6
     // ~16 viewBox units/s ≈ the old rendered pace (~1.1 cells/s): same game
     // feel on every screen width, since viewBox units scale with the frame.
@@ -538,7 +559,10 @@ function useBreakout(frameRef, days, mode, setHit) {
     let sinceNudge = 0
 
     const STEP = 1000 / 60
-    const reach = CELL * 0.95
+    // Generous reach (~1.6 cells): on a sparse calendar a strict radius can go
+    // many seconds without a strike, which reads as a frozen game. The ring
+    // still lands on the actual nearest brick, so strikes stay truthful.
+    const reach = CELL * 1.6
     const cool = new Int16Array(bricks.length)   // frames until a brick can be struck again
     let acc = 0, prev = performance.now(), onScreen = true, raf = 0
     const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting }, { threshold: 0 })
@@ -547,11 +571,15 @@ function useBreakout(frameRef, days, mode, setHit) {
     document.addEventListener('visibilitychange', onVis)
 
     const step = () => {
-      // Coverage steering, ~every 4s (240 substeps): blend 15% of the
-      // velocity toward the nearest unstruck brick. The ricochet feel
-      // survives — the beam just stops re-sweeping covered ground, so
-      // coverage reads as intentional rather than random drift.
-      if (++sinceNudge >= 240) {
+      // Hungry steering, ~every 1s (60 substeps): blend half the velocity
+      // toward the nearest unstruck brick. On a sparse calendar pure ricochet
+      // can wander minutes of empty grid between strikes, which reads as a
+      // frozen game — so the beam actively hunts. Contact physics is untouched
+      // (it still bounces off whatever it hits), and once every brick has
+      // been struck the memory clears and the hunt replays.
+      if (++sinceNudge >= 60) {
+        sinceNudge = 0
+        if (seen.size >= bricks.length) seen.clear()
         sinceNudge = 0
         let best = -1, bestD = Infinity
         for (let i = 0; i < bricks.length; i++) {
@@ -565,8 +593,8 @@ function useBreakout(frameRef, days, mode, setHit) {
           const b = bricks[best]
           const d = Math.sqrt(bestD)
           const sp = Math.hypot(vx, vy) || SPEED
-          vx = vx * 0.85 + ((b.x - px) / d) * sp * 0.15
-          vy = vy * 0.85 + ((b.y - py) / d) * sp * 0.15
+          vx = vx * 0.5 + ((b.x - px) / d) * sp * 0.5
+          vy = vy * 0.5 + ((b.y - py) / d) * sp * 0.5
           const s2 = Math.hypot(vx, vy) || 1
           vx = (vx / s2) * sp; vy = (vy / s2) * sp
         }

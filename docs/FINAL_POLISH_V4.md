@@ -66,6 +66,34 @@
 - Skills applied: apple-design, ui-ux-pro-max
 - Tree clean, `main` in sync with `origin/main` — pushed.
 
+## Phase 19 — Screenshot triage: nav bleed, dead void, stuck EATEN (2026-09-30) [x] DONE
+Live github.io screenshot showed three defects, all fixed with evidence:
+- **Ghost text through the nav:** the dock relied on backdrop-blur over 0.72
+  alpha, which no-filter compositing (or contrasty text behind) ghosts straight
+  through. `header.is-scrolled .glass-dock` now solidifies to 0.94 alpha —
+  legibility can never depend on backdrop-filter alone. Proven live: dock
+  reports `rgba(9,13,22,0.94)` with `is-scrolled` set after scrolling.
+- **Dead void above contact:** the sparse certifications→contact boundary wore
+  the full 108+108 joint rhythm as empty black. Contact keeps full bottom
+  measure; top tightened to 72px.
+- **EATEN 0/325 was TWO stacked bugs, not timing:**
+  1. A leftover `padY` reference (removed from its destructure during the
+     viewBox rewrite) threw `ReferenceError` on EVERY breakout substep —
+     hundreds of uncaught exceptions, loop dead on arrival. Lint/build can't
+     see runtime throws; the CDP exception listener caught it.
+  2. With the loop alive but scoreless, instrumentation showed strikes
+     flashing (`hits: 1`) while EATEN never moved: the Phase 16 rewrite
+     dropped the hit→eaten scoring effect (pacman feeds `eaten` directly, the
+     beam only reports `hit`). Restored as a mode-gated idempotent effect.
+  3. Bonus hardening while inside: beam now opens on the hottest day with
+     hungry 1s/50% homing steering (sparse grids starved the old 4s/15%
+     steering into minute-long dry spells), generous near-miss reach, order
+     mapping corrected to the day-index scheme `flat` actually builds.
+- **Checked:** `verify` ✅ · `lint` ✅ · root + subpath builds ✅, zero page
+  errors, EATEN 285/325 after 14s of breakout on the exact `/maithresh.sh/`
+  build GitHub Pages serves, screenshot showing strike ring + count plate +
+  gradient beam + trail + consumed ghost trail rendering together.
+
 ## Phase 18 — Snapshot refreshes on every commit (2026-09-30) [x] DONE
 Request: is the graph data fresh on every commit, or only weekly?
 Answer was weekly-only — now every push refreshes, via GitHub Actions:
