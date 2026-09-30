@@ -351,7 +351,7 @@ export default function Projects({ projects }) {
                 data-accent={project.accent}
                 href={project.href}
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 onMouseEnter={() => select(i)}
                 onFocus={() => select(i)}
               >
