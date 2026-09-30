@@ -23,7 +23,6 @@ const P = {
   linkedin: <><circle cx="7" cy="7" r="2" /><path d="M7 11v9M13 20v-5.5a2.5 2.5 0 0 1 5 0V20M13 20v-9" /></>,
   github: <path d="m9 8-4 4 4 4M15 8l4 4-4 4" />,
   code: <path d="M9 5 4 12l5 7M13 4l-3 16" />,
-  shieldHex: <path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z" />,
   // Per-project row swatches — a hand-drawn glyph each, not a bare color block.
   swShield: <><path d="M12 3.5 5 6v5.2c0 4.4 2.9 7.6 7 9.3 4.1-1.7 7-4.9 7-9.3V6z" /><path d="M9 12.2l2.1 2.1L15.3 10" /></>,
   swDocChat: <><path d="M8 3.5h6l3.5 3.5V17a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1z" /><path d="M9.5 10.5h5M9.5 13.5h3.2" /><path d="M14 3.5V7h3.5" /><circle cx="17.3" cy="18" r="3.3" fill="none" /><path d="M16 19.3l-.9 1.2.15-1.55" /></>,
@@ -33,7 +32,7 @@ const P = {
 }
 
 // Optical weight differs per use: section eyebrows are thin/1.8, card headers
-// heavier at 1.7, contact links use the shared 1.7. `solid` is a filled glyph.
+// heavier at 1.7, contact links use the shared 1.7.
 export default function Icon({ name, size = 24, width = 1.8, className, ...rest }) {
   return (
     <svg

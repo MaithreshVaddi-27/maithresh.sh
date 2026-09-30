@@ -44,3 +44,45 @@
 - `verify` ✅ · `lint` ✅ · `build` ✅ (this round — run in Phase 5)
 - Skills applied: apple-design, ui-ux-pro-max (dataset-grounded design-system check)
 - Uncommitted — awaiting push approval.
+
+## Appendix — history folded in from retired trackers (V1 + V2 deleted this round)
+- **Revamp Phases 0–3 (2026-09-29):** content rewritten to engineering register
+  (architecture → constraint → limitation; no invented metrics; `5 APIs + scraper`;
+  CrimeSleuth-trained vs SignatureSense-integrated distinction); ultra-premium detailing
+  (translucent materials, focus rings, 44px targets, reduced-motion/transparency/contrast,
+  skip link, print stylesheet, 68ch measure); hybrid polish (30s scan order, plain-English
+  console, expanded print).
+- **Phase 4 (browser pass):** preloader TDZ crash, preloader outside error boundary, dead
+  workbench outcome branch, reduced-motion invisibility, missing phone wordmark, unreadable
+  print, sub-24px touch targets, starved project tags, flex-wrap defense box, inverted hero
+  hierarchy, oversized section heads, false hover affordances, 320px nowrap overflow — all fixed.
+- **V2 origin fix:** retired `github.io` URLs in head meta → `pages.dev` (was failing verify).
+- **Manual audit (5 bugs):** workbench default tab → `trustrag`; `.chip` pointer removed;
+  duplicate CSS comment collapsed; dead print selector removed; write-only session cache removed.
+- **N+ policy:** inventory counts always N+ publicly; architecture specs stay exact.
+- **Breakout evolution:** EATEN ticker, power-brick eruption (amber at the time, cyan since
+  Phase 9), coverage steering, strike index-mismatch fix, EATEN-stuck-at-0 fix (flat-index mapping).
+
+## Phase 9 — Breakout restyle: cyan-monochrome graph (2026-09-30) [x] DONE
+Mandate: Breakout-preview look, dark theme, **only cyan shades**.
+- Peak tier amber → pale cyan `#e0f2fe` (brightest ramp point, never a second hue);
+  legend swatch + strike eruption follow.
+- Caption readout green → `var(--accent-bright)`; empty-cell strokes white → faint cyan.
+- Month/day labels (previously no fill rule — browser-dependent) now deterministic
+  dim-cyan tint, hierarchy preserved.
+- Breakout ball trail: 3 fading cyan echoes from a 12-point history, transform-only
+  (cx/cy), no glow filters (frame-cost discipline), full teardown with the loop.
+- Untouched on purpose: telemetry colors elsewhere (verify gate requires them),
+  snapshot-first paint, tooltips, counts, reduced-motion.
+- Checks: `verify` ✅ · `lint` ✅ · `build` ✅. Uncommitted — awaiting push approval.
+
+## Phase 10 — Cleanup: trackers, dead code, manual full re-check (2026-09-30) [x] DONE
+- Deleted `docs/PORTFOLIO_REVAMP.md` + `docs/PORTFOLIO_REVAMP_V2.md` (history folded into
+  the V3 appendix); `docs/` is now index + source of truth + deploy guide + current tracker.
+- Dead code removed: unused `shieldHex` icon entry; stale `` `solid` `` clause in the Icon
+  weight comment (no such prop exists). Verified every icon name resolves; no commented-out
+  code anywhere; all exports/hooks/assets/workflows live (oxlint confirms no unused vars).
+- Stale graph comment fixed (`in amber` → `in pale cyan`).
+- Manual re-check (no scripts): strike-index mapping re-traced on paper; remaining
+  amber/green usages all belong to non-graph systems (gate-required); subs/meta/OG copy
+  re-read; workflow YAMLs re-read (refresh Action already hardened with rebase+timeout).

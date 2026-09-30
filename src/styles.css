@@ -617,7 +617,9 @@
 
   .activity-card{ margin: 36px auto 0; max-width: 1040px; border: 1px solid var(--elev-1-border); border-radius: var(--radius); overflow: hidden; background: var(--elev-1-bg); backdrop-filter: blur(var(--elev-1-blur)) saturate(var(--elev-1-sat)); -webkit-backdrop-filter: blur(var(--elev-1-blur)) saturate(var(--elev-1-sat)); padding: 20px; }
   .activity-caption{ font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim); text-align:center; margin-bottom: 14px; }
-  .activity-caption span{ color: var(--green); }
+  /* Cyan-monochrome graph: the live/snapshot/EATEN readout speaks in the
+     bright end of the ramp, never green — green belongs to other systems. */
+  .activity-caption span{ color: var(--accent-bright); }
   .activity-graph-frame{ position: relative; overflow: hidden; background: #0d1015; border-radius: var(--radius-sm); padding: 12px 6px; }
   /* ── CRT signal-board treatment — scanline + vignette phosphor ──
      Static texture (no motion): reads as terminal hardware under any
@@ -672,8 +674,19 @@
   .activity-graph-frame rect:hover{ stroke: #7dd3fc; stroke-width: 1.5; }
   /* Breakout probe beam — the ricocheting puck. Same glow vocabulary as the old
      snake head, so the swap reads as a re-tune rather than a different product. */
+  /* Graph labels speak the ramp too — a deterministic dim-cyan tint rather
+     than whatever the SVG default resolves to. Same hue family as the cells,
+     dropped to ~55% so the hierarchy (cells first, labels second) holds. */
+  .activity-graph-frame .clab{
+    fill: rgba(125,211,252,.55); font-family: var(--font-mono); font-size: 10px;
+  }
   .probe-beam{ fill: #7dd3fc; filter: drop-shadow(0 0 8px rgba(56,189,248,1)); }
   .probe-beam-halo{ fill: none; stroke: rgba(125,211,252,.35); stroke-width: 1; }
+  /* Breakout ball trail — three fading echoes of the beam, same hue, stepping
+     down in radius (set in JS) and opacity (set inline). No glow filter here:
+     three filtered circles repainting every frame would cost more than the
+     effect is worth; flat cyan reads as motion at this size. */
+  .probe-trail{ fill: #38bdf8; }
   /* Impact readout: count for the day currently being struck, plus its ring. */
   .brick-hit{ animation: brickHit .3s ease-out; }
   .brick-hit-n{
@@ -697,10 +710,10 @@
   }
   .legend-cells{ display: inline-flex; gap: 3px; }
   .legend-cells span{ width: 11px; height: 11px; border-radius: 2px; }
-  /* Hot-day swatch: the amber tier sits outside the cyan ramp, so it gets its own
-     mark in the legend rather than pretending to be another ramp step. */
+  /* Peak-day swatch: pale cyan — the brightest point on the ramp. The graph
+     is strictly cyan-monochrome, so the peak tier is a tint, never amber. */
   .legend-hot{
-    width: 11px; height: 11px; border-radius: 2px; background: var(--amber);
+    width: 11px; height: 11px; border-radius: 2px; background: #e0f2fe;
     margin-left: 10px; margin-right: -2px;
   }
   /* Shown only if the jogruber.de contribution-data fetch fails (see
