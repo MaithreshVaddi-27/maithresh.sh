@@ -66,6 +66,22 @@
 - Skills applied: apple-design, ui-ux-pro-max
 - Committed locally — NOT pushed (per request).
 
+## Phase 21 — Schematics redrawn landscape (2026-09-30) [x] DONE
+Request: the stage SVGs ran far taller than the column deserved — widen the
+diagrams, cut the height, hold a similar display width.
+- All 5 schematics rebuilt from 260×500 portrait flows to a shared 520×304
+  landscape grammar: entry pill → 3 stage boxes → decision diamond → two
+  outcome boxes → terminal bar. Same column width (~300px display), roughly
+  half the height (577px → ~176px rendered).
+- Copy compressed to short spec labels (titles carry, subs whisper); unit
+  type rescaled to match (label 15u / sub 11.5u / tiny 10.5u) so display
+  sizes hold. Palette, marker namespacing, and aria descriptions preserved.
+- Gate updated with the evolution (viewBox assertion → `0 0 520 304`, with a
+  comment recording the grammar); stale TrustRAG-only diagram comment fixed.
+- **Checked:** `verify` ✅ · `lint` ✅ · `build` ✅, plus a Chromium screenshot
+  of the production build showing the compact TrustRAG flow reading cleanly
+  left-to-right with all labels legible.
+
 ## Phase 20 — Featured systems master-detail redesign (2026-09-30) [x] DONE
 Request: professional redesign of `$ ls projects/ --featured`, grounded in
 ui-ux-pro-max (dataset: Dark OLED + Minimalism/Swiss, terminal dashboard —
