@@ -105,6 +105,23 @@ at any width. Two cases needed explicit handling, and both are now asserted in
   descriptions stay in the accessibility tree on desktop.
 - Verified on the production build: **CLS 0**, FCP ~230ms, ~93 KB gzipped JS.
 
+## Design language
+
+- **Theme: Flight Telemetry** — mission-control instrument panel, not a generic
+  dark portfolio. Red/amber/green stay reserved as semantic status; the brand
+  voice is desaturated instrument blue with an ice-cyan accent (`#38bdf8`).
+- **Type:** JetBrains Mono for display, chrome and terminal body; Inter for
+  long-form prose (mono optimizes for scanning, not reading paragraphs).
+- **Motion:** Apple fluid-interface tokens — response-based springs
+  (`cubic-bezier(0.16, 1, 0.3, 1)`), `:active scale(0.97)` tactile response,
+  transform/opacity-only animation, full `prefers-reduced-motion` fallbacks.
+- **Materials:** three-tier Liquid Glass elevation (translucent rim, no flat
+  borders on glass surfaces) with solid fallbacks under
+  `prefers-reduced-transparency`.
+- **Graph discipline:** the contribution heatmap speaks only the ice-cyan ramp
+  (peak tier is pale cyan, never a second hue); telemetry colors elsewhere are
+  required by the verification gate and stay put.
+
 ## Deploy (Cloudflare Pages)
 
 Live at **https://maithresh-sh.pages.dev/**

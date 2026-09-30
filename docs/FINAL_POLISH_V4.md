@@ -65,3 +65,27 @@
 - `verify` ✅ · `lint` ✅ · `build` ✅ (this round)
 - Skills applied: apple-design, ui-ux-pro-max
 - Tree clean, `main` in sync with `origin/main` — pushed.
+
+## Second pass — full-file detailing (2026-09-30, nothing skipped) [x] DONE
+Every source file re-read individually (`Workbench`, `Projects` full 420 lines,
+`ContributionGraph`, `CommandConsole`, `Hero`, `About`, `Sections`, `Stack`,
+`Nav`, `TelemetryBar`, `Preloader`, `Icon`, `ErrorBoundary`, all 3 hooks,
+`scene.js`, `content.jsx`, `workbench.jsx`, `App.jsx`, `main.jsx`, `index.html`,
+`styles.css` token/keyframe sweep, both workflows, refresh script, deploy doc).
+- `scene.js`: `pointerleave` moved from `window` to `document.documentElement`
+  (the event never fires on `window` — the cursor spotlight could stick when
+  the pointer exited to browser chrome). Teardown updated to match.
+- `Stack.jsx`: chips toggle gains `aria-controls` + container id (same pattern
+  as the MoreProjects toggle; `aria-expanded` alone names no controlled element).
+- External links: `rel="noopener"` → `rel="noopener noreferrer"` (Projects rows,
+  automation/group cards, contribution graph); mailto link drops the dead `rel`
+  (no `target`, so the attribute did nothing).
+- `index.html`: `color-scheme: dark` (dark scrollbars/form controls) +
+  `og:image:alt` for link-preview accessibility.
+- `sitemap.xml`: `lastmod` bumped to ship date.
+- `README.md`: new Design language section (facts only — theme, type pairing,
+  motion tokens, glass tiers, graph discipline, all verifiable in `styles.css`).
+- Deliberately untouched: copy voice (already hybrid engineer-grade throughout),
+  stylesheet keyframes/tokens (all wired, zero dead rules found), deploy doc
+  (accurate, gate-checked), folder structure (`git ls-files` clean, scratch
+  properly ignored).

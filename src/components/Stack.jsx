@@ -22,15 +22,17 @@ function Chips({ card }) {
     )
   }
   const collapsed = !open
+  const listId = `chips-${card.file.replace(/\W+/g, '-')}`
   return (
     <>
-      <div className={`chips${collapsed ? ' is-collapsed' : ''}`}>
+      <div className={`chips${collapsed ? ' is-collapsed' : ''}`} id={listId}>
         {card.chips.map((chip) => <Chip key={chip} chip={chip} accent={card.accent?.includes(chip)} />)}
       </div>
       <button
         type="button"
         className="chips-toggle"
         aria-expanded={open}
+        aria-controls={listId}
         onClick={() => setOpen((v) => !v)}
       >
         {collapsed ? `+ show ${card.chips.length - VISIBLE} more` : '− show less'}
