@@ -25,12 +25,12 @@ from real, verified projects — no filler.
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173
-npm run lint       # oxlint — catch it before you build it
-npm run verify     # standalone build gate (also runs inside build)
 npm run build      # → dist/ (minified, hashed) + verification gate
+npm run dev        # http://localhost:5173
+npm run lint       # oxlint
 npm run preview    # serve the real build
 npm run refresh:contrib  # regenerate the contribution snapshot (also weekly via Actions)
+npm run verify     # standalone build gate (also runs inside build)
 ```
 
 ## Project structure
