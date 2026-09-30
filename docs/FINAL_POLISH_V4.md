@@ -100,6 +100,26 @@ compositor layer: no layout, no filters, no JS. Gated by the `.boot` hook
   probes against the production build — animation present and `running`,
   transform traverses (−577px → +526px across the sweep), and under emulated
   `prefers-reduced-motion` the sheen reports `display: none`.
+- **Superseded by Phase 15** — the sheen was retired when the full Breakout
+  beam returned; one continuous animation, not two competing ones.
+
+## Phase 15 — Breakout beam restored, lag-free (2026-09-30) [x] DONE
+Request: continuous snake/Breakout-preview-style animation on the graph.
+Restored the probe beam (ricochet loop, strike rings, count plates, shards,
+EATEN ticker) on top of the Phase 13 color system — with the lag causes
+designed out rather than back in:
+- Beam is a plain bright core + dim halo ring: **zero SVG filters** (the old
+  `drop-shadow` repainting every frame was the biggest GPU cost).
+- **Trail deleted** (3 fewer DOM writes per frame; beam + halo only).
+- Strike state is the only React traffic, on strike change alone; the 60Hz
+  loop otherwise touches only two `cx/cy` attributes, parked off-screen and
+  on tab-hide via IntersectionObserver + visibility handler.
+- Kept from the calm era: continuous 5-stop legend, best-day stat, deep-sea
+  ramp, CSS hover, snapshot-first paint.
+- **Checked:** `verify` ✅ · `lint` ✅ · `build` ✅, plus CDP-driven Chromium
+  probes — beam present and moving (cx 560.3 → 579.0), EATEN ticking (23/325),
+  and a screenshot showing the strike ring, count plate, beam, ticker, legend,
+  and stats all rendering together.
 
 ## Second pass — full-file detailing (2026-09-30, nothing skipped) [x] DONE
 Every source file re-read individually (`Workbench`, `Projects` full 420 lines,
