@@ -80,3 +80,17 @@ can't go stale; **architecture specs** stay exact (8-stage pipeline, two-stage d
 - Checks: `verify` ✅ · `lint` ✅ · `build` ✅ · manual anchor audit (every `#href` resolves) ✅.
   (No browser-skill pass in this environment — no Playwright MCP/CLI wired here; last full
   Chromium pass is recorded in `PORTFOLIO_REVAMP.md` Phase 4.)
+
+## Phase 7 — Breakout evolution: EATEN ticker, power bricks, coverage steering (2026-09-30) [x] DONE
+Decision: keep Breakout (best palette/theme blend — instrument, not mascot), evolve it.
+All in `src/components/ContributionGraph.jsx`, palette tokens only, no new dependency.
+- **Bug fix:** strike readout used the day-index into `days` but looked it up in active-cell
+  order (`flat`), so strikes could flash the wrong cell or none after inactive days. Loop now
+  reports document-order; readout is exact.
+- **EATEN ticker:** caption gains live `EATEN n/total` coverage (unique struck cells summed by
+  real counts, resets on dataset change, hidden under reduced-motion where the beam never runs).
+- **Power-brick eruption:** strikes on top-quartile days render larger with an outer amber ring.
+- **Coverage steering:** every ~4s the beam blends 15% velocity toward the nearest unstruck
+  brick (speed preserved) — coverage reads intentional, ricochet feel intact. Memory lives in
+  the loop closure (60 reads/s, zero re-renders).
+- Checks: `verify` ✅ · `lint` ✅ · `build` ✅. Uncommitted — awaiting push approval.
