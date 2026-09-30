@@ -81,7 +81,7 @@ React re-render per strike was the lag source. Removed as designer + engineer:
   paint, live upgrade, CRT texture, boot reveal, native hover tooltips.
 - **Engineer:** zero JS after mount besides the fetch — no rAF loop, no
   per-frame writes, no strike re-renders. Hover is one CSS rule
-  (`brightness(1.4)` + brighter stroke, single element, no filter Chains);
+  (`brightness(1.4)` + brighter stroke, single element, no filter chains);
   cells use the default cursor (only the frame links to GitHub); the frame-link
   hover scale was dropped (per-hover repaint of a 368-node SVG for 0.4% scale).
   Dead CSS retired (beam/halo/trail/strike/shard/legend-hot rules); two stale
@@ -89,6 +89,17 @@ React re-render per strike was the lag source. Removed as designer + engineer:
 - **Checked:** `verify` ✅ · `lint` ✅ · `build` ✅, plus live Chromium
   screenshots of the production build (contact section scrolled into view):
   stats, continuous legend, calm grid, and contact links all render correctly.
+
+## Phase 14 — Graph idle animation: ambient sheen sweep (2026-09-30) [x] DONE
+Request: the calm graph needed motion. Deliberately not the old beam loop —
+one translucent stripe drifts left→right every 8s (2.8s sweep, then rest, so
+it reads as ambience rather than a loading state). Transform-only on a single
+compositor layer: no layout, no filters, no JS. Gated by the `.boot` hook
+(motion-safe only) plus a `prefers-reduced-motion` force-off.
+- **Checked:** `verify` ✅ · `lint` ✅ · `build` ✅, plus CDP-driven Chromium
+  probes against the production build — animation present and `running`,
+  transform traverses (−577px → +526px across the sweep), and under emulated
+  `prefers-reduced-motion` the sheen reports `display: none`.
 
 ## Second pass — full-file detailing (2026-09-30, nothing skipped) [x] DONE
 Every source file re-read individually (`Workbench`, `Projects` full 420 lines,

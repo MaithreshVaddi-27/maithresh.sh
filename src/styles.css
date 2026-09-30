@@ -637,6 +637,25 @@
   .activity-graph-frame::after{
     background: repeating-linear-gradient(0deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 3px);
   }
+  /* ── Ambient sheen sweep — the graph's idle motion ──
+     One translucent stripe drifts left→right every 8s, then rests: the sweep
+     itself takes ~2.8s and the frame sits still the rest of the cycle, so it
+     reads as ambience rather than a loading state. Transform-only on a single
+     layer (compositor-owned, no layout, no filters, no JS) — deliberately the
+     opposite of the old per-frame beam loop. Hidden unless .boot is present
+     (motion-safe only) and force-off under prefers-reduced-motion. */
+  .graph-sheen{ display: none; }
+  .activity-graph-frame.boot .graph-sheen{
+    display: block; position: absolute; top: -20%; bottom: -20%; left: 0; width: 34%;
+    background: linear-gradient(100deg, transparent 0%, rgba(125,211,252,0.06) 42%, rgba(186,230,253,0.11) 50%, rgba(125,211,252,0.06) 58%, transparent 100%);
+    transform: translateX(-170%) skewX(-8deg);
+    pointer-events: none; z-index: 2;
+    animation: sheenSweep 8s cubic-bezier(.65,0,.35,1) infinite;
+  }
+  @keyframes sheenSweep{
+    0%{ transform: translateX(-170%) skewX(-8deg); }
+    35%, 100%{ transform: translateX(480%) skewX(-8deg); }
+  }
   /* ── Heatmap boot reveal — week columns wipe left→right w/ rise ──
      Stagger arrives via --rd, set per .cweek group in
      ContributionGraph.jsx; the
@@ -660,6 +679,7 @@
   @media (prefers-reduced-motion: reduce){
     .activity-graph-frame.boot .cweek,
     .activity-graph-frame.boot .clab{ animation: none; opacity: 1; }
+    .activity-graph-frame.boot .graph-sheen{ display: none; }
   }
   .activity-graph-frame a{ display:block; border-radius: inherit; }
   /* Rendered client-side from raw contribution data (see the fetch in

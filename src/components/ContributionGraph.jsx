@@ -151,6 +151,10 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
         <span className="activity-stat"><b>{best.count}</b>best day · {best.label}</span>
       </div>
       <div className={`activity-graph-frame${reduceMotion ? '' : ' boot'}`}>
+        {/* Ambient sheen sweep — CSS-only, transform on one layer, no JS loop.
+            The .boot hook (motion-safe only) plus the reduced-motion guard in
+            CSS decide whether it ever paints. */}
+        <span className="graph-sheen" aria-hidden="true" />
         <a href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="View full GitHub activity for MaithreshVaddi-27">
           <div role="img" aria-label={`Maithresh Vaddi's live GitHub activity: ${total} contributions across ${active.length} active days in the last 12 months, peak ${Math.max(0, ...counts)} in one day.`}>
             <svg viewBox={`0 0 ${width} ${height}`}>
