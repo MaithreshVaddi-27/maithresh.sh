@@ -66,6 +66,21 @@
 - Skills applied: apple-design, ui-ux-pro-max
 - Tree clean, `main` in sync with `origin/main` — pushed.
 
+## Phase 18 — Snapshot refreshes on every commit (2026-09-30) [x] DONE
+Request: is the graph data fresh on every commit, or only weekly?
+Answer was weekly-only — now every push refreshes, via GitHub Actions:
+- `deploy-pages.yml` regenerates `contributions.json` right after `npm ci`
+  (best-effort with `continue-on-error`: a down API can never fail the
+  deploy — the build falls back to the committed snapshot) and commits the
+  fresh file back after the artifact upload (commit-only-on-change +
+  rebase, same hardened pattern as the cron job).
+- Permissions `read` → `write`, documented inline; pushes made with
+  `GITHUB_TOKEN` never trigger new runs, so the commit-back cannot self-loop.
+- `refresh-contrib.yml` stays as the weekly backstop for stretches with no
+  pushes; its header comment now says so instead of claiming redeploys.
+- **Checked:** both workflow YAMLs parse, `verify` ✅ (gate only asserts the
+  deploy workflow exists — untouched).
+
 ## Phase 13 — Contribution graph refactor: calm instrument, not arcade (2026-09-30) [x] DONE
 Screenshot review verdict: the Breakout layer (probe beam, halo, trail, strike
 rings, shards, EATEN ticker) was the toy-like signal, and its 60Hz rAF loop
