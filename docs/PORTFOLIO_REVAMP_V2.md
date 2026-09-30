@@ -94,3 +94,17 @@ All in `src/components/ContributionGraph.jsx`, palette tokens only, no new depen
   brick (speed preserved) — coverage reads intentional, ricochet feel intact. Memory lives in
   the loop closure (60 reads/s, zero re-renders).
 - Checks: `verify` ✅ · `lint` ✅ · `build` ✅. Uncommitted — awaiting push approval.
+
+## Phase 8 — Screenshot-driven graph fix: EATEN stuck at 0 (2026-09-30) [x] DONE
+Live screenshot showed `EATEN 0/325` frozen + strike plate reading `0` on a hit.
+Root cause: `flat` indexes **all** days (zeros included) but the beam reported
+**active-only** rank — strikes resolved to wrong cells (usually zero-count ones,
+hence plate `0` + ticker never climbing). Loop now reports the true flat index
+(`firstDow + i`); readout is exact.
+- Strike count plate clamped inside the viewBox (top-row hits no longer clip into
+  month labels).
+- Palette audit of every graph rule (beam, halo, plate, caption, legend, stats):
+  all existing tokens (`#7dd3fc`, ice-cyan alphas, `--green/--accent/--amber`);
+  `#0d1015` plate fill confirmed intentional (matches the frame background).
+  Only fix: stale `Nord colors / ghchart` comment reworded to the ice-cyan ramp.
+- Checks: `verify` ✅ · `lint` ✅ · `build` ✅. Uncommitted — awaiting push approval.

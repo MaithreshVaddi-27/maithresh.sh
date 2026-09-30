@@ -662,8 +662,8 @@
   .activity-graph-frame a{ display:block; border-radius: inherit; transition: opacity 0.2s ease, transform 0.2s var(--ease-out); }
   .activity-graph-frame a:hover{ opacity: 0.88; transform: scale(1.004); }
   /* Rendered client-side from raw contribution data (see the fetch in
-     ContributionGraph.jsx) — cells are drawn directly in Nord colors, so
-     there's no third-party image to color-correct the way ghchart needed. */
+     ContributionGraph.jsx) — cells are drawn directly in the ice-cyan ramp
+     tokens, so there's no third-party image to color-correct. */
   /* Width comes from the container; height follows the viewBox aspect
      (set as CSS, not as an SVG attribute — height="auto" is invalid
      SVG and logs a console error). */

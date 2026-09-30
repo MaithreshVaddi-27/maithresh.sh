@@ -152,6 +152,9 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
   const struck = hit >= 0 ? flat[hit] : null
   // Power-brick moment: strikes on top-quartile days erupt larger, in amber.
   const struckHot = !!struck && struck.count >= hotFrom
+  // Top-row strikes would push the count plate above the viewBox (and into
+  // the month labels) — clamp it inside.
+  const plateTop = struck ? Math.max(struck.y - CELL - 10, 1) : 0
 
   return (
     <div className="activity-card">
@@ -218,12 +221,12 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
                   {/* Backing plate: the row above is often another active day, and a
                       bare number there was unreadable against the brick. */}
                   <rect
-                    x={struck.x + CELL / 2 - 7} y={struck.y - CELL - 10} width="14" height="11"
+                    x={struck.x + CELL / 2 - 7} y={plateTop} width="14" height="11"
                     rx="2" fill="#0d1015" stroke="rgba(125,211,252,.35)" strokeWidth=".5"
                   />
                   <text
                     className="brick-hit-n" x={struck.x + CELL / 2}
-                    y={struck.y - CELL - 1.5}
+                    y={plateTop + 8.5}
                   >{struck.count}</text>
                 </g>
               )}
@@ -272,9 +275,12 @@ function useBreakout(frameRef, days, setHit) {
       if (Number(d.count) <= 0) return
       const p = i + firstDow
       bricks.push({
-        // Document-order index into `flat` — this is what the strike readout
-        // consumes, so it must be the active-cell order, not the day index.
-        order: bricks.length,
+        // Flat-index of this day: `flat` is built from the padded array
+        // ([firstDow nulls, ...days]) chunked in order, so day i sits at
+        // flat[firstDow + i]. Reporting anything else (e.g. the active-only
+        // rank) makes strikes flash the wrong cell — typically a zero-count
+        // day, which is exactly the stuck "EATEN 0" symptom.
+        order: firstDow + i,
         x: padX + Math.floor(p / 7) * (cellPx + gapPx) + cellPx / 2,
         y: padY + (p % 7) * (cellPx + gapPx) + cellPx / 2,
       })
