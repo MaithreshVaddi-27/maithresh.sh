@@ -17,7 +17,6 @@ const MONTHS = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
 // many columns between labels so they can never collide.
 const MONTH_MIN_GAP = 3
 const API = 'https://github-contributions-api.jogruber.de/v4/MaithreshVaddi-27?y=last'
-const CACHE = 'contrib-cache-v1'
 
 export default function ContributionGraph() {
   // Paint from the committed snapshot on the first frame. The live endpoint is a
@@ -36,7 +35,6 @@ export default function ContributionGraph() {
       .then((r) => { if (!r.ok) throw new Error('bad response'); return r.json() })
       .then((json) => {
         if (!json?.contributions?.length) throw new Error('no data')
-        try { sessionStorage.setItem(CACHE, JSON.stringify(json)) } catch { /* private mode */ }
         setData({ contributions: json.contributions, fetchedAt: new Date().toISOString().slice(0, 10) })
         setLive(true)
       })

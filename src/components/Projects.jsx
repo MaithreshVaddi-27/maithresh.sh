@@ -3,7 +3,7 @@ import Icon from './Icon'
 import { MORE_PROJECTS } from '../data/content'
 import { reduceMotion } from '../hooks/useMotion'
 
-// The five featured schematics. Each is a one-off 60-line SVG, so it stays
+// The featured schematics. Each is a one-off 60-line SVG, so it stays
 // inline here rather than becoming data. `idPrefix` keeps the arrow marker ids
 // unique when a project renders twice (row + sticky stage) — the vanilla build
 // cloned innerHTML and then had to strip ids at runtime to dodge duplicates.
@@ -336,7 +336,7 @@ export default function Projects({ projects }) {
           </div>
           <h2>Featured systems</h2>
           <p className="section-sub">
-            Five highlights from 11+ solo-built systems. Each states the engineering problem, the constraint that
+            Highlights from 11+ solo-built systems. Each states the engineering problem, the constraint that
             shaped the design, and the limitation I haven't solved yet — hover or focus a row for
             the architecture.
           </p>

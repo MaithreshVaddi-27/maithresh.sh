@@ -1535,7 +1535,7 @@ section{ scroll-margin-top: 120px; }
    h3 title), so giving them cursor:pointer + a hover lift was a false
    affordance: it promised a click that never happened. */
 .proj-row, .stack-card, .group-card, .cert-card,
-.chip, .contact-links a, .workbench-tab, .more-toggle{
+.contact-links a, .workbench-tab, .more-toggle{
   cursor:pointer; transition: transform .2s var(--ease-out), border-color .2s ease, box-shadow .25s ease, background .2s ease;
 }
 .auto-item, .more-item{
@@ -1544,8 +1544,6 @@ section{ scroll-margin-top: 120px; }
 .chip:hover{ border-color: rgba(56,189,248,.5); color:#fff; transform: translateY(-1px); }
 .contact-links a:hover{ border-color: rgba(56,189,248,.55); color:#fff; box-shadow: 0 0 20px rgba(56,189,248,.15); transform: translateY(-1px); }
 .auto-item:hover, .more-item:hover{ border-color: var(--glass-rim); }
-/* The title link is the real target on these rows — hover feedback belongs
-   on it, not on the whole row. */
 /* The title link is the real target on these rows — hover feedback belongs
    on it, not on the whole row. The negative bottom margin gives it the 24px
    min target height (WCAG 2.2 2.5.8) without adding vertical space, since the
@@ -1578,7 +1576,7 @@ section{ scroll-margin-top: 120px; }
    URL printed after each link (a printed "GitHub ↗" is useless without it). */
 @media print{
   header, .scroll-progress, .preloader, .top-telemetry-bar, #hero-canvas, .hero-fade,
-  .cmd-console-overlay, .to-top, .scroll-hint, .workbench, .sim-controls,
+  .cmd-console-overlay, .to-top, .scroll-hint, .sim-controls,
   .proj-diagram, .proj-stage, .proj-row-swatch, .proj-row-arrow,
   .more-toggle, .activity-graph-frame, body::before, body::after{ display:none !important; }
   body{ background:#fff; color:#000; }

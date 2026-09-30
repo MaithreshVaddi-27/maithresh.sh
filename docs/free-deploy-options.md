@@ -119,8 +119,8 @@ so content edits show up immediately.
 
 ### Gotchas (latest docs)
 
-- `.nojekyll` (formerly in the repo) is ignored by Workers — only relevant
-  if you ever return to GitHub Pages, where you'd recreate it.
+- Artifact-based deploys (Actions → Pages) skip Jekyll processing, so no
+  `.nojekyll` file is needed anywhere in this repo.
 - **CAA records** on the zone can block certificate issuance for the custom
   domain — allow `letsencrypt.org` and/or `pki.goog` if you use CAA.
 - Moving the DNS entry away from Pages and back causes downtime until the
@@ -147,7 +147,7 @@ slightly nicer workflow.
 
 ### Option A — Git integration
 1. Push repo to GitHub → vercel.com → Add New → Project → Import.
-2. Framework preset: **Other**. Build command: **empty**. Output: **`.`**.
+2. Framework preset: **Vite**. Build command: **`npm run build`**. Output: **`dist`**.
 3. Deploy → `https://maithresh-sh.vercel.app`.
 
 ### Option B — CLI
@@ -197,26 +197,27 @@ Gotchas: none for static. Optional `netlify.toml` for long caching:
 
 ## 4. GitHub Pages — the zero-new-accounts option
 
-Why fourth: free, custom-domain friendly, zero setup beyond a branch.
+Why fourth: free, custom-domain friendly, zero setup beyond a push.
 Downsides for "load faster online": no edge cache control, single-origin
-serving, noticeably slower global TTFB than 1–3 above. (The repo's
-`.nojekyll` marker was removed when hosting moved off GitHub Pages;
-recreate it if you ever return here.)
+serving, noticeably slower global TTFB than 1–3 above.
+
+This repo deploys to Pages with an **Actions workflow**
+(`.github/workflows/deploy-pages.yml`), not branch-folder publishing —
+the workflow builds with `VITE_BASE=/maithresh.sh/` (a project site serves
+from `/<repo>/`, so root-absolute asset URLs would 404) and uploads `dist/`.
 
 ### Steps
-1. `npm run build`, then repo Settings → Pages → Source: **Deploy from a
-   branch**, branch `main`, folder **`/dist`** — not the repo root, which is
-   source now.
-2. Site serves at `https://<user>.github.io/<repo>/` (or user-site root).
-3. Custom domain: set the domain in Pages settings (or drop a `CNAME` file
+1. Push to `main` — the workflow builds and deploys automatically.
+2. Repo Settings → Pages → Source: **GitHub Actions** (one-time).
+3. Site serves at `https://<user>.github.io/maithresh.sh/` (or user-site root).
+4. Custom domain: set the domain in Pages settings (or drop a `CNAME` file
    containing `maithresh.sh` **inside `dist/`**, since that's the published
    folder), then add `A` records (`185.199.108.153` … `.111`) + `www CNAME`
    at DNS. Enforce HTTPS in the Pages settings.
 
-Gotchas: `_headers` is inert here (Pages ignores it) and `.nojekyll` is
-unnecessary — the site is already at `/dist`, outside Jekyll's processing.
-Caching falls back to GitHub's default (10 min on HTML), so repeat loads are
-slower than a Cloudflare/Vercel edge.
+Gotchas: `_headers` is inert here (Pages ignores it). Caching falls back to
+GitHub's default (10 min on HTML), so repeat loads are slower than a
+Cloudflare/Vercel edge.
 
 ---
 
