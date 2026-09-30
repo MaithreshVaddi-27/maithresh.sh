@@ -21,6 +21,8 @@ output/
 # Internal tooling — never deploy, and never tracked
 .superpowers/
 .claude/
+# Private portfolio reference — lives on disk only, never in git.
+docs/Project_Portfolio.md
 # Local agent/tool session state. This was only in .git/info/exclude, which is
 # local to one clone — a fresh clone or a collaborator would see it as untracked
 # noise. Anything that should be ignored for everyone belongs here.
