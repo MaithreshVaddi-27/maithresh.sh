@@ -8,16 +8,18 @@ const PRINCIPLES = [
 ]
 
 const TERMINAL = [
-  ['$ whoami --verbose', false],
+  // Input rows carry no literal prompt: the renderer prefixes every input
+  // with <span className="t-prompt">$</span>, so a '$' here would print twice.
+  ['whoami --verbose', false],
   ['role: AI/ML Engineer · Backend & Agent Systems', true],
   ['focus: RAG reliability · MCP tool orchestration', true],
   ['based: Hyderabad, Telangana, IN', true],
   ['status: open to AI/ML internships', true],
-  ['$ ls systems/ --count', false, true],
+  ['ls systems/ --count', false, true],
   ['11+ solo-built · LangGraph · CrewAI · MCP', true],
-  ['$ curl -s stack.local/llm', false, true],
+  ['curl -s stack.local/llm', false, true],
   ['Qwen3-4B-GGUF, gemma3:4b — local, offline', true],
-  ['$ echo $NEXT', false, true],
+  ['echo $NEXT', false, true],
   ['Redis-backed rate limiting on CareerOS-Pro', true],
 ]
 
