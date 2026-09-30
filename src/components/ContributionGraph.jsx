@@ -6,8 +6,11 @@ import { reduceMotion } from '../hooks/useMotion'
 // Palette aligned with the Flight Telemetry ice-cyan tokens. Level 0 is a visible
 // outline rather than a 5%-white fill — at 8% density a near-invisible empty cell
 // made the grid read as broken instead of sparse.
+// Cyan-monochrome discipline: the graph speaks only the ice-cyan ramp.
+// The peak tier is pale cyan (near-white), not amber — top-quartile days
+// read as the brightest point on the ramp instead of a second hue.
 const LEVEL_COLOR = ['transparent', '#0369a1', '#0284c7', '#38bdf8', '#7dd3fc']
-const HOT = '#f59e0b'
+const HOT = '#e0f2fe'
 const CELL_STROKE = 'rgba(56,189,248,0.10)'
 const CELL = 11, GAP = 3, LEFT_PAD = 28, TOP_PAD = 20
 const DAYS = ['', 'Mon', '', 'Wed', '', 'Fri', '']
@@ -126,8 +129,8 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
     else break
   }
   const total = active.reduce((sum, c) => sum + c, 0)
-  // Top quartile by volume, mirroring the arcade "power" tier: these days earn the
-  // amber accent instead of the cyan ramp.
+  // Top quartile by volume, mirroring the arcade "power" tier: these days
+  // render in pale cyan — the brightest point on the ramp, never a second hue.
   const hotFrom = active.toSorted((a, b) => a - b)[Math.floor(active.length * 0.75)] ?? Infinity
 
   // Month label at the first column that opens a new month, spaced far enough
@@ -150,7 +153,7 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
   })
 
   const struck = hit >= 0 ? flat[hit] : null
-  // Power-brick moment: strikes on top-quartile days erupt larger, in amber.
+  // Power-brick moment: strikes on top-quartile days erupt larger, in pale cyan.
   const struckHot = !!struck && struck.count >= hotFrom
   // Top-row strikes would push the count plate above the viewBox (and into
   // the month labels) — clamp it inside.
@@ -193,7 +196,7 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
                       key={di}
                       x={cell.x} y={cell.y} width={CELL} height={CELL} rx="2"
                       fill={cell.count >= hotFrom ? HOT : cell.color}
-                      stroke={cell.count > 0 ? CELL_STROKE : 'rgba(255,255,255,0.045)'}
+                      stroke={cell.count > 0 ? CELL_STROKE : 'rgba(125,211,252,0.07)'}
                       strokeWidth="1"
                       opacity={struck && struck.order === cell.order ? 1 : undefined}
                     >
@@ -370,7 +373,21 @@ function useBreakout(frameRef, days, setHit) {
     const halo = document.createElementNS(ns, 'circle')
     halo.setAttribute('class', 'probe-beam-halo')
     halo.setAttribute('r', String(Math.max(6, cellPx * 0.62)))
-    svg.append(halo, beam)
+    // Breakout ball trail: three fading ghosts of the beam's recent path.
+    // Positions come from a short history sampled once per frame — cheap,
+    // transform-equivalent (cx/cy attributes, no layout), same cyan hue.
+    const trail = []
+    for (let t = 0; t < 3; t++) {
+      const c = document.createElementNS(ns, 'circle')
+      c.setAttribute('class', 'probe-trail')
+      c.setAttribute('r', String(Math.max(2, cellPx * (0.3 - t * 0.06))))
+      c.style.opacity = String([0.32, 0.2, 0.1][t])
+      c.setAttribute('cx', px.toFixed(1))
+      c.setAttribute('cy', py.toFixed(1))
+      trail.push(c)
+    }
+    const hist = []
+    svg.append(...trail, halo, beam)
 
     const tick = (now) => {
       raf = requestAnimationFrame(tick)
@@ -382,6 +399,14 @@ function useBreakout(frameRef, days, setHit) {
       beam.setAttribute('cy', py.toFixed(1))
       halo.setAttribute('cx', px.toFixed(1))
       halo.setAttribute('cy', py.toFixed(1))
+      hist.unshift({ x: px, y: py })
+      if (hist.length > 12) hist.pop()
+      trail.forEach((c, t) => {
+        const p = hist[(t + 1) * 3] || hist[hist.length - 1]
+        if (!p) return
+        c.setAttribute('cx', p.x.toFixed(1))
+        c.setAttribute('cy', p.y.toFixed(1))
+      })
     }
     raf = requestAnimationFrame(tick)
 
@@ -390,6 +415,7 @@ function useBreakout(frameRef, days, setHit) {
       io.disconnect()
       document.removeEventListener('visibilitychange', onVis)
       beam.remove(); halo.remove()
+      trail.forEach((c) => c.remove())
     }
   }, [frameRef, days.length])
 }
