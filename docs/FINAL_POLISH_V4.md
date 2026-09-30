@@ -64,7 +64,31 @@
 ## Status
 - `verify` ✅ · `lint` ✅ · `build` ✅ (this round)
 - Skills applied: apple-design, ui-ux-pro-max
-- Tree clean, `main` in sync with `origin/main` — pushed.
+- Committed locally — NOT pushed (per request).
+
+## Phase 20 — Featured systems master-detail redesign (2026-09-30) [x] DONE
+Request: professional redesign of `$ ls projects/ --featured`, grounded in
+ui-ux-pro-max (dataset: Dark OLED + Minimalism/Swiss, terminal dashboard —
+confirmed current direction, no reskin) + apple-design restraint.
+- **Killed the navigation trap:** rows were links, so touch users (no hover)
+  got yeeted to GitHub instead of a preview. Rows are now selectors; the
+  repository exit lives explicitly as a CTA in the detail (row-inline on
+  mobile, stage panel on desktop). Chevron replaces ↗ (no false promise).
+- **Persistent selection:** active row holds wash + accent spine (per-system
+  cyan/green/amber/purple inset, no layout shift) + revealed swatch; stage
+  gains a `01 / 05` counter with 44px prev/next steppers sharing the swap
+  timer. Title buttons carry `aria-pressed`; list/listitem roles; live region
+  announces swaps. Button sits INSIDE the h3 (heading-in-button would split
+  the parser).
+- **Mobile:** only the active row's detail renders inline (five full case
+  studies stacked unconditionally would bury the list); inactive details keep
+  the screen-reader-visible hidden treatment.
+- **Checked:** `verify` ✅ · `lint` ✅ · `build` ✅ (including a JSX imbalance
+  the restructure introduced — caught by lint, fixed), plus CDP-driven
+  Chromium probes on the production build: row click → active/counter/CTA/
+  pressed all correct, stepper advances both, exactly 1 inline detail at
+  390px, zero page errors. Screenshots confirm the amber active row, stage
+  bar, and schematic composition.
 
 ## Phase 19 — Screenshot triage: nav bleed, dead void, stuck EATEN (2026-09-30) [x] DONE
 Live github.io screenshot showed three defects, all fixed with evidence:
