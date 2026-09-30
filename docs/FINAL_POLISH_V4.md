@@ -66,6 +66,30 @@
 - Skills applied: apple-design, ui-ux-pro-max
 - Tree clean, `main` in sync with `origin/main` — pushed.
 
+## Phase 13 — Contribution graph refactor: calm instrument, not arcade (2026-09-30) [x] DONE
+Screenshot review verdict: the Breakout layer (probe beam, halo, trail, strike
+rings, shards, EATEN ticker) was the toy-like signal, and its 60Hz rAF loop
+with per-frame DOM writes + a `drop-shadow`-filtered beam + a full-card
+React re-render per strike was the lag source. Removed as designer + engineer:
+- **Designer:** graph is now a calm instrument. Peak tier re-tinted `#e0f2fe` →
+  `#bae6fd` (pale ice that keeps its blue hue instead of reading white-gray);
+  ramp deepened (`#0c4a6e` new L1) so mid-tones separate; legend is one
+  continuous 5-stop Less→More strip instead of a detached gray "More" swatch.
+  Stats read `total // active days // best day · date` — the trailing
+  "0 day streak" punished an honest sparse calendar; best day is informative
+  on every calendar. Caption drops the EATEN ticker. Kept: snapshot-first
+  paint, live upgrade, CRT texture, boot reveal, native hover tooltips.
+- **Engineer:** zero JS after mount besides the fetch — no rAF loop, no
+  per-frame writes, no strike re-renders. Hover is one CSS rule
+  (`brightness(1.4)` + brighter stroke, single element, no filter Chains);
+  cells use the default cursor (only the frame links to GitHub); the frame-link
+  hover scale was dropped (per-hover repaint of a 368-node SVG for 0.4% scale).
+  Dead CSS retired (beam/halo/trail/strike/shard/legend-hot rules); two stale
+  comments corrected to match snapshot-first reality.
+- **Checked:** `verify` ✅ · `lint` ✅ · `build` ✅, plus live Chromium
+  screenshots of the production build (contact section scrolled into view):
+  stats, continuous legend, calm grid, and contact links all render correctly.
+
 ## Second pass — full-file detailing (2026-09-30, nothing skipped) [x] DONE
 Every source file re-read individually (`Workbench`, `Projects` full 420 lines,
 `ContributionGraph`, `CommandConsole`, `Hero`, `About`, `Sections`, `Stack`,
