@@ -1,10 +1,10 @@
-# Weekly contribution-snapshot refresh.
+# Weekly contribution-snapshot refresh — the backstop for quiet periods.
 #
-# The contact section paints from a committed baseline
-# (src/data/contributions.json) and upgrades from the live API at runtime.
-# This workflow keeps the baseline from going stale: it re-runs the refresh
-# script and commits only when the data actually changed. The resulting push
-# to main redeploys both targets with fresh animation data.
+# Every push to main already refreshes the snapshot inside the deploy pipeline
+# (deploy-pages.yml regenerates before building and commits back after
+# uploading), so active development never ships stale graph data. This workflow
+# covers stretches with no pushes: it re-runs the refresh script and commits
+# only when the data actually changed.
 
 name: refresh contribution snapshot
 
