@@ -1729,6 +1729,11 @@ h1, h2, .hero-name{ text-wrap: balance; }
 /* Segmented control keeps its grouping, loses the pill */
 .workbench-tabs{ border-radius: 14px; }
 .workbench-tab{ border-radius: 9px; }
+/* Featured-system tabs are the same kind of control as the workbench tabs
+   (mono, status dot, accent-aware, wrapping row of peers) so they take the
+   same 9px — they were missed here and kept the 9999px pill from their base
+   rule, which read as two different button languages on one page. */
+.proj-tab{ border-radius: 9px; }
 /* Icon + utility buttons join the same family */
 .to-top{ border-radius: 12px; }
 .nav-toggle{ border-radius: 8px; }
