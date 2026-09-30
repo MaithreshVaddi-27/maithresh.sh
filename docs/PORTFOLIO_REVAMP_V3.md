@@ -3,7 +3,7 @@
 > Design leads: **apple-design** (fluid motion, restraint, craft) + **ui-ux-pro-max**
 > (Dark OLED + JetBrains Mono + minimal glow + visible focus — skill dataset confirms
 > current direction, no reskin). Hybrid voice: terminal eyebrows, human sentences.
-> Source of truth: `docs/Project_Portfolio.md`. Numbers policy: inventory counts always
+> Source of truth: local-only portfolio reference (untracked, not in git). Numbers policy: inventory counts always
 > **N+** on public surfaces; architecture specs stay exact. Prior trackers
 > (`PORTFOLIO_REVAMP.md`, `PORTFOLIO_REVAMP_V2.md`) are history.
 
@@ -11,7 +11,7 @@
 - [ ] TODO · [~] IN PROGRESS · [x] DONE
 
 ## What to do (Phase 0 audit → scoped list)
-- [x] Content truth re-check vs `Project_Portfolio.md` (no inflated metrics anywhere)
+- [x] Content truth re-check vs the portfolio source doc (no inflated metrics anywhere)
 - [x] Humanized professional voice pass (hybrid, engineer-not-generic, attractor-friendly)
 - [x] Ultra-premium detailing: full palette-token audit of `styles.css`
 - [x] Contribution workflow check (refresh Action + snapshot evidence)
@@ -34,7 +34,7 @@
   scratch properly gitignored) — no further pruning.
 
 ## What should be done (open, none blocking)
-1. `Project_Portfolio.md` §Open items (source-count dispute, SkillMap geo-filter, NxtWave
+1. Portfolio source-doc §Open items (source-count dispute, SkillMap geo-filter, NxtWave
    dates, omniroute, TrustRAG counts) — documentation-side, unchanged.
 2. Fresh Chromium device-width sweep after the Breakout evolution (no browser tooling in
    this environment; last full pass recorded in `PORTFOLIO_REVAMP.md` Phase 4).
