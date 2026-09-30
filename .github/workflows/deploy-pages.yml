@@ -19,7 +19,10 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  # write: the snapshot commit-back at the end of the build job pushes the
+  # freshly regenerated contributions.json. Pushes made with GITHUB_TOKEN do
+  # not trigger new workflow runs, so this can never self-loop.
+  contents: write
   pages: write
   id-token: write
 
@@ -42,6 +45,15 @@ jobs:
 
       - run: npm ci
 
+      # Every push ships fresh graph data: regenerate the contribution
+      # snapshot before building so dist/ always paints from today, not from
+      # whenever the weekly cron last ran. Best-effort — if the third-party
+      # API is down or slow, the build continues on the committed snapshot
+      # instead of failing the deploy.
+      - name: Refresh contribution snapshot
+        continue-on-error: true
+        run: node scripts-refresh-contrib.mjs
+
       - name: Build for the project subpath
         env:
           VITE_BASE: /maithresh.sh/
@@ -62,6 +74,22 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+
+      # Commit the fresh snapshot back so the repo never drifts behind what
+      # just deployed. Commit-only-on-change; a push to main during this run
+      # is absorbed by the rebase instead of rejecting ours.
+      - name: Commit refreshed snapshot
+        run: |
+          git pull --rebase origin main
+          if git diff --quiet -- src/data/contributions.json; then
+            echo "snapshot unchanged — nothing to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/contributions.json
+          git commit -m "chore: refresh contribution snapshot"
+          git push
 
   deploy:
     needs: build
