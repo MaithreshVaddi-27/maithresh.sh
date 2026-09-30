@@ -24,6 +24,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
 
@@ -36,6 +37,9 @@ jobs:
 
       - name: Commit when the snapshot changed
         run: |
+          # Rebase first: a push to main during this run would otherwise
+          # reject our push and drop the fresh snapshot until next week.
+          git pull --rebase origin main
           if git diff --quiet -- src/data/contributions.json; then
             echo "snapshot unchanged — nothing to commit"
             exit 0

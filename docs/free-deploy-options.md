@@ -5,8 +5,20 @@ Project profile: **React 19 + Vite static SPA** — build emits plain files into
 `maithresh.sh`. Every emitted asset is content-hashed, so any host that honors
 long cache lifetimes on hashed URLs is ideal and needs no manual cache-busting.
 
-Sorted **best-first for this exact project**. All options below are free
-for a site of this size and support the custom domain with free SSL.
+## How this repo actually deploys
+
+Every push to `main` ships to **both** live targets, no manual steps:
+
+1. **Cloudflare Pages** (git integration) — builds with default base `/`,
+   serves `maithresh-sh.pages.dev` + custom domain.
+2. **GitHub Pages** (`.github/workflows/deploy-pages.yml`) — rebuilds with
+   `VITE_BASE=/maithresh.sh/`, uploads `dist/` as the Pages artifact.
+3. **Contribution data** (`.github/workflows/refresh-contrib.yml`) — weekly
+   snapshot refresh commits straight to `main`, which redeploys 1 + 2 with
+   fresh graph data. Manual trigger: Actions → *refresh contribution snapshot*.
+
+The host options below are ranked best-first if you ever move off this setup.
+All are free for a site of this size and support the custom domain with free SSL.
 
 ---
 
@@ -23,13 +35,13 @@ exists. The content-hashed URLs cache perfectly at the edge.
 
 ### Option A — Git integration (recommended)
 
-1. Push this repo to GitHub (already a git repo).
-2. In the Cloudflare dashboard, go to **Workers & Pages**.
-3. Select **Create application** → **Pages** tab → **Connect to Git**
+1. In the Cloudflare dashboard, go to **Workers & Pages** (the repo is
+   already on GitHub).
+2. Select **Create application** → **Pages** tab → **Connect to Git**
    (labelled "Import an existing Git repository" in the docs).
-4. Sign in with GitHub and authorize Cloudflare Pages.
-5. Select this repository and **Begin setup**.
-6. In **Set up builds and deployments**:
+3. Sign in with GitHub and authorize Cloudflare Pages.
+4. Select this repository and **Begin setup**.
+5. In **Set up builds and deployments**:
    - Project name: `maithresh-sh` (this becomes `maithresh-sh.pages.dev`)
    - Production branch: `main`
    - Framework preset: **None**
@@ -39,7 +51,7 @@ exists. The content-hashed URLs cache perfectly at the edge.
      `npm ci` if the default `npm install` is not used.
    - Build output directory: `dist`
    - Root directory (advanced): leave empty (site is at repo root)
-7. Select **Save and Deploy**. The `*.pages.dev` URL goes live on first build.
+6. Select **Save and Deploy**. The `*.pages.dev` URL goes live on first build.
 
 Every push to `main` auto-redeploys production; pushes to any other branch
 generate a preview deployment URL. Previews are free and unlimited.
@@ -262,3 +274,4 @@ automatic branch previews.
 - [ ] `⌘K` palette, workbench sims, mobile nav toggle all work on the live URL.
 - [ ] Test on a phone over cellular (hero canvas + 37 KB portrait are the heaviest first-paint items).
 - [ ] Confirm a content-hashed filename actually changed for the file you edited (that is the cache invalidation).
+- [ ] Contribution graph shows a recent baseline: with the live API blocked, the caption reads `snapshot <date>` — if that date is weeks old, run Actions → *refresh contribution snapshot*.
