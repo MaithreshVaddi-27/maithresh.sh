@@ -253,7 +253,7 @@ export const PROJECTS = [
   {
     title: 'CareerOS-Pro — Deterministic Normalize, LLM Only for Explain',
     href: 'https://github.com/MaithreshVaddi-27/CareerOS-Pro',
-    accent: 'purple',
+    accent: 'green',
     swatch: 'swBrief',
     tag: 'solo · 5 APIs + scraper · no LLM in parse',
     desc: <>Aggregation from JSearch, Adzuna, Remotive, RemoteOK, Arbeitnow + BeautifulSoup4 async career-page scraper (per-domain semaphores, backoff+jitter, in-memory HTML cache). Parsing is pure deterministic logic — location/remote, employment-type, experience-level, salary + FX — the LLM never overrides hard eligibility filters. Two-stage dedup (<code>url_hash</code> exact, then <code>content_hash</code> fallback), two-stage verification (HTTP HEAD → Firecrawl scrape). LangGraph match/explain with fallback order LlamaCpp → NVIDIA NIM → OpenRouter → Gemini.</>,
