@@ -1108,7 +1108,10 @@
   .ed-right{ font-family: var(--font-mono); font-size:0.82rem; color: var(--text-dim); text-align:right; }
 
   /* ── CONTACT / FOOTER ─────────────────────────────────── */
-  .contact-section{ text-align:center; }
+  /* Top padding tightened (108 → 72): the certifications→contact boundary is
+     content-sparse on both sides, so the full joint rhythm read as a dead
+     void rather than air. Bottom keeps the full measure before the footer. */
+  .contact-section{ text-align:center; padding-top: 72px; }
   .contact-section .section-sub{ margin-left:auto; margin-right:auto; }
   .contact-links{ display:flex; justify-content:center; gap: 16px; flex-wrap:wrap; margin-top: 40px; }
   .contact-links a{
@@ -2180,9 +2183,13 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
    Every rule below animates transform/opacity only (compositor-safe),
    150–300ms on Apple spring tokens, with reduced-motion guards. */
 
-/* 1. Navbar scroll elevation — the dock lifts off the page once scrolled */
+/* 1. Navbar scroll elevation — the dock lifts off the page once scrolled.
+   Scrolled state also solidifies the background: legibility must never depend
+   on backdrop-filter alone (no-filter browsers, GPU-less compositing, or
+   high-contrast text behind would all ghost through 0.72 alpha). */
 header.is-scrolled .glass-dock{
   border-color: rgba(125,211,252,.28);
+  background: rgba(9,13,22,.94);
   box-shadow: 0 14px 44px rgba(0,0,0,.55), 0 0 28px rgba(56,189,248,.12), inset 0 1px 0 rgba(255,255,255,.08);
 }
 .glass-dock{ transition: border-color .3s ease, box-shadow .3s ease; }
