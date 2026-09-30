@@ -26,7 +26,7 @@ export function Automation() {
               <div className={item.live ? 'auto-status is-live' : 'auto-status'}>{item.status}</div>
               <div>
                 <h3>
-                  <a href={item.href} target="_blank" rel="noopener">{item.title}</a>
+                  <a href={item.href} target="_blank" rel="noopener noreferrer">{item.title}</a>
                 </h3>
                 <p>{item.body}</p>
                 <Stack items={item.stack} />
@@ -58,7 +58,7 @@ export function GroupPlatforms() {
               <THead file={card.file} />
               <div className="proj-top">
                 <h3 className="proj-title proj-title--sm">{card.title}</h3>
-                <a className="proj-link" href={card.href} target="_blank" rel="noopener">GitHub ↗</a>
+                <a className="proj-link" href={card.href} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
               </div>
               <span className="proj-tag">{card.tag}</span>
               <p>{card.body}</p>
@@ -150,7 +150,7 @@ export function Contact() {
           <ContributionGraph />
           <div className="contact-links">
             {CONTACT_LINKS.map(([href, icon, label]) => (
-              <a key={href} href={href} target={href.startsWith('mailto:') ? undefined : '_blank'} rel="noopener">
+              <a key={href} href={href} target={href.startsWith('mailto:') ? undefined : '_blank'} rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}>
                 <Icon name={icon} width={1.7} className="contact-icon" />
                 {label}
               </a>

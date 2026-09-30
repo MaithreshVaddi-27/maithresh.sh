@@ -91,8 +91,11 @@ export function startHeroScene(canvas) {
     mouse.targetY = -1000;
     mouse.active = false;
   };
+  // pointerleave doesn't fire on window — the pointer exiting to browser
+  // chrome would leave the spotlight stuck. documentElement is the reliable
+  // target (same pattern as useInstrumentCursor).
   window.addEventListener('pointermove', onPointerMove, { passive: true });
-  window.addEventListener('pointerleave', onPointerLeave);
+  document.documentElement.addEventListener('pointerleave', onPointerLeave);
 
   // Render Loop
   function render() {
@@ -227,7 +230,7 @@ export function startHeroScene(canvas) {
   return () => {
     stop()
     window.removeEventListener('pointermove', onPointerMove)
-    window.removeEventListener('pointerleave', onPointerLeave)
+    document.documentElement.removeEventListener('pointerleave', onPointerLeave)
     window.removeEventListener('resize', onResize)
     document.removeEventListener('visibilitychange', onVisibility)
     heroObserver?.disconnect()

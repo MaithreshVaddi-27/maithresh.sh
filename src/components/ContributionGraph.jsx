@@ -55,7 +55,7 @@ export default function ContributionGraph() {
     return (
       <div className="activity-card">
         <p className="activity-fallback">
-          Live GitHub activity — <a href={GITHUB} target="_blank" rel="noopener">view on GitHub →</a>
+          Live GitHub activity — <a href={GITHUB} target="_blank" rel="noopener noreferrer">view on GitHub →</a>
         </p>
       </div>
     )
@@ -182,7 +182,7 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
         <span className="activity-stat"><b>{streak}</b>day streak</span>
       </div>
       <div ref={frameRef} className={`activity-graph-frame${reduceMotion ? '' : ' boot'}`}>
-        <a href={GITHUB} target="_blank" rel="noopener" aria-label="View full GitHub activity for MaithreshVaddi-27">
+        <a href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="View full GitHub activity for MaithreshVaddi-27">
           <div role="img" aria-label={`Maithresh Vaddi's live GitHub activity: ${total} contributions across ${active.length} active days in the last 12 months, peak ${Math.max(0, ...counts)} in one day.`}>
             <svg viewBox={`0 0 ${width} ${height}`}>
               {monthLabels}
