@@ -694,6 +694,17 @@
     text-anchor: middle; filter: drop-shadow(0 0 4px rgba(56,189,248,.9));
   }
   @keyframes brickHit{ from{ opacity: 0 } to{ opacity: 1 } }
+  /* Brick-break shards: sparks fly outward and fade within one strike dwell.
+     transform-box keeps the scale centered on each spark; the flight vector
+     arrives per-spark via --dx/--dy inline custom properties. */
+  .brick-shard{
+    fill: #7dd3fc; transform-box: fill-box; transform-origin: center;
+    animation: brickShard .38s ease-out forwards;
+  }
+  @keyframes brickShard{
+    from{ opacity: 1; transform: translate(0,0) scale(1); }
+    to{ opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.4); }
+  }
   /* Live stat readouts + Less→More legend — instrument chrome for the graph */
   .activity-stats{
     display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;
