@@ -86,3 +86,11 @@ Mandate: Breakout-preview look, dark theme, **only cyan shades**.
 - Manual re-check (no scripts): strike-index mapping re-traced on paper; remaining
   amber/green usages all belong to non-graph systems (gate-required); subs/meta/OG copy
   re-read; workflow YAMLs re-read (refresh Action already hardened with rebase+timeout).
+
+## Phase 11 — Breakout shatter polish from live screenshot (2026-09-30) [x] DONE
+Screenshot showed ticker climbing (120/325), true plate counts, pale peaks — the missing
+Breakout-preview feel was brick-break particles. Added 5 cyan shards per strike on fixed
+golden-angle bearings (seeded by cell order, deterministic, no RNG), flying out + fading
+inside one strike dwell via per-spark `--dx/--dy` custom properties. No glow filters on
+shards (frame-cost discipline); reduced-motion safe (strikes never fire without the loop).
+- Checks: `verify` ✅ · `lint` ✅ · `build` ✅.
