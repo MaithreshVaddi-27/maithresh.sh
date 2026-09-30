@@ -4,7 +4,8 @@
 // spans), so it lives here once; each pane only declares its own copy,
 // palette, and the two outcomes it can land on.
 //
-// Copy rule: no number appears here unless docs/Project_Portfolio.md backs it.
+// Copy rule: no number appears here unless the portfolio source doc backs it
+// (local-only reference, kept out of git).
 // Diagrams illustrate architecture, not benchmark claims.
 
 const IDLE = { stroke: '#1e293b', fill: '#0d1424' }
