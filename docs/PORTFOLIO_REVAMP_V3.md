@@ -27,7 +27,7 @@
   exceptions (print grays/teal ramp, reduced-transparency solid fallbacks, button-ink
   contrast pairings). No strays, no changes needed.
 - **Phase 3 — contribution workflow:** verified by production evidence, not just reading
-  the YAML — the Action ran and committed `da341bd` (`fetchedAt 2026-09-30`, 325 total).
+   the YAML — the Action ran and committed `da341bd` (`fetchedAt 2026-09-30`; snapshot refreshed since — now 368 contributions as of 2026-09-30).
   Weekly cron + manual dispatch + commit-only-on-change all confirmed working. No fix needed.
 - **Phase 4 — docs/structure:** new `docs/README.md` index; README run-block gains
   `refresh:contrib`; folder structure already professional (dead dirs removed last round,
@@ -43,7 +43,7 @@
 ## Status
 - `verify` ✅ · `lint` ✅ · `build` ✅ (this round — run in Phase 5)
 - Skills applied: apple-design, ui-ux-pro-max (dataset-grounded design-system check)
-- Uncommitted — awaiting push approval.
+- Pushed — `main` in sync with `origin/main` (verified 2026-09-30; superseded by `docs/FINAL_POLISH_V4.md`).
 
 ## Appendix — history folded in from retired trackers (V1 + V2 deleted this round)
 - **Revamp Phases 0–3 (2026-09-29):** content rewritten to engineering register
@@ -74,7 +74,7 @@ Mandate: Breakout-preview look, dark theme, **only cyan shades**.
   (cx/cy), no glow filters (frame-cost discipline), full teardown with the loop.
 - Untouched on purpose: telemetry colors elsewhere (verify gate requires them),
   snapshot-first paint, tooltips, counts, reduced-motion.
-- Checks: `verify` ✅ · `lint` ✅ · `build` ✅. Uncommitted — awaiting push approval.
+- Checks: `verify` ✅ · `lint` ✅ · `build` ✅. Pushed (superseded by `docs/FINAL_POLISH_V4.md`).
 
 ## Phase 10 — Cleanup: trackers, dead code, manual full re-check (2026-09-30) [x] DONE
 - Deleted `docs/PORTFOLIO_REVAMP.md` + `docs/PORTFOLIO_REVAMP_V2.md` (history folded into

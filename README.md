@@ -53,7 +53,7 @@ npm run refresh:contrib  # regenerate the contribution snapshot (also weekly via
 ├── scripts-refresh-contrib.mjs # regenerates the contribution snapshot (npm run refresh:contrib)
 ├── docs/
 │   ├── free-deploy-options.md # deployment walkthrough
-│   └── PORTFOLIO_REVAMP_V3.md # phased tracker (todo/done/should/status + history)
+│   └── FINAL_POLISH_V4.md     # phased tracker (todo/done/should/status + history)
 └── assets/                    # og-image + hero portrait SVG (copied into dist/ by the build)
 ```
 
@@ -61,7 +61,7 @@ Content rules: portfolio inventory counts are always stated as **N+**
 (`11+` systems, `13+` automation workflows) so the page can't go stale as
 new work ships. Architecture specs (8-stage pipeline, two-stage dedup,
 3-agent crews) stay exact — they describe the design, not the inventory.
-Full policy: N+ for public inventory, exact architecture specs (tracker: `docs/PORTFOLIO_REVAMP_V3.md`).
+Full policy: N+ for public inventory, exact architecture specs (tracker: `docs/FINAL_POLISH_V4.md`; history: `docs/PORTFOLIO_REVAMP_V3.md`).
 
 ## How the interactive pieces work
 
