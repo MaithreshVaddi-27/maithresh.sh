@@ -680,10 +680,11 @@
   .activity-graph-frame .clab{
     fill: rgba(125,211,252,.55); font-family: var(--font-mono); font-size: 10px;
   }
-  /* Breakout probe beam — a plain bright core plus a dim halo ring. No glow
-     filters: a drop-shadow repainting every frame was the old loop's biggest
-     GPU cost; flat ice tones read as motion at this size without it. */
-  .probe-beam{ fill: #bae6fd; opacity: 0.95; }
+  /* Breakout probe beam — core fill arrives as a url(#beamCore) gradient
+     attribute from JS, so this rule must NOT set fill (CSS would win and
+     flatten the gradient). No glow filters: a drop-shadow repainting every
+     frame was the old loop's biggest GPU cost. */
+  .probe-beam{ opacity: 0.95; }
   .probe-beam-halo{ fill: none; stroke: rgba(125,211,252,.35); stroke-width: 1; }
   /* Impact readout: count for the day currently being struck, plus its ring. */
   .brick-hit{ animation: brickHit .3s ease-out; }

@@ -143,6 +143,26 @@ and replays). Built as a native live loop, not a pre-rendered SVG:
   the chomper down cleanly with the score reset to 0/325, and screenshots show
   the eaten trail, mode pills, ticker, and legend rendering together.
 
+## Phase 17 — Both loops: alignment fix + attractiveness pass (2026-09-30) [x] DONE
+Request: both game animations smoother and more attractive.
+- **Real bug found — travelers were misaligned:** both loops simulated in
+  rendered pixels but wrote positions as viewBox units, so on wide screens
+  the beam/chomper drifted up to ~1.37× off the cells they were hitting
+  (visible in screenshots: ring on the brick, beam far away). All motion math
+  is now in viewBox units — resolution-independent, no scale factor, nothing
+  to rebuild on resize. Proven live: pacman max-x inside the 770-unit viewBox
+  while eating (25/325), beam likewise bounded.
+- **Pac-Man:** eased turning (heading lerps, snaps straight when close so it
+  can never orbit a brick), sprint legs (up to 2.5× across empty space),
+  larger body with a dark rim for definition, 3-dot motion trail.
+- **Breakout beam:** white-hot radial-gradient core (flat fill, still zero
+  per-frame filters), 3-dot trail, same traversal pace in viewBox units.
+- **Eaten cells** fall back to a ghost tint instead of vanishing, so the grid
+  keeps its structure and the eaten path reads as a trail.
+- **Checked:** `verify` ✅ · `lint` ✅ · `build` ✅, zero page errors, plus
+  CDP screenshots of both modes showing rings, plates, trails, pills, ticker,
+  and legend rendering together on the cells.
+
 ## Second pass — full-file detailing (2026-09-30, nothing skipped) [x] DONE
 Every source file re-read individually (`Workbench`, `Projects` full 420 lines,
 `ContributionGraph`, `CommandConsole`, `Hero`, `About`, `Sections`, `Stack`,
