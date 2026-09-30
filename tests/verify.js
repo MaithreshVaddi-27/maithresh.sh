@@ -229,8 +229,10 @@ for (const color of ['#38bdf8', '#10b981', '#f59e0b', '#ef4444', '#a855f7']) {
   need(projects.includes(color) || workbenchData.includes(color), `flight telemetry colour ${color} must be used`)
 }
 
-// Projects: 5 schematics, 5 rows, unique marker ids.
-need((projects.match(/viewBox="0 0 260 500"/g) || []).length === 5,
+// Projects: 5 schematics, 5 rows, unique marker ids. Schematics are landscape
+// flow diagrams (entry → stages → decision → outcomes → terminal) sharing one
+// viewBox, so the stage panel stays compact at any width.
+need((projects.match(/viewBox="0 0 520 304"/g) || []).length === 5,
   'all 5 featured projects must ship a precision SVG schematic')
 const projectsBlock = content.slice(content.indexOf('export const PROJECTS'))
 need((projectsBlock.match(/href: 'https:\/\/github\.com\/MaithreshVaddi-27\//g) || []).length === 5,
