@@ -171,13 +171,13 @@ export const PANES = [
   {
     id: 'careeros',
     index: '04',
-    dot: 'purple',
+    dot: 'green',
     tab: 'CareerOS-Pro (Resilient Mesh)',
     name: 'AGENT MESH & RESILIENCE TELEMETRY',
     sub: '// NO_LLM_IN_THE_PARSING_PATH',
     svgId: 'careerosSvg',
     ariaLabel: 'Interactive CareerOS agent mesh diagram',
-    base: { stroke: '#a855f7', fill: '#261238' },
+    base: { stroke: '#10b981', fill: '#0c271c' },
     nodes: [
       node('STAGE 01 // INGEST', '5 Job APIs + Scraper', 'JSearch / Adzuna / Remotive / RemoteOK / Arbeitnow', 'Async career-page scraper, per-domain semaphores'),
       node('STAGE 02 // NORMALIZE + DEDUP', 'Pure Logic, No Model', 'Location, remote, salary + FX', 'url_hash exact → content_hash fallback'),
@@ -193,7 +193,7 @@ export const PANES = [
       resilient: { ...AMBER, label: 'OUTCOME', title: 'Source Degraded', sub: 'Other adapters keep serving', titleColor: '#fbbf24' },
     },
     defense: {
-      tone: 'purple',
+      tone: 'green',
       title: 'TRADE-OFF I CAN DEFEND: KEEPING THE MODEL OUT OF THE PARSE PATH',
       paras: [
         <>

@@ -169,19 +169,19 @@ const CareerOS = ({ p }) => (
     <text x="35" y="64" textAnchor="middle" className="pd-t pd-tiny">5 APIS</text>
     <line x1="64" y1="60" x2="78" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <rect x="78" y="24" width="100" height="72" rx="10" fill="rgba(168,85,247,0.10)" stroke="#a855f7" strokeWidth="1.1" />
+    <rect x="78" y="24" width="100" height="72" rx="10" fill="rgba(16,185,129,0.10)" stroke="#10b981" strokeWidth="1.1" />
     <text x="128" y="52" textAnchor="middle" className="pd-t pd-label">NORMALIZE</text>
     <text x="128" y="72" textAnchor="middle" className="pd-t pd-sub">hard filters</text>
     <text x="128" y="86" textAnchor="middle" className="pd-t pd-tiny">no LLM</text>
     <line x1="178" y1="60" x2="188" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <rect x="188" y="24" width="100" height="72" rx="10" fill="rgba(168,85,247,0.10)" stroke="#a855f7" strokeWidth="1.1" />
+    <rect x="188" y="24" width="100" height="72" rx="10" fill="rgba(16,185,129,0.10)" stroke="#10b981" strokeWidth="1.1" />
     <text x="238" y="52" textAnchor="middle" className="pd-t pd-label">DEDUP x2</text>
     <text x="238" y="72" textAnchor="middle" className="pd-t pd-sub">url→content</text>
     <text x="238" y="86" textAnchor="middle" className="pd-t pd-tiny">hash keys</text>
     <line x1="288" y1="60" x2="298" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <rect x="298" y="24" width="100" height="72" rx="10" fill="rgba(168,85,247,0.10)" stroke="#a855f7" strokeWidth="1.1" />
+    <rect x="298" y="24" width="100" height="72" rx="10" fill="rgba(16,185,129,0.10)" stroke="#10b981" strokeWidth="1.1" />
     <text x="348" y="52" textAnchor="middle" className="pd-t pd-label">VERIFY</text>
     <text x="348" y="72" textAnchor="middle" className="pd-t pd-sub">HEAD→scrape</text>
     <text x="348" y="86" textAnchor="middle" className="pd-t pd-tiny">Firecrawl</text>
@@ -208,7 +208,7 @@ const CareerOS = ({ p }) => (
 
     <line x1="286" y1="212" x2="286" y2="236" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <path d="M438,212 L330,236" fill="none" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
-    <rect x="186" y="236" width="200" height="52" rx="10" fill="rgba(168,85,247,0.08)" stroke="#a855f7" strokeWidth="1.1" />
+    <rect x="186" y="236" width="200" height="52" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" strokeWidth="1.1" />
     <text x="286" y="258" textAnchor="middle" className="pd-t pd-label">MATCH EXPLAIN</text>
     <text x="286" y="274" textAnchor="middle" className="pd-t pd-tiny">fallback chain</text>
   </svg>

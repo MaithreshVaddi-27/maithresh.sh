@@ -847,12 +847,10 @@
   .proj-tab[data-accent="cyan"] .proj-tab-dot{ background: #38bdf8; }
   .proj-tab[data-accent="green"] .proj-tab-dot{ background: #10b981; }
   .proj-tab[data-accent="amber"] .proj-tab-dot{ background: #f59e0b; }
-  .proj-tab[data-accent="purple"] .proj-tab-dot{ background: #a855f7; }
   .proj-tab.active{ color: #fff; background: var(--proj-faint); }
   .proj-tab.active[data-accent="cyan"]{ border-color: rgba(56,189,248,.5); box-shadow: 0 0 18px rgba(56,189,248,.15), inset 0 1px 0 rgba(255,255,255,.08); }
   .proj-tab.active[data-accent="green"]{ border-color: rgba(16,185,129,.5); box-shadow: 0 0 18px rgba(16,185,129,.15), inset 0 1px 0 rgba(255,255,255,.08); }
   .proj-tab.active[data-accent="amber"]{ border-color: rgba(245,158,11,.5); box-shadow: 0 0 18px rgba(245,158,11,.15), inset 0 1px 0 rgba(255,255,255,.08); }
-  .proj-tab.active[data-accent="purple"]{ border-color: rgba(168,85,247,.55); box-shadow: 0 0 18px rgba(168,85,247,.18), inset 0 1px 0 rgba(255,255,255,.08); }
   .proj-tab.active .proj-tab-dot{ box-shadow: 0 0 8px var(--proj); }
 
   /* ── Full-width case-study panel ────────────────────
@@ -1612,17 +1610,15 @@ section{ scroll-margin-top: 120px; }
 }
 
 /* ══ FEATURED PROJECTS — schematic blend + per-project accent ══
-   Each row owns one accent (cyan / green / amber / purple). The accent
-   runs end-to-end: row hover wash → index glow → swatch ring (existing)
-   → sticky stage frame → schematic inset. The SVG schematics stop
-   floating on transparent ground and sit in the same dark instrument
-   inset as the workbench pipeline visualizers. */
+   Each project owns one accent (cyan / green / amber). The accent runs
+   end-to-end: tab dot → active border/tint → panel frame → highlight
+   rule → schematic inset. Accent fills/strokes in the SVGs are left
+   exactly as authored, so the diagram matches its own tab. */
 
 /* Per-system accent tokens — owned by the tab navbar + case-study panel */
 .proj-tab[data-accent="cyan"], .proj-panel[data-accent="cyan"]{ --proj: #38bdf8; --proj-soft: rgba(56,189,248,.16); --proj-faint: rgba(56,189,248,.06); --proj-text: rgba(125,211,252,.85); }
 .proj-tab[data-accent="green"], .proj-panel[data-accent="green"]{ --proj: #10b981; --proj-soft: rgba(16,185,129,.16); --proj-faint: rgba(16,185,129,.06); --proj-text: rgba(110,231,183,.9); }
 .proj-tab[data-accent="amber"], .proj-panel[data-accent="amber"]{ --proj: #f59e0b; --proj-soft: rgba(245,158,11,.16); --proj-faint: rgba(245,158,11,.06); --proj-text: rgba(252,211,77,.9); }
-.proj-tab[data-accent="purple"], .proj-panel[data-accent="purple"]{ --proj: #a855f7; --proj-soft: rgba(168,85,247,.18); --proj-faint: rgba(168,85,247,.07); --proj-text: rgba(216,180,254,.9); }
 
 /* Schematic inset — same instrument-panel surface as the workbench
    .pipeline-card, so hover SVGs read as one family with it */
@@ -1642,15 +1638,12 @@ section{ scroll-margin-top: 120px; }
 .proj-panel[data-accent="cyan"]{ border-color: rgba(56,189,248,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(56,189,248,.12), inset 0 1px 0 rgba(255,255,255,.07); }
 .proj-panel[data-accent="green"]{ border-color: rgba(16,185,129,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(16,185,129,.12), inset 0 1px 0 rgba(255,255,255,.07); }
 .proj-panel[data-accent="amber"]{ border-color: rgba(245,158,11,.4); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(245,158,11,.12), inset 0 1px 0 rgba(255,255,255,.07); }
-.proj-panel[data-accent="purple"]{ border-color: rgba(168,85,247,.42); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55), 0 0 32px rgba(168,85,247,.14), inset 0 1px 0 rgba(255,255,255,.07); }
 .proj-panel[data-accent="cyan"] .proj-highlight{ border-left-color: rgba(56,189,248,.55); }
 .proj-panel[data-accent="green"] .proj-highlight{ border-left-color: rgba(16,185,129,.55); }
 .proj-panel[data-accent="amber"] .proj-highlight{ border-left-color: rgba(245,158,11,.55); }
-.proj-panel[data-accent="purple"] .proj-highlight{ border-left-color: rgba(168,85,247,.6); }
 .proj-panel[data-accent="cyan"] .proj-diagram{ border-color: rgba(56,189,248,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(56,189,248,.08); }
 .proj-panel[data-accent="green"] .proj-diagram{ border-color: rgba(16,185,129,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(16,185,129,.08); }
 .proj-panel[data-accent="amber"] .proj-diagram{ border-color: rgba(245,158,11,.32); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(245,158,11,.08); }
-.proj-panel[data-accent="purple"] .proj-diagram{ border-color: rgba(168,85,247,.34); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 32px rgba(0,0,0,.45), 0 0 24px rgba(168,85,247,.1); }
 
 @media (prefers-reduced-transparency: reduce){
   .proj-diagram{ background-image: none; }
@@ -1661,7 +1654,7 @@ section{ scroll-margin-top: 120px; }
    schematic internals onto palette tokens without touching SVG markup:
    node grounds → --bg-surface-core, idle connectors → text-dim hairline,
    microcopy → text-dim, base arrowheads → match connectors. Accent
-   fills/strokes (cyan/green/amber/purple) are left exactly as authored. */
+   fills/strokes (cyan/green/amber) are left exactly as authored. */
 .proj-diagram svg rect[fill="#0d1424"],
 .pipeline-card svg rect[fill="#0d1424"]{ fill: #0c101a; }
 .proj-diagram svg :is(line, path)[stroke="#334155"],
@@ -2024,7 +2017,6 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 .pane-dot--cyan{ background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
 .pane-dot--green{ background: #10b981; box-shadow: 0 0 10px #10b981; }
 .pane-dot--amber{ background: #f59e0b; box-shadow: 0 0 10px #f59e0b; }
-.pane-dot--purple{ background: #a855f7; box-shadow: 0 0 10px #a855f7; }
 .pane-name{ font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--text); }
 .pane-sub{ font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); }
 
@@ -2034,12 +2026,10 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 .idef-dot--cyan{ background: #38bdf8; }
 .idef-dot--green{ background: #10b981; }
 .idef-dot--amber{ background: #f59e0b; }
-.idef-dot--purple{ background: #a855f7; }
 .idef-title{ font-size: 12px; letter-spacing: .05em; }
 .idef-title--cyan{ color: #38bdf8; }
 .idef-title--green{ color: #10b981; }
 .idef-title--amber{ color: #f59e0b; }
-.idef-title--purple{ color: #a855f7; }
 .idef-text{ margin: 0 0 10px; font-size: 12px; color: var(--text-mute); line-height: 1.6; }
 .idef-text:last-child{ margin-bottom: 0; }
 .idef-text strong{ color: var(--text); }
@@ -2050,7 +2040,6 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 .tab-status-dot--cyan{ background: #38bdf8; box-shadow: 0 0 6px #38bdf8; }
 .tab-status-dot--green{ background: #10b981; box-shadow: 0 0 6px #10b981; }
 .tab-status-dot--amber{ background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
-.tab-status-dot--purple{ background: #a855f7; box-shadow: 0 0 6px #a855f7; }
 
 /* Command palette internals */
 .cmd-prompt{ font-family: var(--font-mono); color: var(--accent); font-weight: 700; }

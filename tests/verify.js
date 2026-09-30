@@ -226,8 +226,14 @@ for (const s of ['valid', 'fail', 'tool', 'local', 'match', 'gap', 'dedup', 'res
 }
 need(content.includes('trustrag:valid') && content.includes('careeros:resilient'),
   'all 8 sims need a screen-reader label in SIM_LABELS')
-for (const color of ['#38bdf8', '#10b981', '#f59e0b', '#ef4444', '#a855f7']) {
+for (const color of ['#38bdf8', '#10b981', '#f59e0b', '#ef4444']) {
   need(projects.includes(color) || workbenchData.includes(color), `flight telemetry colour ${color} must be used`)
+}
+// Purple/violet was pulled from the palette on purpose: the three remaining
+// accent hues (cyan / green / amber) now carry every system. Guard the
+// retired shades out so they can't creep back into a schematic or token.
+for (const banned of ['#a855f7', '#8b5cf6', '#7c3aed', '168,85,247', '216,180,254']) {
+  need(!(projects.includes(banned) || workbenchData.includes(banned)), `retired purple/violet ${banned} must not reappear`)
 }
 
 // Projects: 5 schematics, 5 rows, unique marker ids. Schematics are landscape
