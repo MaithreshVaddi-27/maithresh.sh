@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { GITHUB } from '../data/content'
 import snapshot from '../data/contributions.json'
 import { reduceMotion } from '../hooks/useMotion'
@@ -67,6 +67,14 @@ export default function ContributionGraph() {
 // renders as real JSX — third-party strings become text nodes, so there is
 // nothing to escape and nothing to strip.
 function ActivityCard({ days, live, fetchedAt, failed }) {
+  const frameRef = useRef(null)
+  // hit: document-order index of the struck cell (identical to its index in
+  // `flat`, which is built in document order), or -1 when the beam holds
+  // nothing. The loop must report this order — never the day-index into
+  // `days` — or strikes flash the wrong cell once inactive days intervene.
+  const [hit, setHit] = useState(-1)
+  useBreakout(frameRef, days, setHit)
+
   const firstDow = new Date(`${days[0].date}T00:00:00Z`).getUTCDay()
   const padded = Array.from({ length: firstDow }, () => null).concat(days)
   const weeks = []
@@ -75,20 +83,42 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
   const width = LEFT_PAD + weeks.length * (CELL + GAP)
   const height = TOP_PAD + 7 * (CELL + GAP)
 
-  // Cells render straight from the week grid; hover tooltips come from the
-  // native <title> inside each rect — no JS loop, no per-frame DOM writes.
+  // Cells in document order — each carries its index so "is this the one the beam
+  // just struck" is a comparison, not a DOM lookup.
+  const flat = []
   const grid = weeks.map((week, wi) => week.map((d, di) => {
     if (!d) return null
     const count = Number(d.count) || 0
     const cell = {
+      order: flat.length,
       x: LEFT_PAD + wi * (CELL + GAP),
       y: TOP_PAD + di * (CELL + GAP),
       color: LEVEL_COLOR[Number(d.level) | 0] || LEVEL_COLOR[0],
       count,
       title: `${count} contribution${count === 1 ? '' : 's'} on ${d.date}`,
     }
+    flat.push(cell)
     return cell
   }))
+
+  // Session coverage for the EATEN ticker: unique struck orders, summed by
+  // their real contribution counts. Orders are document-order and stable, so
+  // the set survives re-renders; it resets when the dataset itself changes.
+  const [eaten, setEaten] = useState(() => new Set())
+  useEffect(() => { setEaten(new Set()) }, [days])
+  useEffect(() => {
+    if (hit < 0) return
+    const cell = flat[hit]
+    if (!cell) return
+    setEaten((prev) => {
+      if (prev.has(cell.order)) return prev
+      const next = new Set(prev)
+      next.add(cell.order)
+      return next
+    })
+  }, [hit])
+
+  const eatenSum = flat.reduce((sum, c) => sum + (eaten.has(c.order) ? c.count : 0), 0)
 
   const counts = days.map((d) => Number(d.count) || 0)
   const active = counts.filter((c) => c > 0)
@@ -130,18 +160,26 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
     )
   })
 
+  const struck = hit >= 0 ? flat[hit] : null
+  // Power-brick moment: strikes on top-quartile days erupt larger, in pale ice.
+  const struckHot = !!struck && struck.count >= hotFrom
+  // Top-row strikes would push the count plate above the viewBox (and into
+  // the month labels) — clamp it inside.
+  const plateTop = struck ? Math.max(struck.y - CELL - 10, 1) : 0
+
   return (
     <div className="activity-card">
       {/* The caption names the honest source: a committed snapshot, upgraded
-          to live data when the fetch succeeds. The stats row reads
-          total / active days / best day — no streak that punishes an
-          honest sparse calendar. */}
+          to live data when the fetch succeeds. The EATEN ticker is omitted
+          under reduced-motion where the beam never runs — a permanent 0/total
+          would read as broken. */}
       <p className="activity-caption">
         $ git log --author=maithresh --all --date=short{' '}
         <span>
           · {live ? 'live' : `snapshot ${fetchedAt}`}, last 12 months
           {failed && !live ? ' · live feed unreachable' : ''}
         </span>
+        {!reduceMotion && <span> · EATEN {eatenSum}/{total}</span>}
       </p>
       <div className="activity-stats">
         <span className="activity-stat"><b>{total}</b>contributions</span>
@@ -150,11 +188,7 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
         <span className="telem-sep">//</span>
         <span className="activity-stat"><b>{best.count}</b>best day · {best.label}</span>
       </div>
-      <div className={`activity-graph-frame${reduceMotion ? '' : ' boot'}`}>
-        {/* Ambient sheen sweep — CSS-only, transform on one layer, no JS loop.
-            The .boot hook (motion-safe only) plus the reduced-motion guard in
-            CSS decide whether it ever paints. */}
-        <span className="graph-sheen" aria-hidden="true" />
+      <div ref={frameRef} className={`activity-graph-frame${reduceMotion ? '' : ' boot'}`}>
         <a href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="View full GitHub activity for MaithreshVaddi-27">
           <div role="img" aria-label={`Maithresh Vaddi's live GitHub activity: ${total} contributions across ${active.length} active days in the last 12 months, peak ${Math.max(0, ...counts)} in one day.`}>
             <svg viewBox={`0 0 ${width} ${height}`}>
@@ -171,12 +205,59 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
                       fill={cell.count >= hotFrom ? HOT : cell.color}
                       stroke={cell.count > 0 ? CELL_STROKE : 'rgba(125,211,252,0.07)'}
                       strokeWidth="1"
+                      opacity={struck && struck.order === cell.order ? 1 : undefined}
                     >
                       <title>{cell.title}</title>
                     </rect>
                   ))}
                 </g>
               ))}
+              {/* Impact readout: the one thing a static heatmap cannot do — tell
+                  you what a specific day actually held, while it is being struck. */}
+              {struck && (
+                <g className="brick-hit" pointerEvents="none">
+                  {struckHot && (
+                    <circle
+                      cx={struck.x + CELL / 2} cy={struck.y + CELL / 2} r={CELL * 1.6}
+                      fill="none" stroke={HOT} strokeWidth="1" opacity="0.45"
+                    />
+                  )}
+                  <circle
+                    cx={struck.x + CELL / 2} cy={struck.y + CELL / 2}
+                    r={struckHot ? CELL * 1.15 : CELL * 0.85}
+                    fill="none" stroke={struck.count >= hotFrom ? HOT : '#7dd3fc'}
+                    strokeWidth={struckHot ? 2 : 1.5}
+                  />
+                  {/* Backing plate: the row above is often another active day, and a
+                      bare number there was unreadable against the brick. */}
+                  <rect
+                    x={struck.x + CELL / 2 - 7} y={plateTop} width="14" height="11"
+                    rx="2" fill="#0d1015" stroke="rgba(125,211,252,.35)" strokeWidth=".5"
+                  />
+                  <text
+                    className="brick-hit-n" x={struck.x + CELL / 2}
+                    y={plateTop + 8.5}
+                  >{struck.count}</text>
+                  {/* Breakout brick-break shards: five ice-cyan sparks on fixed
+                      golden-angle bearings from the strike point. Deterministic
+                      per cell (seeded by order) — no RNG, stable across renders. */}
+                  {[0, 1, 2, 3, 4].map((k) => {
+                    const a = ((struck.order * 137 + k * 72) * Math.PI) / 180
+                    const dist = CELL * (1.4 + (k % 3) * 0.5)
+                    return (
+                      <circle
+                        key={k}
+                        className="brick-shard"
+                        cx={struck.x + CELL / 2} cy={struck.y + CELL / 2} r={1.4}
+                        style={{
+                          '--dx': `${(Math.cos(a) * dist).toFixed(1)}px`,
+                          '--dy': `${(Math.sin(a) * dist).toFixed(1)}px`,
+                        }}
+                      />
+                    )
+                  })}
+                </g>
+              )}
             </svg>
           </div>
         </a>
@@ -190,5 +271,158 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
       </div>
     </div>
   )
+}
+
+// A probe beam ricochets through the year and pulses each day it strikes. This is
+// the Breakout motion, repurposed: the animation is non-destructive — a brick
+// lights and reports its count, then returns to rest — because erasing your own
+// contribution history on a loop is a strange thing for a portfolio to do.
+//
+// Performance budget: two plain SVG circles (core + halo, zero filters — the
+// old drop-shadow glow repainted every frame) moved via cx/cy attributes, one
+// rAF loop with fixed 60Hz substeps, parked off-screen and on tab-hide. Strike
+// state is the only React traffic, and only on strike change.
+function useBreakout(frameRef, days, setHit) {
+  const setHitRef = useRef(setHit)
+  setHitRef.current = setHit
+
+  useEffect(() => {
+    const frame = frameRef.current
+    if (reduceMotion || !frame || days.length < 4) return
+    const svg = frame.querySelector('svg')
+    if (!svg) return
+
+    // Work in rendered pixels so the beam is correct at any card width; the
+    // viewBox is scaled by box.width / viewBox.width.
+    const box = svg.getBoundingClientRect()
+    if (!box.width) return
+    const k = box.width / (svg.viewBox.baseVal.width || 1)
+    const W = box.width, H = box.height
+    const cellPx = CELL * k, gapPx = GAP * k
+    const padX = LEFT_PAD * k, padY = TOP_PAD * k
+    const firstDow = new Date(`${days[0].date}T00:00:00Z`).getUTCDay()
+
+    // Brick centres in rendered pixels. Only days with commits get a brick, so
+    // the beam spends its time on signal instead of crossing 330 empty cells.
+    const bricks = []
+    days.forEach((d, i) => {
+      if (Number(d.count) <= 0) return
+      const p = i + firstDow
+      bricks.push({
+        // Flat-index of this day: `flat` is built from the padded array
+        // ([firstDow nulls, ...days]) chunked in order, so day i sits at
+        // flat[firstDow + i]. Reporting anything else (e.g. the active-only
+        // rank) makes strikes flash the wrong cell — typically a zero-count
+        // day, which is exactly the stuck "EATEN 0" symptom.
+        order: firstDow + i,
+        x: padX + Math.floor(p / 7) * (cellPx + gapPx) + cellPx / 2,
+        y: padY + (p % 7) * (cellPx + gapPx) + cellPx / 2,
+      })
+    })
+    if (bricks.length < 4) return
+
+    const R = Math.max(3, cellPx * 0.28)
+    let px = W * 0.5, py = padY + cellPx
+    let vx = 0.31, vy = 0.17
+    const m = Math.hypot(vx, vy); vx = (vx / m) * 0.36; vy = (vy / m) * 0.36
+    let holding = -1, dwell = 0
+    // Coverage memory + steering: the set remembers struck bricks so the beam
+    // can lean toward ground it hasn't covered yet. It lives in this closure
+    // (not state) because the loop reads it 60×/s and must never re-render.
+    const seen = new Set()
+    let sinceNudge = 0
+
+    const STEP = 1000 / 60
+    const reach = cellPx * 0.95
+    const cool = new Int16Array(bricks.length)   // frames until a brick can be struck again
+    let acc = 0, prev = performance.now(), onScreen = true, raf = 0
+    const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting }, { threshold: 0 })
+    io.observe(frame)
+    const onVis = () => { prev = performance.now() }   // don't bank time while hidden
+    document.addEventListener('visibilitychange', onVis)
+
+    const step = () => {
+      // Coverage steering, ~every 4s (240 substeps): blend 15% of the
+      // velocity toward the nearest unstruck brick. The ricochet feel
+      // survives — the beam just stops re-sweeping covered ground, so
+      // coverage reads as intentional rather than random drift.
+      if (++sinceNudge >= 240) {
+        sinceNudge = 0
+        let best = -1, bestD = Infinity
+        for (let i = 0; i < bricks.length; i++) {
+          if (seen.has(i)) continue
+          const b = bricks[i]
+          const dx = b.x - px, dy = b.y - py
+          const d = dx * dx + dy * dy
+          if (d < bestD) { bestD = d; best = i }
+        }
+        if (best >= 0 && bestD > 1) {
+          const b = bricks[best]
+          const d = Math.sqrt(bestD)
+          const sp = Math.hypot(vx, vy) || 0.36
+          vx = vx * 0.85 + ((b.x - px) / d) * sp * 0.15
+          vy = vy * 0.85 + ((b.y - py) / d) * sp * 0.15
+          const s2 = Math.hypot(vx, vy) || 1
+          vx = (vx / s2) * sp; vy = (vy / s2) * sp
+        }
+      }
+      px += vx; py += vy
+      if (px < padX + R) { px = padX + R; vx = Math.abs(vx) }
+      if (px > W - R) { px = W - R; vx = -Math.abs(vx) }
+      if (py < padY + R) { py = padY + R; vy = Math.abs(vy) }
+      if (py > H - R) { py = H - R; vy = -Math.abs(vy) }
+      for (let i = 0; i < bricks.length; i++) {
+        if (cool[i] > 0) { cool[i]--; continue }
+        const b = bricks[i]
+        const dx = b.x - px, dy = b.y - py
+        const dist = Math.hypot(dx, dy)
+        if (dist > reach) continue
+        const nx = dx / (dist || 1), ny = dy / (dist || 1)
+        let dot = vx * nx + vy * ny
+        // Grazing hit: the reflection barely turns the beam, so it would
+        // re-collide next substep and vibrate. Force a real bounce.
+        if (Math.abs(dot) < 0.22) { vx += nx * 0.3; vy += ny * 0.3; dot = vx * nx + vy * ny }
+        vx -= 2 * dot * nx; vy -= 2 * dot * ny
+        const s2 = Math.hypot(vx, vy) || 1
+        vx = (vx / s2) * 0.36; vy = (vy / s2) * 0.36
+        px = b.x + nx * reach; py = b.y + ny * reach
+        cool[i] = 10
+        seen.add(i)
+        holding = b.order; dwell = 20
+        break
+      }
+      if (dwell > 0) { dwell--; setHitRef.current(holding) }
+      else if (holding !== -1) { holding = -1; setHitRef.current(-1) }
+    }
+
+    const ns = 'http://www.w3.org/2000/svg'
+    const beam = document.createElementNS(ns, 'circle')
+    beam.setAttribute('class', 'probe-beam')
+    beam.setAttribute('r', String(Math.max(3.5, cellPx * 0.34)))
+    const halo = document.createElementNS(ns, 'circle')
+    halo.setAttribute('class', 'probe-beam-halo')
+    halo.setAttribute('r', String(Math.max(6, cellPx * 0.62)))
+    svg.append(halo, beam)
+
+    const tick = (now) => {
+      raf = requestAnimationFrame(tick)
+      acc += Math.min(now - prev, 100)
+      prev = now
+      if (!onScreen || document.hidden) return
+      while (acc >= STEP) { acc -= STEP; step() }
+      beam.setAttribute('cx', px.toFixed(1))
+      beam.setAttribute('cy', py.toFixed(1))
+      halo.setAttribute('cx', px.toFixed(1))
+      halo.setAttribute('cy', py.toFixed(1))
+    }
+    raf = requestAnimationFrame(tick)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      io.disconnect()
+      document.removeEventListener('visibilitychange', onVis)
+      beam.remove(); halo.remove()
+    }
+  }, [frameRef, days.length])
 }
 
