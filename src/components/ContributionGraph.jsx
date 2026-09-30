@@ -10,6 +10,8 @@ import { reduceMotion } from '../hooks/useMotion'
 // grid read as broken instead of sparse.
 const LEVEL_COLOR = ['transparent', '#0c4a6e', '#0369a1', '#0284c7', '#38bdf8']
 const HOT = '#bae6fd'
+const EATEN_FILL = 'transparent'
+const EATEN_STROKE = 'rgba(125,211,252,0.04)'
 const CELL_STROKE = 'rgba(56,189,248,0.10)'
 const CELL = 11, GAP = 3, LEFT_PAD = 28, TOP_PAD = 20
 const DAYS = ['', 'Mon', '', 'Wed', '', 'Fri', '']
@@ -19,6 +21,11 @@ const MONTHS = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
 // many columns between labels so they can never collide.
 const MONTH_MIN_GAP = 3
 const API = 'https://github-contributions-api.jogruber.de/v4/MaithreshVaddi-27?y=last'
+
+const MODES = [
+  { id: 'pacman', label: 'ᗧ PAC-MAN' },
+  { id: 'breakout', label: '◉ BREAKOUT' },
+]
 
 export default function ContributionGraph() {
   // Paint from the committed snapshot on the first frame. The live endpoint is a
@@ -68,12 +75,23 @@ export default function ContributionGraph() {
 // nothing to escape and nothing to strip.
 function ActivityCard({ days, live, fetchedAt, failed }) {
   const frameRef = useRef(null)
+  const [mode, setMode] = useState('pacman')
   // hit: document-order index of the struck cell (identical to its index in
-  // `flat`, which is built in document order), or -1 when the beam holds
-  // nothing. The loop must report this order — never the day-index into
-  // `days` — or strikes flash the wrong cell once inactive days intervene.
+  // `flat`, which is built in document order), or -1 when nothing is struck.
+  // The loops must report this order — never the day-index into `days` — or
+  // strikes flash the wrong cell once inactive days intervene.
   const [hit, setHit] = useState(-1)
-  useBreakout(frameRef, days, setHit)
+  const [cleared, setCleared] = useState(false)
+  // Declared before the game hooks consume the setters below: referencing
+  // `setEaten`/`setCleared` in a hook call above their `const` would throw a
+  // TDZ ReferenceError and white-screen the whole section.
+  // Session score: unique eaten/struck orders, summed by their real
+  // contribution counts. Orders are document-order and stable, so the set
+  // survives re-renders; it resets when the dataset itself changes.
+  const [eaten, setEaten] = useState(() => new Set())
+  useEffect(() => { setEaten(new Set()) }, [days])
+  usePacman(frameRef, days, mode, setHit, setEaten, setCleared)
+  useBreakout(frameRef, days, mode, setHit)
 
   const firstDow = new Date(`${days[0].date}T00:00:00Z`).getUTCDay()
   const padded = Array.from({ length: firstDow }, () => null).concat(days)
@@ -83,8 +101,8 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
   const width = LEFT_PAD + weeks.length * (CELL + GAP)
   const height = TOP_PAD + 7 * (CELL + GAP)
 
-  // Cells in document order — each carries its index so "is this the one the beam
-  // just struck" is a comparison, not a DOM lookup.
+  // Cells in document order — each carries its index so "is this the one just
+  // eaten/struck" is a comparison, not a DOM lookup.
   const flat = []
   const grid = weeks.map((week, wi) => week.map((d, di) => {
     if (!d) return null
@@ -100,23 +118,6 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
     flat.push(cell)
     return cell
   }))
-
-  // Session coverage for the EATEN ticker: unique struck orders, summed by
-  // their real contribution counts. Orders are document-order and stable, so
-  // the set survives re-renders; it resets when the dataset itself changes.
-  const [eaten, setEaten] = useState(() => new Set())
-  useEffect(() => { setEaten(new Set()) }, [days])
-  useEffect(() => {
-    if (hit < 0) return
-    const cell = flat[hit]
-    if (!cell) return
-    setEaten((prev) => {
-      if (prev.has(cell.order)) return prev
-      const next = new Set(prev)
-      next.add(cell.order)
-      return next
-    })
-  }, [hit])
 
   const eatenSum = flat.reduce((sum, c) => sum + (eaten.has(c.order) ? c.count : 0), 0)
 
@@ -140,6 +141,14 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
       }
     }
   })
+
+  const selectMode = (id) => {
+    if (id === mode) return
+    setMode(id)
+    setHit(-1)
+    setCleared(false)
+    setEaten(new Set())
+  }
 
   // Month label at the first column that opens a new month, spaced far enough
   // apart that adjacent labels can't overlap.
@@ -170,8 +179,8 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
   return (
     <div className="activity-card">
       {/* The caption names the honest source: a committed snapshot, upgraded
-          to live data when the fetch succeeds. The EATEN ticker is omitted
-          under reduced-motion where the beam never runs — a permanent 0/total
+          to live data when the fetch succeeds. The EATEN score is omitted
+          under reduced-motion where no game runs — a permanent 0/total
           would read as broken. */}
       <p className="activity-caption">
         $ git log --author=maithresh --all --date=short{' '}
@@ -180,6 +189,7 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
           {failed && !live ? ' · live feed unreachable' : ''}
         </span>
         {!reduceMotion && <span> · EATEN {eatenSum}/{total}</span>}
+        {cleared && <span> · COURSE CLEAR ↺ REPLAY</span>}
       </p>
       <div className="activity-stats">
         <span className="activity-stat"><b>{total}</b>contributions</span>
@@ -187,6 +197,19 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
         <span className="activity-stat"><b>{active.length}</b>active days</span>
         <span className="telem-sep">//</span>
         <span className="activity-stat"><b>{best.count}</b>best day · {best.label}</span>
+      </div>
+      <div className="arcade-select" role="group" aria-label="Arcade game mode">
+        {MODES.map((m) => (
+          <button
+            key={m.id}
+            type="button"
+            className={`arcade-btn${mode === m.id ? ' active' : ''}`}
+            aria-pressed={mode === m.id}
+            onClick={() => selectMode(m.id)}
+          >
+            {m.label}
+          </button>
+        ))}
       </div>
       <div ref={frameRef} className={`activity-graph-frame${reduceMotion ? '' : ' boot'}`}>
         <a href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="View full GitHub activity for MaithreshVaddi-27">
@@ -202,8 +225,8 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
                     <rect
                       key={di}
                       x={cell.x} y={cell.y} width={CELL} height={CELL} rx="2"
-                      fill={cell.count >= hotFrom ? HOT : cell.color}
-                      stroke={cell.count > 0 ? CELL_STROKE : 'rgba(125,211,252,0.07)'}
+                      fill={eaten.has(cell.order) ? EATEN_FILL : (cell.count >= hotFrom ? HOT : cell.color)}
+                      stroke={eaten.has(cell.order) ? EATEN_STROKE : (cell.count > 0 ? CELL_STROKE : 'rgba(125,211,252,0.07)')}
                       strokeWidth="1"
                       opacity={struck && struck.order === cell.order ? 1 : undefined}
                     >
@@ -213,7 +236,7 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
                 </g>
               ))}
               {/* Impact readout: the one thing a static heatmap cannot do — tell
-                  you what a specific day actually held, while it is being struck. */}
+                  you what a specific day actually held, while it is being eaten. */}
               {struck && (
                 <g className="brick-hit" pointerEvents="none">
                   {struckHot && (
@@ -238,7 +261,7 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
                     className="brick-hit-n" x={struck.x + CELL / 2}
                     y={plateTop + 8.5}
                   >{struck.count}</text>
-                  {/* Breakout brick-break shards: five ice-cyan sparks on fixed
+                  {/* Brick-break shards: five ice-cyan sparks on fixed
                       golden-angle bearings from the strike point. Deterministic
                       per cell (seeded by order) — no RNG, stable across renders. */}
                   {[0, 1, 2, 3, 4].map((k) => {
@@ -273,53 +296,183 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
   )
 }
 
-// A probe beam ricochets through the year and pulses each day it strikes. This is
-// the Breakout motion, repurposed: the animation is non-destructive — a brick
-// lights and reports its count, then returns to rest — because erasing your own
-// contribution history on a loop is a strange thing for a portfolio to do.
+// Brick centres in rendered pixels, active days only — the only ground either
+// game spends time on. Shared by both loops so the pathing math lives once.
+function computeBricks(svg, days) {
+  const box = svg.getBoundingClientRect()
+  if (!box.width) return null
+  const k = box.width / (svg.viewBox.baseVal.width || 1)
+  const cellPx = CELL * k, gapPx = GAP * k
+  const padX = LEFT_PAD * k, padY = TOP_PAD * k
+  const firstDow = new Date(`${days[0].date}T00:00:00Z`).getUTCDay()
+  const bricks = []
+  days.forEach((d, i) => {
+    if (Number(d.count) <= 0) return
+    const p = i + firstDow
+    bricks.push({
+      // Flat-index of this day: `flat` is built from the padded array
+      // ([firstDow nulls, ...days]) chunked in order, so day i sits at
+      // flat[firstDow + i]. Reporting anything else (e.g. the active-only
+      // rank) makes strikes flash the wrong cell — typically a zero-count
+      // day, which is exactly the stuck "EATEN 0" symptom.
+      order: firstDow + i,
+      x: padX + Math.floor(p / 7) * (cellPx + gapPx) + cellPx / 2,
+      y: padY + (p % 7) * (cellPx + gapPx) + cellPx / 2,
+    })
+  })
+  return bricks.length >= 4 ? { bricks, cellPx, W: box.width, H: box.height, padX, padY } : null
+}
+
+// PAC-MAN: an ice-cyan chomper pathfinds the active bricks nearest-first,
+// eats each one (flash + count plate + EATEN score), then the course restores
+// and the loop replays — the reference arcade behaviour, non-destructive so
+// the real history is never lost. Two SVG attributes per frame (group
+// transform + mouth path), zero filters, parked off-screen and on tab-hide.
+function usePacman(frameRef, days, mode, setHit, setEatenApi, setCleared) {
+  const api = useRef({ setHit, setEatenApi, setCleared })
+  api.current = { setHit, setEatenApi, setCleared }
+
+  useEffect(() => {
+    const frame = frameRef.current
+    if (mode !== 'pacman' || reduceMotion || !frame || days.length < 4) return
+    const svg = frame.querySelector('svg')
+    if (!svg) return
+    const geo = computeBricks(svg, days)
+    if (!geo) return
+    const { bricks, cellPx } = geo
+
+    // Greedy nearest-neighbour tour from the leftmost brick — the
+    // "opportunistic player" style: always chase the closest uneaten dot.
+    const tour = []
+    const remaining = new Set(bricks.map((_, i) => i))
+    let cursor = bricks.reduce((a, b) => (a.x < b.x ? a : b))
+    while (remaining.size) {
+      let best = -1, bestD = Infinity
+      for (const i of remaining) {
+        const dx = bricks[i].x - cursor.x, dy = bricks[i].y - cursor.y
+        const d = dx * dx + dy * dy
+        if (d < bestD) { bestD = d; best = i }
+      }
+      remaining.delete(best)
+      cursor = bricks[best]
+      tour.push(best)
+    }
+
+    const ns = 'http://www.w3.org/2000/svg'
+    const g = document.createElementNS(ns, 'g')
+    g.setAttribute('class', 'pac-man')
+    const body = document.createElementNS(ns, 'path')
+    body.setAttribute('fill', '#bae6fd')
+    body.setAttribute('opacity', '0.95')
+    const eye = document.createElementNS(ns, 'circle')
+    eye.setAttribute('r', String(Math.max(1, cellPx * 0.09)))
+    eye.setAttribute('fill', '#0d1015')
+    g.append(body, eye)
+    svg.append(g)
+
+    const R = Math.max(4, cellPx * 0.62)
+    const SPEED = Math.max(60, cellPx * 7)   // rendered px per second
+    let px = bricks[tour[0]].x - cellPx * 3, py = bricks[tour[0]].y
+    let leg = 0, chomp = 0, dwellTimer = 0, clearTimer = 0
+    let eatenCount = 0, done = false
+    let raf = 0, prev = performance.now(), onScreen = true
+    const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting }, { threshold: 0 })
+    io.observe(frame)
+    const onVis = () => { prev = performance.now() }
+    document.addEventListener('visibilitychange', onVis)
+
+    const eat = (b) => {
+      api.current.setEatenApi((prevSet) => {
+        if (prevSet.has(b.order)) return prevSet
+        const next = new Set(prevSet)
+        next.add(b.order)
+        return next
+      })
+      api.current.setHit(b.order)
+      clearTimeout(dwellTimer)
+      dwellTimer = setTimeout(() => api.current.setHit(-1), 450)
+      eatenCount++
+      if (eatenCount >= bricks.length && !done) {
+        done = true
+        api.current.setCleared(true)
+        clearTimer = setTimeout(() => {
+          api.current.setEatenApi(new Set())
+          api.current.setCleared(false)
+          leg = 0
+          eatenCount = 0
+          done = false
+          px = bricks[tour[0]].x - cellPx * 3
+          py = bricks[tour[0]].y
+        }, 1800)
+      }
+    }
+
+    const draw = (facing) => {
+      // Mouth half-angle oscillates 4°→30° at ~7Hz; the eye sits above the
+      // facing axis so it reads at any rotation.
+      const a = ((0.5 - 0.5 * Math.cos(chomp)) * 26 + 4) * Math.PI / 180
+      const x1 = (R * Math.cos(a)).toFixed(2), y1 = (-R * Math.sin(a)).toFixed(2)
+      const x2 = (R * Math.cos(a)).toFixed(2), y2 = (R * Math.sin(a)).toFixed(2)
+      body.setAttribute('d', `M 0 0 L ${x1} ${y1} A ${R.toFixed(1)} ${R.toFixed(1)} 0 1 1 ${x2} ${y2} Z`)
+      eye.setAttribute('cx', (R * 0.1).toFixed(2))
+      eye.setAttribute('cy', (-R * 0.45).toFixed(2))
+      g.setAttribute('transform', `translate(${px.toFixed(1)} ${py.toFixed(1)}) rotate(${(facing * 180 / Math.PI).toFixed(1)})`)
+    }
+
+    const tick = (now) => {
+      raf = requestAnimationFrame(tick)
+      const dt = Math.min((now - prev) / 1000, 0.1)
+      prev = now
+      if (!onScreen || document.hidden || done) return
+      const target = bricks[tour[leg]]
+      const dx = target.x - px, dy = target.y - py
+      const dist = Math.hypot(dx, dy)
+      const facing = Math.atan2(dy, dx)
+      chomp += dt * Math.PI * 2 * 7
+      if (dist < 2.5) {
+        eat(target)
+        leg = (leg + 1) % tour.length
+      } else {
+        const stepLen = Math.min(dist, SPEED * dt)
+        px += (dx / dist) * stepLen
+        py += (dy / dist) * stepLen
+      }
+      draw(dist < 2.5 ? facing : Math.atan2(target.y - py, target.x - px))
+    }
+    raf = requestAnimationFrame(tick)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      io.disconnect()
+      document.removeEventListener('visibilitychange', onVis)
+      clearTimeout(dwellTimer)
+      clearTimeout(clearTimer)
+      g.remove()
+    }
+  }, [frameRef, days.length, mode])
+}
+
+// BREAKOUT: a probe beam ricochets through the year and pulses each day it
+// strikes. Non-destructive — a brick lights and reports its count, then
+// returns to rest — because erasing your own contribution history on a loop
+// is a strange thing for a portfolio to do.
 //
 // Performance budget: two plain SVG circles (core + halo, zero filters — the
 // old drop-shadow glow repainted every frame) moved via cx/cy attributes, one
 // rAF loop with fixed 60Hz substeps, parked off-screen and on tab-hide. Strike
 // state is the only React traffic, and only on strike change.
-function useBreakout(frameRef, days, setHit) {
+function useBreakout(frameRef, days, mode, setHit) {
   const setHitRef = useRef(setHit)
   setHitRef.current = setHit
 
   useEffect(() => {
     const frame = frameRef.current
-    if (reduceMotion || !frame || days.length < 4) return
+    if (mode !== 'breakout' || reduceMotion || !frame || days.length < 4) return
     const svg = frame.querySelector('svg')
     if (!svg) return
-
-    // Work in rendered pixels so the beam is correct at any card width; the
-    // viewBox is scaled by box.width / viewBox.width.
-    const box = svg.getBoundingClientRect()
-    if (!box.width) return
-    const k = box.width / (svg.viewBox.baseVal.width || 1)
-    const W = box.width, H = box.height
-    const cellPx = CELL * k, gapPx = GAP * k
-    const padX = LEFT_PAD * k, padY = TOP_PAD * k
-    const firstDow = new Date(`${days[0].date}T00:00:00Z`).getUTCDay()
-
-    // Brick centres in rendered pixels. Only days with commits get a brick, so
-    // the beam spends its time on signal instead of crossing 330 empty cells.
-    const bricks = []
-    days.forEach((d, i) => {
-      if (Number(d.count) <= 0) return
-      const p = i + firstDow
-      bricks.push({
-        // Flat-index of this day: `flat` is built from the padded array
-        // ([firstDow nulls, ...days]) chunked in order, so day i sits at
-        // flat[firstDow + i]. Reporting anything else (e.g. the active-only
-        // rank) makes strikes flash the wrong cell — typically a zero-count
-        // day, which is exactly the stuck "EATEN 0" symptom.
-        order: firstDow + i,
-        x: padX + Math.floor(p / 7) * (cellPx + gapPx) + cellPx / 2,
-        y: padY + (p % 7) * (cellPx + gapPx) + cellPx / 2,
-      })
-    })
-    if (bricks.length < 4) return
+    const geo = computeBricks(svg, days)
+    if (!geo) return
+    const { bricks, cellPx, W, H, padX, padY } = geo
 
     const R = Math.max(3, cellPx * 0.28)
     let px = W * 0.5, py = padY + cellPx
@@ -423,6 +576,5 @@ function useBreakout(frameRef, days, setHit) {
       document.removeEventListener('visibilitychange', onVis)
       beam.remove(); halo.remove()
     }
-  }, [frameRef, days.length])
+  }, [frameRef, days.length, mode])
 }
-
