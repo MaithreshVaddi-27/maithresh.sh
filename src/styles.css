@@ -704,6 +704,27 @@
     to{ opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.4); }
   }
   /* Live stat readouts + Less→More legend — instrument chrome for the graph */
+  /* Arcade game select: PAC-MAN (eater) vs BREAKOUT (ricochet beam). Quiet
+     segmented control — the graph is the show, this is just the cabinet
+     switch. Follows the btn-nested vocabulary (mono, hairline, spring). */
+  .arcade-select{
+    display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .arcade-btn{
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+    color: var(--text-dim); background: transparent;
+    border: 1px solid var(--border-subtle); border-radius: 999px;
+    padding: 6px 14px; cursor: pointer;
+    transition: color .2s var(--ease-out), border-color .2s var(--ease-out), background .2s var(--ease-out), transform .1s var(--ease-out);
+  }
+  .arcade-btn:hover{ color: var(--text-mute); border-color: var(--border-glass); }
+  .arcade-btn:active{ transform: scale(0.97); }
+  .arcade-btn.active{
+    color: #06121f; background: var(--accent-cyan); border-color: var(--accent-cyan);
+    font-weight: 700;
+  }
+  .arcade-btn:focus-visible{ outline: 2px solid var(--accent-bright); outline-offset: 2px; }
   .activity-stats{
     display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;
     font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);

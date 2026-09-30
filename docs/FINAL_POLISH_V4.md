@@ -121,6 +121,28 @@ designed out rather than back in:
   and a screenshot showing the strike ring, count plate, beam, ticker, legend,
   and stats all rendering together.
 
+## Phase 16 — Pac-Man eater + game select (2026-09-30) [x] DONE
+Request: live continuous animation like the snake / pacman-contribution-graph
+reference (Pac-Man pathfinds the grid eating dots, score ticks, course clears
+and replays). Built as a native live loop, not a pre-rendered SVG:
+- **ᗧ PAC-MAN (default):** an ice-cyan chomper (~7Hz mouth, eye, faces travel
+  direction) runs a greedy nearest-neighbour tour of the active bricks,
+  eating each one — strike flash + count plate + EATEN score, cell dims to
+  empty. All bricks eaten → `COURSE CLEAR ↺ REPLAY` → course restores, loop
+  replays. Non-destructive: the real history always comes back.
+- **◉ BREAKOUT:** the Phase 15 ricochet beam, unchanged. Segmented switch
+  under the stats resets score + hit state on change; both loops park
+  off-screen, on tab-hide, and under reduced-motion (shared `computeBricks`
+  helper, two DOM attributes per frame each, zero filters).
+- Caught + fixed in verification: a TDZ white-screen (`setEaten` referenced
+  in a hook call above its `const` — ErrorBoundary blanked the section in
+  the live build while lint/build stayed green). State now declared before
+  the game hooks consume it.
+- **Checked:** `verify` ✅ · `lint` ✅ · `build` ✅, plus CDP-driven Chromium
+  probes — pacman present and moving with EATEN 28/325, breakout switch tears
+  the chomper down cleanly with the score reset to 0/325, and screenshots show
+  the eaten trail, mode pills, ticker, and legend rendering together.
+
 ## Second pass — full-file detailing (2026-09-30, nothing skipped) [x] DONE
 Every source file re-read individually (`Workbench`, `Projects` full 420 lines,
 `ContributionGraph`, `CommandConsole`, `Hero`, `About`, `Sections`, `Stack`,
