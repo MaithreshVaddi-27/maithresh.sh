@@ -29,6 +29,7 @@ npm run dev        # http://localhost:5173
 npm run build      # → dist/ (minified, hashed) + verification gate
 npm run preview    # serve the real build
 npm run lint
+npm run refresh:contrib  # regenerate the contribution snapshot (also weekly via Actions)
 ```
 
 ## Project structure

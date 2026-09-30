@@ -38,7 +38,7 @@ export function Hero() {
                 </span>
               ))}
               <div className="hud-meta">
-                <span>TARGET // MAITHRESH_VADDI</span>
+                <span>PROFILE // MAITHRESH_VADDI</span>
                 <span className="hud-ok">SYNCED ●</span>
               </div>
               <div className="ascii-card ascii-card--hero">

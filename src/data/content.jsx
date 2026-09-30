@@ -101,7 +101,7 @@ export const MORE_PROJECTS = [
 
 export const AUTOMATIONS = [
   {
-    status: '● live ↗',
+    status: 'live ↗',
     live: true,
     title: 'AI Podcast Generator — PodEase Pro',
     href: 'https://podease-pro.lovable.app',
@@ -126,7 +126,7 @@ export const AUTOMATIONS = [
     icon: 'share',
   },
   {
-    status: 'RPA',
+    status: 'rpa',
     title: 'Automated Email Reminder Bot',
     href: 'https://github.com/MaithreshVaddi-27/Ai-Workflow-Automations',
     body: "Reads row-by-row from an Excel source, applies date-diff business logic to decide who is due a reminder, sends the emails, and writes status back — wrapped in Try-Catch so one malformed row can't kill the run. Picked for deterministic, rule-based work with no judgment call. Documented with a PDF writeup and a screen recording.",
