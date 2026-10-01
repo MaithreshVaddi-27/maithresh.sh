@@ -70,16 +70,17 @@ Content rules: portfolio inventory counts are always stated as **N+**
 (`11+` systems, `13+` automation workflows) so the page can't go stale as
 new work ships. Architecture specs (8-stage pipeline, two-stage dedup,
 3-agent crews) stay exact — they describe the design, not the inventory.
-Full policy: N+ for public inventory, exact architecture specs (tracker: `docs/FINAL_POLISH_V4.md`; history: `docs/PORTFOLIO_REVAMP_V3.md`).
+Full policy: N+ for public inventory, exact architecture specs (tracker: `docs/FINAL_POLISH_V4.md`; superseded trackers live in git history, not on disk).
 
 ## How the interactive pieces work
 
 - **Workbench** — the four pipeline visualizers share one geometry and one
   `Pipeline` component; each pane declares only its copy, palette and the two
   outcomes it can land on. A simulation is `{ step, mode }` state, and every
-  node/connector colour is *derived* from that state. Re-clicking clears the
-  pending timeouts, which is the entire serialization story — a stale outcome
-  can't land after a newer one.
+  node/connector colour is *derived* from that state. Lit-but-unsettled
+  connectors march dashes while data is in flight and go solid on settle.
+  Re-clicking clears the pending timeouts, which is the entire serialization
+  story — a stale outcome can't land after a newer one.
 - **Projects** — tab navbar (one pill per system, roving tabindex) selecting a
   full-width case-study panel: schematic beside prose on desktop, stacked on
   mobile. Tabs preview in place; the repository exit lives explicitly as a CTA
@@ -131,7 +132,8 @@ at any width. Two cases needed explicit handling, and both are now asserted in
   long-form prose (mono optimizes for scanning, not reading paragraphs).
 - **Motion:** Apple fluid-interface tokens — response-based springs
   (`cubic-bezier(0.16, 1, 0.3, 1)`), `:active scale(0.97)` tactile response,
-  transform/opacity-only animation, full `prefers-reduced-motion` fallbacks.
+  one cursor spotlight shared by the shell and all cards, transform/opacity-only
+  animation, full `prefers-reduced-motion` fallbacks.
 - **Materials:** three-tier Liquid Glass elevation (translucent rim, no flat
   borders on glass surfaces) with solid fallbacks under
   `prefers-reduced-transparency`.
