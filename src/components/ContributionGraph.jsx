@@ -21,7 +21,7 @@ const HOT = '#bae6fd'
 // The ghost must stay clearly BRIGHTER than a never-contributed day: at 0.06/0.07
 // these matched the empty-cell stroke exactly, so a consumed cell looked identical
 // to a blank one and the heatmap read as empty within seconds of play. The beam
-// scores ~94% of the calendar in ~12s, so the trail is the main thing on screen.
+// is a slow drift, so the trail is the main thing on screen for most of a visit.
 const EATEN_FILL = 'rgba(56,189,248,0.15)'
 const EATEN_STROKE = 'rgba(125,211,252,0.22)'
 const CELL_STROKE = 'rgba(56,189,248,0.10)'
@@ -101,12 +101,10 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
   // strikes flash the wrong cell once inactive days intervene.
   const [hit, setHit] = useState(-1)
   const [cleared, setCleared] = useState(false)
-  // Declared before the game hooks consume the setters below: referencing
-  // `setEaten`/`setCleared` in a hook call above their `const` would throw a
-  // TDZ ReferenceError and white-screen the whole section.
   // Session score: unique eaten/struck orders, summed by their real
   // contribution counts. Orders are document-order and stable, so the set
-  // survives re-renders; it resets when the dataset itself changes.
+  // survives re-renders; it resets when the dataset itself changes. Fed by
+  // the lazily-loaded loops (ArcadeActors) via onHit/onEat/onClear below.
   const [eaten, setEaten] = useState(() => new Set())
   useEffect(() => { setEaten(new Set()) }, [days])
 
