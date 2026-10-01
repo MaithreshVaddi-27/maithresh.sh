@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
@@ -38,27 +38,51 @@ export function useSmoothScroll() {
 
 // Hero scrub, section reveals, per-grid stagger, terminal boot — all scoped to
 // one gsap.context so `revert()` kills every ScrollTrigger on unmount.
-export function useReveals(rootRef) {
+//
+// Re-runnable by design: below-fold sections arrive later via React.lazy, and
+// the scan only ever processes unmarked elements (dataset.rv), so a re-scan
+// picks up the newcomers without replaying what already played. The hero
+// scrub is once-only for the same reason.
+export function useReveals(rootRef, epoch = 0) {
+  const ctxRef = useRef(null)
+
   useEffect(() => {
     const root = rootRef.current
     if (!root) return
+    const ctx = gsap.context(() => {}, root)
+    ctxRef.current = ctx
+    return () => {
+      ctx.revert()
+      ctxRef.current = null
+    }
+  }, [rootRef])
 
-    const ctx = gsap.context(() => {
+  useEffect(() => {
+    const root = rootRef.current
+    const ctx = ctxRef.current
+    if (!root || !ctx) return
+    ctx.add(() => {
       if (!reduceMotion) {
         // Hero content scrubs up and out as the hero leaves the viewport, tied
         // to scroll position rather than a fixed-duration tween.
-        gsap.to('.hero-inner', {
-          y: 140,
-          opacity: 0,
-          ease: 'none',
-          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
-        })
+        const heroInner = root.querySelector('.hero-inner')
+        if (heroInner && !heroInner.dataset.rvHero) {
+          heroInner.dataset.rvHero = '1'
+          gsap.to('.hero-inner', {
+            y: 140,
+            opacity: 0,
+            ease: 'none',
+            scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
+          })
+        }
       }
 
       // Grid cards are excluded here and get the index-staggered pass below, so
       // they aren't animated twice.
       const REVEAL = '.reveal:not(.group-card):not(.stack-card):not(.cert-card)'
       gsap.utils.toArray(REVEAL).forEach((el) => {
+        if (el.dataset.rv) return
+        el.dataset.rv = '1'
         if (reduceMotion) {
           gsap.set(el, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' })
           return
@@ -79,6 +103,8 @@ export function useReveals(rootRef) {
         if (!grid) return
         Array.from(grid.children).forEach((child, i) => {
           if (!child.classList.contains('reveal')) return
+          if (child.dataset.rv) return
+          child.dataset.rv = '1'
           // Reduced motion means no animation — NOT "no reveal". The `.reveal`
           // base style is opacity:0, so bailing out here left every project row,
           // stack card, group card, and cert card permanently invisible for
@@ -102,20 +128,22 @@ export function useReveals(rootRef) {
 
       // Terminal lines step in as the block scrolls into view rather than
       // appearing all at once with the rest of the section.
-      const lines = gsap.utils.toArray('.terminal .t-line')
-      if (lines.length) {
-        if (reduceMotion) {
-          gsap.set(lines, { opacity: 1, x: 0 })
-        } else {
-          gsap.set(lines, { opacity: 0, x: -8 })
-          ScrollTrigger.create({
-            trigger: '.terminal', start: 'top 82%', once: true,
-            onEnter: () => gsap.to(lines, { opacity: 1, x: 0, duration: 0.4, stagger: 0.12, ease: 'power2.out' }),
-          })
+      const term = root.querySelector('.terminal')
+      if (term && !term.dataset.rv) {
+        term.dataset.rv = '1'
+        const lines = gsap.utils.toArray('.terminal .t-line')
+        if (lines.length) {
+          if (reduceMotion) {
+            gsap.set(lines, { opacity: 1, x: 0 })
+          } else {
+            gsap.set(lines, { opacity: 0, x: -8 })
+            ScrollTrigger.create({
+              trigger: '.terminal', start: 'top 82%', once: true,
+              onEnter: () => gsap.to(lines, { opacity: 1, x: 0, duration: 0.4, stagger: 0.12, ease: 'power2.out' }),
+            })
+          }
         }
       }
-    }, root)
-
-    return () => ctx.revert()
-  }, [rootRef])
+    })
+  }, [rootRef, epoch])
 }
