@@ -140,8 +140,9 @@ export function Contact() {
           </div>
           <h2>Let’s build something that ships.</h2>
           <p className="section-sub">
-            Open to AI/ML, GenAI, Agentic AI, and Automation internships — backend or platform
-            heavy. Based in Hyderabad, happy to work remote.
+            Open to AI/ML, GenAI, agentic-AI, and automation internships — backend or
+            platform heavy. Send a repo, a JD, or a problem statement. Based in
+            Hyderabad, happy to work remote.
           </p>
           <p className="contact-note">
             <b>● Available now</b><span>·</span><span>Hyderabad / Remote</span><span>·</span>
@@ -168,7 +169,7 @@ export function Footer() {
       <div className="wrap footer-inner">
         <span><span className="foot-dot" aria-hidden="true" />maithresh.sh // Maithresh Vaddi — Hyderabad, Telangana</span>
         <span>
-          Designed &amp; engineered solo · © {new Date().getFullYear()}
+          Designed &amp; engineered solo · React 19 + Vite · © {new Date().getFullYear()}
         </span>
       </div>
     </footer>
