@@ -130,8 +130,8 @@ export default function Workbench({ onAnnounce }) {
           </div>
           <h2>Multi-System Architecture Workbench</h2>
           <p className="section-sub">
-            Interactive execution pipelines, live tool-dispatch simulations, and the
-            engineering trade-offs behind my core systems.
+            Pick a system, run its pipeline, then read the trade-off I’d defend
+            in an interview.
           </p>
         </div>
 
