@@ -60,10 +60,18 @@
 2. Real-device pass (iOS Safari / Android Chrome) + contrast-meter check of dimmest labels.
 3. Keep N+ counts honest as inventory grows; architecture specs stay exact.
 
-## Status
-- `verify` ✅ · `lint` ✅ · `build` ✅ (this round)
+## Status (2026-10-01, post-push verification)
+- `verify` ✅ · `lint` ✅ · `build` ✅ — root + `/maithresh.sh/` subpath, preview smoke 200
+- Snapshot: `fetchedAt 2026-10-01`, 369 days (gate needs ≥350 ✅)
+- Bundle: index ~298KB (~92KB gz) + motion vendor 131KB (~49KB gz);
+  async Workbench 15.7 / Projects 27.1 / ArcadeActors 6.0KB
+- Authors: you + github-actions[bot] only · tree clean · `main` in sync
 - Skills applied: apple-design, ui-ux-pro-max, git-commit, humanizer, frontend-design
-- Committed locally — NOT pushed (per request).
+
+## Phase 25 — Post-push verification stamp (2026-10-01) [x] DONE
+Rebased onto the bot's fresh snapshot, re-ran all gates, restamped status.
+No code changes needed — working tree was already clean; this entry exists
+so the audit never claims a state newer than its last proof.
 
 ## Phase 24 — Ultra-premium blend, dead-code sweep, audit trim (2026-10-01) [x] DONE
 Skills: frontend-design (restraint, one memorable thing) + apple-design
