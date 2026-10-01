@@ -85,7 +85,9 @@ function usePacman(frameRef, days, mode, setHit, setEatenApi, setCleared) {
     svg.append(...trail, g)
 
     const R = CELL * 0.72
-    const BASE_SPEED = CELL * 3.4   // viewBox units per second
+    // Unrushed patrol pace (~2.4 cells/s): the chomper reads as grazing the
+    // grid, not racing it — sprint legs still hurry across empty stretches.
+    const BASE_SPEED = CELL * 2.4   // viewBox units per second
     let px = bricks[tour[0]].x - CELL * 3, py = bricks[tour[0]].y
     let heading = 0
     let leg = 0, chomp = 0, dwellTimer = 0, clearTimer = 0
