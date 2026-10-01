@@ -47,13 +47,12 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://github-contributions-api.jogruber.de" crossorigin>
-<!-- No manual preload for the hero portrait: Vite content-hashes that asset
-     and emits its own modulepreload, so preloading the unhashed path here
+<!-- Type is self-hosted (src/fonts/, @font-face in styles.css): no third-party
+     font stylesheet, so first paint never blocks on fonts.googleapis.com.
+     No manual preload for the hero portrait either: Vite content-hashes that
+     asset and emits its own modulepreload, so preloading the unhashed path
      would just download the same 38 KB SVG twice. -->
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <!-- External stylesheet, linked rather than imported from JS: Vite hashes this
      into dist/assets/*.css and rewrites the href, and the browser gets the CSS
      in the initial HTML instead of waiting on the module graph. -->

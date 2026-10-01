@@ -4,6 +4,12 @@ import { CONSOLE_ITEMS, GITHUB } from '../data/content'
 export default function CommandConsole({ open, onOpen, onClose }) {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState(0)
+  // Closing plays the exit animation before unmounting the dialog: enter and
+  // exit travel the same path (apple-design §7 spatial consistency), with the
+  // exit slightly faster than the enter. App keeps `open` true throughout —
+  // the overlay stays mounted on `open || closing`.
+  const [closing, setClosing] = useState(false)
+  const closeTimer = useRef(0)
   const inputRef = useRef(null)
   const escRef = useRef(null)
   const triggerRef = useRef(null)
@@ -20,17 +26,29 @@ export default function CommandConsole({ open, onOpen, onClose }) {
 
   const openPalette = useCallback(() => {
     triggerRef.current = document.activeElement
+    // Reopening mid-exit cancels the pending close — never strand the dialog
+    // between states.
+    clearTimeout(closeTimer.current)
+    setClosing(false)
     onOpen()
   }, [onOpen])
 
   const closePalette = useCallback(() => {
-    onClose()
-    setQuery('')
-    // Return focus to whatever opened the dialog — keyboard users land back
-    // where they were instead of at the top of the document.
-    triggerRef.current?.focus?.()
-    triggerRef.current = null
-  }, [onClose])
+    if (closing) return
+    setClosing(true)
+    clearTimeout(closeTimer.current)
+    closeTimer.current = setTimeout(() => {
+      onClose()
+      setQuery('')
+      setClosing(false)
+      // Return focus to whatever opened the dialog — keyboard users land back
+      // where they were instead of at the top of the document.
+      triggerRef.current?.focus?.()
+      triggerRef.current = null
+    }, 180)
+  }, [onClose, closing])
+
+  useEffect(() => () => clearTimeout(closeTimer.current), [])
 
   // ⌘K / Ctrl-K toggles from anywhere, Escape closes.
   useEffect(() => {
@@ -95,8 +113,8 @@ export default function CommandConsole({ open, onOpen, onClose }) {
   return (
     <div
       id="cmd-console-modal"
-      className={`cmd-console-overlay${open ? ' active' : ''}`}
-      aria-hidden={!open}
+      className={`cmd-console-overlay${open && !closing ? ' active' : ''}${closing ? ' leaving' : ''}`}
+      aria-hidden={!open && !closing}
       role="dialog"
       aria-modal="true"
       aria-label="Command Console"
