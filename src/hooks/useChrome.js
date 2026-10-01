@@ -83,7 +83,7 @@ export function usePointerTelemetry() {
         last = now
         el.textContent = `PTR: [X: ${String(Math.round(e.clientX)).padStart(4, '0')}, Y: ${String(Math.round(e.clientY)).padStart(4, '0')}]`
       }
-      const shell = e.target.closest?.('.wb-shell')
+      const shell = e.target.closest?.('.wb-shell, .stack-card, .group-card, .cert-card')
       if (shell) {
         const r = shell.getBoundingClientRect()
         shell.style.setProperty('--mouse-x', `${Math.round(e.clientX - r.left)}px`)
