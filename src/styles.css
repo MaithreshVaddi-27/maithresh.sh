@@ -329,14 +329,14 @@
     background: linear-gradient(90deg, var(--accent), var(--accent-bright));
     transform: scaleX(0); transform-origin: left; transition: transform 0.3s var(--ease-out);
   }
-  .navlinks a:hover{ color: #fff; }
+  .navlinks a:hover{ color: var(--text); }
   .navlinks a:hover::after{ transform: scaleX(1); }
   /* Active section indicator — set by the IntersectionObserver in useScrollSpy
      (hooks/useChrome.js) as each section crosses the viewport's reading band.
      Reuses the hover underline/color rather than a second visual
      language, so "current section" and "about to hover" read as the
      same kind of state, just with different triggers. */
-  .navlinks a.active{ color: #fff; }
+  .navlinks a.active{ color: var(--text); }
   .navlinks a.active::after{ transform: scaleX(1); }
   .nav-cta-mobile{ display:none; }
 
@@ -609,7 +609,7 @@
   }
   .principles ul{ list-style: none; display: flex; flex-direction: column; gap: 12px; }
   .principles li{ display:flex; align-items:flex-start; gap:10px; font-size: 0.92rem; color: var(--text-mute); }
-  .principles li b{ color: #fff; font-weight: 600; }
+  .principles li b{ color: var(--text); font-weight: 600; }
   .principle-icon{ width:15px; height:15px; margin-top:3px; flex-shrink:0; color: var(--green); }
 
 
@@ -839,7 +839,7 @@
     letter-spacing: 0.02em; white-space: nowrap; cursor: pointer; user-select: none;
     transition: color .25s var(--ease-out), border-color .25s var(--ease-out), background .25s var(--ease-in-out), box-shadow .25s ease, transform .1s var(--ease-out);
   }
-  .proj-tab:hover{ color: #fff; border-color: var(--border-glass); background: var(--proj-soft); }
+  .proj-tab:hover{ color: var(--text); border-color: var(--border-glass); background: var(--proj-soft); }
   .proj-tab:active{ transform: scale(0.97); }
   .proj-tab-dot{
     width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
@@ -849,7 +849,7 @@
   .proj-tab[data-accent="cyan"] .proj-tab-dot{ background: #38bdf8; }
   .proj-tab[data-accent="green"] .proj-tab-dot{ background: #10b981; }
   .proj-tab[data-accent="amber"] .proj-tab-dot{ background: #f59e0b; }
-  .proj-tab.active{ color: #fff; background: var(--proj-faint); }
+  .proj-tab.active{ color: var(--text); background: var(--proj-faint); }
   .proj-tab.active[data-accent="cyan"]{ border-color: rgba(56,189,248,.5); box-shadow: 0 0 18px rgba(56,189,248,.15), inset 0 1px 0 rgba(255,255,255,.08); }
   .proj-tab.active[data-accent="green"]{ border-color: rgba(16,185,129,.5); box-shadow: 0 0 18px rgba(16,185,129,.15), inset 0 1px 0 rgba(255,255,255,.08); }
   .proj-tab.active[data-accent="amber"]{ border-color: rgba(245,158,11,.5); box-shadow: 0 0 18px rgba(245,158,11,.15), inset 0 1px 0 rgba(255,255,255,.08); }
@@ -885,13 +885,13 @@
     display: inline-flex; align-items: center; justify-content: center;
     transition: color .2s var(--ease-out), border-color .2s var(--ease-out), background .2s var(--ease-out), transform .1s var(--ease-out);
   }
-  .proj-panel-nav button:hover{ color: #fff; border-color: var(--border-glass); background: rgba(56,189,248,.06); }
+  .proj-panel-nav button:hover{ color: var(--text); border-color: var(--border-glass); background: rgba(56,189,248,.06); }
   .proj-panel-nav button:active{ transform: scale(0.97); }
   .proj-panel-title{
     margin: 20px 0 0;
     font-family: var(--font-display); font-weight: 700;
     font-size: clamp(1.3rem, 2.4vw, 1.8rem); letter-spacing: -0.02em;
-    color: #fff; text-wrap: balance;
+    color: var(--text); text-wrap: balance;
   }
   .proj-panel-grid{
     display: grid; grid-template-columns: 330px minmax(0, 1fr);
@@ -911,7 +911,7 @@
   .proj-actions{ margin-top: 18px; }
   .proj-panel .proj-desc{ color: rgba(248,250,252,0.92); }
   .proj-panel .proj-highlight{ margin-top: 16px; color: rgba(248,250,252,0.86); border-left-color: rgba(56,189,248,0.55); }
-  .proj-panel .proj-highlight b{ color: #fff; }
+  .proj-panel .proj-highlight b{ color: var(--text); }
   .proj-panel .proj-stack{ margin-top: 16px; }
   .proj-panel .proj-stack span{ background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
 
@@ -1023,6 +1023,18 @@
   }
   .group-card:hover::before{ opacity:1; }
   .group-card:hover{ border-color: var(--accent-dim); box-shadow: 0 20px 40px -20px rgba(56,189,248,0.18); }
+  /* Unified card spotlight — the same cursor-tracking radial the workbench
+     shell uses, extended to the card family so hover light speaks one
+     language everywhere. Coordinates arrive from the single pointer listener
+     (usePointerTelemetry); the 50% fallback centers it if hover precedes the
+     first tracked move. */
+  .stack-card:hover, .group-card:hover, .cert-card:hover{
+    background-image: radial-gradient(
+      420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(56,189,248,0.08),
+      transparent 65%
+    );
+  }
   .group-card .proj-tag{ color: var(--accent-bright); }
   .group-card p{ font-size:0.88rem; color: var(--text-mute); margin-bottom: 10px; }
   .group-card .scope{ font-size:0.85rem; color: var(--text); background: var(--surface-2); border-radius: var(--radius-sm); padding:10px 12px; margin-bottom:12px; }
@@ -1540,8 +1552,8 @@ section{ scroll-margin-top: 120px; }
 .auto-item, .more-item{
   transition: border-color .2s ease, background .2s ease, padding-left .25s var(--ease-out);
 }
-.chip:hover{ border-color: rgba(56,189,248,.5); color:#fff; transform: translateY(-1px); }
-.contact-links a:hover{ border-color: rgba(56,189,248,.55); color:#fff; box-shadow: 0 0 20px rgba(56,189,248,.15); transform: translateY(-1px); }
+.chip:hover{ border-color: rgba(56,189,248,.5); color:var(--text); transform: translateY(-1px); }
+.contact-links a:hover{ border-color: rgba(56,189,248,.55); color:var(--text); box-shadow: 0 0 20px rgba(56,189,248,.15); transform: translateY(-1px); }
 .auto-item:hover, .more-item:hover{ border-color: var(--glass-rim); }
 /* The title link is the real target on these rows — hover feedback belongs
    on it, not on the whole row. The negative bottom margin gives it the 24px
@@ -1549,7 +1561,7 @@ section{ scroll-margin-top: 120px; }
    link's own line box is only ~20px. */
 .auto-item h3 a{ transition: color .2s ease; display: inline-block; padding: 4px 6px; margin: -4px -6px; }
 .auto-item h3 a:hover{ color: var(--accent-bright); }
-.workbench-tab:hover{ color:#fff; }
+.workbench-tab:hover{ color:var(--text); }
 
 /* Touch targets ≥44px (Apple HIG) */
 .nav-toggle, .workbench-tab, .proj-tab, .more-toggle, .contact-links a{ min-height:44px; }
@@ -1724,7 +1736,7 @@ h1, h2, .hero-name{ text-wrap: balance; }
 /* Instrument readouts brighten on hover */
 .hero-stat{ transition: transform .25s var(--ease-out); }
 .hero-stat:hover{ transform: translateY(-2px); }
-.hero-stat:hover .hero-stat-n{ color: #fff; text-shadow: 0 0 16px rgba(56,189,248,.5); }
+.hero-stat:hover .hero-stat-n{ color: var(--text); text-shadow: 0 0 16px rgba(56,189,248,.5); }
 .hero-stat-n{ transition: color .25s ease, text-shadow .25s ease; }
 /* Section headlines get a soft accent underline that grows in */
 .section-head h2{
@@ -1790,6 +1802,15 @@ h1, h2, .hero-name{ text-wrap: balance; }
 .pipeline-node{ transition: filter .25s ease; }
 .pipeline-node:hover{ filter: brightness(1.35) drop-shadow(0 0 10px rgba(125,211,252,.35)); }
 
+/* 3b. Live-link flow — lit-but-unsettled connectors march dashes toward the
+   next stage while a sim runs, so data visibly moves instead of links just
+   changing color. Stops the moment the outcome settles (data arrived).
+   Motion-gated: under reduced-motion links stay solid. */
+@media (prefers-reduced-motion: no-preference){
+  .link-live{ stroke-dasharray: 6 6; animation: linkFlow 0.6s linear infinite; }
+}
+@keyframes linkFlow{ to{ stroke-dashoffset: -12; } }
+
 /* 4. Contact icon nudge */
 .contact-links a .contact-icon{ transition: transform .2s var(--ease-out); }
 .contact-links a:hover .contact-icon{ transform: translate(2px,-2px); }
@@ -1835,7 +1856,7 @@ h1, h2, .hero-name{ text-wrap: balance; }
 .navlinks a{
   border: 1px solid transparent; border-radius: 8px; padding: 6px 12px;
 }
-.navlinks a.active{ color: #fff; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.3); }
+.navlinks a.active{ color: var(--text); background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.3); }
 .navlinks a.active::after{ display: none; }
 
 /* 3. Scrollbar — thin, palette-seated, both engines */
@@ -2164,7 +2185,7 @@ footer::before{
 
 /* 6. Metric chips get the same hover language as stack chips */
 .proj-metric{ transition: transform .2s var(--ease-out), border-color .2s ease, color .2s ease; }
-.proj-metric:hover{ transform: translateY(-1px); border-color: rgba(56,189,248,.5); color: #fff; }
+.proj-metric:hover{ transform: translateY(-1px); border-color: rgba(56,189,248,.5); color: var(--text); }
 
 /* 7. Personalized instrument cursor — cyan dot + trailing reticle ring.
    Enabled only for fine pointers without reduced-motion (see

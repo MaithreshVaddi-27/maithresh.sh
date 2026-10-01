@@ -34,6 +34,7 @@ function Pipeline({ pane, sim }) {
               key={i}
               x1={l.x1} y1="90" x2={l.x2} y2="90"
               stroke={t.stroke} strokeWidth="2" markerEnd={`url(#${t.marker})`}
+              className={lit && !settled ? 'link-live' : undefined}
             />
           )
         })}

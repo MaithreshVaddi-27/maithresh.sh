@@ -32,7 +32,7 @@ const TrustRag = ({ p }) => (
     <text x="348" y="84" textAnchor="middle" className="pd-t pd-sub">3 verdicts</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#475569" strokeWidth="1.1" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#334155" strokeWidth="1.1" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">VERIFIED?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">threshold</text>
 
@@ -83,7 +83,7 @@ const DocuChat = ({ p }) => (
     <text x="348" y="84" textAnchor="middle" className="pd-t pd-sub">Composio</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#475569" strokeWidth="1.1" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#334155" strokeWidth="1.1" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">TOOL?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">policy</text>
 
@@ -135,7 +135,7 @@ const ResumeCrew = ({ p }) => (
     <text x="348" y="84" textAnchor="middle" className="pd-t pd-sub">verified spans</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#475569" strokeWidth="1.1" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#334155" strokeWidth="1.1" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">MATCH?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">criteria</text>
 
@@ -187,7 +187,7 @@ const CareerOS = ({ p }) => (
     <text x="348" y="86" textAnchor="middle" className="pd-t pd-tiny">Firecrawl</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#475569" strokeWidth="1.1" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#334155" strokeWidth="1.1" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">HEALTHY?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">/health</text>
 
@@ -245,7 +245,7 @@ const CareerMesh = ({ p }) => (
     <text x="348" y="84" textAnchor="middle" className="pd-t pd-sub">live data</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#475569" strokeWidth="1.1" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#334155" strokeWidth="1.1" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">GROUNDED?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">or general?</text>
 
