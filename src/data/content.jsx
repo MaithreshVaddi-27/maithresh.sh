@@ -215,13 +215,12 @@ export const SIM_LABELS = {
 export const GITHUB = 'https://github.com/MaithreshVaddi-27'
 
 // Diagrams live with the component that draws them (Projects.jsx); this is the
-// copy, the accent, and the row swatch that go with each.
+// copy and the accent that go with each.
 export const PROJECTS = [
   {
     title: 'TrustRAG — Local-First RAG Reliability Workbench',
     href: 'https://github.com/MaithreshVaddi-27/TrustRAG',
     accent: 'cyan',
-    swatch: 'swShield',
     tag: 'solo flagship · v0.1.0 MIT · verify-then-answer',
     desc: <>RAG that refuses to fail silently. Deterministic router (no LLM call) → hybrid retrieval — dense <code>BGE-small</code> via ONNX Runtime + BM25 with RRF fusion, optional <code>ms-marco-MiniLM-L-6-v2</code> int8 cross-encoder rerank → grounded generation with inline <code>[Segment N]</code> citations → atomic claim decomposition → NLI verdicts (SUPPORTED / CONTRADICTED / NEUTRAL) → SHA-256 + temporal-validity audit → budget-aware LangGraph recovery loop (rewrite → re-retrieve → regenerate, ≤2 attempts) → answer or explicit ABSTAIN. Inference on Ollama / llama.cpp / MLX, embedded Qdrant + local MongoDB, <code>models.yaml</code> v1.20 controls KV-cache quant, flash-attention, speculative decoding, and eviction tiers.</>,
     highlight: <>Hardened paths engineers care about: JWT HS256 with <code>iss/aud</code> + JTI denylist, bcrypt-12, MongoDB-TTL login lockout, SlowAPI limits, SSRF guard (DNS allowlist + IP pinning), JSON-RPC 2.0 MCP server, Prometheus <code>/metrics</code>, snapshot / rollback, A/B flags. Recovery <b>diagnoses why</b> verification failed before picking rewrite vs. wider retrieval vs. regenerate.</>,
@@ -232,7 +231,6 @@ export const PROJECTS = [
     title: 'Agentic DocuChat — Local LLM RAG + MCP Tools',
     href: 'https://github.com/MaithreshVaddi-27/MCP_Agentic_DocuChat',
     accent: 'green',
-    swatch: 'swDocChat',
     tag: 'solo · CLI + Gradio · local-first RAG',
     desc: <>Document QA with swappable inference: Gemini, Ollama (<code>gemma3:4b</code> default), llama.cpp (<code>Qwen3-4B-GGUF:Q4_0</code>) — each with readiness checks. Ingestion uses content-hash ChromaDB IDs so restarts skip re-embedding. Provider-agnostic tool routing: Gemini always takes the tool-calling agent path; local models use it only when <code>COMPOSIO_TOOLKITS</code> is configured, else a faster direct-grounded streaming path. Preserved CLI keeps LangGraph checkpointing plus <code>retrieve_multi</code> and <code>calculate</code> tools.</>,
     highlight: <>Reliability over novelty: single retrieval pass feeds both generation and the sources panel, embedding/chat/agent objects build once per config, same labelled context package (task / memory / conversation / docs) per provider, grounding check triggers a repair pass, response cache is size/age-bounded (7-day TTL, 2000 cap). I cut the earlier <b>multi-agent</b> variant back to one agent when the coordination cost stopped paying.</>,
@@ -243,7 +241,6 @@ export const PROJECTS = [
     title: 'Resume Crew — Deterministic + LLM Match Reports',
     href: 'https://github.com/MaithreshVaddi-27/Resume_Crew',
     accent: 'amber',
-    swatch: 'swResume',
     tag: 'solo · CrewAI · deterministic + LLM',
     desc: <>Resume ↔ JD matching as a CrewAI pipeline (parse → score → gap-analysis → tailored bullets → interview prep) emitting match score, resume profile, JD profile, skills gap, tailored bullets, and interview prep — exported as Markdown / PDF / Word. Deterministic keyword scoring grounds the LLM analysis; the Build-Resume workflow drafts strictly from source facts. Parses PDF, DOCX, TXT, Markdown across CLI + Gradio (Analyze, Build, Rank, Batch, Compare-JDs, History with score-trend chart, Hardware diagnostics).</>,
     highlight: <>Local-first via Ollama (CUDA / MPS / CPU auto-detect) with optional Gemini fallback, CrewAI tracing/telemetry <b>disabled by default</b>, ngrok sharing behind optional password. Pytest covers scoring, doc validation, report structure, and edge cases (CRLF, single-char tokens, timestamps).</>,
@@ -254,7 +251,6 @@ export const PROJECTS = [
     title: 'CareerOS-Pro — Deterministic Normalize, LLM Only for Explain',
     href: 'https://github.com/MaithreshVaddi-27/CareerOS-Pro',
     accent: 'green',
-    swatch: 'swBrief',
     tag: 'solo · 5 APIs + scraper · no LLM in parse',
     desc: <>Aggregation from JSearch, Adzuna, Remotive, RemoteOK, Arbeitnow + BeautifulSoup4 async career-page scraper (per-domain semaphores, backoff+jitter, in-memory HTML cache). Parsing is pure deterministic logic — location/remote, employment-type, experience-level, salary + FX — the LLM never overrides hard eligibility filters. Two-stage dedup (<code>url_hash</code> exact, then <code>content_hash</code> fallback), two-stage verification (HTTP HEAD → Firecrawl scrape). LangGraph match/explain with fallback order LlamaCpp → NVIDIA NIM → OpenRouter → Gemini.</>,
     highlight: <>Operability is the feature: every provider and source adapter is an independently-failing agent behind <code>GET /agents/health</code> (calls, failure rate, latency, healthy / degraded / down). Honest caveat — health + rate limiter are <b>per-process in-memory today</b>; Redis-backed multi-worker is the documented next step, not yet built. Tests use <code>respx</code> mocks, zero live network in CI.</>,
@@ -265,7 +261,6 @@ export const PROJECTS = [
     title: 'MCP Agents Suite — SkillMap & SalaryInsights',
     href: 'https://github.com/MaithreshVaddi-27/MCP_SkillMap_Agent',
     accent: 'cyan',
-    swatch: 'swMesh',
     tag: 'solo · Composio MCP · multi-turn',
     desc: <>SkillMap: Gemini reasoning over Tavily search via Composio MCP + custom <code>search_jobs</code> tool (RapidAPI JSearch), clean CLI errors, graceful Ctrl+C. SalaryInsights: Firecrawl scrape tools over Glassdoor / AmbitionBox / PayScale / Levels.fyi. Both use LangGraph checkpointing (<code>thread_id</code>) for multi-turn follow-ups. Reproducibility fix shipped: pinned <code>mcp==1.29.0</code> — <code>langchain-mcp-adapters==0.3.1</code> needs <code>mcp&gt;=1.24.0</code> unbounded, but <code>mcp&gt;=2.0.0</code> renamed <code>RequestContext → BaseContext</code> and broke imports.</>,
     highlight: <>Disclosed limitation, not hidden: the system prompt orders scrape-before-answer, but Gemini isn't <b>forced</b> to call tools — it can fall back to general knowledge. Memory is <code>InMemorySaver</code> (resets on restart). Next step is forced tool-call grounding.</>,
