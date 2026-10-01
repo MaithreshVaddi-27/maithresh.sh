@@ -5,8 +5,7 @@
 > **ui-ux-pro-max** (a11y-first, touch targets, responsive discipline).
 > Voice: hybrid — terminal eyebrows, human engineer-grade sentences.
 > Numbers policy: inventory counts always **N+** publicly; architecture
-> specs stay exact. Prior tracker (`PORTFOLIO_REVAMP_V3.md`) is history —
-> its stale status lines were corrected in this round (see Phase 1).
+> specs stay exact. Superseded trackers live in git history, not on disk.
 
 ## Status legend
 - [ ] TODO · [~] IN PROGRESS · [x] DONE
@@ -63,8 +62,27 @@
 
 ## Status
 - `verify` ✅ · `lint` ✅ · `build` ✅ (this round)
-- Skills applied: apple-design, ui-ux-pro-max, git-commit, humanizer
+- Skills applied: apple-design, ui-ux-pro-max, git-commit, humanizer, frontend-design
 - Committed locally — NOT pushed (per request).
+
+## Phase 24 — Ultra-premium blend, dead-code sweep, audit trim (2026-10-01) [x] DONE
+Skills: frontend-design (restraint, one memorable thing) + apple-design
+(motion answers action) + ui-ux-pro-max (palette discipline, gates).
+- **Palette blend:** decision diamonds onto the dim-hairline rule; all `#fff`
+  text onto `--text`. Masks, print inks, and the beam's white-hot core kept —
+  light and ink, not drift.
+- **Effects (two, both proven live with zero errors):** live-link dash flow on
+  unsettled sim connectors (solid on settle, motion-gated); one cursor
+  spotlight shared by shell + stack/group/cert cards via the existing listener.
+  Rejected: typing headline (layout shift), magnetic buttons (cursor fight),
+  canvas link-lines (phone GPU), cursor trails (noise).
+- **Dead code:** duplicate film-grain layer out (inline SVG filter in Hero +
+  its CSS — `body::after` is now the single source), orphaned `headlineDrift`
+  keyframes out, dead selectors (`.foot-note`, `.grad-text`, `.idef-hi`), 5
+  orphaned icons + 5 unread data fields, renumbered comment lists.
+- **Audits trimmed:** superseded `PORTFOLIO_REVAMP_V3.md` deleted (preserved in
+  git history); index + README pointers repointed.
+- **Checked:** `verify` ✅ · `lint` ✅ · `build` ✅.
 
 ## Phase 23 — Perf split, self-hosted type, Actions repair, arcade calm-down (2026-10-01) [x] DONE
 Skills: apple-design (§7 symmetric exit, press/material/type audit) +

@@ -374,20 +374,6 @@
   @media (max-width: 759px){
     .nav-toggle{ display:flex; }
   }
-  /* ── Tactile Matte Noise Overlay ─────────────────────────────
-     Ultra-fine SVG feTurbulence grain texture at 3.2% opacity.
-     Eradicates OLED gradient banding and provides a tactile,
-     aerospace machined-hardware surface finish. */
-  .noise-overlay {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.032;
-    mix-blend-mode: overlay;
-  }
 
   /* ── HERO ────────────────────────────────────────────── */
   .hero{
@@ -1866,10 +1852,7 @@ h1, h2, .hero-name{ text-wrap: balance; }
 ::-webkit-scrollbar-thumb:hover{ background: var(--accent-bright-dim); }
 html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 
-/* 4. Headline gradient drift — 9s ambient, frozen under reduced motion */
-@keyframes headlineDrift{ from{ background-position: 0% center; } to{ background-position: 100% center; } }
-
-/* 5. Group-card repo links — proper hover treatment with arrow nudge */
+/* 4. Group-card repo links — proper hover treatment with arrow nudge */
 .proj-link{
   font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim);
   display: inline-flex; align-items: center; gap: 4px;
@@ -1880,7 +1863,7 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 }
 .proj-link:hover{ color: var(--accent); gap: 8px; }
 
-/* 6. Footer — split status line with live dot */
+/* 5. Footer — split status line with live dot */
 .footer-inner{
   display: flex; justify-content: space-between; align-items: center;
   gap: 12px; flex-wrap: wrap;
