@@ -1682,8 +1682,11 @@ section{ scroll-margin-top: 120px; }
 .pipeline-card svg rect[fill="#0d1424"]{ fill: #0c101a; }
 .proj-diagram svg :is(line, path)[stroke="#334155"],
 .pipeline-card svg :is(line, path)[stroke="#334155"]{ stroke: rgba(148,163,184,.38); }
+/* Diagram microcopy renders solid #94a3b8 (7.5:1, AAA): the old .72-opacity
+   wash computed to ~4.2:1 — just under AA for small text. Hierarchy now comes
+   from size (10.5px tiny vs 15px labels), not faintness. */
 .proj-diagram svg .pd-tiny,
-.pipeline-card svg text[fill="#64748b"]{ fill: #94a3b8; opacity: .72; }
+.pipeline-card svg text[fill="#64748b"]{ fill: #94a3b8; opacity: 1; }
 .proj-diagram svg marker path[fill="#64748b"],
 .pipeline-card svg marker path[fill="#334155"]{ fill: rgba(148,163,184,.55); }
 
@@ -2202,7 +2205,7 @@ body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring{ opacity: 0 !imp
 .proj-diagram svg .pd-t{ font-family: 'JetBrains Mono', ui-monospace, monospace; }
 .proj-diagram svg .pd-label{ font-size: 15px; font-weight: 600; fill: #f8fafc; letter-spacing: .2px; }
 .proj-diagram svg .pd-sub{ font-size: 11.5px; fill: #94a3b8; }
-.proj-diagram svg .pd-tiny{ font-size: 10.5px; fill: #64748b; }
+.proj-diagram svg .pd-tiny{ font-size: 10.5px; fill: #94a3b8; }
 .pd-sm{ font-size: 13.5px; }
 .pd-bad{ fill: #ef4444; }
 .svg-defs{ position: absolute; width: 0; height: 0; overflow: hidden; }
