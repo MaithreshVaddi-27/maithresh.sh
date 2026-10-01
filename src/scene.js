@@ -23,6 +23,11 @@ export function startHeroScene(canvas) {
   if (!ctx) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Data-Saver degrade: metered connections get one static matrix frame —
+  // texture without the rAF loop. Same still-frame path as reduced motion.
+  const saveData = window.matchMedia('(prefers-reduced-data: reduce)').matches
+    || navigator.connection?.saveData === true;
+  const stillFrame = reduceMotion || saveData;
   let width = 0;
   let height = 0;
   let animId = null;
@@ -49,7 +54,11 @@ export function startHeroScene(canvas) {
   let dots = [];
 
   function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Narrow screens shade far fewer dots (SPACING 46) and cap DPR at 1.5 —
+    // a phone GPU compositing a full-viewport canvas at DPR 3 is pure cost
+    // for dots nobody can resolve.
+    const dprCap = window.innerWidth < 640 ? 1.5 : 2;
+    const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
     width = window.innerWidth;
     height = window.innerHeight;
     SPACING = width < 640 ? 46 : 28;
@@ -101,7 +110,7 @@ export function startHeroScene(canvas) {
   function render() {
 
     // Smooth mouse interpolation (spring feel)
-    if (!reduceMotion) {
+    if (!stillFrame) {
       mouse.x += (mouse.targetX - mouse.x) * 0.18;
       mouse.y += (mouse.targetY - mouse.y) * 0.18;
     } else {
@@ -190,15 +199,15 @@ export function startHeroScene(canvas) {
   const onResize = () => {
     resize();
     // Resizing clears the canvas — repaint the single static frame when
-    // the loop is intentionally off (reduced motion).
-    if (reduceMotion && !isRunning) render();
+    // the loop is intentionally off (reduced motion / Data Saver).
+    if (stillFrame && !isRunning) render();
   };
   window.addEventListener('resize', onResize);
 
   // Initialize
   resize();
-  if (reduceMotion) {
-    // Reduced motion: paint one static frame, never start the loop.
+  if (stillFrame) {
+    // Reduced motion / Data Saver: paint one static frame, never start the loop.
     // The matrix remains as texture; nothing moves, nothing costs CPU.
     render();
   } else {
@@ -214,7 +223,7 @@ export function startHeroScene(canvas) {
     if (hero) {
       heroObserver = new IntersectionObserver(
         ([entry]) => {
-          if (reduceMotion) return
+          if (stillFrame) return
           if (entry.isIntersecting) start()
           else stop()
         },
