@@ -109,10 +109,13 @@ export function useCountUp() {
           if (!entry.isIntersecting) return
           obs.unobserve(entry.target)
           const el = entry.target
-          const match = el.textContent.trim().match(/^(\d+)(.*)$/)
+          // Only pure numerals (optional single trailing '+') animate.
+          // Anything else ('5 + 1', '8-stage') would tween through nonsense
+          // intermediates ('0 + 1' … '3-stage'), so leave it static.
+          const match = el.textContent.trim().match(/^(\d+)(\+)?$/)
           if (!match) return
           const target = parseInt(match[1], 10)
-          const suffix = match[2]
+          const suffix = match[2] || ''
           const dur = 1100
           const t0 = performance.now()
           const step = (now) => {

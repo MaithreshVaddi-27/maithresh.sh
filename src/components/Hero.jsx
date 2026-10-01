@@ -7,9 +7,9 @@ import { startHeroScene } from '../scene'
 import portraitUrl from '../../assets/svg/maithresh-terminal-portrait.59fb7aed.svg?url'
 
 const STATS = [
-  ['8-stage', 'verify-then-answer RAG pipeline'],
-  ['5 + 1', 'job APIs + scraper, LLM-free parsing'],
+  ['11+', 'solo-built agent systems'],
   ['13+', 'automation workflows shipped'],
+  ['6', 'job sources, LLM-free parse'],
 ]
 
 export function Hero() {
