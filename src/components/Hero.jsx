@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import Icon from './Icon'
 import { MARQUEE } from '../data/content'
 import { startHeroScene } from '../scene'
+import { reduceMotion } from '../hooks/useMotion'
 // Imported, not hardcoded to '/assets/...': Vite then fingerprints it and rewrites
 // it against `base`, so the portrait resolves under a subpath deploy too.
 import portraitUrl from '../../assets/svg/maithresh-terminal-portrait.59fb7aed.svg?url'
@@ -117,13 +118,30 @@ const RETICLE_PATHS = {
 }
 
 export function Marquee() {
+  const trackRef = useRef(null)
+  // Park the loop off-screen: a 32s infinite translation is cheap on the
+  // compositor but never free, and the strip is visible for ~one viewport of
+  // the whole page. play-state preserves position, so resume is seamless.
+  // Reduced-motion already kills the animation in CSS; hover pauses it.
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track || reduceMotion) return
+    const bar = track.closest('.marquee')
+    if (!bar) return
+    const io = new IntersectionObserver(
+      ([entry]) => { track.style.animationPlayState = entry.isIntersecting ? '' : 'paused' },
+      { threshold: 0 }
+    )
+    io.observe(bar)
+    return () => io.disconnect()
+  }, [])
   // The track holds two identical runs and CSS translates it to exactly -50%,
   // so the loop is seamless without any JS. No wrapper element — the CSS
   // styles .marquee-track > span directly, so an extra node would shift the
   // padding and the loop math.
   return (
     <div className="marquee" aria-hidden="true">
-      <div className="marquee-track">
+      <div className="marquee-track" ref={trackRef}>
         {[0, 1].map((run) => MARQUEE.map((item) => <span key={`${run}-${item}`}>{item}</span>))}
       </div>
     </div>

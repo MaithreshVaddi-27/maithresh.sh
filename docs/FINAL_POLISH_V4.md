@@ -63,8 +63,38 @@
 
 ## Status
 - `verify` ✅ · `lint` ✅ · `build` ✅ (this round)
-- Skills applied: apple-design, ui-ux-pro-max
+- Skills applied: apple-design, ui-ux-pro-max, git-commit, humanizer
 - Committed locally — NOT pushed (per request).
+
+## Phase 23 — Perf split, self-hosted type, Actions repair, arcade calm-down (2026-10-01) [x] DONE
+Skills: apple-design (§7 symmetric exit, press/material/type audit) +
+ui-ux-pro-max (design-system search validated Dark-OLED + JetBrains Mono
+direction — no pivot; pre-delivery checklist drove fallback/CLS work).
+- **Senior-designer pass:** hero stats corrected to the reconciled 11+/13+
+  truth (count-up now animates pure numerals only — `5 + 1` used to tween
+  through `0 + 1`…); nested sticky dock fixed (header owns stickiness);
+  film grain off on phones; cursor restored on all text-entry elements;
+  Lenis skipped on coarse pointers; contact/footer copy tightened.
+- **Code-split:** `Workbench` + `Projects` lazy via Suspense (index
+  344→304KB); reveal scanner re-runnable + idempotent (`dataset.rv` marks,
+  once-only hero scrub) so late mounts animate without replay.
+- **Arcade split:** `usePacman`/`useBreakout` → `ArcadeActors.jsx` async chunk
+  (~6KB), shared math → `contribGeometry.js`; index → ~299KB. Snapshot-first
+  paint untouched; chunk never fetched under STILL.
+- **Breakout calmed:** beam 1.15 → 0.8 cells/s — drift, not chase.
+- **Marquee parks off-screen** via IntersectionObserver (play-state preserves
+  position; reduced-motion/hover behaviour unchanged).
+- **Self-hosted type:** JetBrains Mono + Inter latin woff2 (80KB, hashed,
+  immutable) — zero third-party requests on first paint, works offline.
+- **Console exit mirrors its enter** (0.18s vs 0.25s); mid-exit reopen cancels.
+- **Data-Saver degrade:** static canvas frame, snapshot-only graph, loops off;
+  canvas DPR capped 1.5 on phones. Custom cursor kept (fine-pointer only).
+- **Actions repair:** commit-back used `pull` on checkout@v4's detached HEAD
+  (refuses to run — Pages deploys were silently skipped). Now commit → fetch
+  → rebase → push `HEAD:main`, both workflows; timeouts added to deploy jobs.
+- **Humanize:** slop-word audit across `src/` clean; workbench lede rewritten
+  in human voice.
+- **Checked:** `verify` ✅ · `lint` ✅ · `build` ✅.
 
 ## Phase 22 — Full-width case-study panel + tab navbar (2026-09-30) [x] DONE
 Request: sub-top navbar for the section with the project explained across the
