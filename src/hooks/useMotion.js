@@ -15,12 +15,15 @@ export const reduceMotion =
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-// Lenis owns the scroll physics; GSAP's ticker drives its rAF loop so easing and
-// ScrollTrigger updates stay on one clock instead of fighting across two loops
-// (the standard darkroom.engineering/GSAP pairing).
+// Lenis owns the scroll physics on fine-pointer desktops; on touch the native
+// momentum scroll already wins and a second smoothing loop fights it (rubber-
+// band lag, scroll-hijack feel). GSAP's ticker drives its rAF loop so easing
+// and ScrollTrigger updates stay on one clock instead of fighting across two
+// loops (the standard darkroom.engineering/GSAP pairing).
 export function useSmoothScroll() {
   useEffect(() => {
     if (reduceMotion) return
+    if (window.matchMedia('(pointer: coarse)').matches) return
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
     lenis.on('scroll', ScrollTrigger.update)
     const raf = (time) => lenis.raf(time * 1000)
