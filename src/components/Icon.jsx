@@ -24,12 +24,6 @@ const P = {
   linkedin: <><circle cx="7" cy="7" r="2" /><path d="M7 11v9M13 20v-5.5a2.5 2.5 0 0 1 5 0V20M13 20v-9" /></>,
   github: <path d="m9 8-4 4 4 4M15 8l4 4-4 4" />,
   code: <path d="M9 5 4 12l5 7M13 4l-3 16" />,
-  // Per-project row swatches — a hand-drawn glyph each, not a bare color block.
-  swShield: <><path d="M12 3.5 5 6v5.2c0 4.4 2.9 7.6 7 9.3 4.1-1.7 7-4.9 7-9.3V6z" /><path d="M9 12.2l2.1 2.1L15.3 10" /></>,
-  swDocChat: <><path d="M8 3.5h6l3.5 3.5V17a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1z" /><path d="M9.5 10.5h5M9.5 13.5h3.2" /><path d="M14 3.5V7h3.5" /><circle cx="17.3" cy="18" r="3.3" fill="none" /><path d="M16 19.3l-.9 1.2.15-1.55" /></>,
-  swResume: <><rect x="4.5" y="3.5" width="10" height="15" rx="1" /><path d="M7 7.5h4.5M7 10.5h4.5M7 13.5h3" /><circle cx="17.3" cy="16.2" r="3.3" /><path d="M15.6 16.3l1.1 1.1 2-2.3" /></>,
-  swBrief: <><rect x="3.5" y="8" width="17" height="11" rx="1.4" /><path d="M8.5 8V6a1.5 1.5 0 0 1 1.5-1.5h4A1.5 1.5 0 0 1 15.5 6v2" /><circle cx="12" cy="13.3" r="1.3" fill="currentColor" stroke="none" /><path d="M12 14.6V17" /></>,
-  swMesh: <><circle cx="12" cy="5.5" r="2" /><circle cx="5.5" cy="17.5" r="2" /><circle cx="18.5" cy="17.5" r="2" /><path d="M10.6 7.1 7 15.8M13.4 7.1 17 15.8M7.7 17.5h8.6" /></>,
 }
 
 // Optical weight differs per use: section eyebrows are thin/1.8, card headers

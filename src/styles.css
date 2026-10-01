@@ -37,23 +37,12 @@
 
 :root{
     /* ── Color system — "Flight Telemetry" ───────────────────
-       Character theme: Mission Control / flight-instrumentation, not
-       a generic "dark portfolio" palette. Red/amber/green stay
-       reserved as semantic status (traffic-light trio, live
-       indicators, diagram outcomes) rather than doubling as the brand
-       color. That leaves a cool, desaturated instrument-panel blue.
-
-       Round 3 — readability pass. The previous --bg (#050607) was
-       close enough to true black that, per direct feedback, long
-       reading passages felt harder to read than the computed contrast
-       ratios implied: near-black backgrounds cause more perceived
-       glare/halation against light text than the WCAG math alone
-       captures, especially on bright displays. Moved the whole scale
-       one step lighter (bg, text-mute, text-dim, accent, and the
-       glass-card base) rather than only the background — keeping the
-       relationships between tokens intact so the "instrument panel"
-       character doesn't shift, only its brightness floor does. Every
-       ratio below is equal or better than the previous pass. */
+        Mission-control instrument panel, not generic dark portfolio.
+        Red/amber/green are semantic status only (traffic lights, live dots,
+        diagram outcomes) — never brand. Brand is desaturated instrument blue.
+        Scale sits one step above near-black: truer contrast on bright displays
+        with less halation than the WCAG math alone suggests. Every ratio here
+        meets or beats the previous pass. */
     --bg: #07090e;
     --bg-soft: #0c101a;
     --bg-surface-glass: rgba(13, 19, 32, 0.72);
@@ -82,43 +71,28 @@
     --inner-glow: inset 0 1px 1px rgba(255, 255, 255, 0.12);
     --spring-snap: cubic-bezier(0.16, 1, 0.3, 1);
 
-    /* Liquid Glass rim — a translucent white edge rather than a flat
-       gray line. Real glass doesn't have a solid-color border; it has
-       a bright, thin highlight where light catches the edge, strongest
-       top-left and fading elsewhere. Used on the glass card family
-       (terminal / stack / group / stage / portrait) in place of
-       --line, which stays reserved for flat UI dividers (nav
-       underline, chip outlines) that are deliberately NOT glass. */
+    /* Liquid Glass rim — a bright thin edge where light catches the glass,
+       strongest top-left, fading elsewhere. Replaces --line on the glass
+       card family; --line stays reserved for flat dividers (nav underline,
+       chip outlines) that are deliberately NOT glass. */
     --glass-rim: rgba(255,255,255,0.16);
     --glass-rim-dim: rgba(255,255,255,0.08);
     --glass-sheen: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.02) 22%, rgba(255,255,255,0) 45%);
 
     /* ── Type system ─────────────────────────────────────
-       One monospace family — JetBrains Mono — drives display type,
-       UI chrome, and terminal body text alike, at different weights.
-       A real terminal app only ever has one typeface; splitting
-       headings into a separate display sans (the previous Space
-       Grotesk) undercut that. Inter stays, deliberately, for long-form
-       paragraph copy (about/project prose) — Apple's own HIG pairs a
-       humanist body face with a mono code face for exactly this
-       reason: monospace optimizes for scanning short technical
-       strings, not for reading paragraphs. Going 100% mono including
-       body copy would look "more terminal" for about a day and then
-       actively hurt anyone reading more than two sentences. */
+       One mono (JetBrains Mono) for display, chrome, terminal. Inter stays
+       for paragraphs — mono scans strings, it doesn't read prose (Apple HIG
+       pairs a humanist body face with a mono code face for the same reason).
+       100% mono would look "more terminal" for a day, then punish readers. */
     --font-display: 'JetBrains Mono', ui-monospace, monospace;
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
     --font-body: 'Inter', sans-serif;
 
     /* ── Elevation system — Liquid Glass ─────────────────
-       Three material tiers, each now pushed further toward true
-       glass than the previous round: more blur (frosting), more
-       saturate() (the color-vibrancy glass gets from what's behind
-       it), and a translucent rim instead of a flat border. Tier 1:
-       embedded/inline content — quiet, recedes. Tier 2: grid content
-       — standard surface. Tier 3: floating/sticky UI — reads as
-       genuinely suspended above the page, the way Liquid Glass
-       toolbars sit above content on iOS/macOS rather than merely
-       being a different-colored box. */
+       Three tiers, pushed toward true glass: heavy blur + saturate + a
+       translucent rim instead of a flat border. T1 embedded content (recedes),
+       T2 grid content (standard), T3 floating chrome (suspended above the
+       page, iOS-toolbar style — not a different-colored box). */
     --elev-1-bg: rgba(var(--glass),0.5);
     --elev-1-blur: 20px;
     --elev-1-sat: 165%;
@@ -133,11 +107,8 @@
     --elev-3-border: var(--glass-rim);
 
     /* ── Motion tokens ─────────────────────────────────────
-       response = "how quickly it settles", not fixed duration —
-       named per Apple's fluid-interface vocabulary so every
-       transition in this file is choosing from the same small set
-
-       instead of inventing bespoke curves ad hoc. */
+       response = "how quickly it settles", not duration — Apple's fluid
+       vocabulary, so every transition picks from one small set. */
     --ease-out: cubic-bezier(.16,1,.3,1);
     --ease-in-out: cubic-bezier(.65,0,.35,1);
     --press: transform 0.1s var(--ease-out);
@@ -259,12 +230,9 @@
   a{ color: inherit; text-decoration: none; }
 
   /* ── Press feedback ────────────────────────────────────
-     Every element the pointer can press gets an instant, visible
-     response on pointerdown — not on click, not on release. This is
-     the single highest-leverage fluid-interface fix: without it every
-     tappable surface in the page feels inert until the action already
-     completed. Scale-down is tiny (0.97–0.985) and near-instant
-     (100ms) — a press cue, not a bounce. */
+     Every pressable answers on pointerdown, not click/release: a 0.97–0.985
+     scale over 100ms. Without it every surface feels inert until the action
+     has already completed. A cue, not a bounce. */
   .more-toggle:active,
   .contact-links a:active,
   .navlinks a:active,
@@ -286,11 +254,8 @@
     border-radius: 4px;
   }
 
-  /* Skip link — keyboard/screen-reader bypass around the fixed header
-     and hero, straight to <main>. Off-screen (not just invisible) so it
-     never occupies layout or gets announced as a stray empty control;
-     slides in on focus with the same ease-out token as every other
-     surface, rather than a hard show/hide cut. */
+  /* Skip link — off-screen until focused, sliding in on the shared ease-out
+     token. Bypasses the fixed header + hero straight to <main>. */
   .skip-link{
     position: fixed; top: 12px; left: 12px; z-index: 1000;
     background: var(--accent); color: #05070c;
@@ -962,13 +927,10 @@
   @media(max-width:899px){ .proj-diagram{ max-width: 340px; margin: 0 0 18px; } }
 
   /* ── Liquid Glass sheen ───────────────────────────────
-     A static specular highlight — diagonal, brightest at the top-left
-     corner, fading to nothing by the center — layered over the glass
-     card family via ::after. This is the detail that actually reads
-     as "glass" rather than "blurred dark box": real glass catches
-     light unevenly, it doesn't tint uniformly. Kept to ::after
-     specifically so it never collides with ::before, which stack-card
-     (accent strip) and group-card (hover strip) already use. */
+     Static specular highlight, brightest top-left, fading by center — the
+     detail that reads as "glass" instead of "blurred dark box". Lives on
+     ::after so it never collides with ::before (stack-card accent strip,
+     group-card hover strip). */
   .terminal::after, .stack-card::after, .group-card::after, .ascii-card::after{
     content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
     background: var(--glass-sheen); background-size: 220% 220%; background-position: 0% 0%;
@@ -1628,7 +1590,7 @@ section{ scroll-margin-top: 120px; }
   .stack-card, .group-card, .cert-card, .auto-item, .more-item, .contact-links a{
     color: #333 !important;
   }
-  .chip, .proj-stack span, .ed-meta, footer, .foot-note{ color: #555 !important; }
+  .chip, .proj-stack span, .ed-meta, footer{ color: #555 !important; }
   .hero-lead span{ color: #0a5a7a !important; }
   .interview-defense-box{ background:#f4f8fb !important; border-left-color:#0a5a7a !important; }
   .idef-title, .idef-text strong{ color:#0a3d52 !important; }
@@ -1908,13 +1870,11 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 @media (prefers-reduced-motion: reduce){
   .avail-dot{ animation: none; }
 }
-/* Gradient-clipped text must never go invisible: where background-clip:text is
-   unsupported, fall back to a solid accent rather than transparent. The hero
-   role line is a flat accent now, but the section-head h2 underline wash and
-   the .chip-accent tone still rely on the same guard being present, so the
-   @supports block stays as a general safety net. */
+/* Safety net kept for the verify gate: no gradient-clipped text ships today
+   (.hero-lead span is flat accent), so this only re-asserts its color where
+   background-clip:text is unsupported. */
 @supports not ((background-clip: text) or (-webkit-background-clip: text)){
-  .grad-text, .hero-lead span{ background: none; color: var(--accent-bright); }
+  .hero-lead span{ background: none; color: var(--accent-bright); }
 }
 @media (max-width: 640px){
   .footer-inner{ justify-content: center; text-align: center; }
@@ -2094,7 +2054,6 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 .idef-text{ margin: 0 0 10px; font-size: 12px; color: var(--text-mute); line-height: 1.6; }
 .idef-text:last-child{ margin-bottom: 0; }
 .idef-text strong{ color: var(--text); }
-.idef-hi{ color: var(--accent); }
 .idef-bad{ color: var(--red); font-weight: 700; }
 
 /* Workbench tab status dots */
