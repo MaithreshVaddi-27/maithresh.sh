@@ -37,9 +37,9 @@ jobs:
 
       - name: Commit when the snapshot changed
         run: |
-          # Rebase first: a push to main during this run would otherwise
-          # reject our push and drop the fresh snapshot until next week.
-          git pull --rebase origin main
+          # checkout@v4 leaves a detached HEAD, on which `git pull --rebase`
+          # refuses to run — commit where we are, rebase onto the fetched tip,
+          # push HEAD:main explicitly. See deploy-pages.yml for the full note.
           if git diff --quiet -- src/data/contributions.json; then
             echo "snapshot unchanged — nothing to commit"
             exit 0
@@ -48,4 +48,6 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/data/contributions.json
           git commit -m "chore: refresh contribution snapshot"
-          git push
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

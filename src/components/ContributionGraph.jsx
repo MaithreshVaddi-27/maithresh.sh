@@ -27,6 +27,13 @@ const MONTHS = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
 // many columns between labels so they can never collide.
 const MONTH_MIN_GAP = 3
 const API = 'https://github-contributions-api.jogruber.de/v4/MaithreshVaddi-27?y=last'
+// Data-Saver degrade: snapshot paints, live fetch and both game loops stay
+// off — no metered bytes, no rAF cost. Same still-heatmap path reduced motion
+// already takes.
+const SAVE_DATA = typeof window !== 'undefined'
+  && (window.matchMedia('(prefers-reduced-data: reduce)').matches
+    || navigator.connection?.saveData === true);
+const STILL = reduceMotion || SAVE_DATA;
 
 const MODES = [
   { id: 'pacman', label: 'ᗧ PAC-MAN' },
@@ -44,6 +51,7 @@ export default function ContributionGraph() {
   const [failed, setFailed] = useState(false)
 
   useEffect(() => {
+    if (SAVE_DATA) return
     const ctrl = new AbortController()
     const timer = setTimeout(() => ctrl.abort(), 6000)
     fetch(API, { signal: ctrl.signal })
@@ -210,7 +218,7 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
           · {live ? 'live' : `snapshot ${fetchedAt}`}, last 12 months
           {failed && !live ? ' · live feed unreachable' : ''}
         </span>
-        {!reduceMotion && <span> · EATEN {eatenSum}/{total}</span>}
+        {!STILL && <span> · EATEN {eatenSum}/{total}</span>}
         {cleared && <span> · COURSE CLEAR ↺ REPLAY</span>}
       </p>
       <div className="activity-stats">
@@ -233,7 +241,7 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
           </button>
         ))}
       </div>
-      <div ref={frameRef} className={`activity-graph-frame${reduceMotion ? '' : ' boot'}`}>
+      <div ref={frameRef} className={`activity-graph-frame${STILL ? '' : ' boot'}`}>
         <a href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="View full GitHub activity for MaithreshVaddi-27">
           <div role="img" aria-label={`Maithresh Vaddi's live GitHub activity: ${total} contributions across ${active.length} active days in the last 12 months, peak ${Math.max(0, ...counts)} in one day.`}>
             <svg viewBox={`0 0 ${width} ${height}`}>
@@ -366,7 +374,7 @@ function usePacman(frameRef, days, mode, setHit, setEatenApi, setCleared) {
 
   useEffect(() => {
     const frame = frameRef.current
-    if (mode !== 'pacman' || reduceMotion || !frame || days.length < 4) return
+    if (mode !== 'pacman' || STILL || !frame || days.length < 4) return
     const svg = frame.querySelector('svg')
     if (!svg) return
     const bricks = computeBricks(days)
@@ -534,7 +542,7 @@ function useBreakout(frameRef, days, mode, setHit) {
 
   useEffect(() => {
     const frame = frameRef.current
-    if (mode !== 'breakout' || reduceMotion || !frame || days.length < 4) return
+    if (mode !== 'breakout' || STILL || !frame || days.length < 4) return
     const svg = frame.querySelector('svg')
     if (!svg) return
     const bricks = computeBricks(days)
