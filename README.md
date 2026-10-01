@@ -16,8 +16,14 @@ from real, verified projects — no filler.
 - **React 19 + Vite 8**, plain JavaScript (no TypeScript)
 - CSS is **linked from `index.html`**, not imported from JS — the browser gets
   it in the initial HTML instead of waiting on the module graph
-- [GSAP](https://gsap.com/) + ScrollTrigger and [Lenis](https://lenis.darkroom.engineering/) — installed from npm, bundled into their own chunk, synced to a single rAF clock
-- Canvas 2D dot-matrix engine (`src/scene.js`) — proximity illumination, DPR-aware, pauses off-screen
+- Type is **self-hosted** (`src/fonts/`, latin-subset woff2 via `@font-face`) —
+  first paint makes zero third-party font requests and works fully offline
+- [GSAP](https://gsap.com/) + ScrollTrigger and [Lenis](https://lenis.darkroom.engineering/) — installed from npm, bundled into their own chunk, synced to a single rAF clock (Lenis skips touch pointers, where native momentum owns scroll)
+- Below-fold heavyweights split after first paint — `Workbench`,
+  `Projects`, and the graph's arcade loops (`ArcadeActors`) load as async
+  chunks behind `Suspense`; the reveal scanner is re-runnable and idempotent
+  so late mounts animate without replaying what's played
+- Canvas 2D dot-matrix engine (`src/scene.js`) — proximity illumination, DPR-aware (capped on phones), pauses off-screen; static frame under reduced-motion or Data Saver
 - Vite handles minification, content hashing and asset caching headers
 - `npm run build` runs the build **and** the verification gate, so a regression fails the build rather than shipping
 
@@ -36,17 +42,19 @@ npm run verify     # standalone build gate (also runs inside build)
 ## Project structure
 
 ```
-├── index.html                 # <head> only — meta, JSON-LD, fonts. Body is a React root.
+├── index.html                 # <head> only — meta, JSON-LD, no render-blocking font CSS (type is self-hosted)
 ├── vite.config.js             # base reads VITE_BASE so Cloudflare (/) and GH Pages (/maithresh.sh/) both work
 ├── _headers                   # immutable edge caching for hashed /assets/* (copied into dist/ by the build)
 ├── robots.txt / sitemap.xml   # copied into dist/ by the build
-├── .github/workflows/         # deploy-pages.yml — builds with VITE_BASE, uploads dist/
+├── .github/workflows/         # deploy-pages.yml (subpath build + snapshot commit-back) + refresh-contrib.yml (weekly backstop)
 ├── src/
 │   ├── main.jsx               # mount (no CSS import — see the <link>)
-│   ├── App.jsx                # page composition
-│   ├── styles.css             # design system — the single stylesheet
+│   ├── App.jsx                # page composition + lazy chunk wiring (Workbench, Projects)
+│   ├── styles.css             # design system — the single stylesheet (+ @font-face)
 │   ├── scene.js               # hero canvas engine (mount fn + teardown)
+│   ├── fonts/                 # self-hosted JetBrains Mono + Inter latin woff2 (Vite-hashed)
 │   ├── components/            # one component per section (+ ErrorBoundary.jsx, CommandConsole, Icon)
+│   │                          # ArcadeActors.jsx (async game loops) + contribGeometry.js (shared grid math)
 │   ├── data/                  # content.jsx, workbench.jsx, contributions.json snapshot
 │   └── hooks/                 # useMotion (reveals), useChrome (scroll/spy), useInstrumentCursor
 ├── tests/
@@ -72,14 +80,20 @@ Full policy: N+ for public inventory, exact architecture specs (tracker: `docs/F
   node/connector colour is *derived* from that state. Re-clicking clears the
   pending timeouts, which is the entire serialization story — a stale outcome
   can't land after a newer one.
-- **Projects** — the sticky stage renders the same detail component as the row,
-  with schematic marker ids namespaced per location. Rows keep the
-  visually-hidden wrapper so project descriptions stay in the accessibility tree
-  on desktop while still rendering inline under 900px.
+- **Projects** — tab navbar (one pill per system, roving tabindex) selecting a
+  full-width case-study panel: schematic beside prose on desktop, stacked on
+  mobile. Tabs preview in place; the repository exit lives explicitly as a CTA
+  in the panel body. Panel crossfades on swap; schematic connectors draw
+  themselves in on selection.
 - **⌘K console** — React state plus `inert` on the page landmarks, so the dialog
   is genuinely modal for screen readers rather than only keyboard-trapped.
+  Enter and exit travel the same path (exit slightly faster); reopening
+  mid-exit cancels cleanly.
 - **Contribution graph** — third-party API data renders as JSX, so it becomes
-  text nodes. No `innerHTML`, no escaping helper.
+  text nodes. No `innerHTML`, no escaping helper. Snapshot paints first; the
+  live feed only upgrades it (6s abort, Data-Saver skip). Pac-Man + Breakout
+  loops live in an async chunk and park off-screen, on tab-hide, and under
+  reduced-motion.
 
 ## Responsive behaviour
 
@@ -104,7 +118,9 @@ at any width. Two cases needed explicit handling, and both are now asserted in
   (`inert` on the background landmarks, focus trapped and restored), the
   workbench tablist is a proper roving-tabindex tablist, and project
   descriptions stay in the accessibility tree on desktop.
-- Verified on the production build: **CLS 0**, FCP ~230ms, ~93 KB gzipped JS.
+- Verified on the production build: **CLS 0**, initial JS ~300KB (~95KB gz
+  + ~49KB motion vendor, async chunks after paint), self-hosted type,
+  zero third-party requests on first paint.
 
 ## Design language
 
