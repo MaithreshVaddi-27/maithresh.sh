@@ -348,10 +348,10 @@
       position: absolute; top: 100%; left:0; right:0; z-index: 99;
       flex-direction: column; gap: 0; list-style:none;
       background: rgba(5,6,7,0.97); border-bottom: 1px solid var(--line);
-      max-height: 0; overflow: hidden; opacity: 0;
-      transition: max-height 0.35s ease, opacity 0.25s ease;
+      max-height: 0; overflow: hidden; opacity: 0; visibility: hidden;
+      transition: max-height 0.35s ease, opacity 0.25s ease, visibility 0s linear 0.35s;
     }
-    .navlinks.open{ max-height: 360px; opacity: 1; }
+    .navlinks.open{ max-height: 360px; opacity: 1; visibility: visible; transition-delay: 0s; }
     .navlinks li{ border-top: 1px solid var(--line); }
     .navlinks a{ display:block; padding: 16px 28px; font-size: 14px; }
     .nav-cta-mobile{ display:block; }
@@ -2227,9 +2227,9 @@ body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring{ opacity: 0 !imp
 /* The About headline is a full sentence, not a label — it needs a wider
    measure and a smaller size than the section headlines, or it sets as a
    5-line mono block. */
-.about-lede{
-  font-size: clamp(1.5rem, 2.9vw, 2.05rem) !important;
-  line-height: 1.2 !important; max-width: 30ch !important;
+.about-text h2.about-lede{
+  font-size: clamp(1.5rem, 2.9vw, 2.05rem);
+  line-height: 1.2; max-width: 30ch;
 }
 .t-line--spaced{ margin-top: 14px; }
 

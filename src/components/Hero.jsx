@@ -20,7 +20,7 @@ export function Hero() {
   return (
     <section className="hero">
       <canvas id="hero-canvas" ref={canvasRef} aria-hidden="true" />
-      <div className="hero-fade" />
+      <div className="hero-fade" aria-hidden="true" />
       <div className="hero-inner">
         <div className="hero-grid">
           <div className="hero-portrait reveal">
@@ -32,7 +32,7 @@ export function Hero() {
                   </svg>
                 </span>
               ))}
-              <div className="hud-meta">
+              <div className="hud-meta" aria-hidden="true">
                 <span>PROFILE // MAITHRESH_VADDI</span>
                 <span className="hud-ok">SYNCED ●</span>
               </div>
@@ -99,7 +99,7 @@ export function Hero() {
           </div>
         </div>
       </div>
-      <div className="scroll-hint"><span>scroll</span><span className="line" /></div>
+      <div className="scroll-hint" aria-hidden="true"><span>scroll</span><span className="line" /></div>
     </section>
   )
 }
