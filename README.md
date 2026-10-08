@@ -117,8 +117,13 @@ at any width. Two cases needed explicit handling, and both are now asserted in
   page — the nav, telemetry bar and footer stay live so a visitor can leave.
 - axe-core reports **0 violations**; the command console is a real modal
   (`inert` on the background landmarks, focus trapped and restored), the
-  workbench tablist is a proper roving-tabindex tablist, and project
-  descriptions stay in the accessibility tree on desktop.
+  workbench tablist is a proper roving-tabindex tablist, project
+  descriptions stay in the accessibility tree on desktop, and all
+  decorative elements (vignette overlay, HUD chrome, scroll indicator)
+  are marked `aria-hidden` so screen readers get only meaningful content.
+- Mobile nav links are removed from the tab order when the menu is closed
+  (`visibility:hidden` + `transition-delay` on the closed state — a real
+  WCAG 2.1 §2.1.1 fix so focus can't land on invisible links).
 - Verified on the production build: **CLS 0**, initial JS ~300KB (~95KB gz
   + ~49KB motion vendor, async chunks after paint), self-hosted type,
   zero third-party requests on first paint.
