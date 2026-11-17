@@ -13,6 +13,7 @@ export default function CommandConsole({ open, onOpen, onClose }) {
   const inputRef = useRef(null)
   const escRef = useRef(null)
   const triggerRef = useRef(null)
+  const listRef = useRef(null)
 
   const items = useMemo(
     () =>
@@ -23,6 +24,14 @@ export default function CommandConsole({ open, onOpen, onClose }) {
       ),
     [query]
   )
+
+  // Auto-scroll selected item into view during keyboard navigation.
+  useEffect(() => {
+    const el = listRef.current?.querySelector?.('.cmd-console-item.selected')
+    if (el) {
+      el.scrollIntoView({ block: 'nearest' })
+    }
+  }, [selected])
 
   const openPalette = useCallback(() => {
     triggerRef.current = document.activeElement
@@ -86,7 +95,7 @@ export default function CommandConsole({ open, onOpen, onClose }) {
       closePalette()
       document.getElementById(item.target)?.scrollIntoView({ behavior: 'smooth' })
     } else if (item.action === 'github') {
-      window.open(GITHUB, '_blank', 'noopener')
+      window.open(GITHUB, '_blank', 'noopener,noreferrer')
       closePalette()
     }
   }
@@ -131,16 +140,24 @@ export default function CommandConsole({ open, onOpen, onClose }) {
             autoComplete="off"
             spellCheck="false"
             aria-label="Command console input"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded={items.length > 0}
+            aria-controls="cmd-console-list"
+            aria-activedescendant={items[selected] ? `cmd-opt-${selected}` : undefined}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <button ref={escRef} type="button" className="tbtn" onClick={closePalette} aria-label="Close Console">ESC</button>
         </div>
-        <ul className="cmd-console-list">
+        <ul id="cmd-console-list" ref={listRef} className="cmd-console-list" role="listbox" aria-label="Commands and sections">
           {!items.length && <li className="cmd-console-empty">no command matches &ldquo;{query}&rdquo;</li>}
           {items.map((item, i) => (
             <li
+              id={`cmd-opt-${i}`}
               key={item.tag}
+              role="option"
+              aria-selected={i === selected}
               className={`cmd-console-item${i === selected ? ' selected' : ''}`}
               onClick={() => run(item)}
             >

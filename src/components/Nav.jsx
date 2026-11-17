@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NAV_LINKS } from '../data/content'
 import { useScrollSpy } from '../hooks/useChrome'
 
@@ -8,6 +8,16 @@ export default function Nav({ onOpenConsole, scrolled }) {
   const [open, setOpen] = useState(false)
   const active = useScrollSpy(SECTIONS)
   const close = () => setOpen(false)
+
+  // Escape key closes mobile navigation drawer
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
 
   return (
     <header className={scrolled ? 'is-scrolled' : ''}>
@@ -34,7 +44,8 @@ export default function Nav({ onOpenConsole, scrolled }) {
             type="button"
             className="btn-nested btn-nested-secondary btn-nested--sm"
             onClick={onOpenConsole}
-            aria-label="Open Command Console"
+            aria-label="Open Command Console (⌘K)"
+            aria-keyshortcuts="Control+K Meta+K"
           >
             <span>⌘K</span>
           </button>

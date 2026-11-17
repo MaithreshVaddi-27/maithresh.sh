@@ -1,0 +1,69 @@
+/**
+ * maithresh.sh — Cyber-Terminal Liquid Glass Design System Tokens
+ * Version: 2.0.0
+ * Architecture: Dark-substrate, Translucent Liquid Glass, Apple Fluid Dynamics
+ */
+
+:root {
+  /* ── Canvas substrate & surface tints ──────────────── */
+  --bg: #07090e;
+  --bg-surface: #0d1117;
+  --bg-surface-subtle: #111620;
+  --bg-surface-hover: #161c27;
+  --line: #1e293b;
+  --line-bold: #334155;
+  --border-subtle: #1e293b;
+
+  /* ── Text hierarchy ─────────────────────────────────── */
+  --text: #f8fafc;
+  --text-mute: #94a3b8;
+  --text-dim: #64748b;
+  --text-faint: #475569;
+
+  /* ── Flight telemetry & status accents ──────────────── */
+  --accent: #38bdf8;
+  --accent-cyan: #38bdf8;
+  --accent-bright: #7dd3fc;
+  --accent-bright-dim: rgba(125, 211, 252, 0.15);
+  --green: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+
+  /* ── Liquid Glass material primitives ───────────────── */
+  --glass: 13, 17, 23;
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-rim: rgba(255, 255, 255, 0.12);
+  --glass-rim-dim: rgba(255, 255, 255, 0.05);
+  --glass-sheen: linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 22%, rgba(255, 255, 255, 0) 45%);
+
+  /* ── Elevation tiers ────────────────────────────────── */
+  --elev-1-bg: rgba(var(--glass), 0.50);
+  --elev-1-blur: 20px;
+  --elev-1-sat: 165%;
+  --elev-1-border: var(--glass-rim-dim);
+
+  --elev-2-bg: rgba(var(--glass), 0.62);
+  --elev-2-blur: 28px;
+  --elev-2-sat: 180%;
+  --elev-2-border: var(--glass-rim-dim);
+
+  --elev-3-bg: rgba(var(--glass), 0.70);
+  --elev-3-blur: 40px;
+  --elev-3-sat: 200%;
+  --elev-3-border: var(--glass-rim);
+
+  /* ── Typography stack ───────────────────────────────── */
+  --font-display: 'JetBrains Mono', ui-monospace, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-body: 'Inter', sans-serif;
+
+  /* ── Apple-fluid motion primitives ─────────────────── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --press: transform 0.1s var(--ease-out);
+
+  /* ── Geometry & radius ──────────────────────────────── */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+}
