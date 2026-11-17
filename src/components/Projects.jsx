@@ -368,7 +368,7 @@ export default function Projects({ projects }) {
     const svg = panelRef.current?.querySelector('.proj-diagram svg')
     if (!svg || reduceMotion || svg.getClientRects().length === 0) return
     const connectors = Array.from(svg.querySelectorAll('line, path')).filter(
-      (el) => typeof el.getTotalLength === 'function'
+      (el) => typeof el.getTotalLength === 'function' && !el.closest('defs')
     )
     if (!connectors.length) return
     connectors.forEach((el) => {

@@ -880,13 +880,13 @@
     color: var(--text); text-wrap: balance;
   }
   .proj-panel-grid{
-    display: grid; grid-template-columns: 330px minmax(0, 1fr);
-    gap: 30px; margin-top: 22px; align-items: start;
+    display: grid; grid-template-columns: minmax(360px, 480px) minmax(0, 1fr);
+    gap: 32px; margin-top: 22px; align-items: start;
   }
   @media(max-width:899px){
     .proj-panel{ padding: 22px 20px 24px; }
     .proj-panel-grid{ grid-template-columns: minmax(0, 1fr); gap: 20px; }
-    .proj-panel-grid .proj-diagram{ max-width: 340px; margin: 0; }
+    .proj-panel-grid .proj-diagram{ max-width: 480px; margin: 0 auto 18px; }
   }
   .proj-panel-inner{
     opacity: 1; transform: translateY(0) scale(1); filter: blur(0px);
@@ -907,10 +907,10 @@
      inset, not a full-bleed illustration. Labels are short by design; the
      prose beside the diagram carries the full detail. */
   .proj-diagram{
-    max-width: 300px; margin: 0 auto 18px; opacity: 0.96;
+    max-width: 480px; width: 100%; margin: 0 0 18px; opacity: 0.98;
   }
   .proj-diagram svg{ display:block; width:100%; height:auto; }
-  @media(max-width:899px){ .proj-diagram{ max-width: 340px; margin: 0 0 18px; } }
+  @media(max-width:899px){ .proj-diagram{ max-width: 480px; margin: 0 auto 18px; } }
 
   /* ── Liquid Glass sheen ───────────────────────────────
      Static specular highlight, brightest top-left, fading by center — the
@@ -2205,8 +2205,43 @@ body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring{ opacity: 0 !imp
 }
 
 /* SVG diagram microcopy + transitions (replaces SVG-internal styles) */
-.pipeline-card line{ transition: stroke .4s ease; }
-.pipeline-card rect{ transition: all .4s ease; }
+.pipeline-card line{ transition: stroke .3s var(--ease-out); }
+.pipeline-card rect{ transition: fill .3s var(--ease-out), stroke .3s var(--ease-out), filter .3s var(--ease-out); }
+.pipeline-node.is-active rect{
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, .35));
+  stroke-width: 2px;
+}
+.pipeline-node--outcome{
+  animation: outcomeNodeIn .38s var(--ease-out);
+}
+@keyframes outcomeNodeIn{
+  0%{ opacity: 0; filter: brightness(1.6) drop-shadow(0 0 14px rgba(56, 189, 248, .45)); }
+  100%{ opacity: 1; filter: drop-shadow(0 0 0px transparent); }
+}
+.btn-nested.is-simulating{
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(56, 189, 248, .25), inset 0 1px 0 rgba(255, 255, 255, .1);
+}
+.btn-nested.is-simulating .btn-nested-badge{
+  color: var(--accent);
+  animation: pulseSimBadge .75s ease-in-out infinite alternate;
+}
+@keyframes pulseSimBadge{
+  from{ opacity: .4; transform: scale(.85); }
+  to{ opacity: 1; transform: scale(1.15); }
+}
+.proj-diagram svg rect,
+.proj-diagram svg polygon{
+  transition: stroke .25s var(--ease-out), fill .25s var(--ease-out), filter .25s var(--ease-out);
+}
+.proj-diagram svg rect:hover,
+.proj-diagram svg polygon:hover{
+  cursor: crosshair;
+  filter: brightness(1.18) drop-shadow(0 0 8px var(--proj-soft));
+}
+#telemetry-ptr, .proj-panel-count, .proj-metrics b, .stat-num, .activity-total{
+  font-variant-numeric: tabular-nums;
+}
 .proj-diagram svg .pd-t{ font-family: 'JetBrains Mono', ui-monospace, monospace; }
 .proj-diagram svg .pd-label{ font-size: 15px; font-weight: 600; fill: #f8fafc; letter-spacing: .2px; }
 .proj-diagram svg .pd-sub{ font-size: 11.5px; fill: #94a3b8; }

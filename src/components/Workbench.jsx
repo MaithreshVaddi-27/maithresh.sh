@@ -40,8 +40,9 @@ function Pipeline({ pane, sim }) {
         })}
         {pane.nodes.map((n, i) => {
           const t = tone(i)
+          const isCurrent = !settled && i === step
           return (
-            <g key={n.title} className="pipeline-node" transform={`translate(${NODES[i].x}, 30)`}>
+            <g key={n.title} className={`pipeline-node${isCurrent ? ' is-active' : ''}`} transform={`translate(${NODES[i].x}, 30)`}>
               <rect width={NODES[i].w} height="120" rx="12" fill={t.fill} stroke={t.stroke} strokeWidth="1.5" />
               <text x={NODES[i].tx} y="32" fontSize="10" fill={t.stroke} fontWeight="700">{n.stage}</text>
               <text x={NODES[i].tx} y="58" fontSize="13" fill="#f8fafc" fontWeight="600">{n.title}</text>
@@ -57,7 +58,7 @@ function Pipeline({ pane, sim }) {
             never rendered once. Kept as its own node so the settled result of
             a simulation is actually visible. */}
         {settled && (
-          <g className="pipeline-node" transform={`translate(${NODES[OUTCOME_STEP].x}, 30)`}>
+          <g className="pipeline-node pipeline-node--outcome" transform={`translate(${NODES[OUTCOME_STEP].x}, 30)`}>
             <rect
               width={NODES[OUTCOME_STEP].w} height="120" rx="12"
               fill={outcome.fill} stroke={outcome.stroke} strokeWidth="1.5"
@@ -184,17 +185,20 @@ export default function Workbench({ onAnnounce }) {
                     <span className="pane-sub">{pane.sub}</span>
                   </div>
                   <div className="sim-controls">
-                    {pane.sims.map(([mode, label, badge]) => (
-                      <button
-                        key={mode}
-                        type="button"
-                        className="btn-nested btn-nested-secondary btn-nested--sm"
-                        onClick={() => onSim(pane, mode)}
-                      >
-                        <span>{label}</span>
-                        <span className="btn-nested-badge">{badge}</span>
-                      </button>
-                    ))}
+                    {pane.sims.map(([mode, label, badge]) => {
+                      const running = sims[pane.id]?.step < OUTCOME_STEP && sims[pane.id]?.mode === mode
+                      return (
+                        <button
+                          key={mode}
+                          type="button"
+                          className={`btn-nested btn-nested-secondary btn-nested--sm${running ? ' is-simulating' : ''}`}
+                          onClick={() => onSim(pane, mode)}
+                        >
+                          <span>{label}</span>
+                          <span className="btn-nested-badge">{running ? '●' : badge}</span>
+                        </button>
+                      )
+                    })}
                   </div>
                 </div>
 
