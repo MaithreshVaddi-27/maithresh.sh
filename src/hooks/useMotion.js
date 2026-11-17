@@ -144,6 +144,10 @@ export function useReveals(rootRef, epoch = 0) {
           }
         }
       }
+      // Recalculate ScrollTrigger positions when lazy chunks mount and alter page height.
+      if (epoch > 0) {
+        ScrollTrigger.refresh()
+      }
     })
   }, [rootRef, epoch])
 }
