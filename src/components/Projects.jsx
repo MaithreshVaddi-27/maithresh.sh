@@ -481,8 +481,21 @@ function MoreProjects({ open, onToggle }) {
       <div className={`more-body${open ? ' open' : ''}`} id="moreBody">
         {items.map((item) => (
           <div className="more-item" key={item.title}>
-            <span className="proj-tag">{item.tag}</span>
-            <h3>{item.title}</h3>
+            <div className="proj-top">
+              <span className="proj-tag">{item.tag}</span>
+              {item.href && (
+                <a className="proj-link" href={item.href} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              )}
+            </div>
+            <h3 className="proj-title proj-title--sm">
+              {item.href ? (
+                <a href={item.href} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {item.title}
+                </a>
+              ) : (
+                item.title
+              )}
+            </h3>
             <p>{item.body}</p>
             <Stack items={item.stack} />
           </div>
