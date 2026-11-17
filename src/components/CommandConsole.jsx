@@ -47,13 +47,13 @@ export default function CommandConsole({ open, onOpen, onClose }) {
     setClosing(true)
     clearTimeout(closeTimer.current)
     closeTimer.current = setTimeout(() => {
+      // Return focus to whatever opened the dialog before closing state transitions
+      // so keyboard users land back where they were and no descendant retains focus.
+      triggerRef.current?.focus?.()
+      triggerRef.current = null
       onClose()
       setQuery('')
       setClosing(false)
-      // Return focus to whatever opened the dialog — keyboard users land back
-      // where they were instead of at the top of the document.
-      triggerRef.current?.focus?.()
-      triggerRef.current = null
     }, 180)
   }, [onClose, closing])
 
@@ -123,7 +123,6 @@ export default function CommandConsole({ open, onOpen, onClose }) {
     <div
       id="cmd-console-modal"
       className={`cmd-console-overlay${open && !closing ? ' active' : ''}${closing ? ' leaving' : ''}`}
-      aria-hidden={!open && !closing}
       role="dialog"
       aria-modal="true"
       aria-label="Command Console"
@@ -134,6 +133,8 @@ export default function CommandConsole({ open, onOpen, onClose }) {
           <span className="cmd-prompt">&gt;</span>
           <input
             ref={inputRef}
+            id="cmd-console-query"
+            name="cmd-console-query"
             type="text"
             className="cmd-console-input"
             placeholder="Type a command or jump to section (e.g., 'trustrag', 'docuchat', 'workbench')..."
