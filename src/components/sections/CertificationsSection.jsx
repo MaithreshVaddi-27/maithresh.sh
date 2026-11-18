@@ -1,22 +1,6 @@
 import Icon from '../Icon'
+import { TechStack as Stack, TerminalHeader as THead } from '../Common'
 import { CERTS } from '../../data/content'
-
-const Stack = ({ items }) => (
-  <div className="proj-stack">
-    {items.map((t) => (
-      <span key={t}>{t}</span>
-    ))}
-  </div>
-)
-
-const THead = ({ file }) => (
-  <div className="t-head-mini">
-    <span />
-    <span />
-    <span />
-    <em>{file}</em>
-  </div>
-)
 
 export default function CertificationsSection() {
   return (

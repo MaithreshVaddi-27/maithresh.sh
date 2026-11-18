@@ -1,13 +1,6 @@
 import Icon from '../Icon'
+import { TechStack as Stack } from '../Common'
 import { AUTOMATIONS } from '../../data/content'
-
-const Stack = ({ items }) => (
-  <div className="proj-stack">
-    {items.map((t) => (
-      <span key={t}>{t}</span>
-    ))}
-  </div>
-)
 
 export default function AutomationSection() {
   return (

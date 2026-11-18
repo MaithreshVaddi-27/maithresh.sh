@@ -47,7 +47,7 @@ function Pipeline({ pane, sim }) {
           return (
             <g key={n.title} className={`pipeline-node${isCurrent ? ' is-active' : ''}`} transform={`translate(${NODES[i].x}, 30)`}>
               <rect width={NODES[i].w} height="120" rx="12" fill={t.fill} stroke={t.stroke} strokeWidth="1.5" />
-              <text x={NODES[i].tx} y="28" fontSize="9.5" fill={t.stroke} fontWeight="700">{n.stage}</text>
+              <text x={NODES[i].tx} y="28" fontSize="9.5" fill={i <= step ? t.stroke : '#64748b'} fontWeight="700">{n.stage}</text>
               {titleLines.length === 2 ? (
                 <>
                   <text x={NODES[i].tx} y="48" fontSize="12" fill="#f8fafc" fontWeight="600">{titleLines[0]}</text>
@@ -237,7 +237,7 @@ function SvgMarkers() {
   return (
     <svg className="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
       <defs>
-        <Marker id="arrow" fill="#334155" />
+        <Marker id="arrow" fill="#475569" />
         <Marker id="arrowActive" fill="#38bdf8" />
         <Marker id="arrowSuccess" fill="#10b981" />
         <Marker id="arrowWarn" fill="#f59e0b" />

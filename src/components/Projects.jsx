@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Icon from './Icon'
+import { TechStack as Stack } from './Common'
 import { MORE_PROJECTS } from '../data/content'
 import { reduceMotion } from '../hooks/useMotion'
 
@@ -20,7 +21,7 @@ const TrustRag = ({ p }) => (
     <text x="128" y="84" textAnchor="middle" className="pd-t pd-sub">BGE · BM25</text>
     <line x1="178" y1="60" x2="188" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <rect x="188" y="24" width="100" height="72" rx="10" fill="none" stroke="#334155" />
+    <rect x="188" y="24" width="100" height="72" rx="10" fill="rgba(15,23,42,0.6)" stroke="#334155" strokeWidth="1.1" />
     <text x="238" y="48" textAnchor="middle" className="pd-t pd-label">GROUNDED</text>
     <text x="238" y="66" textAnchor="middle" className="pd-t pd-label">GEN</text>
     <text x="238" y="84" textAnchor="middle" className="pd-t pd-sub">[Segment N]</text>
@@ -32,7 +33,7 @@ const TrustRag = ({ p }) => (
     <text x="348" y="84" textAnchor="middle" className="pd-t pd-sub">3 verdicts</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#334155" strokeWidth="1.1" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(56,189,248,0.06)" stroke="#38bdf8" strokeWidth="1.2" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">VERIFIED?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">threshold</text>
 
@@ -83,7 +84,7 @@ const DocuChat = ({ p }) => (
     <text x="348" y="84" textAnchor="middle" className="pd-t pd-sub">Composio</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#334155" strokeWidth="1.1" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(16,185,129,0.06)" stroke="#10b981" strokeWidth="1.2" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">TOOL?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">policy</text>
 
@@ -123,7 +124,7 @@ const ResumeCrew = ({ p }) => (
     <text x="128" y="84" textAnchor="middle" className="pd-t pd-sub">PDF·DOCX·MD</text>
     <line x1="178" y1="60" x2="188" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <rect x="188" y="24" width="100" height="72" rx="10" fill="none" stroke="#334155" />
+    <rect x="188" y="24" width="100" height="72" rx="10" fill="rgba(15,23,42,0.6)" stroke="#334155" strokeWidth="1.1" />
     <text x="238" y="48" textAnchor="middle" className="pd-t pd-label">KEYWORD</text>
     <text x="238" y="66" textAnchor="middle" className="pd-t pd-label">SCORE</text>
     <text x="238" y="84" textAnchor="middle" className="pd-t pd-sub">checklist</text>
@@ -135,7 +136,7 @@ const ResumeCrew = ({ p }) => (
     <text x="348" y="84" textAnchor="middle" className="pd-t pd-sub">verified spans</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#334155" strokeWidth="1.1" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(245,158,11,0.06)" stroke="#f59e0b" strokeWidth="1.2" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">MATCH?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">criteria</text>
 
@@ -187,7 +188,7 @@ const CareerOS = ({ p }) => (
     <text x="348" y="86" textAnchor="middle" className="pd-t pd-tiny">Firecrawl</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#334155" strokeWidth="1.1" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(16,185,129,0.06)" stroke="#10b981" strokeWidth="1.2" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">HEALTHY?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">/health</text>
 
@@ -214,9 +215,9 @@ const CareerOS = ({ p }) => (
   </svg>
 )
 
-const Arrow = ({ id }) => (
-  <marker id={id} viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-    <path d="M0,0 L8,4 L0,8 Z" fill="#64748b" />
+const Arrow = ({ id, fill = '#94a3b8' }) => (
+  <marker id={id} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1 L 10 5 L 0 9 z" fill={fill} />
   </marker>
 )
 
@@ -245,16 +246,16 @@ const CareerMesh = ({ p }) => (
     <text x="348" y="84" textAnchor="middle" className="pd-t pd-sub">live data</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(255,255,255,0.03)" stroke="#334155" strokeWidth="1.1" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(56,189,248,0.06)" stroke="#38bdf8" strokeWidth="1.2" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">GROUNDED?</text>
-    <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">or general?</text>
+    <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">general?</text>
 
     <path d="M456,94 L440,150" fill="none" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <text x="452" y="124" className="pd-t pd-tiny" fill="#38bdf8">yes</text>
     <path d="M412,60 Q380,105 342,150" fill="none" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
     <text x="372" y="110" className="pd-t pd-tiny" fill="#f59e0b">ish</text>
 
-    <rect x="216" y="150" width="140" height="62" rx="10" fill="rgba(255,255,255,0.02)" stroke="#334155" strokeWidth="1.1" />
+    <rect x="216" y="150" width="140" height="62" rx="10" fill="rgba(15,23,42,0.6)" stroke="#334155" strokeWidth="1.1" />
     <text x="286" y="172" textAnchor="middle" className="pd-t pd-label">TOOL</text>
     <text x="286" y="190" textAnchor="middle" className="pd-t pd-label">NUDGE</text>
     <text x="286" y="205" textAnchor="middle" className="pd-t pd-tiny">limitation</text>
@@ -271,8 +272,6 @@ const CareerMesh = ({ p }) => (
     <text x="286" y="274" textAnchor="middle" className="pd-t pd-tiny">clean errors</text>
   </svg>
 )
-
-const Stack = ({ items }) => <div className="proj-stack">{items.map((t) => <span key={t}>{t}</span>)}</div>
 
 // PROJECTS carries the copy; the schematic for each is the component defined
 // above. Keyed by the GitHub repo slug so the two can't drift out of order.
