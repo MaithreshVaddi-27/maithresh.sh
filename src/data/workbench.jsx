@@ -179,9 +179,9 @@ export const PANES = [
     ariaLabel: 'Interactive CareerOS agent mesh diagram',
     base: { stroke: '#10b981', fill: '#0c271c' },
     nodes: [
-      node('STAGE 01 // INGEST', '5 Job APIs + Scraper', 'JSearch / Adzuna / Remotive / RemoteOK / Arbeitnow', 'Async career-page scraper, per-domain semaphores'),
-      node('STAGE 02 // NORMALIZE + DEDUP', 'Pure Logic, No Model', 'Location, remote, salary + FX', 'url_hash exact → content_hash fallback'),
-      node('STAGE 03 // VERIFY + EXPLAIN', 'Two-Stage Verification', 'HTTP HEAD → Firecrawl scrape', 'LangGraph explain w/ Gemini + Qdrant'),
+      node('STAGE 01 // INGEST', '5 Job APIs + Scraper', 'JSearch · Adzuna · RemoteOK', 'Async scraper w/ semaphores'),
+      node('STAGE 02 // NORMALIZE + DEDUP', 'Pure Logic, No Model', 'Location, remote, salary + FX', 'url_hash exact → content_hash'),
+      node('STAGE 03 // VERIFY + EXPLAIN', 'Two-Stage Verification', 'HTTP HEAD → Firecrawl scrape', 'LangGraph explain + Qdrant'),
     ],
     sims: [
       ['dedup', '▶ SIMULATE 2-STAGE DEDUPLICATION', '»'],
