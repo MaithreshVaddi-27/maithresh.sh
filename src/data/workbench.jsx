@@ -8,7 +8,7 @@
 // (local-only reference, kept out of git).
 // Diagrams illustrate architecture, not benchmark claims.
 
-const IDLE = { stroke: '#1e293b', fill: '#0d1424' }
+const IDLE = { stroke: '#223046', fill: '#0c121e' }
 const LINK_IDLE = { stroke: '#334155', marker: 'arrow' }
 
 const GREEN = { stroke: '#10b981', fill: '#0c271c', marker: 'arrowSuccess' }

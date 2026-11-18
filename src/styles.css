@@ -116,7 +116,12 @@
 
   *{ box-sizing: border-box; margin:0; padding:0; }
 
-  html{ scroll-behavior: smooth; }
+  html{
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
 
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior: auto; }
@@ -1053,7 +1058,8 @@
   .contact-links{ display:flex; justify-content:center; gap: 16px; flex-wrap:wrap; margin-top: 40px; }
   .contact-links a{
     font-family: var(--font-mono); font-size: 13.5px; border:1px solid var(--line);
-    padding: 13px 24px; border-radius: var(--radius-sm); transition: all 0.2s ease;
+    padding: 13px 24px; border-radius: var(--radius-sm);
+    transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     display:inline-flex; align-items:center; gap:9px;
   }
   .contact-icon{ width:15px; height:15px; flex-shrink:0; }
@@ -1398,7 +1404,7 @@
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.25s var(--spring-snap);
+    transition: color 0.25s var(--spring-snap), background 0.25s var(--spring-snap), border-color 0.25s var(--spring-snap), box-shadow 0.25s var(--spring-snap), transform 0.25s var(--spring-snap);
     user-select: none;
   }
   .workbench-tab:hover {
@@ -1680,14 +1686,19 @@ section{ scroll-margin-top: 120px; }
 .proj-diagram svg rect[fill="#0d1424"],
 .pipeline-card svg rect[fill="#0d1424"]{ fill: #0c101a; }
 .proj-diagram svg :is(line, path)[stroke="#334155"],
-.pipeline-card svg :is(line, path)[stroke="#334155"]{ stroke: rgba(148,163,184,.38); }
-/* Diagram microcopy renders solid #94a3b8 (7.5:1, AAA): the old .72-opacity
-   wash computed to ~4.2:1 — just under AA for small text. Hierarchy now comes
-   from size (10.5px tiny vs 15px labels), not faintness. */
+.pipeline-card svg :is(line, path)[stroke="#334155"]{ stroke: rgba(148,163,184,.65); stroke-width: 1.5; }
+/* Diagram microcopy renders solid #94a3b8 (7.5:1, AAA) by default, while
+   semantic status fills (green/cyan/amber/red) retain their intentional hues. */
 .proj-diagram svg .pd-tiny,
 .pipeline-card svg text[fill="#64748b"]{ fill: #94a3b8; opacity: 1; }
+.proj-diagram svg .pd-tiny[fill="#10b981"]{ fill: #10b981; font-weight: 600; }
+.proj-diagram svg .pd-tiny[fill="#38bdf8"]{ fill: #38bdf8; font-weight: 600; }
+.proj-diagram svg .pd-tiny[fill="#f59e0b"]{ fill: #f59e0b; font-weight: 600; }
+.proj-diagram svg .pd-tiny[fill="#ef4444"]{ fill: #ef4444; font-weight: 600; }
+.proj-diagram svg marker path,
+.pipeline-card svg marker path{ fill: rgba(148,163,184,.85); }
 .proj-diagram svg marker path[fill="#64748b"],
-.pipeline-card svg marker path[fill="#334155"]{ fill: rgba(148,163,184,.55); }
+.pipeline-card svg marker path[fill="#334155"]{ fill: rgba(148,163,184,.85); }
 
 /* ══ RESPONSIVE HARDENING ══ */
 .top-telemetry-bar{ flex-wrap: wrap; row-gap: 4px; }
@@ -2246,7 +2257,7 @@ body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring{ opacity: 0 !imp
 .proj-diagram svg .pd-label{ font-size: 15px; font-weight: 600; fill: #f8fafc; letter-spacing: .2px; }
 .proj-diagram svg .pd-sub{ font-size: 11.5px; fill: #94a3b8; }
 .proj-diagram svg .pd-tiny{ font-size: 10.5px; fill: #94a3b8; }
-.pd-sm{ font-size: 13.5px; }
+.proj-diagram svg .pd-sm{ font-size: 13px; font-weight: 700; fill: #f8fafc; letter-spacing: .3px; }
 .pd-bad{ fill: #ef4444; }
 .svg-defs{ position: absolute; width: 0; height: 0; overflow: hidden; }
 
