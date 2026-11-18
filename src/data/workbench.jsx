@@ -23,7 +23,7 @@ export const PANES = [
     id: 'trustrag',
     index: '01',
     dot: 'cyan',
-    tab: 'TrustRAG (Recovery Loop)',
+    tab: 'TrustRAG',
     name: 'RELIABILITY PIPELINE TELEMETRY',
     sub: '// 8_STAGES · LOCAL_INFERENCE',
     svgId: 'pipelineSvg',
@@ -32,7 +32,7 @@ export const PANES = [
     nodes: [
       node('STAGE 01-02 // ROUTE + RETRIEVE', 'Deterministic Route → Hybrid RRF', 'BGE-small ONNX dense + BM25', 'Cross-encoder rerank optional'),
       node('STAGE 03-05 // GENERATE + VERIFY', 'Cited Generation → Claim Decomposition', 'Atomic claims + NLI verdicts', 'SHA-256 + temporal audit'),
-      node('STAGE 06-08 // RECOVER + ANSWER', 'Budget-Aware LangGraph Loop', 'rewrite → re-retrieve → regenerate', '≤2 attempts, else ABSTAIN'),
+      node('STAGE 06-08 // RECOVER + ANSWER', 'Budget-Aware → LangGraph Loop', 'rewrite → retrieve → answer', '≤2 attempts, else ABSTAIN'),
     ],
     sims: [
       ['valid', '▶ SIMULATE HIGH-CONFIDENCE QUERY', '✓'],
@@ -74,16 +74,16 @@ export const PANES = [
     id: 'docuchat',
     index: '02',
     dot: 'green',
-    tab: 'DocuChat (MCP Tool Router)',
+    tab: 'DocuChat',
     name: 'MCP TOOL ROUTING TELEMETRY',
     sub: '// PROVIDER_AGNOSTIC_DISPATCH',
     svgId: 'docuchatSvg',
     ariaLabel: 'Interactive DocuChat MCP Router Diagram',
     base: { stroke: '#10b981', fill: '#0c271c' },
     nodes: [
-      node('STAGE 01 // INGEST + MEMORY', 'Content-Hash Ingestion', 'PyPDFLoader → recursive splitter', 'ChromaDB: no re-embed on restart'),
+      node('STAGE 01 // INGEST + MEMORY', 'Content-Hash Ingestion', 'PyPDFLoader recursive split', 'ChromaDB: cached embeddings'),
       node('STAGE 02 // PROVIDER', 'Swappable Inference', 'Gemini · Ollama · llama.cpp', 'Readiness check per provider'),
-      node('STAGE 03 // DISPATCH', 'Tool Routing (MCP)', 'Composio toolkits, or direct stream', 'Single retrieval pass, reused'),
+      node('STAGE 03 // DISPATCH', 'Tool Routing (MCP)', 'Composio toolkits or direct', 'One retrieval pass, reused'),
     ],
     sims: [
       ['tool', '▶ SIMULATE MCP WEB DISPATCH (TAVILY)', '↗'],
@@ -124,7 +124,7 @@ export const PANES = [
     id: 'resumecrew',
     index: '03',
     dot: 'amber',
-    tab: 'Resume Crew (Evidence Matcher)',
+    tab: 'Resume Crew',
     name: 'EVIDENCE MATCHER TELEMETRY',
     sub: '// DETERMINISTIC_SCORE + LLM_ANALYSIS',
     svgId: 'resumecrewSvg',
@@ -132,7 +132,7 @@ export const PANES = [
     base: { stroke: '#f59e0b', fill: '#291d09' },
     nodes: [
       node('STAGE 01 // PARSER', 'Multi-Format Ingest', 'PDF / DOCX / TXT / MD', 'Six-module pytest coverage'),
-      node('STAGE 02 // SCORING', 'Deterministic Keyword Pass', 'JD requirements as checklist', 'Grounds the LLM analysis'),
+      node('STAGE 02 // SCORING', 'Deterministic → Keyword Pass', 'JD requirements as checklist', 'Grounds the LLM analysis'),
       node('STAGE 03 // REPORT', 'Six-Part Evidence Report', 'Match · profile · gaps · bullets', 'Interview prep, no invention'),
     ],
     sims: [
@@ -172,7 +172,7 @@ export const PANES = [
     id: 'careeros',
     index: '04',
     dot: 'green',
-    tab: 'CareerOS-Pro (Resilient Mesh)',
+    tab: 'CareerOS-Pro',
     name: 'AGENT MESH & RESILIENCE TELEMETRY',
     sub: '// NO_LLM_IN_THE_PARSING_PATH',
     svgId: 'careerosSvg',
@@ -226,21 +226,20 @@ export const PANES = [
 ]
 
 // Geometry is shared: 4 boxes on one 940×180 rail, joined by three connectors.
-// Slot 3 is the outcome box, which is narrower than the three stage boxes —
-// it's the result of the run, not another stage. Widen it: at 130 units the
-// outcome titles ("Local Vector Answer", "Circuit Breaker") overran the box
-// and spilled past the SVG edge.
+// Slot 3 is the outcome box (w: 215). All three stage boxes are identically
+// 195 units wide, and all three connectors span identically 40 units with 10-unit
+// symmetric outer margins (10 + 195 + 40 + 195 + 40 + 195 + 40 + 215 + 10 = 940).
 export const NODES = [
-  { x: 10, w: 180, tx: 20 },
-  { x: 240, w: 195, tx: 20 },
-  { x: 475, w: 195, tx: 20 },
-  { x: 710, w: 220, tx: 20 },
+  { x: 10, w: 195, tx: 20 },
+  { x: 245, w: 195, tx: 20 },
+  { x: 480, w: 195, tx: 20 },
+  { x: 715, w: 215, tx: 20 },
 ]
 
 export const LINKS = [
-  { x1: 190, x2: 240 },
-  { x1: 435, x2: 475 },
-  { x1: 670, x2: 710 },
+  { x1: 205, x2: 245 },
+  { x1: 440, x2: 480 },
+  { x1: 675, x2: 715 },
 ]
 
 export { IDLE, LINK_IDLE }
