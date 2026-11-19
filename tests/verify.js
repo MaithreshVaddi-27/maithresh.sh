@@ -40,7 +40,12 @@ const pkg = JSON.parse(read('package.json'))
 const projects = read('src/components/Projects.jsx')
 const workbench = read('src/components/Workbench.jsx')
 const workbenchData = read('src/data/workbench.jsx')
-const content = read('src/data/content.jsx')
+// Content is split by domain behind a barrel; gate checks scan the real sources.
+const dataDir = 'src/data'
+const content = readdirSync(join(root, dataDir))
+  .filter((f) => /\.(js|jsx)$/.test(f))
+  .map((f) => read(`${dataDir}/${f}`))
+  .join('\n')
 const consoleSrc = read('src/components/CommandConsole.jsx')
 const scene = read('src/scene.js')
 const motion = read('src/hooks/useMotion.js')
@@ -246,7 +251,8 @@ const schematicSources = readdirSync(join(root, schematicDir))
   .join('\n')
 need((schematicSources.match(/viewBox="0 0 520 304"/g) || []).length === 5,
   'all 5 featured projects must ship a precision SVG schematic')
-const projectsBlock = content.slice(content.indexOf('export const PROJECTS'))
+const projectsData = read('src/data/projects.jsx')
+const projectsBlock = projectsData.slice(projectsData.indexOf('export const PROJECTS'))
 need((projectsBlock.match(/href: 'https:\/\/github\.com\/MaithreshVaddi-27\//g) || []).length === 5,
   'all 5 featured projects must link a repo')
 need(projects.includes('idPrefix'), 'schematic marker ids must be namespaced (row + stage render the same SVG twice)')
