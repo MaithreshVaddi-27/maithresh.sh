@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { NAV_LINKS } from '../data/content'
 import { useScrollSpy } from '../hooks/useChrome'
+import brandMark from '../../assets/logos/maithresh-mosaic-mark.svg?url'
 
 const SECTIONS = NAV_LINKS.map(([href]) => href.slice(1))
 
@@ -26,7 +27,7 @@ export default function Nav({ onOpenConsole, scrolled }) {
             display:none under 640px, which drops the link's only text from the
             accessibility tree and leaves an unnamed link (axe link-name). */}
         <a href="#top" className="logo" aria-label="maithresh.sh — home" onClick={close}>
-          <span className="brand-dot" aria-hidden="true" />
+          <img className="brand-mark" src={brandMark} alt="" aria-hidden="true" width="20" height="20" />
           <span className="brand-word">maithresh<span className="brand-accent">.sh</span></span>
         </a>
         <ul className={`navlinks${open ? ' open' : ''}`} id="navLinks">

@@ -1,0 +1,353 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="1498" viewBox="0 0 1600 1498"><rect width="1600" height="1498" fill="#f7f7f4"/><text x="60" y="78" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="40" font-weight="700" fill="#161616">maithresh.sh — logo concepts v2</text><text x="60" y="116" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="20" fill="#6b6b6b">Five distinct styles · clichés stripped · one design system</text><rect x="60" y="150" width="474.667" height="630" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="90" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title id="c0-t">maithresh.sh — Neon Monogram, stripped</title>
+  <desc>A lowercase neon m and a single cyan terminal dot. No glass tile, no HUD ticks, no status LEDs, no progress rail. A cyan halo behind an off-white core.</desc>
+  <defs>
+    <filter id="c0-halo" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="10" result="b"/></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" filter="url(#c0-halo)">
+    <path d="M136 344 L136 176 Q136 160 152 160 L196 160 Q212 160 212 176 L212 344"/>
+    <path d="M212 344 L212 176 Q212 160 228 160 L272 160 Q288 160 288 176 L288 344"/>
+  </g>
+  <g fill="none" stroke="#f8fafc" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M136 344 L136 176 Q136 160 152 160 L196 160 Q212 160 212 176 L212 344"/>
+    <path d="M212 344 L212 176 Q212 160 228 160 L272 160 Q288 160 288 176 L288 344"/>
+  </g>
+  <rect x="312" y="326" width="26" height="26" fill="#38bdf8">
+    <animate attributeName="opacity" values="1;1;0.2;1;1" dur="1.8s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="90" y="516" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title id="s064-t">maithresh.sh — Neon Monogram, stripped</title>
+  <desc>A lowercase neon m and a single cyan terminal dot. No glass tile, no HUD ticks, no status LEDs, no progress rail. A cyan halo behind an off-white core.</desc>
+  <defs>
+    <filter id="s064-halo" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="10" result="b"/></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" filter="url(#s064-halo)">
+    <path d="M136 344 L136 176 Q136 160 152 160 L196 160 Q212 160 212 176 L212 344"/>
+    <path d="M212 344 L212 176 Q212 160 228 160 L272 160 Q288 160 288 176 L288 344"/>
+  </g>
+  <g fill="none" stroke="#f8fafc" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M136 344 L136 176 Q136 160 152 160 L196 160 Q212 160 212 176 L212 344"/>
+    <path d="M212 344 L212 176 Q212 160 228 160 L272 160 Q288 160 288 176 L288 344"/>
+  </g>
+  <rect x="312" y="326" width="26" height="26" fill="#38bdf8">
+    <animate attributeName="opacity" values="1;1;0.2;1;1" dur="1.8s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="122" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="180" y="548" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title id="s032-t">maithresh.sh — Neon Monogram, stripped</title>
+  <desc>A lowercase neon m and a single cyan terminal dot. No glass tile, no HUD ticks, no status LEDs, no progress rail. A cyan halo behind an off-white core.</desc>
+  <defs>
+    <filter id="s032-halo" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="10" result="b"/></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" filter="url(#s032-halo)">
+    <path d="M136 344 L136 176 Q136 160 152 160 L196 160 Q212 160 212 176 L212 344"/>
+    <path d="M212 344 L212 176 Q212 160 228 160 L272 160 Q288 160 288 176 L288 344"/>
+  </g>
+  <g fill="none" stroke="#f8fafc" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M136 344 L136 176 Q136 160 152 160 L196 160 Q212 160 212 176 L212 344"/>
+    <path d="M212 344 L212 176 Q212 160 228 160 L272 160 Q288 160 288 176 L288 344"/>
+  </g>
+  <rect x="312" y="326" width="26" height="26" fill="#38bdf8">
+    <animate attributeName="opacity" values="1;1;0.2;1;1" dur="1.8s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="196" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="238" y="564" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title id="s016-t">maithresh.sh — Neon Monogram, stripped</title>
+  <desc>A lowercase neon m and a single cyan terminal dot. No glass tile, no HUD ticks, no status LEDs, no progress rail. A cyan halo behind an off-white core.</desc>
+  <defs>
+    <filter id="s016-halo" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="10" result="b"/></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" filter="url(#s016-halo)">
+    <path d="M136 344 L136 176 Q136 160 152 160 L196 160 Q212 160 212 176 L212 344"/>
+    <path d="M212 344 L212 176 Q212 160 228 160 L272 160 Q288 160 288 176 L288 344"/>
+  </g>
+  <g fill="none" stroke="#f8fafc" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M136 344 L136 176 Q136 160 152 160 L196 160 Q212 160 212 176 L212 344"/>
+    <path d="M212 344 L212 176 Q212 160 228 160 L272 160 Q288 160 288 176 L288 344"/>
+  </g>
+  <rect x="312" y="326" width="26" height="26" fill="#38bdf8">
+    <animate attributeName="opacity" values="1;1;0.2;1;1" dur="1.8s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="246" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="90.0" y="636" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">A · Neon Stripped</text><text x="90.0" y="670" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">The neon m and its dot - tile, ticks, LEDs</text><text x="90.0" y="696" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">and rail removed.</text><rect x="562.667" y="150" width="474.667" height="630" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="592.667" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title id="c1-t">maithresh.sh — Brutalist Mark concept</title>
+  <desc>A deconstructed lowercase m: three deliberately unequal legs under a single hard header, with the cyan centre leg punching through it. Counters kept narrower than the stems so the letter still reads at a glance. Flat, asymmetric, two colours, no effects.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g fill="#f8fafc">
+    <rect x="72" y="128" width="248" height="48"/>
+    <rect x="72" y="128" width="56" height="232"/>
+    <rect x="264" y="128" width="56" height="272"/>
+  </g>
+  <rect x="168" y="96" width="56" height="240" fill="#38bdf8"/>
+  <rect x="340" y="368" width="32" height="32" fill="#38bdf8"/>
+</svg>
+</g><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="592.667" y="516" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title id="s164-t">maithresh.sh — Brutalist Mark concept</title>
+  <desc>A deconstructed lowercase m: three deliberately unequal legs under a single hard header, with the cyan centre leg punching through it. Counters kept narrower than the stems so the letter still reads at a glance. Flat, asymmetric, two colours, no effects.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g fill="#f8fafc">
+    <rect x="72" y="128" width="248" height="48"/>
+    <rect x="72" y="128" width="56" height="232"/>
+    <rect x="264" y="128" width="56" height="272"/>
+  </g>
+  <rect x="168" y="96" width="56" height="240" fill="#38bdf8"/>
+  <rect x="340" y="368" width="32" height="32" fill="#38bdf8"/>
+</svg>
+</g><text x="624.667" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="682.667" y="548" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title id="s132-t">maithresh.sh — Brutalist Mark concept</title>
+  <desc>A deconstructed lowercase m: three deliberately unequal legs under a single hard header, with the cyan centre leg punching through it. Counters kept narrower than the stems so the letter still reads at a glance. Flat, asymmetric, two colours, no effects.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g fill="#f8fafc">
+    <rect x="72" y="128" width="248" height="48"/>
+    <rect x="72" y="128" width="56" height="232"/>
+    <rect x="264" y="128" width="56" height="272"/>
+  </g>
+  <rect x="168" y="96" width="56" height="240" fill="#38bdf8"/>
+  <rect x="340" y="368" width="32" height="32" fill="#38bdf8"/>
+</svg>
+</g><text x="698.667" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="740.667" y="564" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title id="s116-t">maithresh.sh — Brutalist Mark concept</title>
+  <desc>A deconstructed lowercase m: three deliberately unequal legs under a single hard header, with the cyan centre leg punching through it. Counters kept narrower than the stems so the letter still reads at a glance. Flat, asymmetric, two colours, no effects.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g fill="#f8fafc">
+    <rect x="72" y="128" width="248" height="48"/>
+    <rect x="72" y="128" width="56" height="232"/>
+    <rect x="264" y="128" width="56" height="272"/>
+  </g>
+  <rect x="168" y="96" width="56" height="240" fill="#38bdf8"/>
+  <rect x="340" y="368" width="32" height="32" fill="#38bdf8"/>
+</svg>
+</g><text x="748.667" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="592.6666666666667" y="636" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">B · Brutalist Mark</text><text x="592.6666666666667" y="670" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">Three unequal legs, one cyan centre</text><text x="592.6666666666667" y="696" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">breaking the header. Flat and off-balance.</text><rect x="1065.33" y="150" width="474.667" height="630" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="1095.33" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title id="c2-t">maithresh.sh — Glass Tiers concept</title>
+  <desc>The design system's three glass elevation surfaces drawn as a flat cascading stack: #0d1117, #111620 and #161c27, rimmed green, cyan and amber. No glow, no cube, no gradient.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <rect x="64" y="144" width="224" height="224" rx="36" fill="#0d1117" stroke="#10b981" stroke-width="10"/>
+  <rect x="128" y="112" width="224" height="224" rx="36" fill="#111620" stroke="#38bdf8" stroke-width="10"/>
+  <rect x="192" y="80" width="224" height="224" rx="36" fill="#161c27" stroke="#f59e0b" stroke-width="10"/>
+</svg>
+</g><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="1095.33" y="516" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title id="s264-t">maithresh.sh — Glass Tiers concept</title>
+  <desc>The design system's three glass elevation surfaces drawn as a flat cascading stack: #0d1117, #111620 and #161c27, rimmed green, cyan and amber. No glow, no cube, no gradient.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <rect x="64" y="144" width="224" height="224" rx="36" fill="#0d1117" stroke="#10b981" stroke-width="10"/>
+  <rect x="128" y="112" width="224" height="224" rx="36" fill="#111620" stroke="#38bdf8" stroke-width="10"/>
+  <rect x="192" y="80" width="224" height="224" rx="36" fill="#161c27" stroke="#f59e0b" stroke-width="10"/>
+</svg>
+</g><text x="1127.33" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="1185.33" y="548" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title id="s232-t">maithresh.sh — Glass Tiers concept</title>
+  <desc>The design system's three glass elevation surfaces drawn as a flat cascading stack: #0d1117, #111620 and #161c27, rimmed green, cyan and amber. No glow, no cube, no gradient.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <rect x="64" y="144" width="224" height="224" rx="36" fill="#0d1117" stroke="#10b981" stroke-width="10"/>
+  <rect x="128" y="112" width="224" height="224" rx="36" fill="#111620" stroke="#38bdf8" stroke-width="10"/>
+  <rect x="192" y="80" width="224" height="224" rx="36" fill="#161c27" stroke="#f59e0b" stroke-width="10"/>
+</svg>
+</g><text x="1201.33" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="1243.33" y="564" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title id="s216-t">maithresh.sh — Glass Tiers concept</title>
+  <desc>The design system's three glass elevation surfaces drawn as a flat cascading stack: #0d1117, #111620 and #161c27, rimmed green, cyan and amber. No glow, no cube, no gradient.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <rect x="64" y="144" width="224" height="224" rx="36" fill="#0d1117" stroke="#10b981" stroke-width="10"/>
+  <rect x="128" y="112" width="224" height="224" rx="36" fill="#111620" stroke="#38bdf8" stroke-width="10"/>
+  <rect x="192" y="80" width="224" height="224" rx="36" fill="#161c27" stroke="#f59e0b" stroke-width="10"/>
+</svg>
+</g><text x="1251.33" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="1095.3333333333335" y="636" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">C · Glass Tiers</text><text x="1095.3333333333335" y="670" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">Your three glass elevation surfaces as a</text><text x="1095.3333333333335" y="696" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">flat cascading stack.</text><rect x="60" y="808" width="474.667" height="630" rx="18" fill="#fff" stroke="#161616" stroke-width="2"/><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="90" y="848" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title id="c3-t">maithresh.sh — Signal Pulse concept</title>
+  <desc>An oscilloscope trace that resolves into a bold M, with a live charge running the wire between green and amber terminals. A telemetry-first mark for a builder whose work is always live.</desc>
+  <defs>
+    <filter id="c3-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="c3-sig" d="M92 348 L92 168 L172 276 L252 168 L252 348"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#1e293b" stroke-width="1" stroke-opacity="0.7">
+    <path d="M64 168 H400 M64 224 H400 M64 280 H400 M64 336 H400"/>
+    <path d="M96 148 V356 M160 148 V356 M224 148 V356 M288 148 V356 M352 148 V356" stroke-opacity="0.35"/>
+  </g>
+  <path d="M64 140 V356 H80" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.45"/>
+  <use href="#c3-sig" fill="none" stroke="#38bdf8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" filter="url(#c3-glow)" opacity="0.55"/>
+  <use href="#c3-sig" fill="none" stroke="#7dd3fc" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="92" cy="168" r="10" fill="#10b981" filter="url(#c3-glow)"/>
+  <circle cx="252" cy="168" r="10" fill="#f59e0b" filter="url(#c3-glow)"/>
+  <circle cx="172" cy="276" r="6" fill="#7dd3fc"/>
+  <circle r="8" fill="#ffffff" filter="url(#c3-glow)">
+    <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#c3-sig"/></animateMotion>
+  </circle>
+  <rect x="64" y="372" width="336" height="6" rx="3" fill="#1e293b"/>
+  <rect x="64" y="372" width="56" height="6" rx="3" fill="#38bdf8" opacity="0.8">
+    <animate attributeName="x" values="64;344;64" dur="2.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="90" y="1174" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title id="s364-t">maithresh.sh — Signal Pulse concept</title>
+  <desc>An oscilloscope trace that resolves into a bold M, with a live charge running the wire between green and amber terminals. A telemetry-first mark for a builder whose work is always live.</desc>
+  <defs>
+    <filter id="s364-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="s364-sig" d="M92 348 L92 168 L172 276 L252 168 L252 348"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#1e293b" stroke-width="1" stroke-opacity="0.7">
+    <path d="M64 168 H400 M64 224 H400 M64 280 H400 M64 336 H400"/>
+    <path d="M96 148 V356 M160 148 V356 M224 148 V356 M288 148 V356 M352 148 V356" stroke-opacity="0.35"/>
+  </g>
+  <path d="M64 140 V356 H80" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.45"/>
+  <use href="#s364-sig" fill="none" stroke="#38bdf8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" filter="url(#s364-glow)" opacity="0.55"/>
+  <use href="#s364-sig" fill="none" stroke="#7dd3fc" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="92" cy="168" r="10" fill="#10b981" filter="url(#s364-glow)"/>
+  <circle cx="252" cy="168" r="10" fill="#f59e0b" filter="url(#s364-glow)"/>
+  <circle cx="172" cy="276" r="6" fill="#7dd3fc"/>
+  <circle r="8" fill="#ffffff" filter="url(#s364-glow)">
+    <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#s364-sig"/></animateMotion>
+  </circle>
+  <rect x="64" y="372" width="336" height="6" rx="3" fill="#1e293b"/>
+  <rect x="64" y="372" width="56" height="6" rx="3" fill="#38bdf8" opacity="0.8">
+    <animate attributeName="x" values="64;344;64" dur="2.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="122" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="180" y="1206" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title id="s332-t">maithresh.sh — Signal Pulse concept</title>
+  <desc>An oscilloscope trace that resolves into a bold M, with a live charge running the wire between green and amber terminals. A telemetry-first mark for a builder whose work is always live.</desc>
+  <defs>
+    <filter id="s332-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="s332-sig" d="M92 348 L92 168 L172 276 L252 168 L252 348"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#1e293b" stroke-width="1" stroke-opacity="0.7">
+    <path d="M64 168 H400 M64 224 H400 M64 280 H400 M64 336 H400"/>
+    <path d="M96 148 V356 M160 148 V356 M224 148 V356 M288 148 V356 M352 148 V356" stroke-opacity="0.35"/>
+  </g>
+  <path d="M64 140 V356 H80" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.45"/>
+  <use href="#s332-sig" fill="none" stroke="#38bdf8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" filter="url(#s332-glow)" opacity="0.55"/>
+  <use href="#s332-sig" fill="none" stroke="#7dd3fc" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="92" cy="168" r="10" fill="#10b981" filter="url(#s332-glow)"/>
+  <circle cx="252" cy="168" r="10" fill="#f59e0b" filter="url(#s332-glow)"/>
+  <circle cx="172" cy="276" r="6" fill="#7dd3fc"/>
+  <circle r="8" fill="#ffffff" filter="url(#s332-glow)">
+    <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#s332-sig"/></animateMotion>
+  </circle>
+  <rect x="64" y="372" width="336" height="6" rx="3" fill="#1e293b"/>
+  <rect x="64" y="372" width="56" height="6" rx="3" fill="#38bdf8" opacity="0.8">
+    <animate attributeName="x" values="64;344;64" dur="2.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="196" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="238" y="1222" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title id="s316-t">maithresh.sh — Signal Pulse concept</title>
+  <desc>An oscilloscope trace that resolves into a bold M, with a live charge running the wire between green and amber terminals. A telemetry-first mark for a builder whose work is always live.</desc>
+  <defs>
+    <filter id="s316-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="s316-sig" d="M92 348 L92 168 L172 276 L252 168 L252 348"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#1e293b" stroke-width="1" stroke-opacity="0.7">
+    <path d="M64 168 H400 M64 224 H400 M64 280 H400 M64 336 H400"/>
+    <path d="M96 148 V356 M160 148 V356 M224 148 V356 M288 148 V356 M352 148 V356" stroke-opacity="0.35"/>
+  </g>
+  <path d="M64 140 V356 H80" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.45"/>
+  <use href="#s316-sig" fill="none" stroke="#38bdf8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" filter="url(#s316-glow)" opacity="0.55"/>
+  <use href="#s316-sig" fill="none" stroke="#7dd3fc" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="92" cy="168" r="10" fill="#10b981" filter="url(#s316-glow)"/>
+  <circle cx="252" cy="168" r="10" fill="#f59e0b" filter="url(#s316-glow)"/>
+  <circle cx="172" cy="276" r="6" fill="#7dd3fc"/>
+  <circle r="8" fill="#ffffff" filter="url(#s316-glow)">
+    <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#s316-sig"/></animateMotion>
+  </circle>
+  <rect x="64" y="372" width="336" height="6" rx="3" fill="#1e293b"/>
+  <rect x="64" y="372" width="56" height="6" rx="3" fill="#38bdf8" opacity="0.8">
+    <animate attributeName="x" values="64;344;64" dur="2.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="246" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="90.0" y="1294" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">D · Signal Pulse</text><text x="90.0" y="1322" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#161616" letter-spacing="1.5">RECOMMENDED</text><text x="90.0" y="1356" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">The oscilloscope M with a live charge -</text><text x="90.0" y="1382" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">unchanged, the strongest of the originals.</text><rect x="562.667" y="808" width="474.667" height="630" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="592.667" y="848" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title id="c4-t">maithresh.sh — Contribution Mosaic concept</title>
+  <desc>A contribution-graph lattice where a subset of cells resolves into a squared m. Flat squares only: no connecting lines, no glowing nodes, no travelling charge. Green and amber mark the two endpoints.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g id="c4-grid" fill="#1e293b" fill-opacity="0.5">
+    <rect x="60" y="104" width="28" height="28"/><rect x="100" y="104" width="28" height="28"/><rect x="140" y="104" width="28" height="28"/><rect x="180" y="104" width="28" height="28"/><rect x="220" y="104" width="28" height="28"/><rect x="260" y="104" width="28" height="28"/><rect x="300" y="104" width="28" height="28"/><rect x="340" y="104" width="28" height="28"/><rect x="380" y="104" width="28" height="28"/>
+    <rect x="60" y="144" width="28" height="28"/><rect x="100" y="144" width="28" height="28"/><rect x="140" y="144" width="28" height="28"/><rect x="180" y="144" width="28" height="28"/><rect x="220" y="144" width="28" height="28"/><rect x="260" y="144" width="28" height="28"/><rect x="300" y="144" width="28" height="28"/><rect x="340" y="144" width="28" height="28"/><rect x="380" y="144" width="28" height="28"/>
+    <rect x="60" y="184" width="28" height="28"/><rect x="100" y="184" width="28" height="28"/><rect x="140" y="184" width="28" height="28"/><rect x="180" y="184" width="28" height="28"/><rect x="220" y="184" width="28" height="28"/><rect x="260" y="184" width="28" height="28"/><rect x="300" y="184" width="28" height="28"/><rect x="340" y="184" width="28" height="28"/><rect x="380" y="184" width="28" height="28"/>
+    <rect x="60" y="224" width="28" height="28"/><rect x="100" y="224" width="28" height="28"/><rect x="140" y="224" width="28" height="28"/><rect x="180" y="224" width="28" height="28"/><rect x="220" y="224" width="28" height="28"/><rect x="260" y="224" width="28" height="28"/><rect x="300" y="224" width="28" height="28"/><rect x="340" y="224" width="28" height="28"/><rect x="380" y="224" width="28" height="28"/>
+    <rect x="60" y="264" width="28" height="28"/><rect x="100" y="264" width="28" height="28"/><rect x="140" y="264" width="28" height="28"/><rect x="180" y="264" width="28" height="28"/><rect x="220" y="264" width="28" height="28"/><rect x="260" y="264" width="28" height="28"/><rect x="300" y="264" width="28" height="28"/><rect x="340" y="264" width="28" height="28"/><rect x="380" y="264" width="28" height="28"/>
+    <rect x="60" y="304" width="28" height="28"/><rect x="100" y="304" width="28" height="28"/><rect x="140" y="304" width="28" height="28"/><rect x="180" y="304" width="28" height="28"/><rect x="220" y="304" width="28" height="28"/><rect x="260" y="304" width="28" height="28"/><rect x="300" y="304" width="28" height="28"/><rect x="340" y="304" width="28" height="28"/><rect x="380" y="304" width="28" height="28"/>
+    <rect x="60" y="344" width="28" height="28"/><rect x="100" y="344" width="28" height="28"/><rect x="140" y="344" width="28" height="28"/><rect x="180" y="344" width="28" height="28"/><rect x="220" y="344" width="28" height="28"/><rect x="260" y="344" width="28" height="28"/><rect x="300" y="344" width="28" height="28"/><rect x="340" y="344" width="28" height="28"/><rect x="380" y="344" width="28" height="28"/>
+  </g>
+  <g fill="#38bdf8">
+    <rect x="140" y="144" width="28" height="28"/><rect x="180" y="144" width="28" height="28"/><rect x="220" y="144" width="28" height="28"/><rect x="300" y="144" width="28" height="28"/><rect x="340" y="144" width="28" height="28"/>
+    <rect x="100" y="184" width="28" height="28"/><rect x="100" y="224" width="28" height="28"/><rect x="100" y="264" width="28" height="28"/><rect x="100" y="304" width="28" height="28"/>
+    <rect x="220" y="184" width="28" height="28"/><rect x="220" y="224" width="28" height="28"/><rect x="220" y="264" width="28" height="28"/><rect x="220" y="304" width="28" height="28"/>
+    <rect x="340" y="184" width="28" height="28"/><rect x="340" y="224" width="28" height="28"/><rect x="340" y="264" width="28" height="28"/><rect x="340" y="304" width="28" height="28"/>
+  </g>
+  <rect x="260" y="144" width="28" height="28" fill="#7dd3fc"/>
+  <rect x="100" y="144" width="28" height="28" fill="#10b981"/>
+  <rect x="340" y="144" width="28" height="28" fill="#f59e0b"/>
+</svg>
+</g><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="592.667" y="1174" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title id="s464-t">maithresh.sh — Contribution Mosaic concept</title>
+  <desc>A contribution-graph lattice where a subset of cells resolves into a squared m. Flat squares only: no connecting lines, no glowing nodes, no travelling charge. Green and amber mark the two endpoints.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g id="s464-grid" fill="#1e293b" fill-opacity="0.5">
+    <rect x="60" y="104" width="28" height="28"/><rect x="100" y="104" width="28" height="28"/><rect x="140" y="104" width="28" height="28"/><rect x="180" y="104" width="28" height="28"/><rect x="220" y="104" width="28" height="28"/><rect x="260" y="104" width="28" height="28"/><rect x="300" y="104" width="28" height="28"/><rect x="340" y="104" width="28" height="28"/><rect x="380" y="104" width="28" height="28"/>
+    <rect x="60" y="144" width="28" height="28"/><rect x="100" y="144" width="28" height="28"/><rect x="140" y="144" width="28" height="28"/><rect x="180" y="144" width="28" height="28"/><rect x="220" y="144" width="28" height="28"/><rect x="260" y="144" width="28" height="28"/><rect x="300" y="144" width="28" height="28"/><rect x="340" y="144" width="28" height="28"/><rect x="380" y="144" width="28" height="28"/>
+    <rect x="60" y="184" width="28" height="28"/><rect x="100" y="184" width="28" height="28"/><rect x="140" y="184" width="28" height="28"/><rect x="180" y="184" width="28" height="28"/><rect x="220" y="184" width="28" height="28"/><rect x="260" y="184" width="28" height="28"/><rect x="300" y="184" width="28" height="28"/><rect x="340" y="184" width="28" height="28"/><rect x="380" y="184" width="28" height="28"/>
+    <rect x="60" y="224" width="28" height="28"/><rect x="100" y="224" width="28" height="28"/><rect x="140" y="224" width="28" height="28"/><rect x="180" y="224" width="28" height="28"/><rect x="220" y="224" width="28" height="28"/><rect x="260" y="224" width="28" height="28"/><rect x="300" y="224" width="28" height="28"/><rect x="340" y="224" width="28" height="28"/><rect x="380" y="224" width="28" height="28"/>
+    <rect x="60" y="264" width="28" height="28"/><rect x="100" y="264" width="28" height="28"/><rect x="140" y="264" width="28" height="28"/><rect x="180" y="264" width="28" height="28"/><rect x="220" y="264" width="28" height="28"/><rect x="260" y="264" width="28" height="28"/><rect x="300" y="264" width="28" height="28"/><rect x="340" y="264" width="28" height="28"/><rect x="380" y="264" width="28" height="28"/>
+    <rect x="60" y="304" width="28" height="28"/><rect x="100" y="304" width="28" height="28"/><rect x="140" y="304" width="28" height="28"/><rect x="180" y="304" width="28" height="28"/><rect x="220" y="304" width="28" height="28"/><rect x="260" y="304" width="28" height="28"/><rect x="300" y="304" width="28" height="28"/><rect x="340" y="304" width="28" height="28"/><rect x="380" y="304" width="28" height="28"/>
+    <rect x="60" y="344" width="28" height="28"/><rect x="100" y="344" width="28" height="28"/><rect x="140" y="344" width="28" height="28"/><rect x="180" y="344" width="28" height="28"/><rect x="220" y="344" width="28" height="28"/><rect x="260" y="344" width="28" height="28"/><rect x="300" y="344" width="28" height="28"/><rect x="340" y="344" width="28" height="28"/><rect x="380" y="344" width="28" height="28"/>
+  </g>
+  <g fill="#38bdf8">
+    <rect x="140" y="144" width="28" height="28"/><rect x="180" y="144" width="28" height="28"/><rect x="220" y="144" width="28" height="28"/><rect x="300" y="144" width="28" height="28"/><rect x="340" y="144" width="28" height="28"/>
+    <rect x="100" y="184" width="28" height="28"/><rect x="100" y="224" width="28" height="28"/><rect x="100" y="264" width="28" height="28"/><rect x="100" y="304" width="28" height="28"/>
+    <rect x="220" y="184" width="28" height="28"/><rect x="220" y="224" width="28" height="28"/><rect x="220" y="264" width="28" height="28"/><rect x="220" y="304" width="28" height="28"/>
+    <rect x="340" y="184" width="28" height="28"/><rect x="340" y="224" width="28" height="28"/><rect x="340" y="264" width="28" height="28"/><rect x="340" y="304" width="28" height="28"/>
+  </g>
+  <rect x="260" y="144" width="28" height="28" fill="#7dd3fc"/>
+  <rect x="100" y="144" width="28" height="28" fill="#10b981"/>
+  <rect x="340" y="144" width="28" height="28" fill="#f59e0b"/>
+</svg>
+</g><text x="624.667" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="682.667" y="1206" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title id="s432-t">maithresh.sh — Contribution Mosaic concept</title>
+  <desc>A contribution-graph lattice where a subset of cells resolves into a squared m. Flat squares only: no connecting lines, no glowing nodes, no travelling charge. Green and amber mark the two endpoints.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g id="s432-grid" fill="#1e293b" fill-opacity="0.5">
+    <rect x="60" y="104" width="28" height="28"/><rect x="100" y="104" width="28" height="28"/><rect x="140" y="104" width="28" height="28"/><rect x="180" y="104" width="28" height="28"/><rect x="220" y="104" width="28" height="28"/><rect x="260" y="104" width="28" height="28"/><rect x="300" y="104" width="28" height="28"/><rect x="340" y="104" width="28" height="28"/><rect x="380" y="104" width="28" height="28"/>
+    <rect x="60" y="144" width="28" height="28"/><rect x="100" y="144" width="28" height="28"/><rect x="140" y="144" width="28" height="28"/><rect x="180" y="144" width="28" height="28"/><rect x="220" y="144" width="28" height="28"/><rect x="260" y="144" width="28" height="28"/><rect x="300" y="144" width="28" height="28"/><rect x="340" y="144" width="28" height="28"/><rect x="380" y="144" width="28" height="28"/>
+    <rect x="60" y="184" width="28" height="28"/><rect x="100" y="184" width="28" height="28"/><rect x="140" y="184" width="28" height="28"/><rect x="180" y="184" width="28" height="28"/><rect x="220" y="184" width="28" height="28"/><rect x="260" y="184" width="28" height="28"/><rect x="300" y="184" width="28" height="28"/><rect x="340" y="184" width="28" height="28"/><rect x="380" y="184" width="28" height="28"/>
+    <rect x="60" y="224" width="28" height="28"/><rect x="100" y="224" width="28" height="28"/><rect x="140" y="224" width="28" height="28"/><rect x="180" y="224" width="28" height="28"/><rect x="220" y="224" width="28" height="28"/><rect x="260" y="224" width="28" height="28"/><rect x="300" y="224" width="28" height="28"/><rect x="340" y="224" width="28" height="28"/><rect x="380" y="224" width="28" height="28"/>
+    <rect x="60" y="264" width="28" height="28"/><rect x="100" y="264" width="28" height="28"/><rect x="140" y="264" width="28" height="28"/><rect x="180" y="264" width="28" height="28"/><rect x="220" y="264" width="28" height="28"/><rect x="260" y="264" width="28" height="28"/><rect x="300" y="264" width="28" height="28"/><rect x="340" y="264" width="28" height="28"/><rect x="380" y="264" width="28" height="28"/>
+    <rect x="60" y="304" width="28" height="28"/><rect x="100" y="304" width="28" height="28"/><rect x="140" y="304" width="28" height="28"/><rect x="180" y="304" width="28" height="28"/><rect x="220" y="304" width="28" height="28"/><rect x="260" y="304" width="28" height="28"/><rect x="300" y="304" width="28" height="28"/><rect x="340" y="304" width="28" height="28"/><rect x="380" y="304" width="28" height="28"/>
+    <rect x="60" y="344" width="28" height="28"/><rect x="100" y="344" width="28" height="28"/><rect x="140" y="344" width="28" height="28"/><rect x="180" y="344" width="28" height="28"/><rect x="220" y="344" width="28" height="28"/><rect x="260" y="344" width="28" height="28"/><rect x="300" y="344" width="28" height="28"/><rect x="340" y="344" width="28" height="28"/><rect x="380" y="344" width="28" height="28"/>
+  </g>
+  <g fill="#38bdf8">
+    <rect x="140" y="144" width="28" height="28"/><rect x="180" y="144" width="28" height="28"/><rect x="220" y="144" width="28" height="28"/><rect x="300" y="144" width="28" height="28"/><rect x="340" y="144" width="28" height="28"/>
+    <rect x="100" y="184" width="28" height="28"/><rect x="100" y="224" width="28" height="28"/><rect x="100" y="264" width="28" height="28"/><rect x="100" y="304" width="28" height="28"/>
+    <rect x="220" y="184" width="28" height="28"/><rect x="220" y="224" width="28" height="28"/><rect x="220" y="264" width="28" height="28"/><rect x="220" y="304" width="28" height="28"/>
+    <rect x="340" y="184" width="28" height="28"/><rect x="340" y="224" width="28" height="28"/><rect x="340" y="264" width="28" height="28"/><rect x="340" y="304" width="28" height="28"/>
+  </g>
+  <rect x="260" y="144" width="28" height="28" fill="#7dd3fc"/>
+  <rect x="100" y="144" width="28" height="28" fill="#10b981"/>
+  <rect x="340" y="144" width="28" height="28" fill="#f59e0b"/>
+</svg>
+</g><text x="698.667" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="740.667" y="1222" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title id="s416-t">maithresh.sh — Contribution Mosaic concept</title>
+  <desc>A contribution-graph lattice where a subset of cells resolves into a squared m. Flat squares only: no connecting lines, no glowing nodes, no travelling charge. Green and amber mark the two endpoints.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g id="s416-grid" fill="#1e293b" fill-opacity="0.5">
+    <rect x="60" y="104" width="28" height="28"/><rect x="100" y="104" width="28" height="28"/><rect x="140" y="104" width="28" height="28"/><rect x="180" y="104" width="28" height="28"/><rect x="220" y="104" width="28" height="28"/><rect x="260" y="104" width="28" height="28"/><rect x="300" y="104" width="28" height="28"/><rect x="340" y="104" width="28" height="28"/><rect x="380" y="104" width="28" height="28"/>
+    <rect x="60" y="144" width="28" height="28"/><rect x="100" y="144" width="28" height="28"/><rect x="140" y="144" width="28" height="28"/><rect x="180" y="144" width="28" height="28"/><rect x="220" y="144" width="28" height="28"/><rect x="260" y="144" width="28" height="28"/><rect x="300" y="144" width="28" height="28"/><rect x="340" y="144" width="28" height="28"/><rect x="380" y="144" width="28" height="28"/>
+    <rect x="60" y="184" width="28" height="28"/><rect x="100" y="184" width="28" height="28"/><rect x="140" y="184" width="28" height="28"/><rect x="180" y="184" width="28" height="28"/><rect x="220" y="184" width="28" height="28"/><rect x="260" y="184" width="28" height="28"/><rect x="300" y="184" width="28" height="28"/><rect x="340" y="184" width="28" height="28"/><rect x="380" y="184" width="28" height="28"/>
+    <rect x="60" y="224" width="28" height="28"/><rect x="100" y="224" width="28" height="28"/><rect x="140" y="224" width="28" height="28"/><rect x="180" y="224" width="28" height="28"/><rect x="220" y="224" width="28" height="28"/><rect x="260" y="224" width="28" height="28"/><rect x="300" y="224" width="28" height="28"/><rect x="340" y="224" width="28" height="28"/><rect x="380" y="224" width="28" height="28"/>
+    <rect x="60" y="264" width="28" height="28"/><rect x="100" y="264" width="28" height="28"/><rect x="140" y="264" width="28" height="28"/><rect x="180" y="264" width="28" height="28"/><rect x="220" y="264" width="28" height="28"/><rect x="260" y="264" width="28" height="28"/><rect x="300" y="264" width="28" height="28"/><rect x="340" y="264" width="28" height="28"/><rect x="380" y="264" width="28" height="28"/>
+    <rect x="60" y="304" width="28" height="28"/><rect x="100" y="304" width="28" height="28"/><rect x="140" y="304" width="28" height="28"/><rect x="180" y="304" width="28" height="28"/><rect x="220" y="304" width="28" height="28"/><rect x="260" y="304" width="28" height="28"/><rect x="300" y="304" width="28" height="28"/><rect x="340" y="304" width="28" height="28"/><rect x="380" y="304" width="28" height="28"/>
+    <rect x="60" y="344" width="28" height="28"/><rect x="100" y="344" width="28" height="28"/><rect x="140" y="344" width="28" height="28"/><rect x="180" y="344" width="28" height="28"/><rect x="220" y="344" width="28" height="28"/><rect x="260" y="344" width="28" height="28"/><rect x="300" y="344" width="28" height="28"/><rect x="340" y="344" width="28" height="28"/><rect x="380" y="344" width="28" height="28"/>
+  </g>
+  <g fill="#38bdf8">
+    <rect x="140" y="144" width="28" height="28"/><rect x="180" y="144" width="28" height="28"/><rect x="220" y="144" width="28" height="28"/><rect x="300" y="144" width="28" height="28"/><rect x="340" y="144" width="28" height="28"/>
+    <rect x="100" y="184" width="28" height="28"/><rect x="100" y="224" width="28" height="28"/><rect x="100" y="264" width="28" height="28"/><rect x="100" y="304" width="28" height="28"/>
+    <rect x="220" y="184" width="28" height="28"/><rect x="220" y="224" width="28" height="28"/><rect x="220" y="264" width="28" height="28"/><rect x="220" y="304" width="28" height="28"/>
+    <rect x="340" y="184" width="28" height="28"/><rect x="340" y="224" width="28" height="28"/><rect x="340" y="264" width="28" height="28"/><rect x="340" y="304" width="28" height="28"/>
+  </g>
+  <rect x="260" y="144" width="28" height="28" fill="#7dd3fc"/>
+  <rect x="100" y="144" width="28" height="28" fill="#10b981"/>
+  <rect x="340" y="144" width="28" height="28" fill="#f59e0b"/>
+</svg>
+</g><text x="748.667" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="592.6666666666667" y="1294" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">E · Contribution Mosaic</text><text x="592.6666666666667" y="1328" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">A contribution lattice resolving into an m.</text><text x="592.6666666666667" y="1354" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">No network, no glow, no path.</text></svg>

@@ -1926,8 +1926,8 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
   .glass-dock .btn-nested-secondary{ display: none; }
   /* Hide the ".sh" suffix, not the whole wordmark. This used to read
      `.logo span:last-child`, which matches `.brand-word` itself (it IS the
-     last child of .logo) — so on every phone the site showed an 8px dot
-     with no name at all. Target the nested accent span instead. */
+     last child of .logo) — so on every phone the site showed only the
+     brand mark with no name at all. Target the nested accent span instead. */
   .glass-dock .logo .brand-accent{ display: none; }
 }
 
@@ -1962,7 +1962,7 @@ html{ scrollbar-width: thin; scrollbar-color: #1e293b var(--bg); }
 .tbtn:hover{ background: rgba(56,189,248,.14); border-color: rgba(56,189,248,.4); }
 
 /* Brand lockup */
-.brand-dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(56,189,248,.7); flex-shrink: 0; }
+.brand-mark{ width: 20px; height: 20px; display: block; flex-shrink: 0; /* Contribution Mosaic — small-size cut, cyan on transparent */ }
 .brand-word{ font-family: var(--font-mono); font-weight: 700; font-size: 14px; color: var(--text); letter-spacing: -.02em; }
 .brand-word .brand-accent{ color: var(--accent); }
 

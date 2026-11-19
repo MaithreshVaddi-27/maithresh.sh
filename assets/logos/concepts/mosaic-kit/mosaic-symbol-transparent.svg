@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-labelledby="title">
+  <title id="title">maithresh.sh — Contribution Mosaic symbol, transparent master</title>
+  <desc>Variant-export master: identical geometry to mosaic-symbol.svg with the dark substrate removed, so black, white and mono exports keep a transparent background.</desc>
+  <defs>
+    <rect id="cell" width="28" height="28"/>
+    <pattern id="lattice" x="60" y="104" width="40" height="40" patternUnits="userSpaceOnUse">
+      <use href="#cell" fill="#1e293b" fill-opacity="0.5"/>
+    </pattern>
+  </defs>
+  <rect x="60" y="104" width="348" height="268" fill="url(#lattice)"/>
+  <g id="mark" fill="#38bdf8">
+    <use href="#cell" x="140" y="144"/><use href="#cell" x="180" y="144"/><use href="#cell" x="260" y="144"/><use href="#cell" x="300" y="144"/>
+    <use href="#cell" x="100" y="184"/><use href="#cell" x="100" y="224"/><use href="#cell" x="100" y="264"/><use href="#cell" x="100" y="304"/>
+    <use href="#cell" x="220" y="184"/><use href="#cell" x="220" y="224"/><use href="#cell" x="220" y="264"/><use href="#cell" x="220" y="304"/>
+    <use href="#cell" x="340" y="184"/><use href="#cell" x="340" y="224"/><use href="#cell" x="340" y="264"/><use href="#cell" x="340" y="304"/>
+  </g>
+  <g id="accents">
+    <use href="#cell" x="100" y="144" fill="#10b981"/>
+    <use href="#cell" x="220" y="144" fill="#7dd3fc"/>
+    <use href="#cell" x="340" y="144" fill="#f59e0b"/>
+  </g>
+</svg>

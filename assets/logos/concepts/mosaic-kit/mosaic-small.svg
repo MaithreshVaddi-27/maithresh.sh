@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-labelledby="title">
+  <title id="title">maithresh.sh — Contribution Mosaic, small-size cut (16–32 px)</title>
+  <desc>Simplified favicon cut: the lattice and accents are dropped and the 19 lit cells are merged into three solid stems and one header. Single cyan, transparent background.</desc>
+  <g fill="#38bdf8">
+    <rect x="96" y="128" width="288" height="56"/>
+    <rect x="96" y="128" width="56" height="232"/>
+    <rect x="212" y="128" width="56" height="232"/>
+    <rect x="328" y="128" width="56" height="232"/>
+  </g>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 320" width="1060" height="320" role="img" aria-labelledby="t">
+  <title id="t">maithresh.sh — horizontal lockup</title>
+  <desc>Symbol left, wordmark right. NOTE: the wordmark is live text in JetBrains Mono and must be converted to outlines before production use.</desc>
+  <rect width="1060" height="320" fill="#07090e"/>
+  <defs>
+    <rect id="hcell" width="28" height="28"/>
+    <pattern id="hlattice" x="60" y="104" width="40" height="40" patternUnits="userSpaceOnUse">
+      <use href="#hcell" fill="#1e293b" fill-opacity="0.5"/>
+    </pattern>
+  </defs>
+  <g transform="translate(40 20) scale(0.5)">
+    <rect x="60" y="104" width="348" height="268" fill="url(#hlattice)"/>
+    <g fill="#38bdf8">
+      <use href="#hcell" x="140" y="144"/><use href="#hcell" x="180" y="144"/><use href="#hcell" x="260" y="144"/><use href="#hcell" x="300" y="144"/>
+      <use href="#hcell" x="100" y="184"/><use href="#hcell" x="100" y="224"/><use href="#hcell" x="100" y="264"/><use href="#hcell" x="100" y="304"/>
+      <use href="#hcell" x="220" y="184"/><use href="#hcell" x="220" y="224"/><use href="#hcell" x="220" y="264"/><use href="#hcell" x="220" y="304"/>
+      <use href="#hcell" x="340" y="184"/><use href="#hcell" x="340" y="224"/><use href="#hcell" x="340" y="264"/><use href="#hcell" x="340" y="304"/>
+    </g>
+    <use href="#hcell" x="100" y="144" fill="#10b981"/>
+    <use href="#hcell" x="220" y="144" fill="#7dd3fc"/>
+    <use href="#hcell" x="340" y="144" fill="#f59e0b"/>
+  </g>
+  <text x="340" y="205" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="84" font-weight="700" letter-spacing="-3" fill="#f8fafc">maithresh<tspan fill="#38bdf8">.sh</tspan></text>
+</svg>

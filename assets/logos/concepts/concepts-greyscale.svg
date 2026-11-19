@@ -1,0 +1,545 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="1498" viewBox="0 0 1600 1498"><defs><filter id="grey"><feColorMatrix type="saturate" values="0"/></filter></defs><rect width="1600" height="1498" fill="#f7f7f4"/><text x="60" y="78" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="40" font-weight="700" fill="#161616">maithresh.sh — logo concepts</text><text x="60" y="116" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="20" fill="#6b6b6b">Five unique styles · one design system</text><rect x="60" y="150" width="474.667" height="630" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="90" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title id="c0-t">maithresh.sh — Neon Monogram concept</title>
+  <desc>A lowercase m built from two rounded neon arches, terminated by a blinking block cursor. Cyan plasma #38bdf8 with green and amber status LEDs on the #07090e substrate inside a glass tile.</desc>
+  <defs>
+    <filter id="c0-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="c0-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <rect x="40" y="40" width="400" height="400" rx="96" fill="#ffffff" fill-opacity="0.03" stroke="#1e293b" stroke-width="2"/>
+  <path d="M72 108 V72 H108 M372 72 H408 V108 M408 372 V408 H372 M108 408 H72 V372" fill="none" stroke="#38bdf8" stroke-opacity="0.35" stroke-width="3" stroke-linecap="square"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#c0-glow)">
+    <path d="M152 344 L152 184 Q152 168 168 168 L204 168 Q220 168 220 184 L220 344"/>
+    <path d="M220 344 L220 184 Q220 168 236 168 L272 168 Q288 168 288 184 L288 344"/>
+  </g>
+  <g fill="none" stroke="#7dd3fc" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M152 344 L152 184 Q152 168 168 168 L204 168 Q220 168 220 184 L220 344"/>
+    <path d="M220 344 L220 184 Q220 168 236 168 L272 168 Q288 168 288 184 L288 344"/>
+  </g>
+  <circle cx="332" cy="330" r="13" fill="#38bdf8" filter="url(#c0-glow)">
+    <animate attributeName="opacity" values="1;0.15;1" dur="1.1s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="120" cy="120" r="6" fill="#10b981" filter="url(#c0-soft)"/>
+  <circle cx="360" cy="120" r="6" fill="#f59e0b" filter="url(#c0-soft)"/>
+  <rect x="152" y="372" width="180" height="8" rx="4" fill="#1e293b"/>
+  <rect x="152" y="372" width="40" height="8" rx="4" fill="#38bdf8" filter="url(#c0-soft)">
+    <animate attributeName="x" values="152;292;152" dur="2.4s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="90" y="516" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title id="s064-t">maithresh.sh — Neon Monogram concept</title>
+  <desc>A lowercase m built from two rounded neon arches, terminated by a blinking block cursor. Cyan plasma #38bdf8 with green and amber status LEDs on the #07090e substrate inside a glass tile.</desc>
+  <defs>
+    <filter id="s064-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="s064-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <rect x="40" y="40" width="400" height="400" rx="96" fill="#ffffff" fill-opacity="0.03" stroke="#1e293b" stroke-width="2"/>
+  <path d="M72 108 V72 H108 M372 72 H408 V108 M408 372 V408 H372 M108 408 H72 V372" fill="none" stroke="#38bdf8" stroke-opacity="0.35" stroke-width="3" stroke-linecap="square"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#s064-glow)">
+    <path d="M152 344 L152 184 Q152 168 168 168 L204 168 Q220 168 220 184 L220 344"/>
+    <path d="M220 344 L220 184 Q220 168 236 168 L272 168 Q288 168 288 184 L288 344"/>
+  </g>
+  <g fill="none" stroke="#7dd3fc" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M152 344 L152 184 Q152 168 168 168 L204 168 Q220 168 220 184 L220 344"/>
+    <path d="M220 344 L220 184 Q220 168 236 168 L272 168 Q288 168 288 184 L288 344"/>
+  </g>
+  <circle cx="332" cy="330" r="13" fill="#38bdf8" filter="url(#s064-glow)">
+    <animate attributeName="opacity" values="1;0.15;1" dur="1.1s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="120" cy="120" r="6" fill="#10b981" filter="url(#s064-soft)"/>
+  <circle cx="360" cy="120" r="6" fill="#f59e0b" filter="url(#s064-soft)"/>
+  <rect x="152" y="372" width="180" height="8" rx="4" fill="#1e293b"/>
+  <rect x="152" y="372" width="40" height="8" rx="4" fill="#38bdf8" filter="url(#s064-soft)">
+    <animate attributeName="x" values="152;292;152" dur="2.4s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="122" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="180" y="548" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title id="s032-t">maithresh.sh — Neon Monogram concept</title>
+  <desc>A lowercase m built from two rounded neon arches, terminated by a blinking block cursor. Cyan plasma #38bdf8 with green and amber status LEDs on the #07090e substrate inside a glass tile.</desc>
+  <defs>
+    <filter id="s032-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="s032-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <rect x="40" y="40" width="400" height="400" rx="96" fill="#ffffff" fill-opacity="0.03" stroke="#1e293b" stroke-width="2"/>
+  <path d="M72 108 V72 H108 M372 72 H408 V108 M408 372 V408 H372 M108 408 H72 V372" fill="none" stroke="#38bdf8" stroke-opacity="0.35" stroke-width="3" stroke-linecap="square"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#s032-glow)">
+    <path d="M152 344 L152 184 Q152 168 168 168 L204 168 Q220 168 220 184 L220 344"/>
+    <path d="M220 344 L220 184 Q220 168 236 168 L272 168 Q288 168 288 184 L288 344"/>
+  </g>
+  <g fill="none" stroke="#7dd3fc" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M152 344 L152 184 Q152 168 168 168 L204 168 Q220 168 220 184 L220 344"/>
+    <path d="M220 344 L220 184 Q220 168 236 168 L272 168 Q288 168 288 184 L288 344"/>
+  </g>
+  <circle cx="332" cy="330" r="13" fill="#38bdf8" filter="url(#s032-glow)">
+    <animate attributeName="opacity" values="1;0.15;1" dur="1.1s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="120" cy="120" r="6" fill="#10b981" filter="url(#s032-soft)"/>
+  <circle cx="360" cy="120" r="6" fill="#f59e0b" filter="url(#s032-soft)"/>
+  <rect x="152" y="372" width="180" height="8" rx="4" fill="#1e293b"/>
+  <rect x="152" y="372" width="40" height="8" rx="4" fill="#38bdf8" filter="url(#s032-soft)">
+    <animate attributeName="x" values="152;292;152" dur="2.4s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="196" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="238" y="564" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title id="s016-t">maithresh.sh — Neon Monogram concept</title>
+  <desc>A lowercase m built from two rounded neon arches, terminated by a blinking block cursor. Cyan plasma #38bdf8 with green and amber status LEDs on the #07090e substrate inside a glass tile.</desc>
+  <defs>
+    <filter id="s016-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="s016-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <rect x="40" y="40" width="400" height="400" rx="96" fill="#ffffff" fill-opacity="0.03" stroke="#1e293b" stroke-width="2"/>
+  <path d="M72 108 V72 H108 M372 72 H408 V108 M408 372 V408 H372 M108 408 H72 V372" fill="none" stroke="#38bdf8" stroke-opacity="0.35" stroke-width="3" stroke-linecap="square"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#s016-glow)">
+    <path d="M152 344 L152 184 Q152 168 168 168 L204 168 Q220 168 220 184 L220 344"/>
+    <path d="M220 344 L220 184 Q220 168 236 168 L272 168 Q288 168 288 184 L288 344"/>
+  </g>
+  <g fill="none" stroke="#7dd3fc" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M152 344 L152 184 Q152 168 168 168 L204 168 Q220 168 220 184 L220 344"/>
+    <path d="M220 344 L220 184 Q220 168 236 168 L272 168 Q288 168 288 184 L288 344"/>
+  </g>
+  <circle cx="332" cy="330" r="13" fill="#38bdf8" filter="url(#s016-glow)">
+    <animate attributeName="opacity" values="1;0.15;1" dur="1.1s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="120" cy="120" r="6" fill="#10b981" filter="url(#s016-soft)"/>
+  <circle cx="360" cy="120" r="6" fill="#f59e0b" filter="url(#s016-soft)"/>
+  <rect x="152" y="372" width="180" height="8" rx="4" fill="#1e293b"/>
+  <rect x="152" y="372" width="40" height="8" rx="4" fill="#38bdf8" filter="url(#s016-soft)">
+    <animate attributeName="x" values="152;292;152" dur="2.4s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="246" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="90.0" y="636" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">A · Neon Monogram</text><text x="90.0" y="670" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">Your m drawn as a live terminal glyph,</text><text x="90.0" y="696" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">closed by a blinking block cursor.</text><rect x="562.667" y="150" width="474.667" height="630" rx="18" fill="#fff" stroke="#161616" stroke-width="2"/><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="592.667" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title id="c1-t">maithresh.sh — Reticle Core concept</title>
+  <desc>A HUD viewfinder: four precision corner brackets and a rotating diamond enclose a pulsing cyan plasma core, triangulated by green and amber satellite nodes. Built from the site's own 14px corner-reticle pattern.</desc>
+  <defs>
+    <filter id="c1-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="c1-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <circle cx="240" cy="240" r="176" fill="none" stroke="#1e293b" stroke-width="1" stroke-opacity="0.5"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="9" stroke-linecap="square" filter="url(#c1-soft)">
+    <path d="M128 174 V128 H174"/>
+    <path d="M306 128 H352 V174"/>
+    <path d="M352 306 V352 H306"/>
+    <path d="M174 352 H128 V306"/>
+  </g>
+  <path d="M240 152 L328 240 L240 328 L152 240 Z" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.4"/>
+  <path d="M240 240 L312 168 M240 240 L168 312" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="6 8"/>
+  <g stroke="#7dd3fc" stroke-width="4" stroke-linecap="round" stroke-opacity="0.85">
+    <path d="M240 176 V196 M240 284 V304 M176 240 H196 M284 240 H304"/>
+  </g>
+  <circle cx="240" cy="240" r="30" fill="#38bdf8" filter="url(#c1-glow)">
+    <animate attributeName="opacity" values="1;0.5;1" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="240" r="42" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.5">
+    <animate attributeName="r" values="42;54;42" dur="2.6s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0.06;0.5" dur="2.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="240" r="10" fill="#7dd3fc"/>
+  <circle cx="312" cy="168" r="9" fill="#f59e0b" filter="url(#c1-glow)"/>
+  <circle cx="168" cy="312" r="9" fill="#10b981" filter="url(#c1-glow)"/>
+</svg>
+</g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="592.667" y="516" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title id="s164-t">maithresh.sh — Reticle Core concept</title>
+  <desc>A HUD viewfinder: four precision corner brackets and a rotating diamond enclose a pulsing cyan plasma core, triangulated by green and amber satellite nodes. Built from the site's own 14px corner-reticle pattern.</desc>
+  <defs>
+    <filter id="s164-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="s164-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <circle cx="240" cy="240" r="176" fill="none" stroke="#1e293b" stroke-width="1" stroke-opacity="0.5"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="9" stroke-linecap="square" filter="url(#s164-soft)">
+    <path d="M128 174 V128 H174"/>
+    <path d="M306 128 H352 V174"/>
+    <path d="M352 306 V352 H306"/>
+    <path d="M174 352 H128 V306"/>
+  </g>
+  <path d="M240 152 L328 240 L240 328 L152 240 Z" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.4"/>
+  <path d="M240 240 L312 168 M240 240 L168 312" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="6 8"/>
+  <g stroke="#7dd3fc" stroke-width="4" stroke-linecap="round" stroke-opacity="0.85">
+    <path d="M240 176 V196 M240 284 V304 M176 240 H196 M284 240 H304"/>
+  </g>
+  <circle cx="240" cy="240" r="30" fill="#38bdf8" filter="url(#s164-glow)">
+    <animate attributeName="opacity" values="1;0.5;1" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="240" r="42" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.5">
+    <animate attributeName="r" values="42;54;42" dur="2.6s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0.06;0.5" dur="2.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="240" r="10" fill="#7dd3fc"/>
+  <circle cx="312" cy="168" r="9" fill="#f59e0b" filter="url(#s164-glow)"/>
+  <circle cx="168" cy="312" r="9" fill="#10b981" filter="url(#s164-glow)"/>
+</svg>
+</g><text x="624.667" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="682.667" y="548" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title id="s132-t">maithresh.sh — Reticle Core concept</title>
+  <desc>A HUD viewfinder: four precision corner brackets and a rotating diamond enclose a pulsing cyan plasma core, triangulated by green and amber satellite nodes. Built from the site's own 14px corner-reticle pattern.</desc>
+  <defs>
+    <filter id="s132-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="s132-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <circle cx="240" cy="240" r="176" fill="none" stroke="#1e293b" stroke-width="1" stroke-opacity="0.5"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="9" stroke-linecap="square" filter="url(#s132-soft)">
+    <path d="M128 174 V128 H174"/>
+    <path d="M306 128 H352 V174"/>
+    <path d="M352 306 V352 H306"/>
+    <path d="M174 352 H128 V306"/>
+  </g>
+  <path d="M240 152 L328 240 L240 328 L152 240 Z" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.4"/>
+  <path d="M240 240 L312 168 M240 240 L168 312" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="6 8"/>
+  <g stroke="#7dd3fc" stroke-width="4" stroke-linecap="round" stroke-opacity="0.85">
+    <path d="M240 176 V196 M240 284 V304 M176 240 H196 M284 240 H304"/>
+  </g>
+  <circle cx="240" cy="240" r="30" fill="#38bdf8" filter="url(#s132-glow)">
+    <animate attributeName="opacity" values="1;0.5;1" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="240" r="42" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.5">
+    <animate attributeName="r" values="42;54;42" dur="2.6s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0.06;0.5" dur="2.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="240" r="10" fill="#7dd3fc"/>
+  <circle cx="312" cy="168" r="9" fill="#f59e0b" filter="url(#s132-glow)"/>
+  <circle cx="168" cy="312" r="9" fill="#10b981" filter="url(#s132-glow)"/>
+</svg>
+</g><text x="698.667" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="740.667" y="564" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title id="s116-t">maithresh.sh — Reticle Core concept</title>
+  <desc>A HUD viewfinder: four precision corner brackets and a rotating diamond enclose a pulsing cyan plasma core, triangulated by green and amber satellite nodes. Built from the site's own 14px corner-reticle pattern.</desc>
+  <defs>
+    <filter id="s116-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="s116-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <circle cx="240" cy="240" r="176" fill="none" stroke="#1e293b" stroke-width="1" stroke-opacity="0.5"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="9" stroke-linecap="square" filter="url(#s116-soft)">
+    <path d="M128 174 V128 H174"/>
+    <path d="M306 128 H352 V174"/>
+    <path d="M352 306 V352 H306"/>
+    <path d="M174 352 H128 V306"/>
+  </g>
+  <path d="M240 152 L328 240 L240 328 L152 240 Z" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.4"/>
+  <path d="M240 240 L312 168 M240 240 L168 312" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="6 8"/>
+  <g stroke="#7dd3fc" stroke-width="4" stroke-linecap="round" stroke-opacity="0.85">
+    <path d="M240 176 V196 M240 284 V304 M176 240 H196 M284 240 H304"/>
+  </g>
+  <circle cx="240" cy="240" r="30" fill="#38bdf8" filter="url(#s116-glow)">
+    <animate attributeName="opacity" values="1;0.5;1" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="240" r="42" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.5">
+    <animate attributeName="r" values="42;54;42" dur="2.6s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0.06;0.5" dur="2.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="240" r="10" fill="#7dd3fc"/>
+  <circle cx="312" cy="168" r="9" fill="#f59e0b" filter="url(#s116-glow)"/>
+  <circle cx="168" cy="312" r="9" fill="#10b981" filter="url(#s116-glow)"/>
+</svg>
+</g><text x="748.667" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="592.6666666666667" y="636" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">B · Reticle Core</text><text x="592.6666666666667" y="664" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#161616" letter-spacing="1.5">RECOMMENDED</text><text x="592.6666666666667" y="698" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">The site&#x27;s own HUD reticle becomes a</text><text x="592.6666666666667" y="724" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">targeting emblem around a plasma core.</text><rect x="1065.33" y="150" width="474.667" height="630" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="1095.33" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title id="c2-t">maithresh.sh — Glass Prism concept</title>
+  <desc>An isometric glass cube: three translucent faces lit cyan, amber and green with a plasma vertex where they meet. A dimensional take on layered systems and clean architecture.</desc>
+  <defs>
+    <filter id="c2-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <ellipse cx="240" cy="370" rx="112" ry="15" fill="#000000" fill-opacity="0.45"/>
+  <g stroke-width="4" stroke-linejoin="round" filter="url(#c2-glow)">
+    <polygon points="240,84 352,148 240,212 128,148" fill="#38bdf8" fill-opacity="0.16" stroke="#38bdf8"/>
+    <polygon points="352,148 352,276 240,340 240,212" fill="#f59e0b" fill-opacity="0.13" stroke="#f59e0b"/>
+    <polygon points="128,148 240,212 240,340 128,276" fill="#10b981" fill-opacity="0.13" stroke="#10b981"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.28" stroke-linejoin="round">
+    <path d="M240 84 L240 212 L352 148 M240 212 L128 148 M240 212 L240 340"/>
+  </g>
+  <circle cx="240" cy="212" r="11" fill="#38bdf8" filter="url(#c2-glow)"/>
+  <circle cx="240" cy="212" r="20" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-opacity="0.5">
+    <animate attributeName="r" values="20;29;20" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0.05;0.5" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="56" r="7" fill="#10b981" filter="url(#c2-glow)"/>
+  <path d="M240 63 V84" stroke="#10b981" stroke-width="2" stroke-opacity="0.6"/>
+</svg>
+</g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="1095.33" y="516" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title id="s264-t">maithresh.sh — Glass Prism concept</title>
+  <desc>An isometric glass cube: three translucent faces lit cyan, amber and green with a plasma vertex where they meet. A dimensional take on layered systems and clean architecture.</desc>
+  <defs>
+    <filter id="s264-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <ellipse cx="240" cy="370" rx="112" ry="15" fill="#000000" fill-opacity="0.45"/>
+  <g stroke-width="4" stroke-linejoin="round" filter="url(#s264-glow)">
+    <polygon points="240,84 352,148 240,212 128,148" fill="#38bdf8" fill-opacity="0.16" stroke="#38bdf8"/>
+    <polygon points="352,148 352,276 240,340 240,212" fill="#f59e0b" fill-opacity="0.13" stroke="#f59e0b"/>
+    <polygon points="128,148 240,212 240,340 128,276" fill="#10b981" fill-opacity="0.13" stroke="#10b981"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.28" stroke-linejoin="round">
+    <path d="M240 84 L240 212 L352 148 M240 212 L128 148 M240 212 L240 340"/>
+  </g>
+  <circle cx="240" cy="212" r="11" fill="#38bdf8" filter="url(#s264-glow)"/>
+  <circle cx="240" cy="212" r="20" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-opacity="0.5">
+    <animate attributeName="r" values="20;29;20" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0.05;0.5" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="56" r="7" fill="#10b981" filter="url(#s264-glow)"/>
+  <path d="M240 63 V84" stroke="#10b981" stroke-width="2" stroke-opacity="0.6"/>
+</svg>
+</g><text x="1127.33" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="1185.33" y="548" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title id="s232-t">maithresh.sh — Glass Prism concept</title>
+  <desc>An isometric glass cube: three translucent faces lit cyan, amber and green with a plasma vertex where they meet. A dimensional take on layered systems and clean architecture.</desc>
+  <defs>
+    <filter id="s232-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <ellipse cx="240" cy="370" rx="112" ry="15" fill="#000000" fill-opacity="0.45"/>
+  <g stroke-width="4" stroke-linejoin="round" filter="url(#s232-glow)">
+    <polygon points="240,84 352,148 240,212 128,148" fill="#38bdf8" fill-opacity="0.16" stroke="#38bdf8"/>
+    <polygon points="352,148 352,276 240,340 240,212" fill="#f59e0b" fill-opacity="0.13" stroke="#f59e0b"/>
+    <polygon points="128,148 240,212 240,340 128,276" fill="#10b981" fill-opacity="0.13" stroke="#10b981"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.28" stroke-linejoin="round">
+    <path d="M240 84 L240 212 L352 148 M240 212 L128 148 M240 212 L240 340"/>
+  </g>
+  <circle cx="240" cy="212" r="11" fill="#38bdf8" filter="url(#s232-glow)"/>
+  <circle cx="240" cy="212" r="20" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-opacity="0.5">
+    <animate attributeName="r" values="20;29;20" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0.05;0.5" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="56" r="7" fill="#10b981" filter="url(#s232-glow)"/>
+  <path d="M240 63 V84" stroke="#10b981" stroke-width="2" stroke-opacity="0.6"/>
+</svg>
+</g><text x="1201.33" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="1243.33" y="564" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title id="s216-t">maithresh.sh — Glass Prism concept</title>
+  <desc>An isometric glass cube: three translucent faces lit cyan, amber and green with a plasma vertex where they meet. A dimensional take on layered systems and clean architecture.</desc>
+  <defs>
+    <filter id="s216-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <ellipse cx="240" cy="370" rx="112" ry="15" fill="#000000" fill-opacity="0.45"/>
+  <g stroke-width="4" stroke-linejoin="round" filter="url(#s216-glow)">
+    <polygon points="240,84 352,148 240,212 128,148" fill="#38bdf8" fill-opacity="0.16" stroke="#38bdf8"/>
+    <polygon points="352,148 352,276 240,340 240,212" fill="#f59e0b" fill-opacity="0.13" stroke="#f59e0b"/>
+    <polygon points="128,148 240,212 240,340 128,276" fill="#10b981" fill-opacity="0.13" stroke="#10b981"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.28" stroke-linejoin="round">
+    <path d="M240 84 L240 212 L352 148 M240 212 L128 148 M240 212 L240 340"/>
+  </g>
+  <circle cx="240" cy="212" r="11" fill="#38bdf8" filter="url(#s216-glow)"/>
+  <circle cx="240" cy="212" r="20" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-opacity="0.5">
+    <animate attributeName="r" values="20;29;20" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0.05;0.5" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="56" r="7" fill="#10b981" filter="url(#s216-glow)"/>
+  <path d="M240 63 V84" stroke="#10b981" stroke-width="2" stroke-opacity="0.6"/>
+</svg>
+</g><text x="1251.33" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="1095.3333333333335" y="636" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">C · Glass Prism</text><text x="1095.3333333333335" y="670" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">Layered systems as an isometric glass cube,</text><text x="1095.3333333333335" y="696" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">lit by the three signal colours.</text><rect x="60" y="808" width="474.667" height="630" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="90" y="848" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title id="c3-t">maithresh.sh — Signal Pulse concept</title>
+  <desc>An oscilloscope trace that resolves into a bold M, with a live charge running the wire between green and amber terminals. A telemetry-first mark for a builder whose work is always live.</desc>
+  <defs>
+    <filter id="c3-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="c3-sig" d="M92 348 L92 168 L172 276 L252 168 L252 348"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#1e293b" stroke-width="1" stroke-opacity="0.7">
+    <path d="M64 168 H400 M64 224 H400 M64 280 H400 M64 336 H400"/>
+    <path d="M96 148 V356 M160 148 V356 M224 148 V356 M288 148 V356 M352 148 V356" stroke-opacity="0.35"/>
+  </g>
+  <path d="M64 140 V356 H80" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.45"/>
+  <use href="#c3-sig" fill="none" stroke="#38bdf8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" filter="url(#c3-glow)" opacity="0.55"/>
+  <use href="#c3-sig" fill="none" stroke="#7dd3fc" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="92" cy="168" r="10" fill="#10b981" filter="url(#c3-glow)"/>
+  <circle cx="252" cy="168" r="10" fill="#f59e0b" filter="url(#c3-glow)"/>
+  <circle cx="172" cy="276" r="6" fill="#7dd3fc"/>
+  <circle r="8" fill="#ffffff" filter="url(#c3-glow)">
+    <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#c3-sig"/></animateMotion>
+  </circle>
+  <rect x="64" y="372" width="336" height="6" rx="3" fill="#1e293b"/>
+  <rect x="64" y="372" width="56" height="6" rx="3" fill="#38bdf8" opacity="0.8">
+    <animate attributeName="x" values="64;344;64" dur="2.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="90" y="1174" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title id="s364-t">maithresh.sh — Signal Pulse concept</title>
+  <desc>An oscilloscope trace that resolves into a bold M, with a live charge running the wire between green and amber terminals. A telemetry-first mark for a builder whose work is always live.</desc>
+  <defs>
+    <filter id="s364-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="s364-sig" d="M92 348 L92 168 L172 276 L252 168 L252 348"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#1e293b" stroke-width="1" stroke-opacity="0.7">
+    <path d="M64 168 H400 M64 224 H400 M64 280 H400 M64 336 H400"/>
+    <path d="M96 148 V356 M160 148 V356 M224 148 V356 M288 148 V356 M352 148 V356" stroke-opacity="0.35"/>
+  </g>
+  <path d="M64 140 V356 H80" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.45"/>
+  <use href="#s364-sig" fill="none" stroke="#38bdf8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" filter="url(#s364-glow)" opacity="0.55"/>
+  <use href="#s364-sig" fill="none" stroke="#7dd3fc" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="92" cy="168" r="10" fill="#10b981" filter="url(#s364-glow)"/>
+  <circle cx="252" cy="168" r="10" fill="#f59e0b" filter="url(#s364-glow)"/>
+  <circle cx="172" cy="276" r="6" fill="#7dd3fc"/>
+  <circle r="8" fill="#ffffff" filter="url(#s364-glow)">
+    <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#s364-sig"/></animateMotion>
+  </circle>
+  <rect x="64" y="372" width="336" height="6" rx="3" fill="#1e293b"/>
+  <rect x="64" y="372" width="56" height="6" rx="3" fill="#38bdf8" opacity="0.8">
+    <animate attributeName="x" values="64;344;64" dur="2.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="122" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="180" y="1206" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title id="s332-t">maithresh.sh — Signal Pulse concept</title>
+  <desc>An oscilloscope trace that resolves into a bold M, with a live charge running the wire between green and amber terminals. A telemetry-first mark for a builder whose work is always live.</desc>
+  <defs>
+    <filter id="s332-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="s332-sig" d="M92 348 L92 168 L172 276 L252 168 L252 348"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#1e293b" stroke-width="1" stroke-opacity="0.7">
+    <path d="M64 168 H400 M64 224 H400 M64 280 H400 M64 336 H400"/>
+    <path d="M96 148 V356 M160 148 V356 M224 148 V356 M288 148 V356 M352 148 V356" stroke-opacity="0.35"/>
+  </g>
+  <path d="M64 140 V356 H80" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.45"/>
+  <use href="#s332-sig" fill="none" stroke="#38bdf8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" filter="url(#s332-glow)" opacity="0.55"/>
+  <use href="#s332-sig" fill="none" stroke="#7dd3fc" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="92" cy="168" r="10" fill="#10b981" filter="url(#s332-glow)"/>
+  <circle cx="252" cy="168" r="10" fill="#f59e0b" filter="url(#s332-glow)"/>
+  <circle cx="172" cy="276" r="6" fill="#7dd3fc"/>
+  <circle r="8" fill="#ffffff" filter="url(#s332-glow)">
+    <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#s332-sig"/></animateMotion>
+  </circle>
+  <rect x="64" y="372" width="336" height="6" rx="3" fill="#1e293b"/>
+  <rect x="64" y="372" width="56" height="6" rx="3" fill="#38bdf8" opacity="0.8">
+    <animate attributeName="x" values="64;344;64" dur="2.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="196" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="238" y="1222" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title id="s316-t">maithresh.sh — Signal Pulse concept</title>
+  <desc>An oscilloscope trace that resolves into a bold M, with a live charge running the wire between green and amber terminals. A telemetry-first mark for a builder whose work is always live.</desc>
+  <defs>
+    <filter id="s316-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="s316-sig" d="M92 348 L92 168 L172 276 L252 168 L252 348"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#1e293b" stroke-width="1" stroke-opacity="0.7">
+    <path d="M64 168 H400 M64 224 H400 M64 280 H400 M64 336 H400"/>
+    <path d="M96 148 V356 M160 148 V356 M224 148 V356 M288 148 V356 M352 148 V356" stroke-opacity="0.35"/>
+  </g>
+  <path d="M64 140 V356 H80" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.45"/>
+  <use href="#s316-sig" fill="none" stroke="#38bdf8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" filter="url(#s316-glow)" opacity="0.55"/>
+  <use href="#s316-sig" fill="none" stroke="#7dd3fc" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="92" cy="168" r="10" fill="#10b981" filter="url(#s316-glow)"/>
+  <circle cx="252" cy="168" r="10" fill="#f59e0b" filter="url(#s316-glow)"/>
+  <circle cx="172" cy="276" r="6" fill="#7dd3fc"/>
+  <circle r="8" fill="#ffffff" filter="url(#s316-glow)">
+    <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#s316-sig"/></animateMotion>
+  </circle>
+  <rect x="64" y="372" width="336" height="6" rx="3" fill="#1e293b"/>
+  <rect x="64" y="372" width="56" height="6" rx="3" fill="#38bdf8" opacity="0.8">
+    <animate attributeName="x" values="64;344;64" dur="2.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+</g><text x="246" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="90.0" y="1294" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">D · Signal Pulse</text><text x="90.0" y="1328" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">An oscilloscope trace that snaps into an M</text><text x="90.0" y="1354" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">- a mark that always looks live.</text><rect x="562.667" y="808" width="474.667" height="630" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="592.667" y="848" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title id="c4-t">maithresh.sh — Constellation concept</title>
+  <desc>A network of linked nodes with a bright rising trajectory, echoing the contribution graph and open-source collaboration. A data-driven mark that is unique per build.</desc>
+  <defs>
+    <filter id="c4-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="c4-traj" d="M108 348 L156 272 L228 224 L208 132"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#38bdf8" stroke-width="2" stroke-opacity="0.16">
+    <path d="M108 348 L156 272 M108 348 L212 316 M156 272 L132 184 M156 272 L212 316 M156 272 L228 224 M132 184 L228 224 M132 184 L208 132 M212 316 L228 224 M212 316 L300 268 M228 224 L208 132 M228 224 L300 268 M228 224 L324 176 M208 132 L276 112 M208 132 L324 176 M300 268 L324 176 M300 268 L348 336 M324 176 L276 112 M212 316 L348 336"/>
+  </g>
+  <g fill="#38bdf8" fill-opacity="0.5">
+    <circle cx="212" cy="316" r="7"/><circle cx="300" cy="268" r="7"/><circle cx="324" cy="176" r="7"/>
+    <circle cx="276" cy="112" r="7"/><circle cx="348" cy="336" r="7"/><circle cx="132" cy="184" r="7"/>
+  </g>
+  <use href="#c4-traj" fill="none" stroke="#38bdf8" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" filter="url(#c4-glow)" opacity="0.5"/>
+  <use href="#c4-traj" fill="none" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="156" cy="272" r="9" fill="#7dd3fc" filter="url(#c4-glow)"/>
+  <circle cx="228" cy="224" r="9" fill="#7dd3fc" filter="url(#c4-glow)"/>
+  <circle cx="108" cy="348" r="11" fill="#10b981" filter="url(#c4-glow)"/>
+  <circle cx="108" cy="348" r="20" fill="none" stroke="#10b981" stroke-width="2" stroke-opacity="0.4"/>
+  <circle cx="208" cy="132" r="11" fill="#f59e0b" filter="url(#c4-glow)"/>
+  <circle cx="208" cy="132" r="20" fill="none" stroke="#f59e0b" stroke-width="2" stroke-opacity="0.4"/>
+  <circle r="6" fill="#ffffff" filter="url(#c4-glow)">
+    <animateMotion dur="3s" repeatCount="indefinite"><mpath href="#c4-traj"/></animateMotion>
+  </circle>
+</svg>
+</g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="592.667" y="1174" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title id="s464-t">maithresh.sh — Constellation concept</title>
+  <desc>A network of linked nodes with a bright rising trajectory, echoing the contribution graph and open-source collaboration. A data-driven mark that is unique per build.</desc>
+  <defs>
+    <filter id="s464-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="s464-traj" d="M108 348 L156 272 L228 224 L208 132"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#38bdf8" stroke-width="2" stroke-opacity="0.16">
+    <path d="M108 348 L156 272 M108 348 L212 316 M156 272 L132 184 M156 272 L212 316 M156 272 L228 224 M132 184 L228 224 M132 184 L208 132 M212 316 L228 224 M212 316 L300 268 M228 224 L208 132 M228 224 L300 268 M228 224 L324 176 M208 132 L276 112 M208 132 L324 176 M300 268 L324 176 M300 268 L348 336 M324 176 L276 112 M212 316 L348 336"/>
+  </g>
+  <g fill="#38bdf8" fill-opacity="0.5">
+    <circle cx="212" cy="316" r="7"/><circle cx="300" cy="268" r="7"/><circle cx="324" cy="176" r="7"/>
+    <circle cx="276" cy="112" r="7"/><circle cx="348" cy="336" r="7"/><circle cx="132" cy="184" r="7"/>
+  </g>
+  <use href="#s464-traj" fill="none" stroke="#38bdf8" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" filter="url(#s464-glow)" opacity="0.5"/>
+  <use href="#s464-traj" fill="none" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="156" cy="272" r="9" fill="#7dd3fc" filter="url(#s464-glow)"/>
+  <circle cx="228" cy="224" r="9" fill="#7dd3fc" filter="url(#s464-glow)"/>
+  <circle cx="108" cy="348" r="11" fill="#10b981" filter="url(#s464-glow)"/>
+  <circle cx="108" cy="348" r="20" fill="none" stroke="#10b981" stroke-width="2" stroke-opacity="0.4"/>
+  <circle cx="208" cy="132" r="11" fill="#f59e0b" filter="url(#s464-glow)"/>
+  <circle cx="208" cy="132" r="20" fill="none" stroke="#f59e0b" stroke-width="2" stroke-opacity="0.4"/>
+  <circle r="6" fill="#ffffff" filter="url(#s464-glow)">
+    <animateMotion dur="3s" repeatCount="indefinite"><mpath href="#s464-traj"/></animateMotion>
+  </circle>
+</svg>
+</g><text x="624.667" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="682.667" y="1206" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title id="s432-t">maithresh.sh — Constellation concept</title>
+  <desc>A network of linked nodes with a bright rising trajectory, echoing the contribution graph and open-source collaboration. A data-driven mark that is unique per build.</desc>
+  <defs>
+    <filter id="s432-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="s432-traj" d="M108 348 L156 272 L228 224 L208 132"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#38bdf8" stroke-width="2" stroke-opacity="0.16">
+    <path d="M108 348 L156 272 M108 348 L212 316 M156 272 L132 184 M156 272 L212 316 M156 272 L228 224 M132 184 L228 224 M132 184 L208 132 M212 316 L228 224 M212 316 L300 268 M228 224 L208 132 M228 224 L300 268 M228 224 L324 176 M208 132 L276 112 M208 132 L324 176 M300 268 L324 176 M300 268 L348 336 M324 176 L276 112 M212 316 L348 336"/>
+  </g>
+  <g fill="#38bdf8" fill-opacity="0.5">
+    <circle cx="212" cy="316" r="7"/><circle cx="300" cy="268" r="7"/><circle cx="324" cy="176" r="7"/>
+    <circle cx="276" cy="112" r="7"/><circle cx="348" cy="336" r="7"/><circle cx="132" cy="184" r="7"/>
+  </g>
+  <use href="#s432-traj" fill="none" stroke="#38bdf8" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" filter="url(#s432-glow)" opacity="0.5"/>
+  <use href="#s432-traj" fill="none" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="156" cy="272" r="9" fill="#7dd3fc" filter="url(#s432-glow)"/>
+  <circle cx="228" cy="224" r="9" fill="#7dd3fc" filter="url(#s432-glow)"/>
+  <circle cx="108" cy="348" r="11" fill="#10b981" filter="url(#s432-glow)"/>
+  <circle cx="108" cy="348" r="20" fill="none" stroke="#10b981" stroke-width="2" stroke-opacity="0.4"/>
+  <circle cx="208" cy="132" r="11" fill="#f59e0b" filter="url(#s432-glow)"/>
+  <circle cx="208" cy="132" r="20" fill="none" stroke="#f59e0b" stroke-width="2" stroke-opacity="0.4"/>
+  <circle r="6" fill="#ffffff" filter="url(#s432-glow)">
+    <animateMotion dur="3s" repeatCount="indefinite"><mpath href="#s432-traj"/></animateMotion>
+  </circle>
+</svg>
+</g><text x="698.667" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t" viewBox="0 0 480 480" x="740.667" y="1222" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title id="s416-t">maithresh.sh — Constellation concept</title>
+  <desc>A network of linked nodes with a bright rising trajectory, echoing the contribution graph and open-source collaboration. A data-driven mark that is unique per build.</desc>
+  <defs>
+    <filter id="s416-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="s416-traj" d="M108 348 L156 272 L228 224 L208 132"/>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g stroke="#38bdf8" stroke-width="2" stroke-opacity="0.16">
+    <path d="M108 348 L156 272 M108 348 L212 316 M156 272 L132 184 M156 272 L212 316 M156 272 L228 224 M132 184 L228 224 M132 184 L208 132 M212 316 L228 224 M212 316 L300 268 M228 224 L208 132 M228 224 L300 268 M228 224 L324 176 M208 132 L276 112 M208 132 L324 176 M300 268 L324 176 M300 268 L348 336 M324 176 L276 112 M212 316 L348 336"/>
+  </g>
+  <g fill="#38bdf8" fill-opacity="0.5">
+    <circle cx="212" cy="316" r="7"/><circle cx="300" cy="268" r="7"/><circle cx="324" cy="176" r="7"/>
+    <circle cx="276" cy="112" r="7"/><circle cx="348" cy="336" r="7"/><circle cx="132" cy="184" r="7"/>
+  </g>
+  <use href="#s416-traj" fill="none" stroke="#38bdf8" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" filter="url(#s416-glow)" opacity="0.5"/>
+  <use href="#s416-traj" fill="none" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="156" cy="272" r="9" fill="#7dd3fc" filter="url(#s416-glow)"/>
+  <circle cx="228" cy="224" r="9" fill="#7dd3fc" filter="url(#s416-glow)"/>
+  <circle cx="108" cy="348" r="11" fill="#10b981" filter="url(#s416-glow)"/>
+  <circle cx="108" cy="348" r="20" fill="none" stroke="#10b981" stroke-width="2" stroke-opacity="0.4"/>
+  <circle cx="208" cy="132" r="11" fill="#f59e0b" filter="url(#s416-glow)"/>
+  <circle cx="208" cy="132" r="20" fill="none" stroke="#f59e0b" stroke-width="2" stroke-opacity="0.4"/>
+  <circle r="6" fill="#ffffff" filter="url(#s416-glow)">
+    <animateMotion dur="3s" repeatCount="indefinite"><mpath href="#s416-traj"/></animateMotion>
+  </circle>
+</svg>
+</g><text x="748.667" y="1258" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="592.6666666666667" y="1294" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">E · Constellation</text><text x="592.6666666666667" y="1328" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">A contribution-graph constellation with one</text><text x="592.6666666666667" y="1354" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">bright trajectory through the noise.</text></svg>
