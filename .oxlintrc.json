@@ -6,12 +6,15 @@
     "suspicious": "warn"
   },
   "rules": {
+    // Catches extracted components that use a token without importing it.
+    "no-undef": "error",
     // React 19 auto-batches; a bare call as a statement is the one real smell
     // worth keeping, everything else in the default set stays on.
     "no-empty": ["error", { "allowEmptyCatch": true }]
   },
   "env": {
     "browser": true,
+    "node": true,
     "es2024": true
   }
 }

@@ -1,4 +1,4 @@
-import { LINKS, NODES, LINK_IDLE } from '../../data/workbench'
+import { LINKS, NODES, IDLE, LINK_IDLE } from '../../data/workbench'
 import { OUTCOME_STEP } from './config'
 
 // One pipeline diagram + one sim, for all four systems. Every visual is derived
