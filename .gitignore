@@ -16,6 +16,7 @@ dist/
 
 # Local browser-automation scratch (reports, traces, screenshots)
 .playwright-cli/
+.playwright-mcp/
 output/
 
 # Internal tooling — never deploy, and never tracked
