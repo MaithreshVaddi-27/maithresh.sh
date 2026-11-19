@@ -2,11 +2,11 @@ import { TechStack as Stack } from '../Common'
 import { DIAGRAMS, repoSlug } from './schematics'
 
 // Shared body for the selected case study: schematic, prose, metrics, stack, exit.
-export function DetailBody({ project, idPrefix }) {
+export function DetailBody({ project, idPrefix, order }) {
   const Diagram = DIAGRAMS[repoSlug(project.href)]
   return (
     <>
-      {Diagram && <div className="proj-diagram"><Diagram p={idPrefix} /></div>}
+      {Diagram && <div className="proj-diagram"><Diagram p={idPrefix} order={order} /></div>}
       <div className="proj-panel-prose">
         <p className="proj-desc">{project.desc}</p>
         <div className="proj-highlight">{project.highlight}</div>
