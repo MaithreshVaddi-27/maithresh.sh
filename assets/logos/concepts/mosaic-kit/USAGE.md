@@ -71,7 +71,9 @@ import mosaic from './assets/logos/concepts/mosaic-kit/mosaic-symbol.svg'
 <img src={mosaic} width="160" height="160" alt="maithresh.sh" />
 ```
 
-For the favicon, copy `dist/favicon.ico` to `public/` and paste `dist/head-snippet.html` into `<head>`.
+**In this repo the kit is already wired in.** Production icons live in `assets/brand/`, the nav mark is `assets/logos/maithresh-mosaic-mark.svg`, and `<head>` carries the icon tags in `index.html`. `vite.config.js` copies `assets/` into `dist/assets/`, so no `public/` folder is used.
+
+Manifest paths must stay **relative to the manifest URL** (`./brand/icon-192.png`, `start_url: "../"`) — the site deploys both at `/` (Cloudflare Pages) and at `/maithresh.sh/` (GitHub Pages, via `VITE_BASE`), and root-absolute paths would 404 on the subpath. The production manifest is `assets/site.webmanifest`.
 
 ## 7. Open items
 

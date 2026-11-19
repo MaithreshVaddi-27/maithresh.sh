@@ -319,6 +319,18 @@ need(/className="logo"[^>]*aria-label=/.test(nav),
   'the logo link needs an explicit aria-label: .brand-word is display:none under 640px, which leaves the link unnamed (axe link-name)')
 need(/className="brand-mark"[^>]*aria-hidden/.test(nav),
   'the brand mark is decorative and must be aria-hidden')
+
+// ── Brand assets ────────────────────────────────────────────────────────
+// The site ships to both / and /maithresh.sh/ (VITE_BASE). Icon paths inside
+// the manifest are NOT rewritten by Vite, so they must resolve relative to
+// the manifest URL or they 404 on the Pages subpath.
+need(existsSync(join(root, 'assets/logos/maithresh-mosaic-mark.svg')),
+  'the nav brand mark asset is missing')
+const manifest = read('assets/site.webmanifest')
+need(/"src": "\.\//.test(manifest),
+  'webmanifest icon src must be relative to the manifest URL (root-absolute paths break the /maithresh.sh/ deploy)')
+need(/"start_url": "\.\.\/"/.test(manifest),
+  'webmanifest start_url must be relative to the manifest URL')
 need(/className="pipeline-card"[^>]*tabIndex=\{0\}/.test(workbench),
   'the pipeline card pans below 720px, so it must be keyboard-focusable (WCAG 2.1.1 / axe scrollable-region-focusable)')
 need(/className="pipeline-card"[^>]*aria-label=/.test(workbench),
