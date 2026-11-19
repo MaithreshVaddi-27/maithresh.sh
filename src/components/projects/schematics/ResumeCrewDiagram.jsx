@@ -29,7 +29,7 @@ export const ResumeCrew = ({ p, order = 1 }) => (
     <text x="348" y="84" textAnchor="middle" className="pd-t pd-sub">verified spans</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon className="pd-decision" points="456,26 500,60 456,94 412,60" fill="rgba(245,158,11,0.06)" stroke="#f59e0b" strokeWidth="1.2" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(245,158,11,0.06)" stroke="#f59e0b" strokeWidth="1.2" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">MATCH?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">criteria</text>
 
