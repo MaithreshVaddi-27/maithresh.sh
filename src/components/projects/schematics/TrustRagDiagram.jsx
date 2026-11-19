@@ -2,9 +2,9 @@ import { Arrow } from './Arrow'
 import { DiagramFrame } from './DiagramFrame'
 
 // Featured-system schematic. `p` namespaces the arrow marker id.
-export const TrustRag = ({ p }) => (
+export const TrustRag = ({ p, order = 1 }) => (
   <svg viewBox="0 0 520 304" role="img" aria-label="TrustRAG reliability pipeline: query goes through hybrid retrieval, grounded generation, and claim verification; if the reliability score fails threshold, one bounded recovery round runs before falling back to an explicit abstain.">
-    <DiagramFrame label="01 / RELIABILITY">
+    <DiagramFrame label={`${String(order).padStart(2, '0')} / RELIABILITY`}>
 
     <defs><Arrow id={`pdArrow${p}`} /></defs>
     <rect x="6" y="47" width="58" height="26" rx="13" fill="none" stroke="#334155" />

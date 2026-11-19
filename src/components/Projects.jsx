@@ -29,7 +29,7 @@ export default function Projects({ projects }) {
 
   // Tab labels stay short: the panel title carries the full name, the navbar
   // only needs to disambiguate five systems at a glance.
-  const SHORT = ['TrustRAG', 'DocuChat', 'Resume Crew', 'CareerOS-Pro', 'MCP Suite']
+  const SHORT = ['TrustRAG', 'CareerOS', 'DocuChat', 'Resume Crew', 'MCP Suite']
 
   // Roving tabindex, mirrored from the workbench tablist: one tab stop for
   // the whole navbar, arrows/Home/End move within it.
@@ -138,7 +138,7 @@ export default function Projects({ projects }) {
             <h3 className="proj-panel-title">{projects[active].title}</h3>
             <div ref={panelRef} className={`proj-panel-inner${swapping ? ' swapping' : ''}`}>
               <div className="proj-panel-grid">
-                <DetailBody project={projects[active]} idPrefix="Panel" />
+                <DetailBody project={projects[active]} idPrefix="Panel" order={active + 1} />
               </div>
             </div>
           </div>

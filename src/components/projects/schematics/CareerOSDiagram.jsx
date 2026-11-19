@@ -2,9 +2,9 @@ import { Arrow } from './Arrow'
 import { DiagramFrame } from './DiagramFrame'
 
 // Featured-system schematic. `p` namespaces the arrow marker id.
-export const CareerOS = ({ p }) => (
+export const CareerOS = ({ p, order = 1 }) => (
   <svg viewBox="0 0 520 304" role="img" aria-label="CareerOS-Pro architecture: multi-source crawler, 2-stage hash and vector deduplication, isolated fault-domain circuit breakers, and application queue.">
-    <DiagramFrame label="04 / DETERMINISTIC VERIFY">
+    <DiagramFrame label={`${String(order).padStart(2, '0')} / DETERMINISTIC VERIFY`}>
 
     <defs><Arrow id={`pdArrow${p}`} /></defs>
     <rect x="6" y="47" width="58" height="26" rx="13" fill="none" stroke="#334155" />

@@ -2,9 +2,9 @@ import { Arrow } from './Arrow'
 import { DiagramFrame } from './DiagramFrame'
 
 // Featured-system schematic. `p` namespaces the arrow marker id.
-export const CareerMesh = ({ p }) => (
+export const CareerMesh = ({ p, order = 1 }) => (
   <svg viewBox="0 0 520 304" role="img" aria-label="MCP Agents Suite architecture: LangChain orchestrator with InMemorySaver, unified JSON-RPC 2.0 Composio MCP hub, and live market tool integrations.">
-    <DiagramFrame label="05 / MCP TOOL MESH">
+    <DiagramFrame label={`${String(order).padStart(2, '0')} / MCP TOOL MESH`}>
 
     <defs><Arrow id={`pdArrow${p}`} /></defs>
     <rect x="6" y="47" width="58" height="26" rx="13" fill="none" stroke="#334155" />
