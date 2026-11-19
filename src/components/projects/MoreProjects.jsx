@@ -28,7 +28,7 @@ export function MoreProjects({ open, onToggle }) {
             </div>
             <h3 className="proj-title proj-title--sm">
               {item.href ? (
-                <a href={item.href} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
+                <a className="more-title-link" href={item.href} target="_blank" rel="noopener noreferrer">
                   {item.title}
                 </a>
               ) : (

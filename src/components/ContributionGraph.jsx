@@ -347,7 +347,7 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
           <span>Less</span>
           {/* One continuous ramp, deep sea → pale ice: the peak tier is the
               brightest stop on the same strip, never a detached swatch. */}
-          <span className="legend-cells">{[...LEVEL_COLOR.slice(1), HOT].map((c, i) => <span key={i} style={{ background: c }} />)}</span>
+          <span className="legend-cells">{[...LEVEL_COLOR.slice(1), HOT].map((c, i) => <span key={i} style={{ '--swatch': c }} />)}</span>
           <span>More</span>
         </div>
       </div>
