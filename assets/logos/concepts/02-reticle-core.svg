@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-labelledby="t">
+  <title id="t">maithresh.sh — Reticle Core concept</title>
+  <desc>A HUD viewfinder: four precision corner brackets and a rotating diamond enclose a pulsing cyan plasma core, triangulated by green and amber satellite nodes. Built from the site's own 14px corner-reticle pattern.</desc>
+  <defs>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <circle cx="240" cy="240" r="176" fill="none" stroke="#1e293b" stroke-width="1" stroke-opacity="0.5"/>
+  <g fill="none" stroke="#38bdf8" stroke-width="9" stroke-linecap="square" filter="url(#soft)">
+    <path d="M128 174 V128 H174"/>
+    <path d="M306 128 H352 V174"/>
+    <path d="M352 306 V352 H306"/>
+    <path d="M174 352 H128 V306"/>
+  </g>
+  <path d="M240 152 L328 240 L240 328 L152 240 Z" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.4"/>
+  <path d="M240 240 L312 168 M240 240 L168 312" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="6 8"/>
+  <g stroke="#7dd3fc" stroke-width="4" stroke-linecap="round" stroke-opacity="0.85">
+    <path d="M240 176 V196 M240 284 V304 M176 240 H196 M284 240 H304"/>
+  </g>
+  <circle cx="240" cy="240" r="30" fill="#38bdf8" filter="url(#glow)">
+    <animate attributeName="opacity" values="1;0.5;1" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="240" r="42" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.5">
+    <animate attributeName="r" values="42;54;42" dur="2.6s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0.06;0.5" dur="2.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="240" r="10" fill="#7dd3fc"/>
+  <circle cx="312" cy="168" r="9" fill="#f59e0b" filter="url(#glow)"/>
+  <circle cx="168" cy="312" r="9" fill="#10b981" filter="url(#glow)"/>
+</svg>

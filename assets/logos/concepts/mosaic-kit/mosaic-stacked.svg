@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640" role="img" aria-labelledby="t">
+  <title id="t">maithresh.sh — stacked lockup</title>
+  <desc>Symbol above wordmark. NOTE: the wordmark is live text in JetBrains Mono and must be converted to outlines before production use.</desc>
+  <rect width="640" height="640" fill="#07090e"/>
+  <defs>
+    <rect id="scell" width="28" height="28"/>
+    <pattern id="slattice" x="60" y="104" width="40" height="40" patternUnits="userSpaceOnUse">
+      <use href="#scell" fill="#1e293b" fill-opacity="0.5"/>
+    </pattern>
+  </defs>
+  <g transform="translate(96 8) scale(0.92)">
+    <rect x="60" y="104" width="348" height="268" fill="url(#slattice)"/>
+    <g fill="#38bdf8">
+      <use href="#scell" x="140" y="144"/><use href="#scell" x="180" y="144"/><use href="#scell" x="260" y="144"/><use href="#scell" x="300" y="144"/>
+      <use href="#scell" x="100" y="184"/><use href="#scell" x="100" y="224"/><use href="#scell" x="100" y="264"/><use href="#scell" x="100" y="304"/>
+      <use href="#scell" x="220" y="184"/><use href="#scell" x="220" y="224"/><use href="#scell" x="220" y="264"/><use href="#scell" x="220" y="304"/>
+      <use href="#scell" x="340" y="184"/><use href="#scell" x="340" y="224"/><use href="#scell" x="340" y="264"/><use href="#scell" x="340" y="304"/>
+    </g>
+    <use href="#scell" x="100" y="144" fill="#10b981"/>
+    <use href="#scell" x="220" y="144" fill="#7dd3fc"/>
+    <use href="#scell" x="340" y="144" fill="#f59e0b"/>
+  </g>
+  <text x="320" y="524" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="52" font-weight="700" letter-spacing="-2" fill="#f8fafc">maithresh<tspan fill="#38bdf8">.sh</tspan></text>
+</svg>

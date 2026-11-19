@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-labelledby="t">
+  <title id="t">maithresh.sh — Caret Mark concept (replacement for Reticle Core)</title>
+  <desc>A flat, typographic lowercase m: three stems joined by a squared arch, with the middle stem rendered as a cyan block caret that drops below the baseline and resolves into a terminal rule. Two colours, no glow, no frame, no badge.</desc>
+  <rect width="480" height="480" fill="#07090e"/>
+  <g fill="#f8fafc">
+    <rect x="72" y="148" width="52" height="188"/>
+    <rect x="296" y="148" width="52" height="188"/>
+    <rect x="72" y="148" width="164" height="56"/>
+    <rect x="184" y="148" width="164" height="56"/>
+  </g>
+  <rect x="184" y="148" width="52" height="220" fill="#38bdf8">
+    <animate attributeName="opacity" values="1;1;0.3;1;1" dur="2.2s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="184" y="380" width="236" height="6" fill="#38bdf8" fill-opacity="0.6"/>
+  <rect x="380" y="296" width="40" height="40" fill="#38bdf8"/>
+</svg>

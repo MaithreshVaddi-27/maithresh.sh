@@ -317,8 +317,8 @@ need(!/import\s+['"]\.\/styles\.css['"]/.test(app),
 const nav = read('src/components/Nav.jsx')
 need(/className="logo"[^>]*aria-label=/.test(nav),
   'the logo link needs an explicit aria-label: .brand-word is display:none under 640px, which leaves the link unnamed (axe link-name)')
-need(/className="brand-dot"[^>]*aria-hidden/.test(nav),
-  'the brand dot is decorative and must be aria-hidden')
+need(/className="brand-mark"[^>]*aria-hidden/.test(nav),
+  'the brand mark is decorative and must be aria-hidden')
 need(/className="pipeline-card"[^>]*tabIndex=\{0\}/.test(workbench),
   'the pipeline card pans below 720px, so it must be keyboard-focusable (WCAG 2.1.1 / axe scrollable-region-focusable)')
 need(/className="pipeline-card"[^>]*aria-label=/.test(workbench),

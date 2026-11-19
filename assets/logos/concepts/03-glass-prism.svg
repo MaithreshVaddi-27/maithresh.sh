@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-labelledby="t">
+  <title id="t">maithresh.sh — Glass Prism concept</title>
+  <desc>An isometric glass cube: three translucent faces lit cyan, amber and green with a plasma vertex where they meet. A dimensional take on layered systems and clean architecture.</desc>
+  <defs>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="480" height="480" fill="#07090e"/>
+  <ellipse cx="240" cy="370" rx="112" ry="15" fill="#000000" fill-opacity="0.45"/>
+  <g stroke-width="4" stroke-linejoin="round" filter="url(#glow)">
+    <polygon points="240,84 352,148 240,212 128,148" fill="#38bdf8" fill-opacity="0.16" stroke="#38bdf8"/>
+    <polygon points="352,148 352,276 240,340 240,212" fill="#f59e0b" fill-opacity="0.13" stroke="#f59e0b"/>
+    <polygon points="128,148 240,212 240,340 128,276" fill="#10b981" fill-opacity="0.13" stroke="#10b981"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.28" stroke-linejoin="round">
+    <path d="M240 84 L240 212 L352 148 M240 212 L128 148 M240 212 L240 340"/>
+  </g>
+  <circle cx="240" cy="212" r="11" fill="#38bdf8" filter="url(#glow)"/>
+  <circle cx="240" cy="212" r="20" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-opacity="0.5">
+    <animate attributeName="r" values="20;29;20" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0.05;0.5" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="56" r="7" fill="#10b981" filter="url(#glow)"/>
+  <path d="M240 63 V84" stroke="#10b981" stroke-width="2" stroke-opacity="0.6"/>
+</svg>
