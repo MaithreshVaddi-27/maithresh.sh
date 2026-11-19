@@ -125,6 +125,7 @@ export default function Projects({ projects }) {
             tabIndex="0"
           >
             <div className="proj-panel-head">
+              <img className="proj-panel-icon" src={projects[active].icon} alt="" aria-hidden="true" width="32" height="32" />
               <span className="proj-tag">{projects[active].tag}</span>
               <span className="proj-panel-count" aria-hidden="true">
                 {String(active + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}

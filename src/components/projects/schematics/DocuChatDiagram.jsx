@@ -1,8 +1,11 @@
 import { Arrow } from './Arrow'
+import { DiagramFrame } from './DiagramFrame'
 
 // Featured-system schematic. `p` namespaces the arrow marker id.
 export const DocuChat = ({ p }) => (
   <svg viewBox="0 0 520 304" role="img" aria-label="Agentic DocuChat architecture: query routing through single-agent LangGraph ReAct machine, dynamic Composio MCP tool dispatch, and streamed synthesis.">
+    <DiagramFrame label="02 / TOOL ROUTING">
+
     <defs><Arrow id={`pdArrow${p}`} /></defs>
     <rect x="6" y="47" width="58" height="26" rx="13" fill="none" stroke="#334155" />
     <text x="35" y="64" textAnchor="middle" className="pd-t pd-tiny">QUERY</text>
@@ -26,7 +29,7 @@ export const DocuChat = ({ p }) => (
     <text x="348" y="84" textAnchor="middle" className="pd-t pd-sub">Composio</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(16,185,129,0.06)" stroke="#10b981" strokeWidth="1.2" />
+    <polygon className="pd-decision" points="456,26 500,60 456,94 412,60" fill="rgba(16,185,129,0.06)" stroke="#10b981" strokeWidth="1.2" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">TOOL?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">policy</text>
 
@@ -50,5 +53,6 @@ export const DocuChat = ({ p }) => (
     <rect x="186" y="236" width="200" height="52" rx="10" fill="rgba(56,189,248,0.08)" stroke="#38bdf8" strokeWidth="1.1" />
     <text x="286" y="258" textAnchor="middle" className="pd-t pd-label">STREAMED ANSWER</text>
     <text x="286" y="274" textAnchor="middle" className="pd-t pd-tiny">Gradio · CLI</text>
+    </DiagramFrame>
   </svg>
 )

@@ -1,8 +1,11 @@
 import { Arrow } from './Arrow'
+import { DiagramFrame } from './DiagramFrame'
 
 // Featured-system schematic. `p` namespaces the arrow marker id.
 export const CareerOS = ({ p }) => (
   <svg viewBox="0 0 520 304" role="img" aria-label="CareerOS-Pro architecture: multi-source crawler, 2-stage hash and vector deduplication, isolated fault-domain circuit breakers, and application queue.">
+    <DiagramFrame label="04 / DETERMINISTIC VERIFY">
+
     <defs><Arrow id={`pdArrow${p}`} /></defs>
     <rect x="6" y="47" width="58" height="26" rx="13" fill="none" stroke="#334155" />
     <text x="35" y="64" textAnchor="middle" className="pd-t pd-tiny">5 APIS</text>
@@ -26,7 +29,7 @@ export const CareerOS = ({ p }) => (
     <text x="348" y="86" textAnchor="middle" className="pd-t pd-tiny">Firecrawl</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(16,185,129,0.06)" stroke="#10b981" strokeWidth="1.2" />
+    <polygon className="pd-decision" points="456,26 500,60 456,94 412,60" fill="rgba(16,185,129,0.06)" stroke="#10b981" strokeWidth="1.2" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">HEALTHY?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">/health</text>
 
@@ -50,5 +53,6 @@ export const CareerOS = ({ p }) => (
     <rect x="186" y="236" width="200" height="52" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" strokeWidth="1.1" />
     <text x="286" y="258" textAnchor="middle" className="pd-t pd-label">MATCH EXPLAIN</text>
     <text x="286" y="274" textAnchor="middle" className="pd-t pd-tiny">fallback chain</text>
+    </DiagramFrame>
   </svg>
 )

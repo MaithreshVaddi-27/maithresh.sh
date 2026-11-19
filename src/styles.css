@@ -895,6 +895,8 @@
     padding-bottom: 16px; border-bottom: 1px solid var(--line);
   }
   .proj-panel-head .proj-tag{ flex: 1 1 auto; color: var(--proj-text); }
+  /* Per-project SVG mark — 32px in the featured panel header. */
+  .proj-panel-icon{ width: 32px; height: 32px; flex: 0 0 auto; display: block; }
   .proj-panel-count{
     font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
     color: var(--text-dim); font-variant-numeric: tabular-nums;
@@ -1004,6 +1006,10 @@
   .more-item h3{ margin-top: 0; font-family: var(--font-display); font-size: 0.98rem; margin-bottom: 6px; }
   .more-item p{ font-size: 0.85rem; color: var(--text-mute); margin-bottom: 8px; }
   .more-item .proj-tag{ margin-bottom:6px; }
+  /* Show-all cards: mark sits beside the project title. */
+  .more-title-row{ display: flex; align-items: center; gap: 10px; }
+  .more-icon{ width: 36px; height: 36px; flex: 0 0 auto; display: block; }
+  .more-title-row h3{ margin-bottom: 6px; }
 
   /* ── AUTOMATION / TIMELINE STYLE LIST ───────────────── */
   .auto-list{ display:flex; flex-direction:column; }
@@ -2287,10 +2293,36 @@ body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring{ opacity: 0 !imp
   font-variant-numeric: tabular-nums;
 }
 .proj-diagram svg .pd-t{ font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  /* Schematic chrome: stage labels read as terminal readouts, not UI copy. */
+  .proj-diagram svg .pd-stage{ font-size:9px; font-weight:700; fill:#64748b; letter-spacing:1.4px; }
+  /* Motion: decision points breathe, connectors shimmer. Both are quiet and
+     loop forever; reduced-motion keeps the static, fully legible diagram. */
+  .proj-diagram svg .pd-decision{
+    transform-box: fill-box; transform-origin: center;
+    animation: pdDecision 2.6s var(--ease-out) infinite;
+  }
+  @keyframes pdDecision{
+    0%,100%{ opacity:.82; }
+    50%{ opacity:1; }
+  }
+  .proj-diagram svg line[marker-end],
+  .proj-diagram svg path[marker-end]{
+    animation: pdWire 2.4s ease-in-out infinite;
+  }
+  @keyframes pdWire{
+    0%,100%{ stroke-opacity:.72; }
+    50%{ stroke-opacity:1; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .proj-diagram svg .pd-decision,
+    .proj-diagram svg line[marker-end],
+    .proj-diagram svg path[marker-end]{ animation: none; }
+  }
 .proj-diagram svg .pd-label{ font-size: 15px; font-weight: 600; fill: #f8fafc; letter-spacing: .2px; }
 .proj-diagram svg .pd-sub{ font-size: 11.5px; fill: #94a3b8; }
 .proj-diagram svg .pd-tiny{ font-size: 10.5px; fill: #94a3b8; }
-.proj-diagram svg .pd-sm{ font-size: 13px; font-weight: 700; fill: #f8fafc; letter-spacing: .3px; }
+.proj-diagram svg .pd-sm{ font-size: 11px; font-weight: 700; fill: #f8fafc; letter-spacing: 0; }
 .pd-bad{ fill: #ef4444; }
 .svg-defs{ position: absolute; width: 0; height: 0; overflow: hidden; }
 

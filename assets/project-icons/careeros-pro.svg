@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t">
+  <title id="t">CareerOS-Pro</title>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#0d1117" stroke="#1e293b" stroke-width="2"/>
+  <path d="M14 17h36L36 33v14l-8 4V33z" fill="#10b981" fill-opacity=".15" stroke="#10b981" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="44" cy="22" r="4" fill="#38bdf8"/>
+</svg>
