@@ -46,7 +46,7 @@ export default function Preloader() {
       <div className="preloader-inner">
         <span className="preloader-mark">maithresh.sh</span>
         <div className="preloader-bar">
-          <div className="preloader-fill" style={{ width: `${progress}%` }} />
+          <div className="preloader-fill" style={{ '--progress': `${progress}%` }} />
         </div>
         <span className="preloader-pct">{String(Math.floor(progress)).padStart(2, '0')}%</span>
       </div>

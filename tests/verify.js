@@ -260,6 +260,15 @@ need(projects.includes('idPrefix'), 'schematic marker ids must be namespaced (ro
 // Heading hierarchy: exactly one h1, no skipped levels, real headings not divs.
 need((allJsx.match(/<h1[\s>]/g) || []).length === 1, 'exactly one <h1> must exist across the app')
 need((allJsx.match(/<h4[\s>]/g) || []).length === 0, 'heading hierarchy must not skip to <h4>')
+
+// Styling lives in external sheets. The only permitted inline values are CSS
+// custom properties, which pass computed numbers into rules defined in CSS.
+const badInline = (allJsx.match(/style=\{\{[\s\S]*?\}\}/g) || []).filter((block) =>
+  /[a-z][a-z-]*\s*:/i.test(block.replace(/['"]?--[a-z-]+['"]?\s*:[^,}]*/gi, ''))
+)
+need(badInline.length === 0,
+  `hardcoded inline CSS must move to styles.css (found ${badInline.length} block(s))`)
+need(!/<style[\s>]/.test(html), 'index.html must not carry an inline <style> block')
 need(projects.includes('<h3 className="proj-panel-title"'),
   'the case-study title must be a real heading')
 
@@ -365,6 +374,12 @@ need(!/\bh1 span\b/.test(css),
   'h1 span rules are dead: the name has not been split into spans')
 need(!css.includes('.reveal.in'),
   '.reveal.in is dead — GSAP writes inline styles, it never adds the class')
+// Progressive enhancement: reveal hiding must be scoped to `.js` so content is
+// visible when scripting is disabled — no <noscript> stylesheet required.
+need(read('src/main.jsx').includes("classList.add('js')"),
+  'main.jsx must flag the document as JS-capable before React paints')
+need(css.includes('.js .reveal'),
+  'reveal hiding must be scoped under .js so no-JS visitors see content')
 need(!/\.more-item:hover h4/.test(css),
   '.more-item:hover must target h3 (the markup heading), not h4')
 for (const stale of ['js/main.js', 'js/scene.js', 'style.min', 'main.min']) {

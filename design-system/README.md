@@ -8,6 +8,9 @@
 
 ---
 
+> **Source of truth:** the live tokens are defined in `src/styles.css` (`:root`).
+> This document is the design reference; no separate token files are shipped.
+
 ## 1. Design Philosophy & Foundations
 
 The `maithresh.sh` design system balances two aesthetics:
