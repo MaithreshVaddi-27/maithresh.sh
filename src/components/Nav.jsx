@@ -51,7 +51,7 @@ export default function Nav({ onOpenConsole, scrolled }) {
             <span>⌘K</span>
           </button>
           <a href="#contact" className="btn-nested btn-nested-primary btn-nested--connect">
-            <span>CONNECT</span>
+            <span>Connect</span>
             <span className="btn-nested-badge">↗</span>
           </a>
           <button

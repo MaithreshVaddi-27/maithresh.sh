@@ -24,7 +24,7 @@ export const PANES = [
     index: '01',
     dot: 'cyan',
     tab: 'TrustRAG',
-    name: 'RELIABILITY PIPELINE TELEMETRY',
+    name: 'Reliability pipeline telemetry',
     sub: '// 8_STAGES · LOCAL_INFERENCE',
     svgId: 'pipelineSvg',
     ariaLabel: 'Interactive TrustRAG Pipeline Flow Diagram',
@@ -35,8 +35,8 @@ export const PANES = [
       node('STAGE 06-08 // RECOVER + ANSWER', 'Budget-Aware → LangGraph Loop', 'rewrite → retrieve → answer', '≤2 attempts, else ABSTAIN'),
     ],
     sims: [
-      ['valid', '▶ SIMULATE HIGH-CONFIDENCE QUERY', '✓'],
-      ['fail', '▶ SIMULATE UNVERIFIED-CLAIM RECOVERY', '↺'],
+      ['valid', '▶ Simulate high-confidence query', '✓'],
+      ['fail', '▶ Simulate unverified-claim recovery', '↺'],
     ],
     // step 2 (node 3) always base; step 3 is the outcome
     step2: () => null,
@@ -46,7 +46,7 @@ export const PANES = [
     },
     defense: {
       tone: 'cyan',
-      title: 'TRADE-OFF I CAN DEFEND: WHERE THE LLM IS ALLOWED TO BE',
+      title: 'Trade-off I can defend: where the LLM is allowed to be',
       paras: [
         <>
           <strong>Route without a model:</strong> stage 1 is deterministic on purpose. If request
@@ -75,7 +75,7 @@ export const PANES = [
     index: '02',
     dot: 'green',
     tab: 'DocuChat',
-    name: 'MCP TOOL ROUTING TELEMETRY',
+    name: 'MCP tool routing telemetry',
     sub: '// PROVIDER_AGNOSTIC_DISPATCH',
     svgId: 'docuchatSvg',
     ariaLabel: 'Interactive DocuChat MCP Router Diagram',
@@ -86,8 +86,8 @@ export const PANES = [
       node('STAGE 03 // DISPATCH', 'Tool Routing (MCP)', 'Composio toolkits or direct', 'One retrieval pass, reused'),
     ],
     sims: [
-      ['tool', '▶ SIMULATE MCP WEB DISPATCH (TAVILY)', '↗'],
-      ['local', '▶ SIMULATE LOCAL CHROMADB CACHE HIT', '»'],
+      ['tool', '▶ Simulate MCP web dispatch (Tavily)', '↗'],
+      ['local', '▶ Simulate local ChromaDB cache hit', '»'],
     ],
     // The only pane whose stage-3 color depends on the outcome chosen: a live
     // web dispatch turns the gateway blue, a local cache hit stays green.
@@ -98,7 +98,7 @@ export const PANES = [
     },
     defense: {
       tone: 'green',
-      title: 'TRADE-OFF I CAN DEFEND: ONE AGENT, NOT A SWARM',
+      title: 'Trade-off I can defend: one agent, not a swarm',
       paras: [
         <>
           <strong>Why I cut the multi-agent version:</strong> an early build split the work across a
@@ -125,7 +125,7 @@ export const PANES = [
     index: '03',
     dot: 'amber',
     tab: 'Resume Crew',
-    name: 'EVIDENCE MATCHER TELEMETRY',
+    name: 'Evidence matcher telemetry',
     sub: '// DETERMINISTIC_SCORE + LLM_ANALYSIS',
     svgId: 'resumecrewSvg',
     ariaLabel: 'Interactive Resume Crew Matcher Diagram',
@@ -136,8 +136,8 @@ export const PANES = [
       node('STAGE 03 // REPORT', 'Six-Part Evidence Report', 'Match · profile · gaps · bullets', 'Interview prep, no invention'),
     ],
     sims: [
-      ['match', '▶ SIMULATE HIGH-ALIGNMENT MATCH', '✓'],
-      ['gap', '▶ SIMULATE SKILL-GAP REJECTION', '✕'],
+      ['match', '▶ Simulate high-alignment match', '✓'],
+      ['gap', '▶ Simulate skill-gap rejection', '✕'],
     ],
     step2: () => null,
     outcomes: {
@@ -146,7 +146,7 @@ export const PANES = [
     },
     defense: {
       tone: 'amber',
-      title: 'TRADE-OFF I CAN DEFEND: NO GENERATIVE BULLET REWRITING',
+      title: 'Trade-off I can defend: no generative bullet rewriting',
       paras: [
         <>
           <strong>The failure mode I'm designing against:</strong> most AI resume tools prompt a model
@@ -184,8 +184,8 @@ export const PANES = [
       node('STAGE 03 // VERIFY + EXPLAIN', 'Two-Stage Verification', 'HTTP HEAD → Firecrawl scrape', 'LangGraph explain + Qdrant'),
     ],
     sims: [
-      ['dedup', '▶ SIMULATE 2-STAGE DEDUPLICATION', '»'],
-      ['resilient', '▶ SIMULATE SOURCE-FAILURE CIRCUIT BREAKER', '◈'],
+      ['dedup', '▶ Simulate 2-stage deduplication', '»'],
+      ['resilient', '▶ Simulate source-failure circuit breaker', '◈'],
     ],
     step2: () => null,
     outcomes: {
@@ -194,7 +194,7 @@ export const PANES = [
     },
     defense: {
       tone: 'green',
-      title: 'TRADE-OFF I CAN DEFEND: KEEPING THE MODEL OUT OF THE PARSE PATH',
+      title: 'Trade-off I can defend: keeping the model out of the parse path',
       paras: [
         <>
           <strong>Why naive string dedup fails across boards:</strong> the same role appears as{' '}

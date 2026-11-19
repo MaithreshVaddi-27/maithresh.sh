@@ -29,7 +29,7 @@ export const TrustRag = ({ p, order = 1 }) => (
     <text x="348" y="84" textAnchor="middle" className="pd-t pd-sub">3 verdicts</text>
     <line x1="398" y1="60" x2="408" y2="60" stroke="#334155" markerEnd={`url(#pdArrow${p})`} />
 
-    <polygon className="pd-decision" points="456,26 500,60 456,94 412,60" fill="rgba(56,189,248,0.06)" stroke="#38bdf8" strokeWidth="1.2" />
+    <polygon points="456,26 500,60 456,94 412,60" fill="rgba(56,189,248,0.06)" stroke="#38bdf8" strokeWidth="1.2" />
     <text x="456" y="58" textAnchor="middle" className="pd-t pd-sm">VERIFIED?</text>
     <text x="456" y="73" textAnchor="middle" className="pd-t pd-tiny">threshold</text>
 
