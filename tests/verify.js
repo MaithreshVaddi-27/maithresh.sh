@@ -239,7 +239,12 @@ for (const banned of ['#a855f7', '#8b5cf6', '#7c3aed', '168,85,247', '216,180,25
 // Projects: 5 schematics, 5 rows, unique marker ids. Schematics are landscape
 // flow diagrams (entry → stages → decision → outcomes → terminal) sharing one
 // viewBox, so the stage panel stays compact at any width.
-need((projects.match(/viewBox="0 0 520 304"/g) || []).length === 5,
+const schematicDir = 'src/components/projects/schematics'
+const schematicSources = readdirSync(join(root, schematicDir))
+  .filter((f) => f.endsWith('.jsx'))
+  .map((f) => read(`${schematicDir}/${f}`))
+  .join('\n')
+need((schematicSources.match(/viewBox="0 0 520 304"/g) || []).length === 5,
   'all 5 featured projects must ship a precision SVG schematic')
 const projectsBlock = content.slice(content.indexOf('export const PROJECTS'))
 need((projectsBlock.match(/href: 'https:\/\/github\.com\/MaithreshVaddi-27\//g) || []).length === 5,
@@ -331,9 +336,10 @@ need(/"src": "\.\//.test(manifest),
   'webmanifest icon src must be relative to the manifest URL (root-absolute paths break the /maithresh.sh/ deploy)')
 need(/"start_url": "\.\.\/"/.test(manifest),
   'webmanifest start_url must be relative to the manifest URL')
-need(/className="pipeline-card"[^>]*tabIndex=\{0\}/.test(workbench),
+const pipelineSrc = read('src/components/workbench/Pipeline.jsx')
+need(/className="pipeline-card"[^>]*tabIndex=\{0\}/.test(pipelineSrc),
   'the pipeline card pans below 720px, so it must be keyboard-focusable (WCAG 2.1.1 / axe scrollable-region-focusable)')
-need(/className="pipeline-card"[^>]*aria-label=/.test(workbench),
+need(/className="pipeline-card"[^>]*aria-label=/.test(pipelineSrc),
   'the focusable pipeline scroll region needs an accessible name')
 
 // ── Resilience ──────────────────────────────────────────────────────────
