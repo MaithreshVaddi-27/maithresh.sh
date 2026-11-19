@@ -26,15 +26,18 @@ export function MoreProjects({ open, onToggle }) {
                 <a className="proj-link" href={item.href} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
               )}
             </div>
-            <h3 className="proj-title proj-title--sm">
-              {item.href ? (
-                <a className="more-title-link" href={item.href} target="_blank" rel="noopener noreferrer">
-                  {item.title}
-                </a>
-              ) : (
-                item.title
-              )}
-            </h3>
+            <div className="more-title-row">
+              <img className="more-icon" src={item.icon} alt="" aria-hidden="true" width="36" height="36" />
+              <h3 className="proj-title proj-title--sm">
+                {item.href ? (
+                  <a className="more-title-link" href={item.href} target="_blank" rel="noopener noreferrer">
+                    {item.title}
+                  </a>
+                ) : (
+                  item.title
+                )}
+              </h3>
+            </div>
             <p>{item.body}</p>
             <Stack items={item.stack} />
           </div>

@@ -1,7 +1,14 @@
+// Project marks are imported so Vite rebases them for both / and /maithresh.sh/.
+const projectIcons = import.meta.glob('../../assets/project-icons/*.svg', {
+  eager: true, query: '?url', import: 'default',
+})
+const mark = (name) => projectIcons[`../../assets/project-icons/${name}.svg`]
+
 export const MORE_PROJECTS = [
   {
     tag: 'solo · CrewAI · content',
     title: 'AI Blog Writing Crew',
+    icon: mark('ai-blog-writing-crew'),
     href: 'https://github.com/MaithreshVaddi-27/Ai-Blog-Writer-Crew',
     body: 'A 3-agent CrewAI pipeline (Strategist → Writer → Editor) that turns one topic into a finished, edited blog post — each run saved with a timestamp so nothing gets overwritten.',
     stack: ['CrewAI', 'Gemini'],
@@ -9,6 +16,7 @@ export const MORE_PROJECTS = [
   {
     tag: 'solo · CrewAI · Pygame WASM',
     title: 'AI Game Development Crew',
+    icon: mark('ai-game-dev-crew'),
     href: 'https://github.com/MaithreshVaddi-27/AI-Game-Dev-Crew',
     body: 'A 3-agent CrewAI pipeline (Designer → Developer → QA) that turns a one-line idea into a playable 2D Pygame game — shipped to the browser via WebAssembly after fixing two real packaging bugs.',
     stack: ['CrewAI', 'Gemini', 'Pygame', 'pygbag', 'Serper'],
@@ -16,6 +24,7 @@ export const MORE_PROJECTS = [
   {
     tag: 'solo · LangChain · Composio MCP',
     title: 'Email Inbox Summarizer',
+    icon: mark('email-inbox-summarizer'),
     href: 'https://github.com/MaithreshVaddi-27/MCP_Email_Inbox_Summarizer',
     body: 'A Gmail triage agent that summarizes unread mail in a line or two, classifies it URGENT / NEEDS REPLY / FYI, and drafts replies for your review. Read-and-draft only — it never sends on its own.',
     stack: ['LangChain', 'Composio MCP', 'Gemini'],
@@ -23,6 +32,7 @@ export const MORE_PROJECTS = [
   {
     tag: 'solo · LangChain · Composio MCP',
     title: 'CourseFinder Agent',
+    icon: mark('coursefinder-agent'),
     href: 'https://github.com/MaithreshVaddi-27/MCP_CourseFinder_Agent',
     body: 'Merges roadmap docs and tutorial search into one structured learning path per topic — every recommendation grounded in actual tool output, never hallucinated from memory.',
     stack: ['LangChain', 'Composio MCP', 'Gemini'],
@@ -30,6 +40,7 @@ export const MORE_PROJECTS = [
   {
     tag: 'solo · Kaggle GPU · speech',
     title: 'F5-TTS Podcast Generator',
+    icon: mark('f5-tts-podcast-generator'),
     href: 'https://github.com/MaithreshVaddi-27/F5-tts-podcast-generator',
     body: 'A reproducible Kaggle notebook running F5-TTS voice-cloning inference behind a simple Gradio UI — my hands-on entry into speech synthesis.',
     stack: ['F5-TTS', 'Kaggle', 'Gradio'],
@@ -37,6 +48,7 @@ export const MORE_PROJECTS = [
   {
     tag: 'solo · open-source · MIT',
     title: 'ApplyOS — AI Job Application Framework',
+    icon: mark('applyos'),
     href: 'https://github.com/MaithreshVaddi-27/ApplyOS',
     body: 'Runtime-agnostic job application OS: point it at 12+ job portals (LinkedIn, Naukri, Internshala, Unstop, company ATSs), run /scrape → /rank → /apply and get a tailored LaTeX CV with a PDF verification loop, ATS text-layer check, and drafter-reviewer agent critique. Adapters for Claude Code, OpenCode, Codex CLI, and Google Antigravity — specs live once under .claude/, thin pointers keep runtime parity. CI enforces the invariant.',
     stack: ['Bun', 'Python', 'LaTeX', 'Claude Code', 'OpenCode', 'CI (GitHub Actions)'],
@@ -44,6 +56,7 @@ export const MORE_PROJECTS = [
   {
     tag: 'solo · Retell AI · voice agent',
     title: 'Home Credit LAP Voice Agent',
+    icon: mark('home-credit-lap-voice-agent'),
     href: 'https://github.com/MaithreshVaddi-27/home-credit-lap-voice-agent',
     body: 'Phone agent built on Retell AI that does first-pass qualification for a Loan Against Property offer: verifies identity, applies seven eligibility rules (property type, docs, cash-income, tenure, loan cap) one question at a time, handles transfer cases and the ₹75 lakh cap conversation, then hands off or disqualifies politely. Deployed and tested across seven scenarios; uncertainties in the transcript evidence documented honestly.',
     stack: ['Retell AI', 'Prompt engineering', 'LLM simulation'],
@@ -51,6 +64,7 @@ export const MORE_PROJECTS = [
   {
     tag: 'solo · early work',
     title: 'FoodMunch — Restaurant Landing Page',
+    icon: mark('foodmunch'),
     href: 'https://github.com/MaithreshVaddi-27/FoodMunch',
     body: 'Responsive restaurant site (hero, menu categories, delivery info, CTA) built with HTML5, CSS3, and Bootstrap 4.5 — my first structured frontend project.',
     stack: ['HTML5', 'CSS3', 'Bootstrap 4.5'],
@@ -61,6 +75,7 @@ export const MORE_PROJECTS = [
 export const PROJECTS = [
   {
     title: 'TrustRAG — Local-First RAG Reliability Workbench',
+    icon: mark('trustrag'),
     href: 'https://github.com/MaithreshVaddi-27/TrustRAG',
     accent: 'cyan',
     tag: 'solo flagship · v0.1.0 MIT · verify-then-answer',
@@ -71,6 +86,7 @@ export const PROJECTS = [
   },
   {
     title: 'Agentic DocuChat — Local LLM RAG + MCP Tools',
+    icon: mark('docuchat'),
     href: 'https://github.com/MaithreshVaddi-27/MCP_Agentic_DocuChat',
     accent: 'green',
     tag: 'solo · CLI + Gradio · local-first RAG',
@@ -81,6 +97,7 @@ export const PROJECTS = [
   },
   {
     title: 'Resume Crew — Deterministic + LLM Match Reports',
+    icon: mark('resume-crew'),
     href: 'https://github.com/MaithreshVaddi-27/Resume_Crew',
     accent: 'amber',
     tag: 'solo · CrewAI · deterministic + LLM',
@@ -91,6 +108,7 @@ export const PROJECTS = [
   },
   {
     title: 'CareerOS-Pro — Deterministic Normalize, LLM Only for Explain',
+    icon: mark('careeros-pro'),
     href: 'https://github.com/MaithreshVaddi-27/CareerOS-Pro',
     accent: 'green',
     tag: 'solo · 5 APIs + scraper · no LLM in parse',
@@ -101,6 +119,7 @@ export const PROJECTS = [
   },
   {
     title: 'MCP Agents Suite — SkillMap & SalaryInsights',
+    icon: mark('mcp-suite'),
     href: 'https://github.com/MaithreshVaddi-27/MCP_SkillMap_Agent',
     accent: 'cyan',
     tag: 'solo · Composio MCP · multi-turn',

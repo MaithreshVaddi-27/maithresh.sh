@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t">
+  <title id="t">F5-TTS Podcast Generator</title>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#0d1117" stroke="#1e293b" stroke-width="2"/>
+  <g stroke="#38bdf8" stroke-width="3" stroke-linecap="round"><path d="M16 27v10M23 21v22M30 25v14M37 18v28M44 27v10"/></g>
+  <circle cx="51" cy="32" r="3" fill="#10b981"/>
+</svg>
