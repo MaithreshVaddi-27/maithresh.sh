@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { NAV_LINKS } from '../data/content'
 import { useScrollSpy } from '../hooks/useChrome'
-import brandMark from '../../assets/logos/maithresh-mosaic-mark.svg?url'
+import brandMark from '../../assets/brand/maithresh-mark.svg?url'
 
 const SECTIONS = NAV_LINKS.map(([href]) => href.slice(1))
 

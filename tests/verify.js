@@ -324,7 +324,7 @@ need(/className="brand-mark"[^>]*aria-hidden/.test(nav),
 // The site ships to both / and /maithresh.sh/ (VITE_BASE). Icon paths inside
 // the manifest are NOT rewritten by Vite, so they must resolve relative to
 // the manifest URL or they 404 on the Pages subpath.
-need(existsSync(join(root, 'assets/logos/maithresh-mosaic-mark.svg')),
+need(existsSync(join(root, 'assets/brand/maithresh-mark.svg')),
   'the nav brand mark asset is missing')
 const manifest = read('assets/site.webmanifest')
 need(/"src": "\.\//.test(manifest),

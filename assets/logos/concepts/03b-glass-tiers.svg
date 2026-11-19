@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-labelledby="t">
-  <title id="t">maithresh.sh — Glass Tiers concept</title>
-  <desc>The design system's three glass elevation surfaces drawn as a flat cascading stack: #0d1117, #111620 and #161c27, rimmed green, cyan and amber. No glow, no cube, no gradient.</desc>
-  <rect width="480" height="480" fill="#07090e"/>
-  <rect x="64" y="144" width="224" height="224" rx="36" fill="#0d1117" stroke="#10b981" stroke-width="10"/>
-  <rect x="128" y="112" width="224" height="224" rx="36" fill="#111620" stroke="#38bdf8" stroke-width="10"/>
-  <rect x="192" y="80" width="224" height="224" rx="36" fill="#161c27" stroke="#f59e0b" stroke-width="10"/>
-</svg>
