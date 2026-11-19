@@ -233,6 +233,7 @@ function useBreakout(frameRef, days, mode, setHit) {
     // (not state) because the loop reads it 60×/s and must never re-render.
     const seen = new Set()
     let sinceNudge = 0
+    let steerX = 0, steerY = 0
 
     const STEP = 1000 / 60
     // Generous reach (~1.6 cells): on a sparse calendar a strict radius can go
@@ -280,12 +281,19 @@ function useBreakout(frameRef, days, mode, setHit) {
         if (best >= 0 && bestD > 1) {
           const b = bricks[best]
           const d = Math.sqrt(bestD)
-          const sp = Math.hypot(vx, vy) || SPEED
-          vx = vx * 0.5 + ((b.x - px) / d) * sp * 0.5
-          vy = vy * 0.5 + ((b.y - py) / d) * sp * 0.5
-          const s2 = Math.hypot(vx, vy) || 1
-          vx = (vx / s2) * sp; vy = (vy / s2) * sp
+          steerX = (b.x - px) / d
+          steerY = (b.y - py) / d
         }
+      }
+      // Turn toward the held heading a little each substep (~3%) instead of
+      // hopping 50% once per second — the drift reads as one continuous
+      // curve. Renormalized so the beam never gains speed from steering.
+      if (steerX || steerY) {
+        const sp = Math.hypot(vx, vy) || SPEED
+        vx = vx * 0.97 + steerX * sp * 0.03
+        vy = vy * 0.97 + steerY * sp * 0.03
+        const s2 = Math.hypot(vx, vy) || 1
+        vx = (vx / s2) * sp; vy = (vy / s2) * sp
       }
       px += vx; py += vy
       walls()
@@ -305,6 +313,7 @@ function useBreakout(frameRef, days, mode, setHit) {
         vx = (vx / s2) * SPEED; vy = (vy / s2) * SPEED
         px = b.x + nx * reach; py = b.y + ny * reach
         cool[i] = 10
+        steerX = 0; steerY = 0
         seen.add(i)
         holding = b.order; dwell = 20
         break
