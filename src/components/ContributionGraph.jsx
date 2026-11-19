@@ -230,11 +230,15 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
       <p className="activity-caption">
         $ git log --author=maithresh --all --date=short{' '}
         <span>
-          · {live ? 'live' : `snapshot ${fetchedAt}`}, last 12 months
+          {' · '}
+          <span className="src-swap" key={live ? 'live' : 'snap'}>
+            {live ? 'live' : `snapshot ${fetchedAt}`}
+          </span>
+          , last 12 months
           {failed && !live ? ' · live feed unreachable' : ''}
         </span>
         {!STILL && <span> · EATEN {eatenSum}/{total}</span>}
-        {cleared && <span> · COURSE CLEAR ↺ REPLAY</span>}
+        {cleared && <span className="course-clear"> · COURSE CLEAR ↺ REPLAY</span>}
       </p>
       <div className="activity-stats">
         <span className="activity-stat"><b>{total}</b>contributions</span>
@@ -256,7 +260,7 @@ function ActivityCard({ days, live, fetchedAt, failed }) {
           </button>
         ))}
       </div>
-      <div ref={frameRef} className={`activity-graph-frame${STILL ? '' : ' boot'}`}>
+      <div ref={frameRef} className={`activity-graph-frame${STILL ? '' : ' boot'}${cleared ? ' clear-breathe' : ''}`}>
         <a href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="View full GitHub activity for MaithreshVaddi-27">
           <div role="img" aria-label={`Maithresh Vaddi's live GitHub activity: ${total} contributions across ${active.length} active days in the last 12 months, peak ${Math.max(0, ...counts)} in one day.`}>
             <svg viewBox={`0 0 ${width} ${height}`}>

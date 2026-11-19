@@ -612,6 +612,11 @@
   /* Cyan-monochrome graph: the live/snapshot readout speaks in the
      bright end of the ramp, never green — green belongs to other systems. */
   .activity-caption span{ color: var(--accent-bright); }
+  /* Live-data upgrade: keyed remount of the source token fades in, so the
+     snapshot→live swap doesn't teleport under the reader's eyes. */
+  .src-swap{ animation: srcSwapIn .2s var(--ease-out); display: inline; }
+  @keyframes srcSwapIn{ from{ opacity: 0; } to{ opacity: 1; } }
+  @media (prefers-reduced-motion: reduce){ .src-swap{ animation: none; } }
   .activity-graph-frame{ position: relative; overflow: hidden; background: #0d1015; border-radius: var(--radius-sm); padding: 12px 6px; }
   /* ── CRT signal-board treatment — scanline + vignette phosphor ──
      Static texture (no motion): reads as terminal hardware under any
@@ -637,12 +642,12 @@
      media guard below covers any path that adds .boot anyway. */
   .activity-graph-frame.boot .cweek{
     opacity: 0;
-    animation: cweekIn .55s cubic-bezier(.16,1,.3,1) forwards;
+    animation: cweekIn .55s var(--ease-out) forwards;
     animation-delay: var(--rd, 0ms);
   }
   .activity-graph-frame.boot .clab{
     opacity: 0;
-    animation: cweekIn .5s ease forwards;
+    animation: cweekIn .5s var(--ease-out) forwards;
     animation-delay: 60ms;
   }
   @keyframes cweekIn{
@@ -695,6 +700,30 @@
   @keyframes brickShard{
     from{ opacity: 1; transform: translate(0,0) scale(1); }
     to{ opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.4); }
+  }
+  /* COURSE CLEAR: one-shot pulse when the chomper finishes the year.
+     Event-driven (plays ~1s per full course, never loops); text-shadow and
+     brightness are confined to the animation keyframes so nothing repaints
+     per frame at rest. */
+  .course-clear{
+    animation: courseClearPulse 1s var(--ease-out);
+  }
+  @keyframes courseClearPulse{
+    0%{ opacity: .2; text-shadow: none; }
+    30%{ opacity: 1; text-shadow: 0 0 14px rgba(186,230,252,.55); }
+    100%{ opacity: 1; text-shadow: none; }
+  }
+  .activity-graph-frame.clear-breathe svg{
+    animation: clearBreathe .9s var(--ease-out);
+  }
+  @keyframes clearBreathe{
+    0%{ filter: none; }
+    35%{ filter: brightness(1.28) saturate(1.15); }
+    100%{ filter: none; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .course-clear,
+    .activity-graph-frame.clear-breathe svg{ animation: none; }
   }
   /* Live stat readouts + Less→More legend — instrument chrome for the graph */
   /* Arcade game select: PAC-MAN (eater) vs BREAKOUT (ricochet beam). Quiet
