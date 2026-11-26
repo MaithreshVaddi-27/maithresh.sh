@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><title>maithresh.sh — Verified Monolith</title><rect width="256" height="256" rx="57.6" fill="#0b0d11"/><g transform="translate(25.76 22.4) scale(0.805)">
+  <title id="title">maithresh.sh — Verified Monolith (small-size cut)</title>
+  <!-- Small-size cut (16-48px): slightly wider 24-unit verification channel and 44-unit stems for crisp pixel grid legibility. -->
+  <path fill="#f4f2ed" d="M22 40 H66 L124 109.3 L162 40 V104 L124 173.3 L66 104 V216 H22 Z"/>
+  <path fill="#60a5fa" d="M186 40 H232 V216 H186 Z"/>
+</g></svg>

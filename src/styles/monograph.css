@@ -178,17 +178,20 @@ a {
   letter-spacing: -0.02em;
 }
 
-.brand-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--cobalt-400);
-  box-shadow: 0 0 10px rgba(96, 165, 250, 0.6);
+.brand-glyph {
+  width: 22px;
+  height: 22px;
+  display: block;
+  flex-shrink: 0;
   transition: transform var(--duration-snap) var(--ease-editorial);
 }
 
-.brand-mark:hover .brand-dot {
-  transform: scale(1.25);
+.brand-tld {
+  color: var(--cobalt-400);
+}
+
+.brand-mark:hover .brand-glyph {
+  transform: scale(1.06);
 }
 
 .nav-links {
@@ -943,7 +946,7 @@ button:active {
 
   .specimen-card:hover .specimen-portrait img,
   .system-row:hover .system-row-inner,
-  .brand-mark:hover .brand-dot,
+  .brand-mark:hover .brand-glyph,
   a:active,
   button:active {
     transform: none !important;

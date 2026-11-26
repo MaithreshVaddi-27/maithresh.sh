@@ -1,10 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="title">
-  <title id="title">maithresh.sh — favicon master</title>
-  <desc>Hand-tuned 256 grid: the simplified m with 40 units of padding on every side so it survives 16 px. Transparent background; place on #07090e.</desc>
-  <g fill="#38bdf8">
-    <rect x="40" y="64" width="176" height="40"/>
-    <rect x="40" y="64" width="40" height="140"/>
-    <rect x="108" y="64" width="40" height="140"/>
-    <rect x="176" y="64" width="40" height="140"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><title>maithresh.sh — Verified Monolith</title><g transform="translate(-20.59 -24.32) scale(1.17)">
+  <title id="title">maithresh.sh — Verified Monolith (small-size cut)</title>
+  <!-- Small-size cut (16-48px): slightly wider 24-unit verification channel and 44-unit stems for crisp pixel grid legibility. -->
+  <path fill="#f4f2ed" d="M22 40 H66 L124 109.3 L162 40 V104 L124 173.3 L66 104 V216 H22 Z"/>
+  <path fill="#60a5fa" d="M186 40 H232 V216 H186 Z"/>
+</g></svg>

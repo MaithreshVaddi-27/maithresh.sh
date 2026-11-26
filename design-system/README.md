@@ -63,3 +63,12 @@ UI primitives (`Theme`, `Heading`, `Text`, `Button`, `Badge`, `TabList`, `Tab`, 
 - **Scroll Progress:** CSS `animation-timeline: scroll()` drives a 2px Cobalt progress hairline beneath the sticky header without JavaScript scroll polling.
 - **Pointer-Safe Hover:** Outer hitboxes stay stationary; only inner rows (`translateX(4px)`) or borders respond.
 - **Reduced Motion:** `@media (prefers-reduced-motion: reduce)` removes transforms, keyframe entrances, and stagger delays while keeping opacity and color state changes intact.
+
+---
+
+## 6. Brand Mark — Verified Monolith
+
+- **Symbol (`assets/brand/maithresh-mark.svg`):** 256×256 pure-path letterform (`#f4f2ed` 60° M-chevron + 20-unit verification channel + `#60a5fa` Cobalt anchor pillar).
+- **Small-Size Cut (`assets/brand/maithresh-mark-kit/favicon-master.svg`):** Widened 24-unit channel for 16–48px browser tabs and favicons.
+- **Full Kit (`assets/brand/maithresh-mark-kit/`):** Includes outlined horizontal and stacked lockups (`maithresh-mark-horizontal.svg`, `maithresh-mark-stacked.svg`), black, white/reversed, and Cobalt monochrome (`#3b82f6`, `#60a5fa`) masters, plus PWA and favicon outputs in `assets/brand/`. See `assets/brand/maithresh-mark-kit/USAGE.md`.
+

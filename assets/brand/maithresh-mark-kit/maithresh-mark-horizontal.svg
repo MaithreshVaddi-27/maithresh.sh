@@ -1,24 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 320" width="1060" height="320" role="img" aria-labelledby="t">
-  <title id="t">maithresh.sh — horizontal lockup</title>
-  <desc>Symbol left, wordmark right. NOTE: the wordmark is live text in JetBrains Mono and must be converted to outlines before production use.</desc>
-  <rect width="1060" height="320" fill="#07090e"/>
-  <defs>
-    <rect id="hcell" width="28" height="28"/>
-    <pattern id="hlattice" x="60" y="104" width="40" height="40" patternUnits="userSpaceOnUse">
-      <use href="#hcell" fill="#1e293b" fill-opacity="0.5"/>
-    </pattern>
-  </defs>
-  <g transform="translate(40 20) scale(0.5)">
-    <rect x="60" y="104" width="348" height="268" fill="url(#hlattice)"/>
-    <g fill="#38bdf8">
-      <use href="#hcell" x="140" y="144"/><use href="#hcell" x="180" y="144"/><use href="#hcell" x="260" y="144"/><use href="#hcell" x="300" y="144"/>
-      <use href="#hcell" x="100" y="184"/><use href="#hcell" x="100" y="224"/><use href="#hcell" x="100" y="264"/><use href="#hcell" x="100" y="304"/>
-      <use href="#hcell" x="220" y="184"/><use href="#hcell" x="220" y="224"/><use href="#hcell" x="220" y="264"/><use href="#hcell" x="220" y="304"/>
-      <use href="#hcell" x="340" y="184"/><use href="#hcell" x="340" y="224"/><use href="#hcell" x="340" y="264"/><use href="#hcell" x="340" y="304"/>
-    </g>
-    <use href="#hcell" x="100" y="144" fill="#10b981"/>
-    <use href="#hcell" x="220" y="144" fill="#7dd3fc"/>
-    <use href="#hcell" x="340" y="144" fill="#f59e0b"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 256" width="920" height="256" role="img" aria-labelledby="title">
+  <title id="title">maithresh.sh — horizontal lockup</title>
+  <rect width="920" height="256" fill="#0b0d11"/>
+  <g id="symbol" transform="translate(36 28) scale(0.78)">
+    <path fill="#f4f2ed" d="M28 40 H68 L128 109.3 L168 40 V102 L128 171.3 L68 102 V216 H28 Z"/>
+    <path fill="#60a5fa" d="M188 40 H228 V216 H188 Z"/>
   </g>
-  <text x="340" y="205" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="84" font-weight="700" letter-spacing="-3" fill="#f8fafc">maithresh<tspan fill="#38bdf8">.sh</tspan></text>
+  <g id="wordmark" transform="translate(264 94) scale(1.2)">
+    <!-- MAITHRESH (bone #f4f2ed) -->
+    <g fill="#f4f2ed">
+      <!-- M -->
+      <path d="M0 56 V0 H10 L22 24 L34 0 H44 V56 H36 V16 L24 40 H20 L8 16 V56 Z"/>
+      <!-- A -->
+      <path fill-rule="evenodd" d="M72 0 H80 L96 56 H87 L83 42 H69 L65 56 H56 Z M71 34 H81 L76 14 Z"/>
+      <!-- I -->
+      <path d="M108 0 H116 V56 H108 Z"/>
+      <!-- T -->
+      <path d="M128 0 H164 V8 H150 V56 H142 V8 H128 Z"/>
+      <!-- H -->
+      <path d="M176 0 H184 V24 H206 V0 H214 V56 H206 V32 H184 V56 H176 Z"/>
+      <!-- R -->
+      <path fill-rule="evenodd" d="M228 0 H252 A14 14 0 0 1 266 14 V18 A14 14 0 0 1 254 32 L266 56 H257 L246 33 H236 V56 H228 Z M236 8 V25 H251 A6 6 0 0 0 257 19 V14 A6 6 0 0 0 251 8 Z"/>
+      <!-- E -->
+      <path d="M280 0 H312 V8 H288 V24 H308 V32 H288 V48 H312 V56 H280 Z"/>
+      <!-- S -->
+      <path d="M324 0 H358 V14 H350 V8 H332 V24 H358 V56 H324 V42 H332 V48 H350 V32 H324 Z"/>
+      <!-- H -->
+      <path d="M372 0 H380 V24 H402 V0 H410 V56 H402 V32 H380 V56 H372 Z"/>
+    </g>
+    <!-- .SH (cobalt #60a5fa) -->
+    <g fill="#60a5fa">
+      <!-- . -->
+      <path d="M422 46 H432 V56 H422 Z"/>
+      <!-- S -->
+      <path d="M444 0 H478 V14 H470 V8 H452 V24 H478 V56 H444 V42 H452 V48 H470 V32 H444 Z"/>
+      <!-- H -->
+      <path d="M492 0 H500 V24 H522 V0 H530 V56 H522 V32 H500 V56 H492 Z"/>
+    </g>
+  </g>
 </svg>

@@ -3,6 +3,7 @@ import { Button } from '@astryxdesign/core/Button'
 import { Badge } from '@astryxdesign/core/Badge'
 import { VStack } from '@astryxdesign/core/VStack'
 import { GITHUB } from '../../data/content'
+import brandMarkUrl from '../../../assets/brand/maithresh-mark.svg?url'
 
 const LINKS = [
   ['#workbench', 'Architecture'],
@@ -50,8 +51,17 @@ export default function Navbar() {
       <div className="monograph-container">
         <nav className="nav-row" aria-label="Primary navigation">
           <a href="#top" className="brand-mark">
-            <span className="brand-dot" aria-hidden="true" />
-            <span>maithresh.sh</span>
+            <img
+              src={brandMarkUrl}
+              alt=""
+              aria-hidden="true"
+              className="brand-glyph"
+              width="22"
+              height="22"
+            />
+            <span>
+              maithresh<span className="brand-tld">.sh</span>
+            </span>
           </a>
 
           <ul className="nav-links">
