@@ -6,7 +6,8 @@
   "engines": {
     "node": ">=22.13.0"
   },
-  "description": "maithresh.sh — Systems Monograph portfolio (React 19 + Astryx + Vite).",
+  "homepage": "https://maithresh.pages.dev/",
+  "description": "~/maithresh — Systems Monograph portfolio (React 19 + Astryx + Vite) live at https://maithresh.pages.dev/",
   "scripts": {
     "dev": "vite",
     "build": "vite build && npm run verify",

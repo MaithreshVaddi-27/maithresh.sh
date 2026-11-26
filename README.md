@@ -1,6 +1,6 @@
 # ~/maithresh — Systems Monograph Portfolio
 
-Engineering portfolio for **Maithresh Vaddi** (AI/ML Engineer, Agentic Systems Builder, Backend Developer) — live target at **[`https://maithresh.pages.dev/`](https://maithresh.pages.dev/)**.
+Engineering portfolio for **Maithresh Vaddi** (AI/ML Engineer, Agentic Systems Builder, Backend Developer) — live at **[`https://maithresh.pages.dev/`](https://maithresh.pages.dev/)**.
 
 Built with **React 19**, **Vite 8**, and the **Astryx Design System** (`@astryxdesign/core`, `@astryxdesign/theme-neutral`, `@formkit/auto-animate`, `lucide-react`) in the **Systems Monograph** visual system: Newsreader Variable optical serif headings, self-hosted Inter & JetBrains Mono, and Cobalt Blue accents (`#2563eb` / `#60a5fa`) on warm obsidian (`#0b0d11`).
 
