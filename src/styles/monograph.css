@@ -19,9 +19,16 @@
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(11, 13, 17, 0.9);
+  background: rgba(11, 13, 17, 0.88);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--hairline);
+  transition: box-shadow var(--duration-panel) var(--ease-editorial),
+    border-color var(--duration-snap) ease;
+}
+
+.site-header.is-scrolled {
+  box-shadow: 0 10px 30px rgba(3, 7, 18, 0.45);
+  border-bottom-color: rgba(51, 65, 85, 0.65);
 }
 
 .header-progress {
@@ -31,8 +38,9 @@
   bottom: -1px;
   height: 2px;
   background: linear-gradient(90deg, var(--cobalt-600), var(--cobalt-300));
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.35);
   transform-origin: left center;
-  transform: scaleX(0);
+  transform: scaleX(var(--scroll-progress, 0));
   pointer-events: none;
 }
 
@@ -290,6 +298,12 @@
 .ledger-cell {
   background: var(--surface);
   padding: 18px 20px;
+  animation: hero-settle 420ms var(--ease-editorial) var(--cell-delay, 0ms) both;
+  transition: background-color var(--duration-snap) ease;
+}
+
+.ledger-cell:hover {
+  background: var(--surface-elevated);
 }
 
 .ledger-val {
@@ -303,16 +317,33 @@
 .ledger-label {
   margin: 4px 0 0;
   font-size: 12px;
-  color: #9aa2b1;
+  color: var(--ink-subtle);
   line-height: 1.45;
 }
 
 .specimen-card {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 24px 56px rgba(3, 7, 18, 0.48);
+  transition: border-color var(--duration-panel) var(--ease-editorial),
+    box-shadow var(--duration-panel) var(--ease-editorial);
+}
+
+.specimen-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 10%, rgba(96, 165, 250, 0.55) 50%, transparent 90%);
+  pointer-events: none;
+}
+
+.specimen-card:hover {
+  border-color: var(--hairline-strong);
+  box-shadow: 0 28px 64px rgba(3, 7, 18, 0.62);
 }
 
 .specimen-head {
@@ -323,12 +354,12 @@
   border-bottom: 1px solid var(--hairline);
   font-family: var(--font-mono);
   font-size: 11px;
-  color: #9aa2b1;
+  color: var(--ink-subtle);
 }
 
 .specimen-portrait {
   padding: 20px;
-  background: #0d1016;
+  background: var(--inset);
   display: flex;
   justify-content: center;
   border-bottom: 1px solid var(--hairline);
@@ -553,9 +584,24 @@
 }
 
 .system-row {
+  position: relative;
   padding-block: 32px;
   border-bottom: 1px solid var(--hairline);
   transition: border-color var(--duration-snap) ease;
+}
+
+.system-row::before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 32px;
+  bottom: 32px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--cobalt-400);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--duration-panel) var(--ease-editorial);
 }
 
 .system-row-inner {
@@ -564,6 +610,10 @@
 
 .system-row:hover {
   border-bottom-color: var(--hairline-strong);
+}
+
+.system-row:hover::before {
+  transform: scaleY(1);
 }
 
 .system-row:hover .system-row-inner {
@@ -592,6 +642,13 @@
   border: 1px solid #262e3f;
   padding: 6px;
   object-fit: contain;
+  transition: transform var(--duration-snap) var(--ease-editorial),
+    border-color var(--duration-snap) ease;
+}
+
+.system-row:hover .system-icon {
+  transform: scale(1.06);
+  border-color: rgba(96, 165, 250, 0.45);
 }
 
 .system-title {
@@ -612,6 +669,11 @@
 .metric-box {
   background: #0e1118;
   padding: 12px 16px;
+  transition: background-color var(--duration-snap) ease;
+}
+
+.system-row:hover .metric-box {
+  background: #111520;
 }
 
 .metric-val {
@@ -625,7 +687,7 @@
 .metric-desc {
   margin: 2px 0 0;
   font-size: 12px;
-  color: #9aa2b1;
+  color: var(--ink-subtle);
 }
 
 .system-prose {
@@ -635,13 +697,13 @@
   max-width: 78ch;
   font-size: 14.5px;
   line-height: 1.72;
-  color: #b8bfcc;
+  color: var(--ink-body);
 }
 
 .system-prose code {
   font-family: var(--font-mono);
   font-size: 12px;
-  background: #181d28;
+  background: var(--surface-muted);
   padding: 2px 5px;
   border-radius: 4px;
   color: #e2e8f0;
@@ -669,12 +731,22 @@
   border-radius: 6px;
   background: #141923;
   border: 1px solid #242b3c;
-  color: #cbd5e1;
+  color: var(--ink-strong);
+  transition: border-color var(--duration-snap) ease,
+    color var(--duration-snap) ease;
+}
+
+.tech-chip:hover {
+  border-color: var(--hairline-strong);
 }
 
 .tech-chip.is-primary {
   border-color: rgba(96, 165, 250, 0.42);
   color: var(--cobalt-300);
+}
+
+.tech-chip.is-primary:hover {
+  border-color: var(--cobalt-400);
 }
 
 .systems-archive-block {
@@ -1117,6 +1189,13 @@
   margin-top: 28px;
 }
 
+.error-fallback-panel {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+}
+
 .error-fallback-copy {
   color: var(--ink-secondary);
 }
@@ -1159,9 +1238,27 @@ button:active {
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 1040px) {
+  .nav-availability {
+    display: none;
+  }
+
+  .hero-mobile-badge {
+    display: inline-flex;
+    margin-top: 14px;
+  }
+}
+
 @media (max-width: 960px) {
   .hero-grid {
     grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .specimen-card {
+    max-width: 460px;
+    width: 100%;
+    margin-inline: auto;
   }
 
   .pipeline-rail {
@@ -1194,7 +1291,11 @@ button:active {
 
   .mono-section,
   .hero-section {
-    padding-block: 56px;
+    padding-block: 52px;
+  }
+
+  .system-row::before {
+    display: none;
   }
 
   .system-row:hover .system-row-inner {
@@ -1203,21 +1304,16 @@ button:active {
 }
 
 @media (max-width: 640px) {
-  .nav-availability {
-    display: none;
-  }
-
-  .hero-mobile-badge {
-    display: inline-flex;
-    margin-top: 14px;
-  }
-
   .workbench-body {
     padding: 18px;
   }
 
   .system-row {
     padding-block: 24px;
+  }
+
+  .contrib-wrap {
+    padding: 16px;
   }
 
   .contrib-metrics {
@@ -1234,11 +1330,39 @@ button:active {
   }
 }
 
+@media (max-width: 480px) {
+  .monograph-container {
+    padding-inline: 16px;
+  }
+
+  .hero-headline {
+    font-size: clamp(1.85rem, 8.2vw, 2.5rem) !important;
+  }
+
+  .specimen-portrait {
+    padding: 14px;
+  }
+
+  .specimen-portrait img {
+    max-width: 196px;
+  }
+
+  .contrib-bars {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 @media (pointer: coarse) {
   .nav-link,
   .brand-mark,
-  .mobile-nav-link {
+  .mobile-nav-link,
+  .contrib-metric-tile--interactive {
     min-height: 44px;
+  }
+
+  .contrib-legend-swatch {
+    width: 16px;
+    height: 16px;
   }
 }
 
@@ -1259,6 +1383,7 @@ button:active {
 
   .hero-arrive,
   .hero-arrive--delayed,
+  .ledger-cell,
   .workbench-body,
   .archive-reveal,
   .system-row,
@@ -1278,6 +1403,7 @@ button:active {
   .contrib-cell,
   .contrib-bar-fill {
     --stage-delay: 0ms !important;
+    --cell-delay: 0ms !important;
     --col: 0 !important;
     --bar: 0 !important;
   }
@@ -1289,6 +1415,7 @@ button:active {
 
   .specimen-card:hover .specimen-portrait img,
   .system-row:hover .system-row-inner,
+  .system-row:hover .system-icon,
   .brand-mark:hover .brand-glyph,
   .contrib-cell:hover,
   .contrib-cell.is-highlighted,

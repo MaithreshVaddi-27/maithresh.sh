@@ -67,8 +67,12 @@ export default function HeroSection() {
             </div>
 
             <dl className="hero-ledger dl-reset" aria-label="Verified engineering summary">
-              {LEDGER.map(([value, label]) => (
-                <div className="ledger-cell" key={label}>
+              {LEDGER.map(([value, label], idx) => (
+                <div
+                  className="ledger-cell"
+                  key={label}
+                  style={{ '--cell-delay': `${120 + idx * 65}ms` }}
+                >
                   <dt className="ledger-val tabular-metric">{value}</dt>
                   <dd className="ledger-label">{label}</dd>
                 </div>

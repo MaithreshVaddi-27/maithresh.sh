@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { Button } from '@astryxdesign/core/Button'
 import { Badge } from '@astryxdesign/core/Badge'
 import { HStack } from '@astryxdesign/core/HStack'
@@ -19,13 +20,23 @@ const LINKS = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const [activeHash, setActiveHash] = useState('#systems')
+  const headerRef = useRef(null)
+  const [drawerSlotRef] = useAutoAnimate({ duration: 200 })
 
   useEffect(() => {
     let rafId = 0
 
     const updateActive = () => {
       rafId = 0
+      const scrollY = window.scrollY
+      setIsScrolled(scrollY > 16)
+
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+      const ratio = Math.min(1, Math.max(0, scrollY / maxScroll))
+      headerRef.current?.style.setProperty('--scroll-progress', ratio.toFixed(4))
+
       const headerOffset = 140
       let current = LINKS[0][0]
       for (const [href] of LINKS) {
@@ -34,7 +45,7 @@ export default function Navbar() {
           current = href
         }
       }
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 48) {
+      if (window.innerHeight + scrollY >= document.documentElement.scrollHeight - 48) {
         current = '#background'
       }
       setActiveHash((prev) => (prev === current ? prev : current))
@@ -46,9 +57,16 @@ export default function Navbar() {
       }
     }
 
+    const onResize = () => {
+      if (window.innerWidth > 760) {
+        setMenuOpen(false)
+      }
+      onScroll()
+    }
+
     updateActive()
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll, { passive: true })
+    window.addEventListener('resize', onResize, { passive: true })
 
     const mainEl = document.getElementById('main')
     const observer = mainEl ? new MutationObserver(updateActive) : null
@@ -59,7 +77,7 @@ export default function Navbar() {
     return () => {
       if (rafId) window.cancelAnimationFrame(rafId)
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      window.removeEventListener('resize', onResize)
       observer?.disconnect()
     }
   }, [])
@@ -69,13 +87,22 @@ export default function Navbar() {
     const onKeyDown = (e) => {
       if (e.key === 'Escape') setMenuOpen(false)
     }
+    const onPointerDown = (e) => {
+      if (headerRef.current && !headerRef.current.contains(e.target)) {
+        setMenuOpen(false)
+      }
+    }
     window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('pointerdown', onPointerDown)
+    }
   }, [menuOpen])
 
   return (
-    <header className="site-header">
-      <div className="monograph-container">
+    <header ref={headerRef} className={`site-header${isScrolled ? ' is-scrolled' : ''}`}>
+      <div className="monograph-container" ref={drawerSlotRef}>
         <nav className="nav-row" aria-label="Primary navigation">
           <a href="#top" className="brand-mark">
             <img
