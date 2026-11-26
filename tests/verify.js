@@ -18,7 +18,10 @@ const required = [
   'src/app/main.jsx',
   'src/app/App.jsx',
   'src/theme/monographTheme.js',
+  'src/styles/tokens.css',
   'src/styles/monograph.css',
+  'scripts/refresh-contributions.mjs',
+  'assets/illustrations/terminal-portrait.svg',
   'src/components/layout/Navbar.jsx',
   'src/components/common/ErrorBoundary.jsx',
   'src/features/hero/HeroSection.jsx',
@@ -41,9 +44,17 @@ need(!pkg.dependencies?.gsap && !pkg.dependencies?.lenis, 'Remove unused gsap/le
 const html = read('index.html')
 need(html.includes('application/ld+json'), 'Missing JSON-LD structured data in index.html')
 need(html.includes('rel="canonical"'), 'Missing canonical link in index.html')
+need(html.includes('rel="stylesheet" href="/src/styles/tokens.css"'), 'Missing external tokens.css link in index.html')
+need(html.includes('src="/src/app/main.jsx"'), 'Missing external main.jsx module script in index.html')
 need(html.includes('property="og:title"'), 'Missing og:title in index.html')
 need(html.includes('property="og:description"'), 'Missing og:description in index.html')
 need(html.includes('name="twitter:description"'), 'Missing twitter:description in index.html')
+
+const headers = read('_headers')
+need(
+  headers.includes("script-src 'self';"),
+  "_headers CSP script-src must stay strictly 'self' without 'unsafe-inline'"
+)
 
 const css = read('src/styles/monograph.css')
 need(css.includes('prefers-reduced-motion'), 'Missing prefers-reduced-motion support in monograph.css')
@@ -64,6 +75,11 @@ for (const rel of srcFiles) {
 }
 
 need(existsSync(join(root, 'dist/index.html')), 'Missing dist/index.html — run vite build first')
+const distHtml = read('dist/index.html')
+need(distHtml.includes('rel="ard"'), 'Missing ARD discovery link in dist/index.html')
+need(distHtml.includes('rel="author"'), 'Missing author llms.txt link in dist/index.html')
+need(distHtml.includes('rel="sitemap"'), 'Missing sitemap link in dist/index.html')
+need(!distHtml.includes('data:application/') && !distHtml.includes('data:text/'), 'Unexpected inlined data URI in dist/index.html')
 need(existsSync(join(root, 'dist/robots.txt')), 'Missing dist/robots.txt')
 need(existsSync(join(root, 'dist/sitemap.xml')), 'Missing dist/sitemap.xml')
 need(existsSync(join(root, 'dist/llms.txt')), 'Missing dist/llms.txt')

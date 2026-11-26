@@ -10,7 +10,18 @@ export default defineConfig({
   plugins: [
     react(),
     {
-      name: 'copy-static-to-dist',
+      name: 'copy-static-and-external-links',
+      transformIndexHtml: {
+        order: 'post',
+        handler(html) {
+          const links = [
+            `<link rel="ard" href="${BASE}.well-known/ard.json" type="application/json">`,
+            `<link rel="author" href="${BASE}llms.txt" type="text/markdown">`,
+            `<link rel="sitemap" type="application/xml" title="Sitemap" href="${BASE}sitemap.xml">`,
+          ].join('\n')
+          return html.replace('</head>', `${links}\n</head>`)
+        },
+      },
       closeBundle() {
         for (const entry of STATIC_ENTRIES) {
           if (entry === 'assets' || entry === '.well-known') {
@@ -25,7 +36,7 @@ export default defineConfig({
   ],
   build: {
     outDir: 'dist',
-    assetsInlineLimit: 2048,
+    assetsInlineLimit: 0,
     rollupOptions: {
       output: {
         manualChunks(id) {

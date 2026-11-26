@@ -11,7 +11,7 @@
     "lint": "oxlint src",
     "verify": "node tests/verify.js",
     "deploy": "wrangler pages deploy dist",
-    "refresh:contrib": "node scripts-refresh-contrib.mjs"
+    "refresh:contributions": "node scripts/refresh-contributions.mjs"
   },
   "dependencies": {
     "@astryxdesign/cli": "^0.7.17",

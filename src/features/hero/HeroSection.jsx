@@ -4,7 +4,7 @@ import { Button } from '@astryxdesign/core/Button'
 import { HStack } from '@astryxdesign/core/HStack'
 import { VStack } from '@astryxdesign/core/VStack'
 import { Badge } from '@astryxdesign/core/Badge'
-import portraitUrl from '../../../assets/svg/maithresh-terminal-portrait.59fb7aed.svg?url'
+import portraitUrl from '../../../assets/illustrations/terminal-portrait.svg?url'
 
 const LEDGER = [
   ['11+', 'Solo-built AI & agentic systems'],

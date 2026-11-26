@@ -44,14 +44,15 @@ All accent surfaces use Cobalt Blue rather than green, pink, purple, or violet. 
 
 ---
 
-## 4. Astryx Integration & Cascade Order
+## 4. Astryx Integration & External Stylesheets
 
-Stylesheets load in explicit cascade order in `src/app/main.jsx`:
+External styles load in explicit order:
 
-1. `@astryxdesign/core/reset.css`
-2. `@astryxdesign/core/astryx.css`
-3. `@fontsource-variable/newsreader/opsz.css` & `opsz-italic.css`
-4. `src/styles/monograph.css`
+1. `src/styles/tokens.css` (linked directly from `index.html` for instant obsidian substrate, `@font-face`, and CSS custom properties)
+2. `@astryxdesign/core/reset.css` (in `src/app/main.jsx`)
+3. `@astryxdesign/core/astryx.css` (in `src/app/main.jsx`)
+4. `@fontsource-variable/newsreader/opsz.css` & `opsz-italic.css` (in `src/app/main.jsx`)
+5. `src/styles/monograph.css` (component and layout overrides after Astryx base rules)
 
 UI primitives (`Theme`, `Heading`, `Text`, `Button`, `Badge`, `TabList`, `Tab`, `HStack`, `VStack`, `Divider`) are imported per component from `@astryxdesign/core/*`.
 

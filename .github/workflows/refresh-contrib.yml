@@ -33,7 +33,7 @@ jobs:
           node-version: 22
 
       - name: Regenerate contribution snapshot
-        run: node scripts-refresh-contrib.mjs
+        run: node scripts/refresh-contributions.mjs
 
       - name: Commit when the snapshot changed
         run: |

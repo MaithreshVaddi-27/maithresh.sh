@@ -53,7 +53,7 @@ jobs:
       # instead of failing the deploy.
       - name: Refresh contribution snapshot
         continue-on-error: true
-        run: node scripts-refresh-contrib.mjs
+        run: node scripts/refresh-contributions.mjs
 
       - name: Build for the project subpath
         env:
