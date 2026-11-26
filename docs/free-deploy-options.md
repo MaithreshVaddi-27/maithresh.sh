@@ -39,7 +39,7 @@ exists. The content-hashed URLs cache perfectly at the edge.
 4. Select this repository and **Begin setup**.
 5. In **Set up builds and deployments**:
    - Project name: `maithresh` (this becomes `maithresh.pages.dev`)
-   - Production branch: `systems-monograph`
+   - Production branch: `main`
    - Framework preset: **None**
    - Build command: `npm run build` — runs the Vite build (minify + content
      hashing) and then the verification gate, so a regression fails the deploy
@@ -61,7 +61,7 @@ npx wrangler login                       # one-time browser auth
 npm run build                            # build + verify gate
 npx wrangler pages project create        # prompts for name + production branch
 #   project name:  maithresh
-#   production branch: systems-monograph
+#   production branch: main
 npm run deploy                           # wrangler pages deploy dist
 ```
 

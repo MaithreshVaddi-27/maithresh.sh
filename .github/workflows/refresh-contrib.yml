@@ -48,6 +48,6 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/data/contributions.json
           git commit -m "chore: refresh contribution snapshot"
-          git fetch origin systems-monograph
-          git rebase origin/systems-monograph
-          git push origin HEAD:systems-monograph
+          git fetch origin "${{ github.ref_name }}"
+          git rebase "origin/${{ github.ref_name }}"
+          git push origin "HEAD:${{ github.ref_name }}"

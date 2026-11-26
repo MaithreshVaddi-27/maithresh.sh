@@ -16,8 +16,8 @@ Built with **React 19**, **Vite 8**, and the **Astryx Design System** (`@astryxd
 
 ## Branches
 
-- `systems-monograph` — Active React 19 + Astryx Systems Monograph edition.
-- `cyber-terminal` — Archived v2 cyber-terminal snapshot (`main` parity).
+- `main` / `systems-monograph` — Active React 19 + Astryx Systems Monograph edition.
+- `cyber-terminal` — Archived v2 cyber-terminal snapshot.
 
 ## Quick Start
 
@@ -90,7 +90,7 @@ Public inventory counts are stated as **N+** (`13+` solo AI/agentic systems, `13
 
 ## Deployment
 
-- **Cloudflare Pages (Recommended):** Project name `maithresh` (`https://maithresh.pages.dev/`), production branch `systems-monograph`, build command `npm run deploy:check`, output directory `dist` (or CLI via `npm run deploy`). Security and immutable `/assets/*` headers are configured in [`_headers`](./_headers).
+- **Cloudflare Pages (Recommended):** Project name `maithresh` (`https://maithresh.pages.dev/`), production branch `main`, build command `npm run deploy:check`, output directory `dist` (or CLI via `npm run deploy`). Security and immutable `/assets/*` headers are configured in [`_headers`](./_headers).
 - **GitHub Pages:** Automated via [`.github/workflows/deploy-pages.yml`](./.github/workflows/deploy-pages.yml) with `VITE_BASE=/maithresh.sh/`.
 
 ## License
