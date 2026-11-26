@@ -27,7 +27,8 @@ npm run dev                   # Local development server
 npm run lint                  # Static analysis (oxlint src)
 npm run build                 # Production build (dist/) + verification suite
 npm run deploy:check          # Lint + production build + Astryx doctor gate
-npm run deploy                # Preflight check + deploy dist/ via Wrangler
+npm run deploy                # Preflight check + deploy dist/ to Cloudflare main branch
+npm run deploy:preview        # Preflight check + deploy dist/ to Cloudflare preview branch
 npm run preview               # Preview built production output locally
 npx astryx doctor --built dist
 npm run refresh:contributions # Refresh bundled GitHub contribution snapshot

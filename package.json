@@ -14,7 +14,8 @@
     "lint": "oxlint src",
     "verify": "node tests/verify.js",
     "deploy:check": "npm run lint && npm run build && npx astryx doctor --built dist",
-    "deploy": "npm run deploy:check && wrangler pages deploy dist",
+    "deploy": "npm run deploy:check && wrangler pages deploy dist --branch=main",
+    "deploy:preview": "npm run deploy:check && wrangler pages deploy dist --branch=preview",
     "refresh:contributions": "node scripts/refresh-contributions.mjs"
   },
   "dependencies": {

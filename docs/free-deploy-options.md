@@ -1,13 +1,14 @@
-# Free Deployment Options — maithresh.sh
+# Free Deployment Options — ~/maithresh (maithresh.pages.dev)
 
 Project profile: **React 19 + Vite static SPA** — build emits plain files into
-`dist/` (HTML, hashed CSS/JS, images). No server code. Custom domain
-`maithresh.sh`. Every emitted asset is content-hashed, so any host that honors
-long cache lifetimes on hashed URLs is ideal and needs no manual cache-busting.
+`dist/` (HTML, hashed CSS/JS, images). No server code. Live default URL:
+`https://maithresh.pages.dev/` (custom domain optional). Every emitted asset is
+content-hashed, so any host that honors long cache lifetimes on hashed URLs is
+ideal and needs no manual cache-busting.
 
 ## How this repo deploys
 
-When targeting production (`main` or `systems-monograph` depending on your Cloudflare Pages production branch setting):
+When targeting production (`main`):
 
 1. **Cloudflare Pages** (recommended primary host) — configured with [`wrangler.toml`](../wrangler.toml) (`pages_build_output_dir = "dist"`), builds with default base `/`, and applies [`_headers`](../_headers) edge security & immutable `/assets/*` rules.
 2. **GitHub Pages** (`.github/workflows/deploy-pages.yml`) — rebuilds pushes to `main` with `VITE_BASE=/maithresh.sh/` and uploads `dist/` as the Pages artifact.
@@ -58,16 +59,11 @@ The docs' current flow is create-then-deploy:
 
 ```bash
 npx wrangler login                       # one-time browser auth
-npm run build                            # build + verify gate
-npx wrangler pages project create        # prompts for name + production branch
-#   project name:  maithresh
-#   production branch: main
-npm run deploy                           # wrangler pages deploy dist
+npx wrangler pages project create maithresh --production-branch main
+npm run deploy                           # deploy:check + wrangler pages deploy dist --branch=main
 ```
 
-(`npm run deploy` also creates the project on the fly if it does not exist
-yet — you get the same name/branch prompts. Preview deploys:
-`npm run deploy -- --branch=preview`.)
+(Or use `npm run deploy:preview` for a `preview` branch deployment without overwriting production.)
 
 ### Option B2 — Drag and drop (no CLI)
 
