@@ -10,35 +10,58 @@ import { prefetchSection } from '../../utils/sectionLoaders'
 import brandMarkUrl from '../../../assets/brand/maithresh-mark.svg?url'
 
 const LINKS = [
-  ['#workbench', 'Architecture', 'workbench'],
   ['#systems', 'Systems', 'systems'],
-  ['#stack', 'Stack', 'stack'],
+  ['#workbench', 'Architecture', 'workbench'],
   ['#automations', 'Automations', 'automations'],
+  ['#stack', 'Stack', 'stack'],
   ['#background', 'Background', 'background'],
 ]
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [activeHash, setActiveHash] = useState('#workbench')
+  const [activeHash, setActiveHash] = useState('#systems')
 
   useEffect(() => {
-    const sections = LINKS.map(([href]) => document.querySelector(href)).filter(Boolean)
-    if (!sections.length) return undefined
+    let rafId = 0
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .toSorted((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        if (visible?.target?.id) {
-          setActiveHash(`#${visible.target.id}`)
+    const updateActive = () => {
+      rafId = 0
+      const headerOffset = 140
+      let current = LINKS[0][0]
+      for (const [href] of LINKS) {
+        const el = document.querySelector(href)
+        if (el && el.getBoundingClientRect().top <= headerOffset) {
+          current = href
         }
-      },
-      { rootMargin: '-25% 0px -55% 0px', threshold: [0.1, 0.4] }
-    )
+      }
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 48) {
+        current = '#background'
+      }
+      setActiveHash((prev) => (prev === current ? prev : current))
+    }
 
-    sections.forEach((sec) => observer.observe(sec))
-    return () => observer.disconnect()
+    const onScroll = () => {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(updateActive)
+      }
+    }
+
+    updateActive()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
+
+    const mainEl = document.getElementById('main')
+    const observer = mainEl ? new MutationObserver(updateActive) : null
+    if (observer && mainEl) {
+      observer.observe(mainEl, { childList: true, subtree: true })
+    }
+
+    return () => {
+      if (rafId) window.cancelAnimationFrame(rafId)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      observer?.disconnect()
+    }
   }, [])
 
   useEffect(() => {

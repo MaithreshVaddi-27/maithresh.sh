@@ -12,9 +12,9 @@ export const PANES = [
     sub: '// 8_STAGES · LOCAL_INFERENCE',
     ariaLabel: 'Interactive TrustRAG Pipeline Flow Diagram',
     nodes: [
-      node('STAGE 01-02 // ROUTE + RETRIEVE', 'Deterministic Route -> Hybrid RRF', 'BGE-small ONNX dense + BM25', 'Cross-encoder rerank optional'),
-      node('STAGE 03-05 // GENERATE + VERIFY', 'Cited Generation -> Claim Decomposition', 'Atomic claims + NLI verdicts', 'SHA-256 + temporal audit'),
-      node('STAGE 06-08 // RECOVER + ANSWER', 'Budget-Aware -> LangGraph Loop', 'rewrite -> retrieve -> answer', '<=2 attempts, else ABSTAIN'),
+      node('STAGE 01-02 // ROUTE + RETRIEVE', 'Deterministic Route → Hybrid RRF', 'BGE-small ONNX dense + BM25', 'Cross-encoder rerank optional'),
+      node('STAGE 03-05 // GENERATE + VERIFY', 'Cited Generation → Claim Decomposition', 'Atomic claims + NLI verdicts', 'SHA-256 + temporal audit'),
+      node('STAGE 06-08 // RECOVER + ANSWER', 'Budget-Aware → LangGraph Loop', 'rewrite → retrieve → answer', '≤2 attempts, else ABSTAIN'),
     ],
     sims: [
       ['valid', 'Simulate high-confidence query'],
@@ -38,7 +38,7 @@ export const PANES = [
           <strong>Decompose, then verify, then abstain:</strong> generation is never trusted because
           it <i>looked</i> fluent. Each atomic claim gets an NLI verdict — supported, contradicted,
           or neutral — and the SHA-256 + temporal-validity audit makes the evidence checkable after
-          the fact. If the threshold is not met after the recovery budget, the pipeline returns
+          the fact. If the threshold is not met after the recovery budget, the pipeline returns{' '}
           <span className="idef-bad">ABSTAIN</span> rather than a plausible-sounding answer. A wrong
           answer with citations is the failure mode I care about most, because it survives review.
         </>,
@@ -103,7 +103,7 @@ export const PANES = [
     ariaLabel: 'Interactive Resume Crew Matcher Diagram',
     nodes: [
       node('STAGE 01 // PARSER', 'Multi-Format Ingest', 'PDF / DOCX / TXT / MD', 'Six-module pytest coverage'),
-      node('STAGE 02 // SCORING', 'Deterministic -> Keyword Pass', 'JD requirements as checklist', 'Grounds the LLM analysis'),
+      node('STAGE 02 // SCORING', 'Deterministic → Keyword Pass', 'JD requirements as checklist', 'Grounds the LLM analysis'),
       node('STAGE 03 // REPORT', 'Six-Part Evidence Report', 'Match · profile · gaps · bullets', 'Interview prep, no invention'),
     ],
     sims: [
@@ -147,8 +147,8 @@ export const PANES = [
     ariaLabel: 'Interactive CareerOS agent mesh diagram',
     nodes: [
       node('STAGE 01 // INGEST', '5 Job APIs + Scraper', 'JSearch · Adzuna · RemoteOK', 'Async scraper w/ semaphores'),
-      node('STAGE 02 // NORMALIZE + DEDUP', 'Pure Logic, No Model', 'Location, remote, salary + FX', 'url_hash exact -> content_hash'),
-      node('STAGE 03 // VERIFY + EXPLAIN', 'Two-Stage Verification', 'HTTP HEAD -> Firecrawl scrape', 'LangGraph explain + Qdrant'),
+      node('STAGE 02 // NORMALIZE + DEDUP', 'Pure Logic, No Model', 'Location, remote, salary + FX', 'url_hash exact → content_hash'),
+      node('STAGE 03 // VERIFY + EXPLAIN', 'Two-Stage Verification', 'HTTP HEAD → Firecrawl scrape', 'LangGraph explain + Qdrant'),
     ],
     sims: [
       ['dedup', 'Simulate 2-stage deduplication'],

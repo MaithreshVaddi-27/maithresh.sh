@@ -1,17 +1,17 @@
 import { lazy } from 'react'
 
 const importers = {
-  workbench: () => import('../features/architecture/ArchitectureWorkbench'),
   systems: () => import('../features/systems/FeaturedSystems'),
-  stack: () => import('../features/stack/StackMatrix'),
+  workbench: () => import('../features/architecture/ArchitectureWorkbench'),
   automations: () => import('../features/workflows/AutomationsAndTeam'),
+  stack: () => import('../features/stack/StackMatrix'),
   background: () => import('../features/background/BackgroundAndContact'),
 }
 
-export const ArchitectureWorkbench = lazy(importers.workbench)
 export const FeaturedSystems = lazy(importers.systems)
-export const StackMatrix = lazy(importers.stack)
+export const ArchitectureWorkbench = lazy(importers.workbench)
 export const AutomationsAndTeam = lazy(importers.automations)
+export const StackMatrix = lazy(importers.stack)
 export const BackgroundAndContact = lazy(importers.background)
 
 const warmed = new Set()
@@ -31,7 +31,7 @@ export function prefetchSection(key) {
   })
 }
 
-/** Prefetch all below-the-fold route sections in priority order. */
+/** Prefetch all below-the-fold route sections in reading order. */
 export function prefetchBelowFold() {
   for (const key of Object.keys(importers)) {
     prefetchSection(key)

@@ -109,8 +109,8 @@ export default function BackgroundAndContact() {
           </div>
 
           <article className="ledger-entry ledger-entry--spaced">
-            <HStack justify="between" align="start" wrap="wrap" gap={2}>
-              <div>
+            <div className="edu-header">
+              <div className="edu-main">
                 <Heading level={3} size="lg" className="editorial-heading">
                   Keshav Memorial Institute of Technology (KMIT)
                 </Heading>
@@ -123,7 +123,7 @@ export default function BackgroundAndContact() {
                 </p>
               </div>
               <Badge variant="blue" label="Hyderabad, India · 2023–2027" />
-            </HStack>
+            </div>
           </article>
 
           <div className="editorial-ledger-grid">

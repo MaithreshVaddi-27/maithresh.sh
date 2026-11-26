@@ -1,6 +1,6 @@
 # maithresh.sh Design System — Systems Monograph
 
-**Version:** `3.2.0`
+**Version:** `3.3.0`
 **Foundation:** React 19 + Astryx (`@astryxdesign/core@0.7.17`, `@astryxdesign/theme-neutral@0.7.17`) + Vite 8 + `@formkit/auto-animate` + `lucide-react`
 **Typography:** Newsreader Variable (optical editorial serif) · Inter · JetBrains Mono
 **Primary Palette:** Warm Obsidian (`#0b0d11`), Bone Ink (`#f4f2ed`), Cobalt Blue (`#2563eb` / `#60a5fa`)
@@ -14,7 +14,7 @@
 Systems Monograph combines two complementary disciplines:
 
 1. **Editorial Monograph Hierarchy:** Optical serif headings (`Newsreader Variable`), asymmetric hero framing, generous measure (`58ch–78ch`), and 1px hairline-divided ledgers instead of monotonous card grids.
-2. **Systems Engineering Rigor:** Numbered repository specifications (`SYS-01` through `SYS-05`), tabular numerals for metrics, and an interactive pipeline trace (`FIG 01`) showing real execution paths and trade-offs.
+2. **Systems Engineering Rigor:** Numbered repository specifications (`SYS-01` through `SYS-06`) placed directly after the hero, followed by the interactive pipeline trace (`FIG 01`), automation breadth, stack inventory, and credentials.
 
 ---
 
@@ -40,7 +40,7 @@ All accent surfaces use Cobalt Blue rather than green, pink, purple, or violet. 
 - **Headings:** `'Newsreader Variable', Georgia, serif` with `font-optical-sizing: auto`, `font-weight: 400`, and `-0.025em` tracking.
 - **Prose:** `'Inter', -apple-system, BlinkMacSystemFont, sans-serif` (self-hosted WOFF2).
 - **Specs & Metrics:** `'JetBrains Mono', ui-monospace, monospace` with `font-variant-numeric: tabular-nums`.
-- **Browser Surfaces:** Custom `::selection` (`rgba(59, 130, 246, 0.34)`), `caret-color: #60a5fa`, thin scrollbars, `text-underline-offset: 4px`, and `2px solid #60a5fa` `:focus-visible` rings.
+- **Browser Surfaces:** Custom `::selection` (`rgba(37, 99, 235, 0.38)`), `caret-color: #60a5fa`, thin scrollbars, `text-underline-offset: 4px`, and `2px solid #60a5fa` `:focus-visible` rings.
 
 ---
 
@@ -74,4 +74,5 @@ UI primitives (`Theme`, `Heading`, `Text`, `Link`, `Button`, `Badge`, `Icon`, `S
 - **Symbol (`assets/brand/maithresh-mark.svg`):** 256×256 pure-path letterform (`#f4f2ed` 60° M-chevron + 20-unit verification channel + `#60a5fa` Cobalt anchor pillar).
 - **Small-Size Cut (`assets/brand/maithresh-mark-kit/favicon-master.svg`):** Widened 24-unit channel for 16–48px browser tabs and favicons.
 - **Full Kit (`assets/brand/maithresh-mark-kit/`):** Includes outlined horizontal and stacked lockups (`maithresh-mark-horizontal.svg`, `maithresh-mark-stacked.svg`), black, white/reversed, and Cobalt monochrome (`#2563eb`, `#60a5fa`) masters, plus PWA and favicon outputs in `assets/brand/`. See `assets/brand/maithresh-mark-kit/USAGE.md`.
+- **Illustrations & Project Icons:** `assets/illustrations/terminal-portrait.svg` and all 13 `assets/project-icons/*.svg` tiles follow the same Systems Monograph palette (`#11141b` surface, `#202634` hairline, `#f4f2ed` Bone strokes, `#a1a8b5` muted details, and `#60a5fa` / `#2563eb` Cobalt highlights).
 

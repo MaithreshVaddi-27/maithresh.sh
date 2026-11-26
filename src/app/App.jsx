@@ -34,17 +34,17 @@ export default function App() {
       <main id="main">
         <ErrorBoundary>
           <HeroSection />
-          <Suspense fallback={<SectionSkeleton cards={1} height={320} />}>
-            <ArchitectureWorkbench />
-          </Suspense>
           <Suspense fallback={<SectionSkeleton cards={3} height={180} />}>
             <FeaturedSystems />
           </Suspense>
-          <Suspense fallback={<SectionSkeleton cards={2} height={140} />}>
-            <StackMatrix />
+          <Suspense fallback={<SectionSkeleton cards={1} height={320} />}>
+            <ArchitectureWorkbench />
           </Suspense>
           <Suspense fallback={<SectionSkeleton cards={2} height={150} />}>
             <AutomationsAndTeam />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton cards={2} height={140} />}>
+            <StackMatrix />
           </Suspense>
           <Suspense fallback={<SectionSkeleton cards={2} height={160} />}>
             <BackgroundAndContact />

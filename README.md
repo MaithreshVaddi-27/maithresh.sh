@@ -38,7 +38,7 @@ npm run refresh:contributions # Refresh bundled GitHub contribution snapshot
 │   ├── og-image.jpg                  # OpenGraph & Twitter share card (1200x630)
 │   └── site.webmanifest              # PWA manifest
 ├── design-system/
-│   ├── README.md                     # Systems Monograph v3.2 design specification
+│   ├── README.md                     # Systems Monograph v3.3 design specification
 │   └── tokens.json                   # Design tokens (palette, typography, radii, motion)
 ├── docs/
 │   ├── README.md                     # Documentation index

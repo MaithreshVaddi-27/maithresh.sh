@@ -75,7 +75,7 @@ export const CERTS = [
   {
     file: 'outskill.sh',
     title: 'Outskill AI Mastermind — Applied AI Builds',
-    body: 'Custom GPTs and assistants, vibe-coded builds, Claude Artifacts, AI image/video generation, AI-built sites — rapid prototyping reps behind the shipped systems above.',
+    body: 'Custom GPTs, Claude Artifacts, AI image/video generation, and rapid prototype builds behind the production systems listed above.',
     stack: ['Custom GPTs', 'Claude Artifacts', 'Rapid prototyping'],
   },
   {
