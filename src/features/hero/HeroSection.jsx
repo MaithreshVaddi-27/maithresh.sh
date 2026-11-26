@@ -4,6 +4,9 @@ import { Button } from '@astryxdesign/core/Button'
 import { HStack } from '@astryxdesign/core/HStack'
 import { VStack } from '@astryxdesign/core/VStack'
 import { Badge } from '@astryxdesign/core/Badge'
+import { Icon } from '@astryxdesign/core/Icon'
+import { StatusDot } from '@astryxdesign/core/StatusDot'
+import { Layers, GitBranch } from 'lucide-react'
 import portraitUrl from '../../../assets/illustrations/terminal-portrait.svg?url'
 
 const LEDGER = [
@@ -31,7 +34,10 @@ export default function HeroSection() {
             </div>
 
             <div className="hero-mobile-badge">
-              <Badge variant="blue" label="Open to AI/ML Internships" />
+              <HStack gap={1.5} align="center">
+                <StatusDot variant="accent" isPulsing label="Available for AI/ML internships" />
+                <Badge variant="blue" label="Open to AI/ML Internships" />
+              </HStack>
             </div>
 
             <p className="hero-copy">
@@ -42,8 +48,20 @@ export default function HeroSection() {
 
             <div className="hero-cta-row">
               <HStack gap={2} wrap="wrap">
-                <Button label="Inspect Systems" variant="primary" size="md" href="#systems" />
-                <Button label="Architecture Workbench" variant="secondary" size="md" href="#workbench" />
+                <Button
+                  label="Inspect Systems"
+                  variant="primary"
+                  size="md"
+                  icon={<Icon icon={Layers} size="sm" />}
+                  href="#systems"
+                />
+                <Button
+                  label="Architecture Workbench"
+                  variant="secondary"
+                  size="md"
+                  icon={<Icon icon={GitBranch} size="sm" />}
+                  href="#workbench"
+                />
                 <Button label="Contact" variant="ghost" size="md" href="#contact" />
               </HStack>
             </div>
@@ -61,7 +79,10 @@ export default function HeroSection() {
           <aside className="specimen-card hero-arrive--delayed" aria-label="Engineer profile specification">
             <div className="specimen-head">
               <span>SPEC // MV-2027</span>
-              <Badge variant="blue" label="SYNCED" />
+              <HStack gap={1.5} align="center">
+                <StatusDot variant="accent" isPulsing label="Portfolio metrics synced" />
+                <Badge variant="blue" label="SYNCED" />
+              </HStack>
             </div>
 
             <div className="specimen-portrait">

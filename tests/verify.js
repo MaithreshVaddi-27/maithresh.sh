@@ -24,6 +24,9 @@ const required = [
   'assets/illustrations/terminal-portrait.svg',
   'src/components/layout/Navbar.jsx',
   'src/components/common/ErrorBoundary.jsx',
+  'src/components/common/SectionSkeleton.jsx',
+  'src/utils/sectionLoaders.js',
+  'src/utils/viewTransition.js',
   'src/features/hero/HeroSection.jsx',
   'src/features/architecture/ArchitectureWorkbench.jsx',
   'src/features/systems/FeaturedSystems.jsx',
@@ -35,7 +38,14 @@ const required = [
 required.forEach((f) => need(existsSync(join(root, f)), `Missing ${f}`))
 
 const pkg = JSON.parse(read('package.json'))
-for (const dep of ['react', 'react-dom', '@astryxdesign/core', '@astryxdesign/theme-neutral']) {
+for (const dep of [
+  'react',
+  'react-dom',
+  '@astryxdesign/core',
+  '@astryxdesign/theme-neutral',
+  '@formkit/auto-animate',
+  'lucide-react',
+]) {
   need(Boolean(pkg.dependencies?.[dep]), `Missing dependency: ${dep}`)
 }
 need(!pkg.dependencies?.['@astryxdesign/theme-gothic'], 'Remove unused @astryxdesign/theme-gothic dependency')
@@ -52,8 +62,12 @@ need(html.includes('name="twitter:description"'), 'Missing twitter:description i
 
 const headers = read('_headers')
 need(
-  headers.includes("script-src 'self';"),
-  "_headers CSP script-src must stay strictly 'self' without 'unsafe-inline'"
+  headers.includes("script-src 'self';") && headers.includes("object-src 'none';"),
+  "_headers CSP must enforce script-src 'self' and object-src 'none'"
+)
+need(
+  headers.includes('Cross-Origin-Opener-Policy: same-origin'),
+  'Missing Cross-Origin-Opener-Policy header in _headers'
 )
 
 const css = read('src/styles/monograph.css')

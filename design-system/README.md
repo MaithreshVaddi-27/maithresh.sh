@@ -1,7 +1,7 @@
 # maithresh.sh Design System — Systems Monograph
 
-**Version:** `3.1.0`
-**Foundation:** React 19 + Astryx (`@astryxdesign/core@0.7.17`, `@astryxdesign/theme-neutral@0.7.17`) + Vite 8
+**Version:** `3.2.0`
+**Foundation:** React 19 + Astryx (`@astryxdesign/core@0.7.17`, `@astryxdesign/theme-neutral@0.7.17`) + Vite 8 + `@formkit/auto-animate` + `lucide-react`
 **Typography:** Newsreader Variable (optical editorial serif) · Inter · JetBrains Mono
 **Primary Palette:** Warm Obsidian (`#0b0d11`), Bone Ink (`#f4f2ed`), Cobalt Blue (`#2563eb` / `#60a5fa`)
 
@@ -54,14 +54,15 @@ External styles load in explicit order:
 4. `@fontsource-variable/newsreader/opsz.css` & `opsz-italic.css` (in `src/app/main.jsx`)
 5. `src/styles/monograph.css` (component and layout overrides after Astryx base rules)
 
-UI primitives (`Theme`, `Heading`, `Text`, `Button`, `Badge`, `TabList`, `Tab`, `HStack`, `VStack`, `Divider`) are imported per component from `@astryxdesign/core/*`.
+UI primitives (`Theme`, `Heading`, `Text`, `Link`, `Button`, `Badge`, `Icon`, `StatusDot`, `Skeleton`, `Spinner`, `TabList`, `Tab`, `HStack`, `VStack`, `Divider`) are imported per component from `@astryxdesign/core/*`, paired with tree-shaken `lucide-react` vectors via `<Icon icon={...} />`.
 
 ---
 
-## 5. Motion & Accessibility
+## 5. Motion, Loaders & Accessibility
 
-- **Focal Trace:** Selecting a simulation in `ArchitectureWorkbench` animates an SVG signal conduit (`620ms`) and cascades across 4 stages (`110ms` steps) using `cubic-bezier(0.16, 1, 0.3, 1)`.
-- **Scroll Progress:** CSS `animation-timeline: scroll()` drives a 2px Cobalt progress hairline beneath the sticky header without JavaScript scroll polling.
+- **Theme Motion & Focal Trace:** `monographTheme` sets `motion: { tempo: 0.85, character: 'crisp' }` in `defineTheme`. Switching tabs in `ArchitectureWorkbench` uses a progressive `document.startViewTransition` helper (`src/utils/viewTransition.js`), while simulations animate an SVG signal conduit (`620ms`) and cascade across 4 stages (`110ms` steps) with `cubic-bezier(0.16, 1, 0.3, 1)`.
+- **Lazy Section Loading & Prefetching:** Each below-the-fold section owns its own `<Suspense>` boundary backed by Astryx `<Skeleton>` placeholders (`SectionSkeleton.jsx`), warmed via `requestIdleCallback` and nav-link hover/focus (`src/utils/sectionLoaders.js`, Save-Data guarded). `@formkit/auto-animate` smooths Extended Systems Archive category filtering.
+- **Scroll Progress & Reveals:** CSS `animation-timeline: scroll()` drives the 2px header progress bar, and `@supports (animation-timeline: view())` adds subtle scroll entrance under `@media (prefers-reduced-motion: no-preference)`.
 - **Pointer-Safe Hover:** Outer hitboxes stay stationary; only inner rows (`translateX(4px)`) or borders respond.
 - **Reduced Motion & High Contrast:** `@media (prefers-reduced-motion: reduce)` removes transforms, keyframe entrances, and stagger delays while keeping opacity and color state changes intact; `@media (prefers-contrast: more)` raises divider and border opacity cleanly.
 - **Data Visualizations & Discovery:** Contribution matrix renders via a single accessible `<svg>` grid with optional live GitHub refresh (`AbortController`, `saveData` check), while `/llms.txt` and `/.well-known/ard.json` provide machine-readable portfolio indexing.

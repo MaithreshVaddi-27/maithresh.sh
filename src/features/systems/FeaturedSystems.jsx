@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { Heading } from '@astryxdesign/core/Heading'
 import { Badge } from '@astryxdesign/core/Badge'
 import { Button } from '@astryxdesign/core/Button'
 import { HStack } from '@astryxdesign/core/HStack'
+import { Icon } from '@astryxdesign/core/Icon'
 import { PROJECTS, MORE_PROJECTS } from '../../data/projects'
 
 const ARCHIVE_FILTERS = [
@@ -23,6 +25,8 @@ function matchesFilter(item, filter) {
 export default function FeaturedSystems() {
   const [showArchive, setShowArchive] = useState(false)
   const [archiveFilter, setArchiveFilter] = useState('all')
+  const [archiveParentRef] = useAutoAnimate({ duration: 220 })
+  const [gridParentRef] = useAutoAnimate({ duration: 220 })
 
   const filteredArchive = MORE_PROJECTS.filter((item) => matchesFilter(item, archiveFilter))
 
@@ -66,9 +70,10 @@ export default function FeaturedSystems() {
                   </div>
 
                   <Button
-                    label="Source Repo ↗"
+                    label="Source Repo"
                     variant="secondary"
                     size="sm"
+                    endContent={<Icon icon="externalLink" size="sm" />}
                     href={project.href}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -101,7 +106,7 @@ export default function FeaturedSystems() {
           ))}
         </div>
 
-        <div className="systems-archive-block">
+        <div className="systems-archive-block" ref={archiveParentRef}>
           <HStack justify="between" align="center" wrap="wrap" gap={2}>
             <div>
               <Heading level={3} size="lg" className="editorial-heading">
@@ -115,6 +120,7 @@ export default function FeaturedSystems() {
               label={showArchive ? 'Collapse Archive' : 'Expand Archive'}
               variant="secondary"
               size="sm"
+              endContent={<Icon icon={showArchive ? 'arrowUp' : 'chevronDown'} size="sm" />}
               onClick={() => setShowArchive((prev) => !prev)}
               aria-expanded={showArchive}
             />
@@ -134,7 +140,7 @@ export default function FeaturedSystems() {
                 ))}
               </HStack>
 
-              <div className="editorial-ledger-grid">
+              <div className="editorial-ledger-grid" ref={gridParentRef}>
                 {filteredArchive.map((item) => (
                   <article className="ledger-entry" key={item.title}>
                     <div>
@@ -151,9 +157,10 @@ export default function FeaturedSystems() {
                           <Badge variant="neutral" label={item.tag} />
                         </HStack>
                         <Button
-                          label="Repo ↗"
+                          label="Repo"
                           variant="ghost"
                           size="sm"
+                          endContent={<Icon icon="externalLink" size="sm" />}
                           href={item.href}
                           target="_blank"
                           rel="noopener noreferrer"

@@ -3,6 +3,11 @@ import { Heading } from '@astryxdesign/core/Heading'
 import { Badge } from '@astryxdesign/core/Badge'
 import { Button } from '@astryxdesign/core/Button'
 import { HStack } from '@astryxdesign/core/HStack'
+import { Icon } from '@astryxdesign/core/Icon'
+import { Link } from '@astryxdesign/core/Link'
+import { Spinner } from '@astryxdesign/core/Spinner'
+import { StatusDot } from '@astryxdesign/core/StatusDot'
+import { Mail } from 'lucide-react'
 import { CERTS, CONTACT_LINKS } from '../../data/sections'
 import contribSnapshot from '../../data/contributions.json'
 
@@ -17,6 +22,9 @@ export default function BackgroundAndContact() {
     contributions: contribSnapshot.contributions || [],
     isLive: false,
   }))
+  const [isSyncingLive, setIsSyncingLive] = useState(
+    () => typeof navigator === 'undefined' || !navigator.connection?.saveData
+  )
   const [copiedEmail, setCopiedEmail] = useState(false)
   const copyTimerRef = useRef(null)
 
@@ -51,6 +59,7 @@ export default function BackgroundAndContact() {
       })
       .finally(() => {
         window.clearTimeout(timeoutId)
+        setIsSyncingLive(false)
       })
 
     return () => {
@@ -145,9 +154,20 @@ export default function BackgroundAndContact() {
             <Heading level={2} className="section-title">
               Shipped Cadence &amp; Direct Links
             </Heading>
-            <span className="section-index-meta tabular-metric">
-              {total} CONTRIBUTIONS · {fetchedAt}
-            </span>
+            <HStack gap={1.5} align="center">
+              {isSyncingLive ? (
+                <Spinner size="sm" aria-label="Syncing live GitHub contribution cadence" />
+              ) : (
+                <StatusDot
+                  variant={isLive ? 'accent' : 'neutral'}
+                  isPulsing={isLive}
+                  label={isLive ? 'Live GitHub data' : 'Local contribution snapshot'}
+                />
+              )}
+              <span className="section-index-meta tabular-metric">
+                {total} CONTRIBUTIONS · {fetchedAt}
+              </span>
+            </HStack>
           </div>
           <p className="section-subtitle">
             {total} contributions {isLive ? 'loaded live from GitHub' : 'in the local snapshot'} (as
@@ -200,21 +220,27 @@ export default function BackgroundAndContact() {
           </div>
 
           <HStack gap={2} wrap="wrap" className="contact-actions">
-            {CONTACT_LINKS.map(([href, , label], idx) => (
-              <Button
-                key={label}
-                label={label}
-                variant={idx === 0 ? 'primary' : 'secondary'}
-                size="md"
-                href={href}
-                target={href.startsWith('mailto:') ? undefined : '_blank'}
-                rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-              />
-            ))}
+            {CONTACT_LINKS.map(([href, , label], idx) => {
+              const isMail = href.startsWith('mailto:')
+              return (
+                <Button
+                  key={label}
+                  label={label}
+                  variant={idx === 0 ? 'primary' : 'secondary'}
+                  size="md"
+                  icon={isMail ? <Icon icon={Mail} size="sm" /> : undefined}
+                  endContent={isMail ? undefined : <Icon icon="externalLink" size="sm" />}
+                  href={href}
+                  target={isMail ? undefined : '_blank'}
+                  rel={isMail ? undefined : 'noopener noreferrer'}
+                />
+              )
+            })}
             <Button
-              label={copiedEmail ? 'Email copied ✓' : 'Copy email'}
+              label={copiedEmail ? 'Email copied' : 'Copy email'}
               variant="ghost"
               size="md"
+              icon={<Icon icon={copiedEmail ? 'checkDouble' : 'copy'} size="sm" />}
               onClick={handleCopyEmail}
               title={`Copy ${EMAIL_ADDRESS} to clipboard`}
             />
@@ -228,9 +254,12 @@ export default function BackgroundAndContact() {
             <span>Maithresh Vaddi · maithresh.sh · Systems Monograph</span>
             <HStack gap={3} align="center">
               <span>Built with React 19 + Astryx</span>
-              <a href="#top" className="footer-top-link">
-                Back to top ↑
-              </a>
+              <Link href="#top" color="accent" type="code" size="sm">
+                <HStack gap={1} align="center">
+                  <span>Back to top</span>
+                  <Icon icon="arrowUp" size="sm" />
+                </HStack>
+              </Link>
             </HStack>
           </HStack>
         </div>

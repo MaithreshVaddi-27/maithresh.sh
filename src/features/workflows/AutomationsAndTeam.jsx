@@ -3,6 +3,8 @@ import { Badge } from '@astryxdesign/core/Badge'
 import { Button } from '@astryxdesign/core/Button'
 import { HStack } from '@astryxdesign/core/HStack'
 import { Divider } from '@astryxdesign/core/Divider'
+import { Icon } from '@astryxdesign/core/Icon'
+import { StatusDot } from '@astryxdesign/core/StatusDot'
 import { AUTOMATIONS, GROUP_PROJECTS } from '../../data/sections'
 
 export default function AutomationsAndTeam() {
@@ -11,12 +13,12 @@ export default function AutomationsAndTeam() {
       <div className="monograph-container">
         <div className="section-header-row">
           <Heading level={2} className="section-title">
-            Automation Suites &amp; Team Platforms
+            Workflow Automations &amp; Scoped Team ML
           </Heading>
-          <span className="section-index-meta">13+ WORKFLOWS · SCOPED ML</span>
+          <span className="section-index-meta">13+ WORKFLOWS · 2 TEAM SYSTEMS</span>
         </div>
         <p className="section-subtitle">
-          Production and experimental workflows across n8n, Make.com, and RPA, alongside team
+          Production webhook pipelines across n8n, Make.com, and RPA alongside collaborative
           platforms where I owned the ML training or inference integration layer.
         </p>
 
@@ -25,14 +27,20 @@ export default function AutomationsAndTeam() {
             <article className="ledger-entry" key={item.title}>
               <div>
                 <HStack justify="between" align="center" className="ledger-head">
-                  <Badge
-                    variant={item.live ? 'blue' : 'neutral'}
-                    label={item.status}
-                  />
+                  <HStack gap={1.5} align="center">
+                    {item.live && (
+                      <StatusDot variant="accent" isPulsing label="Live workflow deployment" />
+                    )}
+                    <Badge
+                      variant={item.live ? 'blue' : 'neutral'}
+                      label={item.status}
+                    />
+                  </HStack>
                   <Button
-                    label="Inspect ↗"
+                    label="Inspect"
                     variant="ghost"
                     size="sm"
+                    endContent={<Icon icon="externalLink" size="sm" />}
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -69,9 +77,10 @@ export default function AutomationsAndTeam() {
                 <HStack justify="between" align="center" className="ledger-head">
                   <Badge variant="info" label={proj.tag} />
                   <Button
-                    label="Repo ↗"
+                    label="Repo"
                     variant="ghost"
                     size="sm"
+                    endContent={<Icon icon="externalLink" size="sm" />}
                     href={proj.href}
                     target="_blank"
                     rel="noopener noreferrer"

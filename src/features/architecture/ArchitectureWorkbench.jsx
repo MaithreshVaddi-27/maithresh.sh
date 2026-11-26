@@ -5,7 +5,11 @@ import { Button } from '@astryxdesign/core/Button'
 import { Badge } from '@astryxdesign/core/Badge'
 import { HStack } from '@astryxdesign/core/HStack'
 import { Divider } from '@astryxdesign/core/Divider'
+import { Icon } from '@astryxdesign/core/Icon'
+import { StatusDot } from '@astryxdesign/core/StatusDot'
+import { Play, RotateCcw } from 'lucide-react'
 import { PANES } from '../../data/workbench'
+import { runViewTransition } from '../../utils/viewTransition'
 
 const STOP_XS = [125, 375, 625, 875]
 
@@ -15,12 +19,21 @@ export default function ArchitectureWorkbench() {
 
   const pane = PANES.find((p) => p.id === activeId) || PANES[0]
   const activeOutcome = simMode ? pane.outcomes[simMode] : null
-  const isDanger = activeOutcome?.titleColor === '#f87171'
-  const isWarn = activeOutcome?.titleColor === '#fbbf24'
+  const isDanger = activeOutcome?.tone === 'danger'
+  const isWarn = activeOutcome?.tone === 'warn'
+  const statusVariant = !activeOutcome
+    ? 'neutral'
+    : isDanger
+      ? 'error'
+      : isWarn
+        ? 'warning'
+        : 'accent'
 
   const handleTabChange = (nextId) => {
-    setActiveId(nextId)
-    setSimMode(null)
+    runViewTransition(() => {
+      setActiveId(nextId)
+      setSimMode(null)
+    })
   }
 
   return (
@@ -59,9 +72,10 @@ export default function ArchitectureWorkbench() {
                 {pane.sims.map(([modeKey, label]) => (
                   <Button
                     key={modeKey}
-                    label={label.replace(/^▶\s*/, '')}
+                    label={label}
                     variant={simMode === modeKey ? 'primary' : 'secondary'}
                     size="sm"
+                    icon={<Icon icon={Play} size="sm" />}
                     onClick={() => setSimMode((prev) => (prev === modeKey ? null : modeKey))}
                   />
                 ))}
@@ -70,6 +84,7 @@ export default function ArchitectureWorkbench() {
                     label="Reset"
                     variant="ghost"
                     size="sm"
+                    icon={<Icon icon={RotateCcw} size="sm" />}
                     onClick={() => setSimMode(null)}
                   />
                 )}
@@ -91,7 +106,7 @@ export default function ArchitectureWorkbench() {
                     ? ''
                     : idx === 3 && isDanger
                       ? ' is-danger'
-                      : (idx === 3 && isWarn) || (idx === 2 && pane.step2(simMode)?.stroke === '#38bdf8')
+                      : (idx === 3 && isWarn) || (idx === 2 && pane.step2Tone(simMode) === 'warn')
                         ? ' is-warn'
                         : ' is-active'
                   return (
@@ -111,7 +126,7 @@ export default function ArchitectureWorkbench() {
             <div className="pipeline-rail" role="region" aria-label={pane.ariaLabel}>
               {pane.nodes.map((n, idx) => {
                 const isLit = Boolean(simMode)
-                const isStep3Warn = idx === 2 && pane.step2(simMode)?.stroke === '#38bdf8'
+                const isStep3Warn = idx === 2 && pane.step2Tone(simMode) === 'warn'
                 return (
                   <div
                     key={n.stage}
@@ -161,18 +176,25 @@ export default function ArchitectureWorkbench() {
                     : 'Choose an execution path above to trace verification.'}
                 </div>
                 <div className="workbench-verdict-badge">
-                  <Badge
-                    variant={
-                      !activeOutcome
-                        ? 'neutral'
-                        : isWarn
-                          ? 'warning'
-                          : isDanger
-                            ? 'error'
-                            : 'blue'
-                    }
-                    label={activeOutcome ? 'TRACED' : 'IDLE'}
-                  />
+                  <HStack gap={1.5} align="center">
+                    <StatusDot
+                      variant={statusVariant}
+                      isPulsing={Boolean(simMode)}
+                      label={activeOutcome ? `Simulation active: ${activeOutcome.title}` : 'Simulation idle'}
+                    />
+                    <Badge
+                      variant={
+                        !activeOutcome
+                          ? 'neutral'
+                          : isWarn
+                            ? 'warning'
+                            : isDanger
+                              ? 'error'
+                              : 'blue'
+                      }
+                      label={activeOutcome ? 'TRACED' : 'IDLE'}
+                    />
+                  </HStack>
                 </div>
               </div>
             </div>

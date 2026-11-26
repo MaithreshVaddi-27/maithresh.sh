@@ -11,6 +11,10 @@ const baseTheme = themes[defaultThemeSlug]
 export const monographTheme = defineTheme({
   name: 'systems-monograph-cobalt',
   extends: baseTheme,
+  motion: {
+    tempo: 0.85,
+    character: 'crisp',
+  },
   tokens: {
     '--color-background-body': ['#0b0d11', '#0b0d11'],
     '--color-background-surface': ['#11141b', '#11141b'],

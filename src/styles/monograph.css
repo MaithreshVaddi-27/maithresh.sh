@@ -828,23 +828,47 @@
   font-size: 13px;
 }
 
-.footer-top-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  color: var(--cobalt-400);
-  text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  transition: color var(--duration-snap) ease;
+.section-skeleton-subtitle {
+  margin-top: 12px;
 }
 
-.footer-top-link:hover {
-  color: var(--cobalt-300);
+.section-skeleton-body {
+  margin-top: 28px;
 }
 
 .error-fallback-copy {
   color: var(--ink-secondary);
+}
+
+/* ── View Transitions & Scroll-Driven Reveal ──────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .workbench-body {
+    view-transition-name: workbench-stage;
+  }
+
+  ::view-transition-old(workbench-stage),
+  ::view-transition-new(workbench-stage) {
+    animation-duration: 180ms;
+    animation-timing-function: var(--ease-editorial);
+  }
+
+  @supports (animation-timeline: view()) {
+    .system-row,
+    .ledger-entry {
+      animation: monograph-view-enter linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 22%;
+    }
+  }
+}
+
+@keyframes monograph-view-enter {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* ── Tactile Press Feedback ───────────────────────────────────────────────── */
@@ -927,7 +951,6 @@ button:active {
 @media (pointer: coarse) {
   .nav-link,
   .brand-mark,
-  .footer-top-link,
   .mobile-nav-link {
     min-height: 44px;
   }
@@ -951,8 +974,11 @@ button:active {
   .hero-arrive,
   .hero-arrive--delayed,
   .workbench-body,
-  .archive-reveal {
+  .archive-reveal,
+  .system-row,
+  .ledger-entry {
     animation: none !important;
+    view-transition-name: none !important;
   }
 
   .stage-node,

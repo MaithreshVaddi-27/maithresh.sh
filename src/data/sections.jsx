@@ -1,6 +1,6 @@
 export const AUTOMATIONS = [
   {
-    status: 'live ↗',
+    status: 'live',
     live: true,
     title: 'AI Podcast Generator — PodEase Pro',
     href: 'https://podease-pro.lovable.app',
@@ -88,9 +88,9 @@ export const CERTS = [
 
 export const CONTACT_LINKS = [
   ['mailto:maithreshvaddi16@gmail.com?subject=Internship%20opportunity%20—%20via%20maithresh.sh', 'mail', 'maithreshvaddi16@gmail.com'],
-  ['https://www.linkedin.com/in/maithreshvaddi/', 'linkedin', 'LinkedIn ↗'],
-  ['https://github.com/MaithreshVaddi-27', 'github', 'GitHub ↗'],
-  ['https://leetcode.com/u/MaithreshV/', 'code', 'LeetCode ↗'],
-  ['https://www.hackerrank.com/profile/maithreshvaddi16', 'shield', 'HackerRank ↗'],
+  ['https://www.linkedin.com/in/maithreshvaddi/', 'linkedin', 'LinkedIn'],
+  ['https://github.com/MaithreshVaddi-27', 'github', 'GitHub'],
+  ['https://leetcode.com/u/MaithreshV/', 'code', 'LeetCode'],
+  ['https://www.hackerrank.com/profile/maithreshvaddi16', 'shield', 'HackerRank'],
 ]
 

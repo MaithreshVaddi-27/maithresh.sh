@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@astryxdesign/core/Button'
 import { Badge } from '@astryxdesign/core/Badge'
+import { HStack } from '@astryxdesign/core/HStack'
+import { Icon } from '@astryxdesign/core/Icon'
+import { StatusDot } from '@astryxdesign/core/StatusDot'
 import { VStack } from '@astryxdesign/core/VStack'
 import { GITHUB } from '../../data/content'
+import { prefetchSection } from '../../utils/sectionLoaders'
 import brandMarkUrl from '../../../assets/brand/maithresh-mark.svg?url'
 
 const LINKS = [
-  ['#workbench', 'Architecture'],
-  ['#systems', 'Systems'],
-  ['#stack', 'Stack'],
-  ['#automations', 'Automations'],
-  ['#background', 'Background'],
+  ['#workbench', 'Architecture', 'workbench'],
+  ['#systems', 'Systems', 'systems'],
+  ['#stack', 'Stack', 'stack'],
+  ['#automations', 'Automations', 'automations'],
+  ['#background', 'Background', 'background'],
 ]
 
 export default function Navbar() {
@@ -65,12 +69,14 @@ export default function Navbar() {
           </a>
 
           <ul className="nav-links">
-            {LINKS.map(([href, label]) => (
+            {LINKS.map(([href, label, loaderKey]) => (
               <li key={href}>
                 <a
                   href={href}
                   className={`nav-link${activeHash === href ? ' is-current' : ''}`}
                   aria-current={activeHash === href ? 'location' : undefined}
+                  onMouseEnter={() => prefetchSection(loaderKey)}
+                  onFocus={() => prefetchSection(loaderKey)}
                 >
                   {label}
                 </a>
@@ -80,12 +86,16 @@ export default function Navbar() {
 
           <div className="nav-actions">
             <span className="nav-availability">
-              <Badge variant="blue" label="Open to AI/ML Internships" />
+              <HStack gap={1.5} align="center">
+                <StatusDot variant="accent" isPulsing label="Available for AI/ML internships" />
+                <Badge variant="blue" label="Open to AI/ML Internships" />
+              </HStack>
             </span>
             <Button
               label="GitHub"
               variant="secondary"
               size="sm"
+              endContent={<Icon icon="externalLink" size="sm" />}
               href={GITHUB}
               target="_blank"
               rel="noopener noreferrer"
@@ -95,6 +105,7 @@ export default function Navbar() {
                 label={menuOpen ? 'Close' : 'Menu'}
                 variant="ghost"
                 size="sm"
+                icon={<Icon icon={menuOpen ? 'close' : 'menu'} size="sm" />}
                 onClick={() => setMenuOpen((prev) => !prev)}
                 aria-expanded={menuOpen}
               />
@@ -105,14 +116,16 @@ export default function Navbar() {
         {menuOpen && (
           <div className="mobile-drawer">
             <VStack gap={2} paddingBlock={3}>
-              <div>
+              <HStack gap={1.5} align="center">
+                <StatusDot variant="accent" isPulsing label="Available for AI/ML internships" />
                 <Badge variant="blue" label="Open to AI/ML Internships" />
-              </div>
-              {LINKS.map(([href, label]) => (
+              </HStack>
+              {LINKS.map(([href, label, loaderKey]) => (
                 <a
                   key={href}
                   href={href}
                   className={`mobile-nav-link${activeHash === href ? ' is-current' : ''}`}
+                  onMouseEnter={() => prefetchSection(loaderKey)}
                   onClick={() => setMenuOpen(false)}
                 >
                   {label}

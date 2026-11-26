@@ -2,7 +2,7 @@
 
 Engineering portfolio for **Maithresh Vaddi** (AI/ML Engineer, Agentic Systems Builder, Backend Developer).
 
-Built with **React 19**, **Vite 8**, and the **Astryx Design System** (`@astryxdesign/core` + `@astryxdesign/theme-neutral`) in the **Systems Monograph** visual system: Newsreader Variable optical serif headings, self-hosted Inter & JetBrains Mono, and Cobalt Blue accents (`#2563eb` / `#60a5fa`) on warm obsidian (`#0b0d11`).
+Built with **React 19**, **Vite 8**, and the **Astryx Design System** (`@astryxdesign/core`, `@astryxdesign/theme-neutral`, `@formkit/auto-animate`, `lucide-react`) in the **Systems Monograph** visual system: Newsreader Variable optical serif headings, self-hosted Inter & JetBrains Mono, and Cobalt Blue accents (`#2563eb` / `#60a5fa`) on warm obsidian (`#0b0d11`).
 
 ## Branches
 
@@ -27,7 +27,7 @@ npm run refresh:contributions # Refresh bundled GitHub contribution snapshot
 ├── index.html                        # HTML shell with external CSS/JS, icons, ARD, SEO & JSON-LD
 ├── llms.txt                          # Agent-readable portfolio summary
 ├── robots.txt & sitemap.xml          # Crawler directives and canonical sitemap
-├── _headers                          # Cloudflare Pages CSP (script-src 'self') & cache rules
+├── _headers                          # Cloudflare Pages CSP (script-src 'self', object-src 'none'), COOP/CORP & caching
 ├── vite.config.js                    # Vite 8 chunking & static asset copy into dist/
 ├── .well-known/
 │   └── ard.json                      # Agentic Resource Discovery (ARD) manifest
@@ -38,7 +38,7 @@ npm run refresh:contributions # Refresh bundled GitHub contribution snapshot
 │   ├── og-image.jpg                  # OpenGraph & Twitter share card (1200x630)
 │   └── site.webmanifest              # PWA manifest
 ├── design-system/
-│   ├── README.md                     # Systems Monograph v3.1 design specification
+│   ├── README.md                     # Systems Monograph v3.2 design specification
 │   └── tokens.json                   # Design tokens (palette, typography, radii, motion)
 ├── docs/
 │   ├── README.md                     # Documentation index
@@ -47,24 +47,24 @@ npm run refresh:contributions # Refresh bundled GitHub contribution snapshot
 ├── scripts/
 │   └── refresh-contributions.mjs     # CLI job to update src/data/contributions.json
 ├── src/
-│   ├── app/                          # App.jsx (lazy section loading + Astryx Theme) & main.jsx
+│   ├── app/                          # App.jsx (idle-prefetched per-section Suspense) & main.jsx
 │   ├── components/
-│   │   ├── common/                   # ErrorBoundary.jsx
-│   │   └── layout/                   # Navbar.jsx (IntersectionObserver spy + scroll progress)
+│   │   ├── common/                   # ErrorBoundary.jsx & SectionSkeleton.jsx
+│   │   └── layout/                   # Navbar.jsx (IntersectionObserver spy, hover prefetch, StatusDot)
 │   ├── data/                         # Verified projects, architecture simulation, stack & metrics
 │   ├── features/
-│   │   ├── architecture/             # ArchitectureWorkbench.jsx (interactive signal trace)
-│   │   ├── background/               # BackgroundAndContact.jsx (KMIT bio, SVG heatmap, links)
+│   │   ├── architecture/             # ArchitectureWorkbench.jsx (View Transitions + StatusDot trace)
+│   │   ├── background/               # BackgroundAndContact.jsx (Spinner sync, SVG heatmap, Link, Icon)
 │   │   ├── hero/                     # HeroSection.jsx + SPEC // MV-2027 card
 │   │   ├── stack/                    # StackMatrix.jsx
-│   │   ├── systems/                  # FeaturedSystems.jsx (SYS-01..06 + filterable archive)
+│   │   ├── systems/                  # FeaturedSystems.jsx (AutoAnimate filtering + external icons)
 │   │   └── workflows/                # AutomationsAndTeam.jsx
 │   ├── fonts/                        # Self-hosted Inter & JetBrains Mono WOFF2
 │   ├── styles/
 │   │   ├── tokens.css                # External head stylesheet: @font-face, tokens, obsidian ground
-│   │   └── monograph.css             # External component, grid, workbench & responsive rules
+│   │   └── monograph.css             # External component, View Transition & scroll-driven motion rules
 │   └── theme/
-│       └── monographTheme.js         # Astryx defineTheme overrides
+│       └── monographTheme.js         # Astryx defineTheme overrides (crisp motion + Cobalt tokens)
 └── tests/
     └── verify.js                     # Automated structure, CSP, SEO, and dist/ verification gate
 ```
