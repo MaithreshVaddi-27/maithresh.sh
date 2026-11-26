@@ -30,6 +30,7 @@ const required = [
   'src/components/common/SectionSkeleton.jsx',
   'src/utils/sectionLoaders.js',
   'src/utils/viewTransition.js',
+  'src/utils/contribStats.js',
   'src/features/hero/HeroSection.jsx',
   'src/features/architecture/ArchitectureWorkbench.jsx',
   'src/features/systems/FeaturedSystems.jsx',

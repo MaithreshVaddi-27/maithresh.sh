@@ -6,6 +6,16 @@ All notable changes to `maithresh.sh` are documented here. Format follows
 
 ## [Unreleased]
 
+### Added
+
+- **Contribution Telemetry (`BackgroundAndContact.jsx` & `contribStats.js`):** Redesigned the GitHub contribution cadence section with an Astryx `SegmentedControl` view switcher (`12M Matrix`, `90D Zoom`, `Monthly` bar chart), live computed KPI tiles (total, active days, longest streak, peak day), month/weekday axes, interactive day/month inspector bar, legend intensity spotlighting, and scroll-triggered SVG column cascades with reduced-motion bypass.
+- **Deploy Gates:** Added `.node-version` (`22.13.0`), `engines.node` check in `package.json` + `tests/verify.js`, and `npm run deploy:check`.
+
+### Changed
+
+- **Identity & Target URL:** Updated navbar brand to `~/maithresh`, Cloudflare Pages project name to `maithresh` (`https://maithresh.pages.dev/`), canonical/OG/sitemap/ARD links, `README.md`, and `design-system/` spec (`3.4.0`).
+- **Script Name Consistency:** Fixed `npm run refresh:contrib` comments in `scripts/refresh-contributions.mjs` and `src/data/contributions.json` to `npm run refresh:contributions`.
+
 ## [3.0.0] — 2026-11-27
 
 ### Added

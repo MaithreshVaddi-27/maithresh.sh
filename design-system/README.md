@@ -1,11 +1,11 @@
-# maithresh.sh Design System — Systems Monograph
+# ~/maithresh Design System — Systems Monograph
 
-**Version:** `3.3.0`
+**Version:** `3.4.0`
 **Foundation:** React 19 + Astryx (`@astryxdesign/core@0.7.17`, `@astryxdesign/theme-neutral@0.7.17`) + Vite 8 + `@formkit/auto-animate` + `lucide-react`
 **Typography:** Newsreader Variable (optical editorial serif) · Inter · JetBrains Mono
 **Primary Palette:** Warm Obsidian (`#0b0d11`), Bone Ink (`#f4f2ed`), Cobalt Blue (`#2563eb` / `#60a5fa`)
 
-> **Live Sources:** Astryx theme overrides live in `src/theme/monographTheme.js`, layout and motion rules live in `src/styles/monograph.css`, and machine-readable tokens are stored in `design-system/tokens.json`.
+> **Live Sources:** Live site at `https://maithresh.pages.dev/`. Astryx theme overrides live in `src/theme/monographTheme.js`, layout and motion rules live in `src/styles/monograph.css`, and machine-readable tokens are stored in `design-system/tokens.json`.
 
 ---
 
@@ -65,7 +65,7 @@ UI primitives (`Theme`, `Heading`, `Text`, `Link`, `Button`, `Badge`, `Icon`, `S
 - **Scroll Progress & Reveals:** CSS `animation-timeline: scroll()` drives the 2px header progress bar, and `@supports (animation-timeline: view())` adds subtle scroll entrance under `@media (prefers-reduced-motion: no-preference)`.
 - **Pointer-Safe Hover:** Outer hitboxes stay stationary; only inner rows (`translateX(4px)`) or borders respond.
 - **Reduced Motion & High Contrast:** `@media (prefers-reduced-motion: reduce)` removes transforms, keyframe entrances, and stagger delays while keeping opacity and color state changes intact; `@media (prefers-contrast: more)` raises divider and border opacity cleanly.
-- **Data Visualizations & Discovery:** Contribution matrix renders via a single accessible `<svg>` grid with optional live GitHub refresh (`AbortController`, `saveData` check), while `/llms.txt` and `/.well-known/ard.json` provide machine-readable portfolio indexing.
+- **Data Visualizations & Discovery:** The GitHub contribution telemetry panel pairs a `SegmentedControl` view switcher (`12M Matrix`, `90D Zoom`, `Monthly Bars`) with live computed KPIs (total, active days, longest streak, peak day), month/weekday axes, interactive day inspection, legend intensity spotlighting, scroll-triggered SVG column cascades (bypassed under reduced motion), and progressive live GitHub refresh (`AbortController`, `saveData` check). `/llms.txt` and `/.well-known/ard.json` provide machine-readable portfolio indexing.
 
 ---
 

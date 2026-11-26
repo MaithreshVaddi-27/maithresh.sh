@@ -27,6 +27,7 @@
   --cobalt-500: #3b82f6;
   --cobalt-600: var(--color-accent, #2563eb);
   --obsidian: var(--color-background-body, #0b0d11);
+  --inset: #0d1016;
   --surface: var(--color-background-surface, #11141b);
   --surface-elevated: var(--color-background-card, #141821);
   --hairline: var(--color-border, #202634);

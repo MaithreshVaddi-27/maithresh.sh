@@ -1,6 +1,6 @@
 // Regenerate src/data/contributions.json from the live contribution API.
 // Run before a release so the committed baseline isn't months stale:
-//   npm run refresh:contrib
+//   npm run refresh:contributions
 import { writeFileSync } from 'node:fs'
 
 const USER = process.env.GITHUB_USER || 'MaithreshVaddi-27'
@@ -14,7 +14,7 @@ const total = typeof raw.total === 'object' ? raw.total.lastYear : raw.total
 writeFileSync('src/data/contributions.json', JSON.stringify({
   _comment: 'Baseline snapshot of the GitHub contribution calendar so the contact '
     + 'section paints immediately and survives the third-party API being slow or down. '
-    + 'Regenerate with: npm run refresh:contrib',
+    + 'Regenerate with: npm run refresh:contributions',
   fetchedAt: new Date().toISOString().slice(0, 10),
   total,
   contributions: raw.contributions,
