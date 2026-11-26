@@ -1,8 +1,11 @@
 {
   "name": "maithresh-sh",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "description": "maithresh.sh — Systems Monograph portfolio (React 19 + Astryx + Vite).",
   "scripts": {
     "dev": "vite",
@@ -10,7 +13,8 @@
     "preview": "vite preview",
     "lint": "oxlint src",
     "verify": "node tests/verify.js",
-    "deploy": "wrangler pages deploy dist",
+    "deploy:check": "npm run lint && npm run build && npx astryx doctor --built dist",
+    "deploy": "npm run deploy:check && wrangler pages deploy dist",
     "refresh:contributions": "node scripts/refresh-contributions.mjs"
   },
   "dependencies": {

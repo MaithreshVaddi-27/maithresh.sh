@@ -15,7 +15,7 @@ name: deploy pages
 
 on:
   push:
-    branches: [main]
+    branches: [systems-monograph, main]
   workflow_dispatch:
 
 permissions:
@@ -93,9 +93,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/data/contributions.json
           git commit -m "chore: refresh contribution snapshot"
-          git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
+          git fetch origin "${{ github.ref_name }}"
+          git rebase "origin/${{ github.ref_name }}"
+          git push origin "HEAD:${{ github.ref_name }}"
 
   deploy:
     needs: build

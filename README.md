@@ -16,6 +16,8 @@ npm install
 npm run dev                   # Local development server
 npm run lint                  # Static analysis (oxlint src)
 npm run build                 # Production build (dist/) + verification suite
+npm run deploy:check          # Lint + production build + Astryx doctor gate
+npm run deploy                # Preflight check + deploy dist/ via Wrangler
 npm run preview               # Preview built production output locally
 npx astryx doctor --built dist
 npm run refresh:contributions # Refresh bundled GitHub contribution snapshot
@@ -28,6 +30,7 @@ npm run refresh:contributions # Refresh bundled GitHub contribution snapshot
 ├── llms.txt                          # Agent-readable portfolio summary
 ├── robots.txt & sitemap.xml          # Crawler directives and canonical sitemap
 ├── _headers                          # Cloudflare Pages CSP (script-src 'self', object-src 'none'), COOP/CORP & caching
+├── .node-version                     # Pins Node >= 22.13.0 for Cloudflare/Vercel/Netlify CI
 ├── wrangler.toml                     # Cloudflare Pages build output configuration (dist/)
 ├── vite.config.js                    # Vite 8 chunking & static asset copy into dist/
 ├── .well-known/

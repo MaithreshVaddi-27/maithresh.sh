@@ -15,6 +15,9 @@ const required = [
   'index.html',
   'package.json',
   'vite.config.js',
+  'wrangler.toml',
+  '.node-version',
+  '_headers',
   'src/app/main.jsx',
   'src/app/App.jsx',
   'src/theme/monographTheme.js',
@@ -38,6 +41,7 @@ const required = [
 required.forEach((f) => need(existsSync(join(root, f)), `Missing ${f}`))
 
 const pkg = JSON.parse(read('package.json'))
+need(Boolean(pkg.engines?.node), 'Missing engines.node constraint in package.json')
 for (const dep of [
   'react',
   'react-dom',
