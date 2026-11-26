@@ -87,7 +87,7 @@ export const CERTS = [
 ]
 
 export const CONTACT_LINKS = [
-  ['mailto:maithreshvaddi16@gmail.com?subject=Internship%20opportunity%20—%20via%20maithresh.sh', 'mail', 'maithreshvaddi16@gmail.com'],
+  ['mailto:maithreshvaddi16@gmail.com?subject=Internship%20opportunity%20—%20via%20maithresh.pages.dev', 'mail', 'maithreshvaddi16@gmail.com'],
   ['https://www.linkedin.com/in/maithreshvaddi/', 'linkedin', 'LinkedIn'],
   ['https://github.com/MaithreshVaddi-27', 'github', 'GitHub'],
   ['https://leetcode.com/u/MaithreshV/', 'code', 'LeetCode'],

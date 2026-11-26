@@ -38,8 +38,8 @@ exists. The content-hashed URLs cache perfectly at the edge.
 3. Sign in with GitHub and authorize Cloudflare Pages.
 4. Select this repository and **Begin setup**.
 5. In **Set up builds and deployments**:
-   - Project name: `maithresh-sh` (this becomes `maithresh-sh.pages.dev`)
-   - Production branch: `main`
+   - Project name: `maithresh` (this becomes `maithresh.pages.dev`)
+   - Production branch: `systems-monograph`
    - Framework preset: **None**
    - Build command: `npm run build` — runs the Vite build (minify + content
      hashing) and then the verification gate, so a regression fails the deploy
@@ -60,8 +60,8 @@ The docs' current flow is create-then-deploy:
 npx wrangler login                       # one-time browser auth
 npm run build                            # build + verify gate
 npx wrangler pages project create        # prompts for name + production branch
-#   project name:  maithresh-sh
-#   production branch: main
+#   project name:  maithresh
+#   production branch: systems-monograph
 npm run deploy                           # wrangler pages deploy dist
 ```
 
@@ -73,7 +73,7 @@ yet — you get the same name/branch prompts. Preview deploys:
 
 1. **Workers & Pages** → **Create application** → **Get started** →
    **Drag and drop your files**.
-2. Enter project name `maithresh-sh` and drag the **`dist/`** folder in, **Deploy site**.
+2. Enter project name `maithresh` and drag the **`dist/`** folder in, **Deploy site**.
 3. Later updates: open the project → **Create a new deployment** → choose
    production or preview → re-drag the folder.
 
@@ -91,7 +91,7 @@ yet — you get the same name/branch prompts. Preview deploys:
    registrar's nameservers to Cloudflare's. Once nameservers resolve,
    Cloudflare creates the CNAME (flattened at apex) automatically.
 3. Add `www.maithresh.sh` the same way (subdomains only need a CNAME record
-   pointing to `maithresh-sh.pages.dev`; on a Cloudflare zone it is added
+   pointing to `maithresh.pages.dev`; on a Cloudflare zone it is added
    automatically after you confirm).
 4. Redirect `www` → apex: add a `_redirects` file at repo root
    (`www.maithresh.sh/* https://maithresh.sh/:splat 301`) or a Cloudflare
@@ -118,7 +118,7 @@ so content edits show up immediately.
 
 ### Verify after deploy
 
-- `https://maithresh-sh.pages.dev/` and `https://maithresh.sh/` both serve
+- `https://maithresh.pages.dev/` and `https://maithresh.sh/` both serve
   `index.html` (Pages serves root `index.html` at `/` — this repo satisfies
   that requirement).
 - DevTools → Network: the hashed `/assets/*.css` and `/assets/*.js` responses
@@ -155,7 +155,7 @@ slightly nicer workflow.
 ### Option A — Git integration
 1. Push repo to GitHub → vercel.com → Add New → Project → Import.
 2. Framework preset: **Vite**. Build command: **`npm run build`**. Output: **`dist`**.
-3. Deploy → `https://maithresh-sh.vercel.app`.
+3. Deploy → `https://maithresh.vercel.app`.
 
 ### Option B — CLI
 1. `npm i -g vercel && vercel` (link project, accept defaults for static).

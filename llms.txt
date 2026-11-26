@@ -4,7 +4,7 @@
 
 ## Primary Links
 
-- Portfolio: https://maithresh-sh.pages.dev/
+- Portfolio: https://maithresh.pages.dev/
 - GitHub: https://github.com/MaithreshVaddi-27
 - LinkedIn: https://www.linkedin.com/in/maithreshvaddi/
 - Email: mailto:maithreshvaddi16@gmail.com

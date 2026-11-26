@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://maithresh-sh.pages.dev/sitemap.xml
+Sitemap: https://maithresh.pages.dev/sitemap.xml

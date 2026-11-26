@@ -251,7 +251,7 @@ export default function BackgroundAndContact() {
       <footer className="site-footer">
         <div className="monograph-container">
           <HStack justify="between" align="center" wrap="wrap" gap={2}>
-            <span>Maithresh Vaddi · maithresh.sh · Systems Monograph</span>
+            <span>Maithresh Vaddi · ~/maithresh · Systems Monograph</span>
             <HStack gap={3} align="center">
               <span>Built with React 19 + Astryx</span>
               <Link href="#top" color="accent" type="code" size="sm">

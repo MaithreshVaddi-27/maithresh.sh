@@ -3,10 +3,10 @@
   "entries": [
     {
       "@context": "https://agenticresourcediscovery.org/context/v1",
-      "identifier": "urn:air:maithresh-sh.pages.dev:docs:llms-txt",
+      "identifier": "urn:air:maithresh.pages.dev:docs:llms-txt",
       "displayName": "Maithresh Vaddi — AI/ML & Backend Engineer Portfolio",
       "type": "text/markdown; profile=\"urn:air:agent-skills\"",
-      "url": "https://maithresh-sh.pages.dev/llms.txt",
+      "url": "https://maithresh.pages.dev/llms.txt",
       "description": "Engineering portfolio covering TrustRAG, CareerOS-Pro, ApplyOS, Agentic DocuChat, Resume Crew, MCP CLI agents, and n8n/Make.com automation suites.",
       "representativeQueries": [
         "Who is Maithresh Vaddi and what AI systems has he built?",

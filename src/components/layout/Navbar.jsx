@@ -87,7 +87,7 @@ export default function Navbar() {
               height="22"
             />
             <span>
-              maithresh<span className="brand-tld">.sh</span>
+              <span className="brand-tld">~/</span>maithresh
             </span>
           </a>
 
