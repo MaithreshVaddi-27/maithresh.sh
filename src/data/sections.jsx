@@ -49,9 +49,13 @@ export const GROUP_PROJECTS = [
     title: 'SignatureSense',
     href: 'https://github.com/MaithreshVaddi-27/SignatureSense',
     tag: 'team of 4 · signature verification',
-    body: 'MERN + Flask signature verification: upload a sample, get a verification verdict backed by a TensorFlow model.',
-    scope: <><b>My scope:</b> inference integration, not training — loaded a <b>pre-trained</b> Keras/TensorFlow model (<code>.h5</code>) via <code>load_model()</code> and owned image preprocessing, integration tests, and the Bootstrap frontend fixes. (Deliberately distinct from CrimeSleuth, where I trained the model myself.)</>,
-    stack: ['MERN', 'Flask', 'TensorFlow/Keras'],
+    body: 'React + Vite, Node.js/Express, MongoDB, and a Flask ML inference service: upload a signature sample and get a verification verdict backed by a TensorFlow model.',
+    scope: (
+      <>
+        <b>My scope:</b> inference integration, not training — loaded a <b>pre-trained</b> Keras/TensorFlow model (<code>.h5</code>) via <code>load_model()</code> in <code>model_predict.py</code> and owned image preprocessing, integration tests, and React/Vite frontend fixes.
+      </>
+    ),
+    stack: ['React · Vite', 'Node.js · Express', 'MongoDB', 'Flask · TensorFlow/Keras'],
   },
 ]
 

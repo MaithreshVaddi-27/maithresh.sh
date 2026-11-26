@@ -29,8 +29,8 @@ export const STACK = [
     title: 'Backend & Data',
     icon: 'db',
     chips: [
-      'Python', 'Java (OOP)', 'C++', 'JavaScript (ES6)', 'SQL', 'FastAPI', 'Granian',
-      'Flask', 'httpx (async)', 'Pydantic', 'SQLAlchemy', 'Node.js', 'Express.js',
+      'Python', 'TypeScript', 'Java (OOP)', 'C++', 'JavaScript (ES6)', 'SQL', 'FastAPI', 'Granian',
+      'Flask', 'httpx (async)', 'Pydantic', 'SQLAlchemy', 'Bun', 'Node.js', 'Express.js',
       'MongoDB', 'MySQL', 'SQLite', 'Redis', 'Pandas', 'NumPy', 'Matplotlib',
     ],
     note: '26+ LeetCode SQL problems solved — joins, subqueries, aggregations.',

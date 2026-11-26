@@ -1,134 +1,65 @@
-# maithresh.sh Design System
-## Cyber-Terminal · Translucent Liquid Glass · Apple Fluid Dynamics
+# maithresh.sh Design System — Systems Monograph
 
-**Version:** `2.0.0`  
-**Substrate:** React 19 + Vite 8 SPA  
-**Primary Language:** JetBrains Mono + Inter Humanist  
-**Key Accent:** Terminal Cyan (`#38bdf8`), Flight Green (`#10b981`), Telemetry Amber (`#f59e0b`)
+**Version:** `3.0.0`
+**Foundation:** React 19 + Astryx (`@astryxdesign/core@0.7.17`, `@astryxdesign/theme-gothic@0.7.17`) + Vite 8
+**Typography:** Newsreader Variable (optical editorial serif) · Inter · JetBrains Mono
+**Primary Palette:** Warm Obsidian (`#0b0d11`), Bone Ink (`#f4f2ed`), Cobalt Blue (`#3b82f6` / `#60a5fa`)
 
----
-
-> **Source of truth:** the live tokens are defined in `src/styles.css` (`:root`).
-> This document is the design reference; no separate token files are shipped.
-
-## 1. Design Philosophy & Foundations
-
-The `maithresh.sh` design system balances two aesthetics:
-1. **The Tactical Cyber-Terminal:** Deep substrate (`#07090e`), monospace headers, prompt tokens (`$`, `//`, `▶`), CRT scanlines, procedural film grain, and HUD reticle viewfinders.
-2. **Liquid Glass & Apple Fluid Dynamics:** 3-tier translucent glass elevation, spring physics (`cubic-bezier(.16, 1, .3, 1)`), tactile active press (`scale(0.97)`), and rigorous accessibility (WCAG 2.2 AA).
-
-### Core Principles
-- **No Decoration Without Function:** Every reticle, badge, and connector illustrates actual telemetry or real state.
-- **Dark Substrate Continuity:** The 3D canvas dot-matrix engine (`src/scene.js`) acts as a persistent spatial substrate behind the content.
-- **High-Contrast Legibility:** High-contrast text (`#f8fafc`) on glass backgrounds, paired with strict contrast-mode fallbacks (`prefers-contrast: more`).
+> **Live Sources:** Astryx theme overrides live in `src/theme/monographTheme.js`, layout and motion rules live in `src/styles/monograph.css`, and machine-readable tokens are stored in `design-system/tokens.json`.
 
 ---
 
-## 2. Color Palette & Semantics
+## 1. Design Philosophy
 
-### Base Substrate & Neutral Surfaces
-| Token | Hex / Value | Semantic Role |
+Systems Monograph combines two complementary disciplines:
+
+1. **Editorial Monograph Hierarchy:** Optical serif headings (`Newsreader Variable`), asymmetric hero framing, generous measure (`58ch–78ch`), and 1px hairline-divided ledgers instead of monotonous card grids.
+2. **Systems Engineering Rigor:** Numbered repository specifications (`SYS-01` through `SYS-05`), tabular numerals for metrics, and an interactive pipeline trace (`FIG 01`) showing real execution paths and trade-offs.
+
+---
+
+## 2. Color & Contrast System
+
+All accent surfaces use Cobalt Blue rather than green, pink, purple, or violet. Semantic amber (`#fbbf24`) and red (`#ef4444`) remain strictly reserved for warning, recovery, and abstain/error states.
+
+| Token | Value | Role |
 | :--- | :--- | :--- |
-| `--bg` | `#07090e` | Deep canvas substrate |
-| `--bg-surface` | `#0d1117` | Tier 1 background surface |
-| `--bg-surface-subtle` | `#111620` | Tier 2 elevated panels |
-| `--bg-surface-hover` | `#161c27` | Interactive hover highlight |
-| `--line` | `#1e293b` | Structural dividers |
-| `--line-bold` | `#334155` | Active schematic connectors |
-
-### Flight Telemetry & Status Accents
-| Token | Hex | Role & System Meaning |
-| :--- | :--- | :--- |
-| `--accent` / `--accent-cyan` | `#38bdf8` | Terminal prompt, active focus, primary CTA |
-| `--accent-bright` | `#7dd3fc` | Highlight glow and focus ring tint |
-| `--green` | `#10b981` | Verification passed, grounded claims, cache hit |
-| `--amber` | `#f59e0b` | Recovery loop engaged, circuit breaker fallback |
-| `--red` | `#ef4444` | Claim contradicted, test failure, abstain state |
-
-*Note: Retired violet/purple hex codes (`#a855f7`, `#8b5cf6`, `#7c3aed`) are permanently retired to maintain clean 3-accent clarity.*
+| `--obsidian` | `#0b0d11` | Primary page canvas |
+| `--surface` | `#11141b` | Workbench, specimen panel, ledger cells |
+| `--surface-elevated` | `#141821` | Interactive chips and secondary controls |
+| `--ink-primary` | `#f4f2ed` | Primary headings and copy (>16:1 on canvas) |
+| `--ink-secondary` | `#a1a8b5` | Subtitles and secondary prose (>7.5:1 on canvas) |
+| `--cobalt-500` | `#3b82f6` | Primary button fill (`#ffffff` foreground) |
+| `--cobalt-400` | `#60a5fa` | Active pipeline stages, metrics, links, focus ring |
+| `--hairline` | `#202634` | Structural dividers and grid borders |
 
 ---
 
-## 3. Liquid Glass Elevation Hierarchy
+## 3. Typography & Browser Surfaces
 
-Translucency uses heavy backdrop blur and high saturation rather than flat opacity.
-
-```css
-/* Tier 1: Embedded content cards (recedes) */
---elev-1-bg: rgba(var(--glass), 0.50);
---elev-1-blur: 20px;
---elev-1-sat: 165%;
---elev-1-border: var(--glass-rim-dim);
-
-/* Tier 2: Standard interactive grid cards & workbench shells */
---elev-2-bg: rgba(var(--glass), 0.62);
---elev-2-blur: 28px;
---elev-2-sat: 180%;
---elev-2-border: var(--glass-rim-dim);
-
-/* Tier 3: Floating chrome (navigation dock, command palette) */
---elev-3-bg: rgba(var(--glass), 0.70);
---elev-3-blur: 40px;
---elev-3-sat: 200%;
---elev-3-border: var(--glass-rim);
-```
+- **Headings:** `'Newsreader Variable', Georgia, serif` with `font-optical-sizing: auto`, `font-weight: 400`, and `-0.025em` tracking.
+- **Prose:** `'Inter', -apple-system, BlinkMacSystemFont, sans-serif` (self-hosted WOFF2).
+- **Specs & Metrics:** `'JetBrains Mono', ui-monospace, monospace` with `font-variant-numeric: tabular-nums`.
+- **Browser Surfaces:** Custom `::selection` (`rgba(59, 130, 246, 0.34)`), `caret-color: #60a5fa`, thin scrollbars, `text-underline-offset: 4px`, and `2px solid #60a5fa` `:focus-visible` rings.
 
 ---
 
-## 4. Typography
+## 4. Astryx Integration & Cascade Order
 
-- **Display & Monospace (`JetBrains Mono`):** Display headers, telemetry metrics, code snippets, prompt tags, and HUD coordinate indicators.
-- **Body Prose (`Inter`):** Paragraphs, descriptions, and rationales. Prevents fatigue caused by scanning long blocks of monospace text.
+Stylesheets load in explicit cascade order in `src/app/main.jsx`:
 
-```css
---font-display: 'JetBrains Mono', ui-monospace, monospace;
---font-mono: 'JetBrains Mono', ui-monospace, monospace;
---font-body: 'Inter', sans-serif;
-```
+1. `@astryxdesign/core/reset.css`
+2. `@astryxdesign/core/astryx.css`
+3. `@fontsource-variable/newsreader/opsz.css` & `opsz-italic.css`
+4. `src/styles/monograph.css`
 
----
-
-## 5. Motion & Tactile Feedback
-
-- **Standard Fluid Curve:** `cubic-bezier(0.16, 1, 0.3, 1)` (Apple fluid deceleration curve).
-- **Tactile Response:** `:active { transform: scale(0.97); }` provides immediate visual weight.
-- **Scroll Physics:** Lenis smooth scrolling with GSAP ScrollTrigger batch reveals.
-- **Reduced Motion:** When `prefers-reduced-motion: reduce` is detected, animations collapse to instantaneous transitions.
+UI primitives (`Theme`, `Heading`, `Text`, `Button`, `Badge`, `TabList`, `Tab`, `HStack`, `VStack`, `Divider`) are imported per component from `@astryxdesign/core/*`.
 
 ---
 
-## 6. Component Patterns
+## 5. Motion & Accessibility
 
-### 1. HUD Reticle Viewfinder (`.hud-viewfinder`)
-Four precision corner reticles surrounding the ASCII terminal portrait:
-- Top-Left: `M1 13V1H13`
-- Top-Right: `M13 13V1H1`
-- Bottom-Left: `M1 1V13H13`
-- Bottom-Right: `M13 1V13H1`
-
-### 2. Nested Action Button (`.btn-nested`)
-Multi-layer pill button with an integrated status badge:
-- `.btn-nested-primary`: Cyan accent border with subtle internal glow.
-- `.btn-nested-secondary`: Translucent glass with neutral outline.
-- `.btn-nested-badge`: Trailing symbol box (`↓`, `↗`, `⌘K`).
-
-### 3. Interactive SVG Schematics
-Precision architecture diagrams sharing a standard coordinate contract:
-- **ViewBox:** `0 0 520 304`
-- **Node Corner Radius:** `rx="10"`
-- **Color Rules:** Blue/Cyan (`#38bdf8`) for ingress, Emerald (`#10b981`) for verification, Amber (`#f59e0b`) for recovery/failover.
-- **Namespaced Markers:** `pdArrow${prefix}` to prevent cross-SVG DOM ID collision.
-
-### 4. Command Console (`⌘K` Palette)
-- Follows the **WAI-ARIA 1.2 Combobox** pattern.
-- Automatic scroll-into-view on arrow-key navigation.
-- Background landmarks receive `inert` while the modal is open.
-
----
-
-## 7. Accessibility & System Overrides
-
-- **`prefers-reduced-transparency: reduce`:** Swaps glass backdrop filters for solid `#14171b` surfaces and removes decorative scanlines.
-- **`prefers-contrast: more`:** Increases border opacity to `rgba(255, 255, 255, 0.4)` and card borders to `0.5`.
-- **Keyboard Navigation:** High-contrast focus rings (`outline: 2px solid var(--accent); outline-offset: 3px;`). Skip link immediately available on first Tab.
-- **Touch Targets:** Minimum 44px hit areas on touchscreens, and 24px minimum inline targets (WCAG 2.2 Criterion 2.5.8).
+- **Focal Trace:** Selecting a simulation in `ArchitectureWorkbench` animates an SVG signal conduit (`620ms`) and cascades across 4 stages (`110ms` steps) using `cubic-bezier(0.16, 1, 0.3, 1)`.
+- **Scroll Progress:** CSS `animation-timeline: scroll()` drives a 2px Cobalt progress hairline beneath the sticky header without JavaScript scroll polling.
+- **Pointer-Safe Hover:** Outer hitboxes stay stationary; only inner rows (`translateX(4px)`) or borders respond.
+- **Reduced Motion:** `@media (prefers-reduced-motion: reduce)` removes transforms, keyframe entrances, and stagger delays while keeping opacity and color state changes intact.
