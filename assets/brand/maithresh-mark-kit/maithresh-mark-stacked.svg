@@ -5,10 +5,10 @@
     <path fill="#f4f2ed" d="M28 40 H68 L128 109.3 L168 40 V102 L128 171.3 L68 102 V216 H28 Z"/>
     <path fill="#60a5fa" d="M188 40 H228 V216 H188 Z"/>
   </g>
-  <g id="wordmark" transform="translate(55 248)">
+  <g id="wordmark" transform="translate(54 248)">
     <g fill="#f4f2ed">
       <path d="M0 56 V0 H10 L22 24 L34 0 H44 V56 H36 V16 L24 40 H20 L8 16 V56 Z"/>
-      <path fill-rule="evenodd" d="M72 0 H80 L96 56 H87 L83 42 H69 L65 56 H56 Z M71 34 H81 L76 14 Z"/>
+      <path fill-rule="evenodd" d="M71 0 H81 L96 56 H87 L82.8 40 H69.2 L65 56 H56 Z M71.2 32 H80.8 L76 14 Z"/>
       <path d="M108 0 H116 V56 H108 Z"/>
       <path d="M128 0 H164 V8 H150 V56 H142 V8 H128 Z"/>
       <path d="M176 0 H184 V24 H206 V0 H214 V56 H206 V32 H184 V56 H176 Z"/>
@@ -18,9 +18,9 @@
       <path d="M372 0 H380 V24 H402 V0 H410 V56 H402 V32 H380 V56 H372 Z"/>
     </g>
     <g fill="#60a5fa">
-      <path d="M422 46 H432 V56 H422 Z"/>
-      <path d="M444 0 H478 V14 H470 V8 H452 V24 H478 V56 H444 V42 H452 V48 H470 V32 H444 Z"/>
-      <path d="M492 0 H500 V24 H522 V0 H530 V56 H522 V32 H500 V56 H492 Z"/>
+      <path d="M422 44 H434 V56 H422 Z"/>
+      <path d="M446 0 H480 V14 H472 V8 H454 V24 H480 V56 H446 V42 H454 V48 H472 V32 H446 Z"/>
+      <path d="M494 0 H502 V24 H524 V0 H532 V56 H524 V32 H502 V56 H494 Z"/>
     </g>
   </g>
 </svg>

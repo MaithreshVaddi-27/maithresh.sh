@@ -21,14 +21,14 @@ export default function StackMatrix() {
           {STACK.map((group) => (
             <article className="ledger-entry" key={group.file}>
               <div>
-                <HStack justify="between" align="center" style={{ marginBottom: '12px' }}>
+                <HStack justify="between" align="center" className="ledger-head--stack">
                   <Heading level={3} size="lg" className="editorial-heading">
                     {group.title}
                   </Heading>
                   <Badge variant="neutral" label={group.file} />
                 </HStack>
 
-                <div className="chip-row" style={{ marginTop: 0 }}>
+                <div className="chip-row chip-row--flush">
                   {group.chips.map((chip) => (
                     <span
                       key={chip}
@@ -40,11 +40,7 @@ export default function StackMatrix() {
                 </div>
               </div>
 
-              {group.note && (
-                <p style={{ fontSize: '13px', color: '#9aa2b1' }}>
-                  {group.note}
-                </p>
-              )}
+              {group.note && <p className="stack-note">{group.note}</p>}
             </article>
           ))}
         </div>

@@ -59,7 +59,7 @@ export default function FeaturedSystems() {
                       <div className="stage-code">
                         SYS-0{index + 1} · {project.tag}
                       </div>
-                      <Heading level={3} size="xl" className="editorial-heading" style={{ marginTop: '2px' }}>
+                      <Heading level={3} size="xl" className="editorial-heading system-title">
                         {project.title}
                       </Heading>
                     </div>
@@ -75,14 +75,14 @@ export default function FeaturedSystems() {
                   />
                 </div>
 
-                <div className="system-metrics">
+                <dl className="system-metrics dl-reset">
                   {project.metrics.map(([val, label]) => (
                     <div className="metric-box" key={val + label}>
-                      <div className="metric-val tabular-metric">{val}</div>
-                      <div className="metric-desc">{label}</div>
+                      <dt className="metric-val tabular-metric">{val}</dt>
+                      <dd className="metric-desc">{label}</dd>
                     </div>
                   ))}
-                </div>
+                </dl>
 
                 <div className="system-prose">
                   <p>{project.desc}</p>
@@ -101,13 +101,13 @@ export default function FeaturedSystems() {
           ))}
         </div>
 
-        <div style={{ marginTop: '40px' }}>
+        <div className="systems-archive-block">
           <HStack justify="between" align="center" wrap="wrap" gap={2}>
             <div>
               <Heading level={3} size="lg" className="editorial-heading">
                 Extended Systems Archive ({MORE_PROJECTS.length} additional builds)
               </Heading>
-              <p className="section-subtitle" style={{ marginTop: '4px' }}>
+              <p className="section-subtitle archive-subtitle">
                 Multi-agent CrewAI pipelines, Composio MCP CLI agents, voice AI, and ApplyOS.
               </p>
             </div>
@@ -121,7 +121,7 @@ export default function FeaturedSystems() {
           </HStack>
 
           {showArchive && (
-            <div className="archive-reveal" style={{ marginTop: '20px' }}>
+            <div className="archive-reveal">
               <HStack gap={1.5} wrap="wrap" role="group" aria-label="Filter archive by category">
                 {ARCHIVE_FILTERS.map(([key, label]) => (
                   <Button
@@ -138,15 +138,15 @@ export default function FeaturedSystems() {
                 {filteredArchive.map((item) => (
                   <article className="ledger-entry" key={item.title}>
                     <div>
-                      <HStack justify="between" align="center" gap={2} style={{ marginBottom: '10px' }}>
+                      <HStack justify="between" align="center" gap={2} className="ledger-head">
                         <HStack align="center" gap={2}>
                           <img
                             src={item.icon}
                             alt=""
+                            className="archive-icon"
                             width="24"
                             height="24"
                             loading="lazy"
-                            style={{ borderRadius: '4px' }}
                           />
                           <Badge variant="neutral" label={item.tag} />
                         </HStack>
@@ -162,10 +162,10 @@ export default function FeaturedSystems() {
                       <Heading level={4} size="base" className="editorial-heading">
                         {item.title}
                       </Heading>
-                      <p style={{ marginTop: '8px' }}>{item.body}</p>
+                      <p className="ledger-body-copy">{item.body}</p>
                     </div>
 
-                    <div className="chip-row" style={{ marginTop: 0 }}>
+                    <div className="chip-row chip-row--flush">
                       {item.stack.map((tech) => (
                         <span className="tech-chip" key={tech}>
                           {tech}

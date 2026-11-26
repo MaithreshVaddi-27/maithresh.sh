@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { Heading } from '@astryxdesign/core/Heading'
 import { Badge } from '@astryxdesign/core/Badge'
 import { Button } from '@astryxdesign/core/Button'
@@ -5,10 +6,87 @@ import { HStack } from '@astryxdesign/core/HStack'
 import { CERTS, CONTACT_LINKS } from '../../data/sections'
 import contribSnapshot from '../../data/contributions.json'
 
+const CONTRIB_LEVELS = ['#171c26', '#172554', '#1e40af', '#2563eb', '#60a5fa']
+const CONTRIB_ENDPOINT = 'https://github-contributions-api.jogruber.de/v4/MaithreshVaddi-27?y=last'
+const EMAIL_ADDRESS = 'maithreshvaddi16@gmail.com'
+
 export default function BackgroundAndContact() {
-  const contributions = contribSnapshot.contributions || []
+  const [contribState, setContribState] = useState(() => ({
+    total: contribSnapshot.total,
+    fetchedAt: contribSnapshot.fetchedAt,
+    contributions: contribSnapshot.contributions || [],
+    isLive: false,
+  }))
+  const [copiedEmail, setCopiedEmail] = useState(false)
+  const copyTimerRef = useRef(null)
+
+  useEffect(() => {
+    if (typeof navigator !== 'undefined' && navigator.connection?.saveData) {
+      return undefined
+    }
+
+    const controller = new AbortController()
+    const timeoutId = window.setTimeout(() => controller.abort(), 6000)
+
+    fetch(CONTRIB_ENDPOINT, { signal: controller.signal })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!data || !Array.isArray(data.contributions) || data.contributions.length < 300) {
+          return
+        }
+        const total =
+          typeof data.total?.lastYear === 'number'
+            ? data.total.lastYear
+            : data.contributions.reduce((sum, item) => sum + (item.count || 0), 0)
+        const lastDate = data.contributions.at(-1)?.date || contribSnapshot.fetchedAt
+        setContribState({
+          total,
+          fetchedAt: lastDate,
+          contributions: data.contributions,
+          isLive: true,
+        })
+      })
+      .catch(() => {
+        // Keep bundled snapshot silently when offline or timed out
+      })
+      .finally(() => {
+        window.clearTimeout(timeoutId)
+      })
+
+    return () => {
+      window.clearTimeout(timeoutId)
+      controller.abort()
+    }
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (copyTimerRef.current) {
+        window.clearTimeout(copyTimerRef.current)
+      }
+    }
+  }, [])
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL_ADDRESS)
+      setCopiedEmail(true)
+      if (copyTimerRef.current) {
+        window.clearTimeout(copyTimerRef.current)
+      }
+      copyTimerRef.current = window.setTimeout(() => setCopiedEmail(false), 2200)
+    } catch {
+      window.location.href = `mailto:${EMAIL_ADDRESS}`
+    }
+  }
+
+  const { contributions, total, fetchedAt, isLive } = contribState
   const firstDate = contributions[0]?.date || ''
-  const lastDate = contributions.at(-1)?.date || contribSnapshot.fetchedAt
+  const lastDate = contributions.at(-1)?.date || fetchedAt
+  const startDayOffset = firstDate ? new Date(`${firstDate}T00:00:00Z`).getUTCDay() : 0
+  const totalCols = Math.max(1, Math.ceil((contributions.length + startDayOffset) / 7))
+  const svgWidth = totalCols * 13 - 3
+  const svgHeight = 7 * 13 - 3
 
   return (
     <>
@@ -21,16 +99,16 @@ export default function BackgroundAndContact() {
             <span className="section-index-meta">KMIT 2023–2027 · CREDENTIALS</span>
           </div>
 
-          <article className="ledger-entry" style={{ marginTop: '28px' }}>
+          <article className="ledger-entry ledger-entry--spaced">
             <HStack justify="between" align="start" wrap="wrap" gap={2}>
               <div>
                 <Heading level={3} size="lg" className="editorial-heading">
                   Keshav Memorial Institute of Technology (KMIT)
                 </Heading>
-                <p style={{ marginTop: '6px', color: '#cbd5e1', fontSize: '15px' }}>
+                <p className="edu-degree">
                   B.Tech, Computer Science and Engineering — <strong>CGPA 7.96/10</strong>
                 </p>
-                <p style={{ marginTop: '8px', color: '#9aa2b1', fontSize: '13px' }}>
+                <p className="edu-courses">
                   Data Structures &amp; Algorithms · Operating Systems · DBMS · Computer Networks ·
                   Software Engineering · Cloud Computing (AWS) · Cyber Security
                 </p>
@@ -46,9 +124,9 @@ export default function BackgroundAndContact() {
                   <Heading level={3} size="base" className="editorial-heading">
                     {cert.title}
                   </Heading>
-                  <p style={{ marginTop: '8px' }}>{cert.body}</p>
+                  <p className="ledger-body-copy">{cert.body}</p>
                 </div>
-                <div className="chip-row" style={{ marginTop: 0 }}>
+                <div className="chip-row chip-row--flush">
                   {cert.stack.map((tech) => (
                     <span className="tech-chip" key={tech}>
                       {tech}
@@ -61,24 +139,24 @@ export default function BackgroundAndContact() {
         </div>
       </section>
 
-      <section id="contact" className="mono-section" style={{ borderBottom: 'none' }}>
+      <section id="contact" className="mono-section mono-section--last">
         <div className="monograph-container">
           <div className="section-header-row">
             <Heading level={2} className="section-title">
               Shipped Cadence &amp; Direct Links
             </Heading>
             <span className="section-index-meta tabular-metric">
-              {contribSnapshot.total} CONTRIBUTIONS · {contribSnapshot.fetchedAt}
+              {total} CONTRIBUTIONS · {fetchedAt}
             </span>
           </div>
           <p className="section-subtitle">
-            {contribSnapshot.total} contributions recorded in the local snapshot (as of{' '}
-            {contribSnapshot.fetchedAt}). Open to AI/ML, GenAI, and backend engineering internships.
+            {total} contributions {isLive ? 'loaded live from GitHub' : 'in the local snapshot'} (as
+            of {fetchedAt}). Open to AI/ML, GenAI, and backend engineering internships.
           </p>
 
           <div
             className="contrib-wrap"
-            aria-label={`GitHub contribution graph showing ${contribSnapshot.total} contributions`}
+            aria-label={`GitHub contribution graph showing ${total} contributions`}
           >
             <div className="contrib-header">
               <span>
@@ -87,25 +165,41 @@ export default function BackgroundAndContact() {
               <span className="contrib-legend" aria-hidden="true">
                 <span>Less</span>
                 {[0, 1, 2, 3, 4].map((lvl) => (
-                  <span key={lvl} className="contrib-cell" data-level={lvl} />
+                  <span key={lvl} className="contrib-legend-swatch" data-level={lvl} />
                 ))}
                 <span>More</span>
               </span>
             </div>
 
-            <div className="contrib-grid">
-              {contributions.map((day) => (
-                <span
-                  key={day.date}
-                  className="contrib-cell"
-                  data-level={day.level}
-                  title={`${day.date}: ${day.count} contributions`}
-                />
-              ))}
-            </div>
+            <svg
+              className="contrib-svg"
+              viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+              role="img"
+              aria-label={`52-week GitHub commit matrix with ${total} contributions between ${firstDate} and ${lastDate}`}
+            >
+              {contributions.map((day, idx) => {
+                const slot = idx + startDayOffset
+                const col = Math.floor(slot / 7)
+                const row = slot % 7
+                const fill = CONTRIB_LEVELS[day.level] || CONTRIB_LEVELS[0]
+                return (
+                  <rect
+                    key={day.date}
+                    x={col * 13}
+                    y={row * 13}
+                    width={10}
+                    height={10}
+                    rx={2}
+                    fill={fill}
+                  >
+                    <title>{`${day.date}: ${day.count} contributions`}</title>
+                  </rect>
+                )
+              })}
+            </svg>
           </div>
 
-          <HStack gap={2} wrap="wrap" style={{ marginTop: '28px' }}>
+          <HStack gap={2} wrap="wrap" className="contact-actions">
             {CONTACT_LINKS.map(([href, , label], idx) => (
               <Button
                 key={label}
@@ -117,18 +211,18 @@ export default function BackgroundAndContact() {
                 rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
               />
             ))}
+            <Button
+              label={copiedEmail ? 'Email copied ✓' : 'Copy email'}
+              variant="ghost"
+              size="md"
+              onClick={handleCopyEmail}
+              title={`Copy ${EMAIL_ADDRESS} to clipboard`}
+            />
           </HStack>
         </div>
       </section>
 
-      <footer
-        style={{
-          borderTop: '1px solid var(--hairline)',
-          paddingBlock: '28px',
-          color: '#848d9c',
-          fontSize: '13px',
-        }}
-      >
+      <footer className="site-footer">
         <div className="monograph-container">
           <HStack justify="between" align="center" wrap="wrap" gap={2}>
             <span>Maithresh Vaddi · maithresh.sh · Systems Monograph</span>

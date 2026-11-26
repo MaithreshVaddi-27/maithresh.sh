@@ -15,7 +15,7 @@ export default class ErrorBoundary extends Component {
       return (
         <section className="mono-section">
           <div className="monograph-container">
-            <p style={{ color: '#a1a8b5' }}>
+            <p className="error-fallback-copy">
               A section failed to render. Reload the page to restore the portfolio view.
             </p>
           </div>

@@ -5,8 +5,8 @@ const baseTheme = themes[defaultThemeSlug]
 
 /**
  * Systems Monograph (Cobalt Blue + Newsreader Editorial Serif) theme.
- * Extends Astryx's dark gothic foundation with warm obsidian surfaces,
- * bone-white editorial ink, Cobalt Blue accents, and optical Newsreader headings.
+ * Uses #2563eb primary Cobalt fill (>= 5.17:1 WCAG AA contrast with #ffffff)
+ * and #60a5fa Cobalt highlight text on #0b0d11 obsidian.
  */
 export const monographTheme = defineTheme({
   name: 'systems-monograph-cobalt',
@@ -19,7 +19,7 @@ export const monographTheme = defineTheme({
     '--color-text-primary': ['#f4f2ed', '#f4f2ed'],
     '--color-text-secondary': ['#a1a8b5', '#a1a8b5'],
     '--color-text-accent': ['#60a5fa', '#60a5fa'],
-    '--color-accent': ['#3b82f6', '#3b82f6'],
+    '--color-accent': ['#2563eb', '#2563eb'],
     '--color-on-accent': ['#ffffff', '#ffffff'],
     '--color-border': ['#202634', '#202634'],
     '--color-border-emphasized': ['#334155', '#334155'],

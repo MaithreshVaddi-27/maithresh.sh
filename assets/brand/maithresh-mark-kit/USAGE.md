@@ -12,7 +12,7 @@
 | Substrate | `#0b0d11` | Primary obsidian tile and dark lockups |
 | Bone Ink | `#f4f2ed` | M-chevron and `MAITHRESH` wordmark |
 | Cobalt Highlight | `#60a5fa` | Anchor pillar, `.SH` wordmark, and bright mono variant |
-| Cobalt Primary | `#3b82f6` | Solid brand mono variant |
+| Cobalt Primary | `#2563eb` | Solid brand mono variant |
 | Reversed | `#ffffff` | Dark backgrounds when full color cannot be used |
 | Black | `#000000` | Light print and monochrome documents |
 
@@ -29,7 +29,7 @@
 - `maithresh-mark-color.svg` — Full-color master symbol
 - `favicon-master.svg` — Small-size cut (`24`-unit channel for 16–48px clarity)
 - `maithresh-mark-black.svg`, `maithresh-mark-white.svg` — Single-color masters
-- `maithresh-mark-mono-3b82f6.svg`, `maithresh-mark-mono-60a5fa.svg` — Cobalt monochrome masters
+- `maithresh-mark-mono-2563eb.svg`, `maithresh-mark-mono-60a5fa.svg` — Cobalt monochrome masters
 - `maithresh-mark-square.svg`, `maithresh-mark-favicon.svg`, `maithresh-mark-app-icon.svg` — Containerized cuts
 - `maithresh-mark-horizontal.svg`, `maithresh-mark-stacked.svg` — Outlined combination lockups
 

@@ -1,9 +1,9 @@
 # maithresh.sh Design System — Systems Monograph
 
-**Version:** `3.0.0`
-**Foundation:** React 19 + Astryx (`@astryxdesign/core@0.7.17`, `@astryxdesign/theme-gothic@0.7.17`) + Vite 8
+**Version:** `3.1.0`
+**Foundation:** React 19 + Astryx (`@astryxdesign/core@0.7.17`, `@astryxdesign/theme-neutral@0.7.17`) + Vite 8
 **Typography:** Newsreader Variable (optical editorial serif) · Inter · JetBrains Mono
-**Primary Palette:** Warm Obsidian (`#0b0d11`), Bone Ink (`#f4f2ed`), Cobalt Blue (`#3b82f6` / `#60a5fa`)
+**Primary Palette:** Warm Obsidian (`#0b0d11`), Bone Ink (`#f4f2ed`), Cobalt Blue (`#2563eb` / `#60a5fa`)
 
 > **Live Sources:** Astryx theme overrides live in `src/theme/monographTheme.js`, layout and motion rules live in `src/styles/monograph.css`, and machine-readable tokens are stored in `design-system/tokens.json`.
 
@@ -29,7 +29,7 @@ All accent surfaces use Cobalt Blue rather than green, pink, purple, or violet. 
 | `--surface-elevated` | `#141821` | Interactive chips and secondary controls |
 | `--ink-primary` | `#f4f2ed` | Primary headings and copy (>16:1 on canvas) |
 | `--ink-secondary` | `#a1a8b5` | Subtitles and secondary prose (>7.5:1 on canvas) |
-| `--cobalt-500` | `#3b82f6` | Primary button fill (`#ffffff` foreground) |
+| `--cobalt-500` | `#2563eb` | Primary button fill (`#ffffff` foreground, 5.17:1 AA contrast) |
 | `--cobalt-400` | `#60a5fa` | Active pipeline stages, metrics, links, focus ring |
 | `--hairline` | `#202634` | Structural dividers and grid borders |
 
@@ -62,7 +62,8 @@ UI primitives (`Theme`, `Heading`, `Text`, `Button`, `Badge`, `TabList`, `Tab`, 
 - **Focal Trace:** Selecting a simulation in `ArchitectureWorkbench` animates an SVG signal conduit (`620ms`) and cascades across 4 stages (`110ms` steps) using `cubic-bezier(0.16, 1, 0.3, 1)`.
 - **Scroll Progress:** CSS `animation-timeline: scroll()` drives a 2px Cobalt progress hairline beneath the sticky header without JavaScript scroll polling.
 - **Pointer-Safe Hover:** Outer hitboxes stay stationary; only inner rows (`translateX(4px)`) or borders respond.
-- **Reduced Motion:** `@media (prefers-reduced-motion: reduce)` removes transforms, keyframe entrances, and stagger delays while keeping opacity and color state changes intact.
+- **Reduced Motion & High Contrast:** `@media (prefers-reduced-motion: reduce)` removes transforms, keyframe entrances, and stagger delays while keeping opacity and color state changes intact; `@media (prefers-contrast: more)` raises divider and border opacity cleanly.
+- **Data Visualizations & Discovery:** Contribution matrix renders via a single accessible `<svg>` grid with optional live GitHub refresh (`AbortController`, `saveData` check), while `/llms.txt` and `/.well-known/ard.json` provide machine-readable portfolio indexing.
 
 ---
 
@@ -70,5 +71,5 @@ UI primitives (`Theme`, `Heading`, `Text`, `Button`, `Badge`, `TabList`, `Tab`, 
 
 - **Symbol (`assets/brand/maithresh-mark.svg`):** 256×256 pure-path letterform (`#f4f2ed` 60° M-chevron + 20-unit verification channel + `#60a5fa` Cobalt anchor pillar).
 - **Small-Size Cut (`assets/brand/maithresh-mark-kit/favicon-master.svg`):** Widened 24-unit channel for 16–48px browser tabs and favicons.
-- **Full Kit (`assets/brand/maithresh-mark-kit/`):** Includes outlined horizontal and stacked lockups (`maithresh-mark-horizontal.svg`, `maithresh-mark-stacked.svg`), black, white/reversed, and Cobalt monochrome (`#3b82f6`, `#60a5fa`) masters, plus PWA and favicon outputs in `assets/brand/`. See `assets/brand/maithresh-mark-kit/USAGE.md`.
+- **Full Kit (`assets/brand/maithresh-mark-kit/`):** Includes outlined horizontal and stacked lockups (`maithresh-mark-horizontal.svg`, `maithresh-mark-stacked.svg`), black, white/reversed, and Cobalt monochrome (`#2563eb`, `#60a5fa`) masters, plus PWA and favicon outputs in `assets/brand/`. See `assets/brand/maithresh-mark-kit/USAGE.md`.
 

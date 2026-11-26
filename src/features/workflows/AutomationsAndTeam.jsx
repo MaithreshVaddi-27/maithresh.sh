@@ -24,7 +24,7 @@ export default function AutomationsAndTeam() {
           {AUTOMATIONS.map((item) => (
             <article className="ledger-entry" key={item.title}>
               <div>
-                <HStack justify="between" align="center" style={{ marginBottom: '10px' }}>
+                <HStack justify="between" align="center" className="ledger-head">
                   <Badge
                     variant={item.live ? 'blue' : 'neutral'}
                     label={item.status}
@@ -41,10 +41,10 @@ export default function AutomationsAndTeam() {
                 <Heading level={3} size="base" className="editorial-heading">
                   {item.title}
                 </Heading>
-                <p style={{ marginTop: '8px' }}>{item.body}</p>
+                <p className="ledger-body-copy">{item.body}</p>
               </div>
 
-              <div className="chip-row" style={{ marginTop: 0 }}>
+              <div className="chip-row chip-row--flush">
                 {item.stack.map((tech) => (
                   <span className="tech-chip" key={tech}>
                     {tech}
@@ -55,18 +55,18 @@ export default function AutomationsAndTeam() {
           ))}
         </div>
 
-        <div style={{ marginBlock: '44px 28px' }}>
+        <div className="workflows-divider">
           <Divider variant="subtle" />
         </div>
 
         <Heading level={3} size="lg" className="editorial-heading">
           Team Platforms (Scoped ML Ownership)
         </Heading>
-        <div className="editorial-ledger-grid" style={{ marginTop: '20px' }}>
+        <div className="editorial-ledger-grid editorial-ledger-grid--tight">
           {GROUP_PROJECTS.map((proj) => (
             <article className="ledger-entry" key={proj.title}>
               <div>
-                <HStack justify="between" align="center" style={{ marginBottom: '10px' }}>
+                <HStack justify="between" align="center" className="ledger-head">
                   <Badge variant="info" label={proj.tag} />
                   <Button
                     label="Repo ↗"
@@ -80,11 +80,11 @@ export default function AutomationsAndTeam() {
                 <Heading level={4} size="base" className="editorial-heading">
                   {proj.title}
                 </Heading>
-                <p style={{ marginTop: '8px' }}>{proj.body}</p>
-                <p style={{ marginTop: '10px', color: '#cbd5e1' }}>{proj.scope}</p>
+                <p className="ledger-body-copy">{proj.body}</p>
+                <p className="workflow-scope">{proj.scope}</p>
               </div>
 
-              <div className="chip-row" style={{ marginTop: 0 }}>
+              <div className="chip-row chip-row--flush">
                 {proj.stack.map((tech) => (
                   <span className="tech-chip" key={tech}>
                     {tech}

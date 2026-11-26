@@ -32,9 +32,11 @@ const required = [
 required.forEach((f) => need(existsSync(join(root, f)), `Missing ${f}`))
 
 const pkg = JSON.parse(read('package.json'))
-for (const dep of ['react', 'react-dom', '@astryxdesign/core', '@astryxdesign/theme-gothic']) {
+for (const dep of ['react', 'react-dom', '@astryxdesign/core', '@astryxdesign/theme-neutral']) {
   need(Boolean(pkg.dependencies?.[dep]), `Missing dependency: ${dep}`)
 }
+need(!pkg.dependencies?.['@astryxdesign/theme-gothic'], 'Remove unused @astryxdesign/theme-gothic dependency')
+need(!pkg.dependencies?.gsap && !pkg.dependencies?.lenis, 'Remove unused gsap/lenis dependencies')
 
 const html = read('index.html')
 need(html.includes('application/ld+json'), 'Missing JSON-LD structured data in index.html')
@@ -64,6 +66,8 @@ for (const rel of srcFiles) {
 need(existsSync(join(root, 'dist/index.html')), 'Missing dist/index.html — run vite build first')
 need(existsSync(join(root, 'dist/robots.txt')), 'Missing dist/robots.txt')
 need(existsSync(join(root, 'dist/sitemap.xml')), 'Missing dist/sitemap.xml')
+need(existsSync(join(root, 'dist/llms.txt')), 'Missing dist/llms.txt')
+need(existsSync(join(root, 'dist/.well-known/ard.json')), 'Missing dist/.well-known/ard.json')
 need(existsSync(join(root, 'dist/assets/brand/favicon.svg')), 'Missing dist/assets/brand/favicon.svg')
 
 if (errors.length) {

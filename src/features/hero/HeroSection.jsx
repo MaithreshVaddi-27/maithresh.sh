@@ -40,20 +40,22 @@ export default function HeroSection() {
               where models handle only reasoning and every claim stays traceable.
             </p>
 
-            <HStack gap={2} wrap="wrap" style={{ marginTop: '26px' }}>
-              <Button label="Inspect Systems" variant="primary" size="md" href="#systems" />
-              <Button label="Architecture Workbench" variant="secondary" size="md" href="#workbench" />
-              <Button label="Contact" variant="ghost" size="md" href="#contact" />
-            </HStack>
+            <div className="hero-cta-row">
+              <HStack gap={2} wrap="wrap">
+                <Button label="Inspect Systems" variant="primary" size="md" href="#systems" />
+                <Button label="Architecture Workbench" variant="secondary" size="md" href="#workbench" />
+                <Button label="Contact" variant="ghost" size="md" href="#contact" />
+              </HStack>
+            </div>
 
-            <div className="hero-ledger" role="region" aria-label="Verified engineering summary">
+            <dl className="hero-ledger dl-reset" aria-label="Verified engineering summary">
               {LEDGER.map(([value, label]) => (
                 <div className="ledger-cell" key={label}>
-                  <div className="ledger-val tabular-metric">{value}</div>
-                  <div className="ledger-label">{label}</div>
+                  <dt className="ledger-val tabular-metric">{value}</dt>
+                  <dd className="ledger-label">{label}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
           </div>
 
           <aside className="specimen-card hero-arrive--delayed" aria-label="Engineer profile specification">

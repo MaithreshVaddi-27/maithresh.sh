@@ -7,6 +7,8 @@ import { HStack } from '@astryxdesign/core/HStack'
 import { Divider } from '@astryxdesign/core/Divider'
 import { PANES } from '../../data/workbench'
 
+const STOP_XS = [125, 375, 625, 875]
+
 export default function ArchitectureWorkbench() {
   const [activeId, setActiveId] = useState(PANES[0].id)
   const [simMode, setSimMode] = useState(null)
@@ -46,9 +48,11 @@ export default function ArchitectureWorkbench() {
             <HStack justify="between" align="center" wrap="wrap" gap={2}>
               <div>
                 <div className="stage-code">{pane.sub}</div>
-                <Heading level={3} size="lg" className="editorial-heading" style={{ marginTop: '4px' }}>
-                  {pane.name}
-                </Heading>
+                <div className="workbench-heading">
+                  <Heading level={3} size="lg" className="editorial-heading">
+                    {pane.name}
+                  </Heading>
+                </div>
               </div>
 
               <HStack gap={2} wrap="wrap">
@@ -82,6 +86,25 @@ export default function ArchitectureWorkbench() {
                   }`}
                   d="M 12 9 L 988 9"
                 />
+                {STOP_XS.map((cx, idx) => {
+                  const toneClass = !simMode
+                    ? ''
+                    : idx === 3 && isDanger
+                      ? ' is-danger'
+                      : (idx === 3 && isWarn) || (idx === 2 && pane.step2(simMode)?.stroke === '#38bdf8')
+                        ? ' is-warn'
+                        : ' is-active'
+                  return (
+                    <circle
+                      key={cx}
+                      cx={cx}
+                      cy="9"
+                      r="4"
+                      style={{ '--stage-delay': simMode ? `${idx * 110}ms` : '0ms' }}
+                      className={`signal-stop${toneClass}`}
+                    />
+                  )
+                })}
               </svg>
             </div>
 
@@ -120,16 +143,15 @@ export default function ArchitectureWorkbench() {
                   {activeOutcome ? activeOutcome.label : 'STAGE 04 // VERDICT'}
                 </div>
                 <div
-                  className="stage-title"
-                  style={{
-                    color: !activeOutcome
-                      ? undefined
+                  className={`stage-title${
+                    !activeOutcome
+                      ? ''
                       : isDanger
-                        ? '#ef4444'
+                        ? ' stage-title--danger'
                         : isWarn
-                          ? '#fbbf24'
-                          : '#60a5fa',
-                  }}
+                          ? ' stage-title--warn'
+                          : ' stage-title--ok'
+                  }`}
                 >
                   {activeOutcome ? activeOutcome.title : 'Run a simulation'}
                 </div>
@@ -138,7 +160,7 @@ export default function ArchitectureWorkbench() {
                     ? activeOutcome.sub
                     : 'Choose an execution path above to trace verification.'}
                 </div>
-                <div style={{ marginTop: '8px' }}>
+                <div className="workbench-verdict-badge">
                   <Badge
                     variant={
                       !activeOutcome
@@ -157,7 +179,7 @@ export default function ArchitectureWorkbench() {
 
             <Divider variant="subtle" />
 
-            <div className="defense-panel" style={{ borderTop: 'none', paddingTop: 0 }}>
+            <div className="defense-panel">
               <Heading level={4} size="base" className="editorial-heading">
                 {pane.defense.title}
               </Heading>
