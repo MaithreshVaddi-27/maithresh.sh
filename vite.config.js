@@ -4,6 +4,7 @@ import { cpSync, mkdirSync } from 'node:fs'
 
 const STATIC_ENTRIES = ['assets', '_headers', 'robots.txt', 'sitemap.xml', 'llms.txt', '.well-known']
 const BASE = process.env.VITE_BASE || '/'
+const skipOsFiles = (src) => !src.endsWith('/.DS_Store') && !src.endsWith('.DS_Store')
 
 export default defineConfig({
   base: BASE,
@@ -26,9 +27,9 @@ export default defineConfig({
         for (const entry of STATIC_ENTRIES) {
           if (entry === 'assets' || entry === '.well-known') {
             mkdirSync(`dist/${entry}`, { recursive: true })
-            cpSync(entry, `dist/${entry}`, { recursive: true })
+            cpSync(entry, `dist/${entry}`, { recursive: true, filter: skipOsFiles })
           } else {
-            cpSync(entry, `dist/${entry}`)
+            cpSync(entry, `dist/${entry}`, { filter: skipOsFiles })
           }
         }
       },
@@ -46,7 +47,10 @@ export default defineConfig({
           if (id.includes('node_modules/lucide-react')) {
             return 'icons'
           }
-          if (id.includes('node_modules/@astryxdesign') || id.includes('node_modules/@stylexjs')) {
+          if (id.includes('node_modules/@stylexjs')) {
+            return 'stylex-runtime'
+          }
+          if (id.includes('node_modules/@astryxdesign')) {
             return 'astryx-ui'
           }
         },

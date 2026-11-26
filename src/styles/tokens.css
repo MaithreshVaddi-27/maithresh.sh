@@ -30,10 +30,14 @@
   --inset: #0d1016;
   --surface: var(--color-background-surface, #11141b);
   --surface-elevated: var(--color-background-card, #141821);
+  --surface-muted: var(--color-background-muted, #181d28);
   --hairline: var(--color-border, #202634);
   --hairline-strong: var(--color-border-emphasized, #334155);
   --ink-primary: var(--color-text-primary, #f4f2ed);
   --ink-secondary: var(--color-text-secondary, #a1a8b5);
+  --ink-body: #b8bfcc;
+  --ink-subtle: #9aa2b1;
+  --ink-strong: #cbd5e1;
   --ink-muted: #848d9c;
   --font-editorial: 'Newsreader Variable', Georgia, serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
