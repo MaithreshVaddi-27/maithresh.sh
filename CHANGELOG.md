@@ -6,10 +6,20 @@ All notable changes to `maithresh.sh` are documented here. Format follows
 
 ## [Unreleased]
 
+## [3.0.0] — 2026-11-27
+
+### Added
+
+- **Design system:** Migrated to the **Astryx Design System** (`@astryxdesign/core`, `@astryxdesign/theme-neutral`) and the **Systems Monograph** direction (Newsreader Variable serif headings, self-hosted Inter & JetBrains Mono, `#0b0d11` Obsidian ground, `#f4f2ed` Bone Ink, and WCAG AA Cobalt `#2563eb` / `#60a5fa`).
+- **Brand kit:** Introduced Concept A (**Verified Monolith**) symbol, small-size favicon cut, and outlined lockups in `assets/brand/maithresh-mark-kit/`, plus matching OpenGraph social card (`assets/og-image.jpg`).
+- **Loading & micro-interactions:** Added per-section `<Suspense>` boundaries with Astryx `<Skeleton>` fallbacks, idle + hover chunk prefetching, `<StatusDot>` and `<Spinner>` telemetry states, `@formkit/auto-animate` archive filtering, and reduced-motion-safe `document.startViewTransition` tab switching.
+- **Discovery & deploy config:** Added `/llms.txt`, `/.well-known/ard.json` (ARD manifest), external `<link>` discovery headers, strict CSP (`script-src 'self'`, `object-src 'none'`, COOP/CORP in `_headers`), and `wrangler.toml`.
+
 ### Changed
 
-- Consolidated design assets into `assets/brand/`; removed rejected logo concepts and generated previews from version control.
-- Replaced the nav's decorative dot and the inline circle favicon with the Contribution Mosaic brand mark.
+- Reordered page sections for recruiter-first scanning (`Hero -> Featured Systems -> Architecture Workbench -> Workflows & Team ML -> Stack Matrix -> Education & Contact`).
+- Harmonized hero terminal portrait SVG (`assets/illustrations/terminal-portrait.svg`) and all 14 `assets/project-icons/*.svg` assets to the Systems Monograph Cobalt & Bone palette.
+- Converted GitHub contribution heatmap to an accessible single `<svg>` matrix with progressive live refresh, and removed `gsap`, `lenis`, and `@astryxdesign/theme-gothic`.
 
 ## [2.0.0] — 2026-11-19
 
@@ -28,5 +38,6 @@ All notable changes to `maithresh.sh` are documented here. Format follows
 
 - Webmanifest icon paths no longer 404 on the GitHub Pages subpath.
 
-[Unreleased]: https://github.com/MaithreshVaddi-27/maithresh.sh/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/MaithreshVaddi-27/maithresh.sh/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/MaithreshVaddi-27/maithresh.sh/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/MaithreshVaddi-27/maithresh.sh/releases/tag/v2.0.0

@@ -5,17 +5,13 @@ Project profile: **React 19 + Vite static SPA** — build emits plain files into
 `maithresh.sh`. Every emitted asset is content-hashed, so any host that honors
 long cache lifetimes on hashed URLs is ideal and needs no manual cache-busting.
 
-## How this repo actually deploys
+## How this repo deploys
 
-Every push to `main` ships to **both** live targets, no manual steps:
+When targeting production (`main` or `systems-monograph` depending on your Cloudflare Pages production branch setting):
 
-1. **Cloudflare Pages** (git integration) — builds with default base `/`,
-   serves `maithresh-sh.pages.dev` + custom domain.
-2. **GitHub Pages** (`.github/workflows/deploy-pages.yml`) — rebuilds with
-   `VITE_BASE=/maithresh.sh/`, uploads `dist/` as the Pages artifact.
-3. **Contribution data** (`.github/workflows/refresh-contrib.yml`) — weekly
-   snapshot refresh commits straight to `main`, which redeploys 1 + 2 with
-   fresh graph data. Manual trigger: Actions → *refresh contribution snapshot*.
+1. **Cloudflare Pages** (recommended primary host) — configured with [`wrangler.toml`](../wrangler.toml) (`pages_build_output_dir = "dist"`), builds with default base `/`, and applies [`_headers`](../_headers) edge security & immutable `/assets/*` rules.
+2. **GitHub Pages** (`.github/workflows/deploy-pages.yml`) — rebuilds pushes to `main` with `VITE_BASE=/maithresh.sh/` and uploads `dist/` as the Pages artifact.
+3. **Contribution data** (`.github/workflows/refresh-contrib.yml` + `scripts/refresh-contributions.mjs`) — weekly snapshot refresh updates `src/data/contributions.json`. Manual trigger: Actions → *refresh contribution snapshot*.
 
 The host options below are ranked best-first if you ever move off this setup.
 All are free for a site of this size and support the custom domain with free SSL.
@@ -139,8 +135,7 @@ so content edits show up immediately.
   domain re-activates — prefer a temporary Redirect Rule instead.
 - Free plan: 500 builds/month, 1 concurrent build, 20-min build timeout —
   comfortably enough for a Vite build that finishes in well under a second.
-- `_headers` caps at 100 rules (this repo uses 1); `_redirects` caps at
-  2,100 redirects.
+- `_headers` caps at 100 rules (this repo uses 2 route rule blocks: global security/CSP/COOP/CORP and `/assets/*` immutable caching); `_redirects` caps at 2,100 redirects.
 - Related docs: [Deploy anything](https://developers.cloudflare.com/pages/framework-guides/deploy-anything/),
   [Git integration](https://developers.cloudflare.com/pages/get-started/git-integration/),
   [Direct Upload](https://developers.cloudflare.com/pages/get-started/direct-upload/),
@@ -271,7 +266,7 @@ automatic branch previews.
 
 - [ ] Open `https://maithresh.sh/` + `https://www.maithresh.sh/` — both load, HTTPS valid.
 - [ ] Hard-refresh once, then reload: hashed `/assets/*` files served from cache.
-- [ ] `⌘K` palette, workbench sims, mobile nav toggle all work on the live URL.
-- [ ] Test on a phone over cellular (hero canvas + 37 KB portrait are the heaviest first-paint items).
+- [ ] Workbench tabs/simulations, Extended Systems Archive filters, mobile menu, and contribution graph all work on the live URL.
+- [ ] Test on a phone over cellular and verify `/.well-known/ard.json` and `/llms.txt` resolve with HTTP 200.
 - [ ] Confirm a content-hashed filename actually changed for the file you edited (that is the cache invalidation).
 - [ ] Contribution graph shows a recent baseline: with the live API blocked, the caption reads `snapshot <date>` — if that date is weeks old, run Actions → *refresh contribution snapshot*.

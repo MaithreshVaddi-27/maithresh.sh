@@ -1,6 +1,6 @@
 # Maithresh Vaddi — AI/ML & Backend Engineer
 
-> Portfolio of Maithresh Vaddi (B.Tech CSE, KMIT Hyderabad, 2027). Local-first RAG verification, Model Context Protocol (MCP) tool orchestration, deterministic backend pipelines, and multi-agent automation workflows.
+> Portfolio of Maithresh Vaddi (B.Tech CSE, KMIT Hyderabad, 2027). 13+ solo AI/agentic systems and 13+ automation workflows covering local-first RAG verification, Model Context Protocol (MCP) tool orchestration, and deterministic backend pipelines.
 
 ## Primary Links
 
@@ -11,9 +11,9 @@
 
 ## Featured Systems
 
-- [TrustRAG](https://github.com/MaithreshVaddi-27/TrustRAG): Local-first 8-stage RAG reliability workbench (ONNX BGE-small + BM25 RRF, atomic claim decomposition, NLI verification, SHA-256 audit, bounded LangGraph recovery, MCP JSON-RPC 2.0 server, Ollama/llama.cpp/MLX).
-- [CareerOS-Pro](https://github.com/MaithreshVaddi-27/CareerOS-Pro): Self-hosted job-intelligence platform with deterministic normalization/deduplication, MySQL 8, embedded Qdrant, LangGraph human-review interrupt, Gemini grounding, and 218 pytest tests.
-- [ApplyOS](https://github.com/MaithreshVaddi-27/ApplyOS): Local-first multi-runtime job application framework (Bun workspace, 14 job/ATS providers, 9-gate deterministic ranker, LaTeX ATS PDF verification, 4 offline eval suites).
-- [Agentic DocuChat](https://github.com/MaithreshVaddi-27/MCP_Agentic_DocuChat): Local-first PDF RAG with page-level citations, ChromaDB content-hash caching, Composio MCP tools, and 102 unit tests.
-- [Resume Crew](https://github.com/MaithreshVaddi-27/Resume_Crew): Evidence-only resume-to-JD match reports with MLX-LM/Ollama local inference and 9 exported artifacts per run.
-- [MCP Agents Suite](https://github.com/MaithreshVaddi-27/MCP_SkillMap_Agent): Multi-turn CLI agents over Composio MCP and LangGraph memory (SkillMap, SalaryInsights, CourseFinder, Email Inbox Summarizer).
+- [TrustRAG](https://github.com/MaithreshVaddi-27/TrustRAG): Local-first 8-stage RAG reliability workbench (ONNX BGE-small + BM25 RRF, atomic claim decomposition, NLI verification, SHA-256 audit, bounded LangGraph recovery, MCP JSON-RPC 2.0 server, Ollama/llama.cpp/MLX, 750 test functions across 64 pytest modules + Vitest/Playwright/k6).
+- [CareerOS-Pro](https://github.com/MaithreshVaddi-27/CareerOS-Pro): Self-hosted job-intelligence platform with deterministic normalization/deduplication, FastAPI 0.141, SQLAlchemy 2, MySQL 8, Qdrant 1.19, LangGraph 1.2 human-review interrupt, live URL scraping, Gemini grounding, and 261 collected pytest cases across 17 test suites.
+- [ApplyOS](https://github.com/MaithreshVaddi-27/ApplyOS): Local-first multi-runtime job application framework (Bun 1.4.3 workspace, 14 providers, 9-gate deterministic ranker, LaTeX ATS PDF verification, 4 offline eval suites).
+- [Agentic DocuChat](https://github.com/MaithreshVaddi-27/MCP_Agentic_DocuChat): Local-first PDF RAG (v3.2.1) with page-level citations, ChromaDB content-hash caching, Composio MCP tools, and 102 unit tests.
+- [Resume Crew](https://github.com/MaithreshVaddi-27/Resume_Crew): Evidence-only resume-to-JD match reports (v1.4.0) with MLX-LM/Ollama local inference, 9 exported artifacts per run, Docker support, and 52 pytest functions across 8 modules.
+- [SkillMap Agent](https://github.com/MaithreshVaddi-27/MCP_SkillMap_Agent) & [SalaryInsights Agent](https://github.com/MaithreshVaddi-27/MCP_SalaryInsights_Agent): Multi-turn CLI agents over Composio MCP and LangGraph memory (paired with CourseFinder and Email Inbox Summarizer).

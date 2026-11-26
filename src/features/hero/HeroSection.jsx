@@ -10,7 +10,7 @@ import { Layers, GitBranch } from 'lucide-react'
 import portraitUrl from '../../../assets/illustrations/terminal-portrait.svg?url'
 
 const LEDGER = [
-  ['11+', 'Solo-built AI & agentic systems'],
+  ['13+', 'Solo-built AI & agentic systems'],
   ['13+', 'n8n, Make & RPA workflows shipped'],
   ['7.96', 'B.Tech CSE CGPA · KMIT 2027'],
 ]

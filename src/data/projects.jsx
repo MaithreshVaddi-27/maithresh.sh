@@ -33,6 +33,14 @@ export const MORE_PROJECTS = [
   },
   {
     tag: 'solo · LangChain · Composio MCP',
+    title: 'SalaryInsights Agent',
+    icon: mark('salary-insights'),
+    href: 'https://github.com/MaithreshVaddi-27/MCP_SalaryInsights_Agent',
+    body: 'Answers compensation questions using Firecrawl search and scrape tools behind Composio MCP across Glassdoor, AmbitionBox, PayScale, and Levels.fyi, reasoned over by Gemini with LangGraph conversation memory.',
+    stack: ['LangChain', 'LangGraph', 'Composio MCP', 'Firecrawl', 'Gemini'],
+  },
+  {
+    tag: 'solo · LangChain · Composio MCP',
     title: 'CourseFinder Agent',
     icon: mark('coursefinder-agent'),
     href: 'https://github.com/MaithreshVaddi-27/MCP_CourseFinder_Agent',
@@ -79,12 +87,12 @@ export const PROJECTS = [
     ),
     highlight: (
       <>
-        Runs locally by default (Ollama, llama.cpp, or MLX; embedded Qdrant + MongoDB 7; <code>models.yaml</code> v1.29 controls KV-cache quantization, flash attention, and context compression). Hardened with JWT HS256 (<code>iss/aud</code> + JTI revocation), bcrypt, login lockout, SSRF guards, KB snapshots + rollback, a JSON-RPC 2.0 MCP server, SSE streaming, and Prometheus <code>/metrics</code>. Fused decompose+verify halves verification calls; verified across pytest, Vitest, Playwright, and k6.
+        Runs locally by default (Ollama, llama.cpp, or MLX; embedded Qdrant + MongoDB 7; <code>models.yaml</code> v1.29 controls KV-cache quantization, flash attention, and context compression). Hardened with JWT HS256 (<code>iss/aud</code> + JTI revocation), bcrypt, login lockout, SSRF guards, KB snapshots + rollback, a JSON-RPC 2.0 MCP server, SSE streaming, and Prometheus <code>/metrics</code>. Fused decompose+verify halves verification calls; verified across 64 pytest modules (750 test functions), Vitest, Playwright, and k6.
       </>
     ),
     metrics: [
       ['8 stages', 'route → answer or abstain'],
-      ['≤2 attempts', 'bounded recovery loop'],
+      ['750 tests', '64 pytest modules + E2E · k6'],
       ['fused NLI', 'halves verification calls'],
     ],
     stack: [
@@ -104,25 +112,25 @@ export const PROJECTS = [
     href: 'https://github.com/MaithreshVaddi-27/CareerOS-Pro',
     desc: (
       <>
-        Self-hosted job-intelligence platform aggregating six sources (JSearch, Adzuna, Remotive, RemoteOK, Arbeitnow, plus an async company scraper). Normalization, <code>url_hash</code> + <code>content_hash</code> deduplication, hard eligibility filters, and hybrid keyword + semantic reranking run in pure Python — unreadable fields remain <code>unknown</code>, and the LLM never overrides a hard rule.
+        Self-hosted job-intelligence platform aggregating six sources (JSearch, Adzuna, Remotive, RemoteOK, Arbeitnow, plus an async direct-URL company career scraper). Normalization, <code>url_hash</code> + <code>content_hash</code> deduplication, hard eligibility filters, and hybrid keyword + semantic reranking run in pure Python — unreadable fields remain <code>unknown</code>, and the LLM never overrides a hard rule.
       </>
     ),
     highlight: (
       <>
-        A linear LangGraph state machine (<code>backend/graph.py</code>) with a <code>human_review</code> interrupt hands only pre-approved matches to Gemini via a CRAFT-structured grounding prompt that quotes posting evidence on <code>/jobs/match</code>. Backed by MySQL 8, embedded Qdrant, and <b>218 pytest tests</b> across 17 test files (with <code>ruff</code> CI enforcement).
+        A linear LangGraph 1.2 state machine (<code>backend/graph.py</code>) with a <code>human_review</code> interrupt hands only pre-approved matches to Gemini via a CRAFT-structured grounding prompt that quotes posting evidence on <code>/jobs/match</code>. Backed by FastAPI 0.141, SQLAlchemy 2, MySQL 8, Qdrant 1.19, and <b>261 collected pytest cases</b> (218 test functions across 17 suites + <code>ruff</code> CI).
       </>
     ),
     metrics: [
-      ['6 sources', '5 job APIs + async scraper'],
-      ['218 tests', '17 pytest suites · ruff CI'],
+      ['6 sources', '5 job APIs + live URL scraper'],
+      ['261 cases', '17 pytest suites · ruff CI'],
       ['0 LLM parse', 'hard rules stay pure Python'],
     ],
     stack: [
-      'FastAPI 0.115+ · Python 3.12',
-      'React 19 · Vite',
-      'MySQL 8 · Qdrant (embedded)',
-      'LangGraph · Gemini',
-      'pytest · ruff · GitHub Actions',
+      'FastAPI 0.141 · Python 3.12 · SQLAlchemy 2',
+      'React 19 · Vite 8 · Framer Motion',
+      'MySQL 8 · Qdrant 1.19',
+      'LangGraph 1.2 · Gemini',
+      'pytest · ruff · oxlint · GitHub Actions',
     ],
   },
   {
@@ -194,20 +202,20 @@ export const PROJECTS = [
     ),
     highlight: (
       <>
-        Runs locally with MLX-LM (Apple Silicon) or Ollama, plus optional Gemini fallback; CrewAI tracing ships disabled by default for PII privacy. Hardware diagnostics (<code>--check-hardware</code>) run without an LLM, and the README explicitly notes the deterministic keyword score is a whole-term overlap signal, <b>not an ATS simulation</b>.
+        Runs locally with MLX-LM (Apple Silicon) or Ollama, plus optional Gemini fallback; CrewAI telemetry ships disabled by default for PII privacy. Verified with <b>52 pytest test functions</b> across 8 modules, Docker Compose packaging, and hardware diagnostics (<code>--check-hardware</code>); explicitly notes the deterministic overlap score is <b>not an ATS simulation</b>.
       </>
     ),
     metrics: [
-      ['9 files', 'per analysis run'],
-      ['0–100 rank', 'CLI + Gradio web UI'],
-      ['evidence-only', 'tracing disabled by default'],
+      ['9 artifacts', 'PDF · DOCX · MD per run'],
+      ['52 tests', '8 pytest suites + coverage'],
+      ['evidence-only', 'telemetry disabled by default'],
     ],
     stack: [
-      'CrewAI · Python 3.12+',
+      'CrewAI 1.15 · Python 3.12+ (v1.4.0)',
       'MLX-LM · Ollama · Gemini fallback',
-      'Gradio',
-      'pypdf · python-docx',
-      'pytest + coverage · GitHub Actions',
+      'Gradio · CLI',
+      'pypdf · python-docx · fpdf2',
+      'Docker · pytest + coverage · GitHub Actions',
     ],
   },
   {
@@ -228,7 +236,7 @@ export const PROJECTS = [
     metrics: [
       ['4 CLI agents', 'skills · salary · courses · mail'],
       ['drafts only', '5 Gmail tools, never sends'],
-      ['mcp 1.29.0', 'pinned against adapter break'],
+      ['mcp 1.29.0', 'pinned · Firecrawl · JSearch'],
     ],
     stack: [
       'LangChain · LangGraph',

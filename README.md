@@ -28,6 +28,7 @@ npm run refresh:contributions # Refresh bundled GitHub contribution snapshot
 ├── llms.txt                          # Agent-readable portfolio summary
 ├── robots.txt & sitemap.xml          # Crawler directives and canonical sitemap
 ├── _headers                          # Cloudflare Pages CSP (script-src 'self', object-src 'none'), COOP/CORP & caching
+├── wrangler.toml                     # Cloudflare Pages build output configuration (dist/)
 ├── vite.config.js                    # Vite 8 chunking & static asset copy into dist/
 ├── .well-known/
 │   └── ard.json                      # Agentic Resource Discovery (ARD) manifest
@@ -71,7 +72,7 @@ npm run refresh:contributions # Refresh bundled GitHub contribution snapshot
 
 ## Content & Inventory Policy
 
-Public inventory counts are stated as **N+** (`11+` solo systems, `13+` automation workflows), while architectural specifications (`8-stage pipeline`, `two-stage dedup`, `3-agent crews`) reflect exact repository implementations.
+Public inventory counts are stated as **N+** (`13+` solo AI/agentic systems, `13+` automation workflows), while architectural specifications (`8-stage pipeline`, `url_hash + content_hash dedup`, `3-agent crews`) reflect exact repository implementations.
 
 ## Deployment
 

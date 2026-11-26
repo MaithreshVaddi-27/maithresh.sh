@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t">
+  <title id="t">SalaryInsights Agent</title>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="#11141b" stroke="#202634" stroke-width="2"/>
+  <path d="M16 48V36M27 48V28M38 48V32M49 48V20" fill="none" stroke="#a1a8b5" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M15 29l12-9 11 5 11-11" fill="none" stroke="#f4f2ed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="49" cy="14" r="3.5" fill="#60a5fa"/>
+</svg>
