@@ -19,10 +19,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  # write: the snapshot commit-back at the end of the build job pushes the
-  # freshly regenerated contributions.json. Pushes made with GITHUB_TOKEN do
-  # not trigger new workflow runs, so this can never self-loop.
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -75,27 +72,6 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
-
-      # Commit the fresh snapshot back so the repo never drifts behind what
-      # just deployed. Commit-only-on-change. checkout@v4 leaves a detached
-      # HEAD, on which `git pull --rebase` refuses to run — so commit where we
-      # are, rebase the single commit onto the fetched tip, and push HEAD:main
-      # explicitly instead. A rebase conflict fails the step with the conflict
-      # in the log (rather than dropping data); with the `pages` concurrency
-      # group serializing runs, that window is already tiny.
-      - name: Commit refreshed snapshot
-        run: |
-          if git diff --quiet -- src/data/contributions.json; then
-            echo "snapshot unchanged — nothing to commit"
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/contributions.json
-          git commit -m "chore: refresh contribution snapshot"
-          git fetch origin "${{ github.ref_name }}"
-          git rebase "origin/${{ github.ref_name }}"
-          git push origin "HEAD:${{ github.ref_name }}"
 
   deploy:
     needs: build
