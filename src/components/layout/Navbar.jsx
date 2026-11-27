@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { Button } from '@astryxdesign/core/Button'
-import { Badge } from '@astryxdesign/core/Badge'
 import { HStack } from '@astryxdesign/core/HStack'
 import { Icon } from '@astryxdesign/core/Icon'
 import { StatusDot } from '@astryxdesign/core/StatusDot'
@@ -137,8 +136,8 @@ export default function Navbar() {
           <div className="nav-actions">
             <span className="nav-availability">
               <HStack gap={1.5} align="center">
-                <StatusDot variant="accent" isPulsing label="Available for AI/ML internships" />
-                <Badge variant="blue" label="Open to AI/ML Internships" />
+                <StatusDot variant="accent" label="Available for AI/ML internships" />
+                <span className="nav-status-label">Open to AI/ML Internships</span>
               </HStack>
             </span>
             <Button
@@ -167,8 +166,8 @@ export default function Navbar() {
           <div className="mobile-drawer">
             <VStack gap={2} paddingBlock={3}>
               <HStack gap={1.5} align="center">
-                <StatusDot variant="accent" isPulsing label="Available for AI/ML internships" />
-                <Badge variant="blue" label="Open to AI/ML Internships" />
+                <StatusDot variant="accent" label="Available for AI/ML internships" />
+                <span className="nav-status-label">Open to AI/ML Internships</span>
               </HStack>
               {LINKS.map(([href, label, loaderKey]) => (
                 <a

@@ -38,7 +38,7 @@ export default function FeaturedSystems() {
             Featured AI &amp; Agentic Systems
           </Heading>
           <span className="section-index-meta">
-            SYS 01–0{PROJECTS.length} · ORDERED BY WEIGHT
+            {PROJECTS.length} featured · {MORE_PROJECTS.length} archived
           </span>
         </div>
         <p className="section-subtitle">

@@ -15,7 +15,7 @@ export default function AutomationsAndTeam() {
           <Heading level={2} className="section-title">
             Workflow Automations &amp; Scoped Team ML
           </Heading>
-          <span className="section-index-meta">13+ WORKFLOWS · 2 TEAM SYSTEMS</span>
+          <span className="section-index-meta">13+ workflows · 2 team systems</span>
         </div>
         <p className="section-subtitle">
           Production webhook pipelines across n8n, Make.com, and RPA alongside collaborative

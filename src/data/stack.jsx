@@ -12,7 +12,7 @@ export const STACK = [
       'NVIDIA NIM', 'Ollama', 'llama.cpp', 'MLX', 'MLX-LM', 'LM Studio', 'Prompt engineering',
       'ReAct / Plan-Execute', 'Conversational memory / checkpointing', 'LoRA / RLHF fundamentals',
     ],
-    note: 'Build method: spec-first, AI-assisted — I write the architecture + line-by-line specs, direct implementation via Claude Code / OpenCode / Antigravity, and own every design decision. Happy to walk through specs vs. tool defaults in an interview.',
+    note: 'Spec-first workflow: I author the architecture and constraints, direct implementation with coding agents, and verify every edge case and trade-off directly.',
   },
   {
     file: 'automation.sh',

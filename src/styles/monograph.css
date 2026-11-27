@@ -36,9 +36,8 @@
   left: 0;
   right: 0;
   bottom: -1px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--cobalt-600), var(--cobalt-300));
-  box-shadow: 0 0 10px rgba(96, 165, 250, 0.35);
+  height: 1.5px;
+  background: var(--cobalt-400);
   transform-origin: left center;
   transform: scaleX(var(--scroll-progress, 0));
   pointer-events: none;
@@ -74,7 +73,7 @@
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .brand-glyph {
@@ -82,15 +81,10 @@
   height: 22px;
   display: block;
   flex-shrink: 0;
-  transition: transform var(--duration-snap) var(--ease-editorial);
 }
 
 .brand-tld {
   color: var(--cobalt-400);
-}
-
-.brand-mark:hover .brand-glyph {
-  transform: scale(1.06);
 }
 
 .nav-links {
@@ -140,6 +134,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.nav-status-label {
+  font-size: 12px;
+  color: var(--ink-secondary);
+  white-space: nowrap;
 }
 
 .mobile-toggle {
@@ -201,10 +201,9 @@
 
 .section-index-meta {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--cobalt-400);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: var(--ink-muted);
 }
 
 .section-subtitle {
@@ -259,7 +258,7 @@
 
 .hero-headline em {
   font-style: italic;
-  color: var(--cobalt-400);
+  color: var(--ink-strong);
 }
 
 .hero-copy {
@@ -327,28 +326,15 @@
 }
 
 .specimen-card {
-  position: relative;
   background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 24px 56px rgba(3, 7, 18, 0.48);
-  transition: border-color var(--duration-panel) var(--ease-editorial),
-    box-shadow var(--duration-panel) var(--ease-editorial);
-}
-
-.specimen-card::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 10%, rgba(96, 165, 250, 0.55) 50%, transparent 90%);
-  pointer-events: none;
+  transition: border-color var(--duration-panel) var(--ease-editorial);
 }
 
 .specimen-card:hover {
   border-color: var(--hairline-strong);
-  box-shadow: 0 28px 64px rgba(3, 7, 18, 0.62);
 }
 
 .specimen-head {
@@ -376,11 +362,6 @@
   height: auto;
   display: block;
   border-radius: 8px;
-  transition: transform 320ms var(--ease-editorial);
-}
-
-.specimen-card:hover .specimen-portrait img {
-  transform: scale(1.018);
 }
 
 .specimen-k {
@@ -528,10 +509,9 @@
 
 .stage-code {
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
+  font-size: 11px;
+  letter-spacing: 0.02em;
   color: var(--ink-muted);
-  text-transform: uppercase;
 }
 
 .stage-title {
@@ -593,40 +573,13 @@
 }
 
 .system-row {
-  position: relative;
   padding-block: 32px;
   border-bottom: 1px solid var(--hairline);
   transition: border-color var(--duration-snap) ease;
 }
 
-.system-row::before {
-  content: '';
-  position: absolute;
-  left: -14px;
-  top: 32px;
-  bottom: 32px;
-  width: 2px;
-  border-radius: 2px;
-  background: var(--cobalt-400);
-  transform: scaleY(0);
-  transform-origin: center;
-  transition: transform var(--duration-panel) var(--ease-editorial);
-}
-
-.system-row-inner {
-  transition: transform 220ms var(--ease-editorial);
-}
-
 .system-row:hover {
   border-bottom-color: var(--hairline-strong);
-}
-
-.system-row:hover::before {
-  transform: scaleY(1);
-}
-
-.system-row:hover .system-row-inner {
-  transform: translateX(4px);
 }
 
 .system-top {
@@ -651,13 +604,11 @@
   border: 1px solid #262e3f;
   padding: 6px;
   object-fit: contain;
-  transition: transform var(--duration-snap) var(--ease-editorial),
-    border-color var(--duration-snap) ease;
+  transition: border-color var(--duration-snap) ease;
 }
 
 .system-row:hover .system-icon {
-  transform: scale(1.06);
-  border-color: rgba(96, 165, 250, 0.45);
+  border-color: var(--hairline-strong);
 }
 
 .system-title {
@@ -1040,9 +991,8 @@
 
 .contrib-cell:hover,
 .contrib-cell.is-highlighted {
-  transform: scale(1.22);
   stroke: var(--cobalt-300);
-  stroke-width: 1.1;
+  stroke-width: 1.4;
 }
 
 .contrib-cell.is-dimmed {
@@ -1152,7 +1102,6 @@
 
 .contrib-legend-swatch:hover,
 .contrib-legend-swatch.is-locked {
-  transform: scale(1.2);
   border-color: var(--cobalt-300);
 }
 
@@ -1294,7 +1243,13 @@ button:active {
     display: none;
   }
 
-  .mobile-toggle {
+  .nav-status-label {
+  font-size: 12px;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+}
+
+.mobile-toggle {
     display: inline-flex;
   }
 

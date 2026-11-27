@@ -43,7 +43,7 @@ export default function ArchitectureWorkbench() {
           <Heading level={2} className="section-title">
             Execution Paths &amp; Defensible Trade-offs
           </Heading>
-          <span className="section-index-meta">FIG 01 · INTERACTIVE PIPELINE TRACE</span>
+          <span className="section-index-meta">Interactive pipeline trace</span>
         </div>
         <p className="section-subtitle">
           Pick a system to trace its pipeline stages, test nominal vs. recovery paths, and review

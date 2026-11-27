@@ -193,7 +193,7 @@ export default function BackgroundAndContact() {
             <Heading level={2} className="section-title">
               Education &amp; Applied Training
             </Heading>
-            <span className="section-index-meta">KMIT 2023–2027 · 3 CREDENTIALS</span>
+            <span className="section-index-meta">KMIT 2023–2027 · 3 credentials</span>
           </div>
 
           <article className="ledger-entry ledger-entry--spaced">
@@ -253,7 +253,7 @@ export default function BackgroundAndContact() {
                 />
               )}
               <span className="section-index-meta tabular-metric">
-                {total} CONTRIBUTIONS · {fetchedAt}
+                {total} contributions · {fetchedAt}
               </span>
             </HStack>
           </div>

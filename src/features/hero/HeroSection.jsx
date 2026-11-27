@@ -3,7 +3,6 @@ import { Text } from '@astryxdesign/core/Text'
 import { Button } from '@astryxdesign/core/Button'
 import { HStack } from '@astryxdesign/core/HStack'
 import { VStack } from '@astryxdesign/core/VStack'
-import { Badge } from '@astryxdesign/core/Badge'
 import { Icon } from '@astryxdesign/core/Icon'
 import { StatusDot } from '@astryxdesign/core/StatusDot'
 import { Layers, GitBranch } from 'lucide-react'
@@ -35,8 +34,8 @@ export default function HeroSection() {
 
             <div className="hero-mobile-badge">
               <HStack gap={1.5} align="center">
-                <StatusDot variant="accent" isPulsing label="Available for AI/ML internships" />
-                <Badge variant="blue" label="Open to AI/ML Internships" />
+                <StatusDot variant="accent" label="Available for AI/ML internships" />
+                <span className="nav-status-label">Open to AI/ML Internships</span>
               </HStack>
             </div>
 
@@ -62,7 +61,6 @@ export default function HeroSection() {
                   icon={<Icon icon={GitBranch} size="sm" />}
                   href="#workbench"
                 />
-                <Button label="Contact" variant="ghost" size="md" href="#contact" />
               </HStack>
             </div>
 
@@ -84,8 +82,8 @@ export default function HeroSection() {
             <div className="specimen-head">
               <span>SPEC // MV-2027</span>
               <HStack gap={1.5} align="center">
-                <StatusDot variant="accent" isPulsing label="Portfolio metrics synced" />
-                <Badge variant="blue" label="SYNCED" />
+                <StatusDot variant="accent" label="Portfolio metrics verified" />
+                <span>HYD · 2027</span>
               </HStack>
             </div>
 

@@ -1,6 +1,4 @@
 import { Heading } from '@astryxdesign/core/Heading'
-import { Badge } from '@astryxdesign/core/Badge'
-import { HStack } from '@astryxdesign/core/HStack'
 import { STACK } from '../../data/stack'
 
 export default function StackMatrix() {
@@ -11,7 +9,7 @@ export default function StackMatrix() {
           <Heading level={2} className="section-title">
             Engineering Stack &amp; Build Method
           </Heading>
-          <span className="section-index-meta">4 DOMAINS · LOCAL + CLOUD</span>
+          <span className="section-index-meta">4 domains · local + cloud</span>
         </div>
         <p className="section-subtitle">
           Tools used across shipped repositories, local inference runtimes, and backend services.
@@ -19,14 +17,13 @@ export default function StackMatrix() {
 
         <div className="editorial-ledger-grid">
           {STACK.map((group) => (
-            <article className="ledger-entry" key={group.file}>
+            <article className="ledger-entry" key={group.title}>
               <div>
-                <HStack justify="between" align="center" className="ledger-head--stack">
+                <div className="ledger-head--stack">
                   <Heading level={3} size="lg" className="editorial-heading">
                     {group.title}
                   </Heading>
-                  <Badge variant="neutral" label={group.file} />
-                </HStack>
+                </div>
 
                 <div className="chip-row chip-row--flush">
                   {group.chips.map((chip) => (
