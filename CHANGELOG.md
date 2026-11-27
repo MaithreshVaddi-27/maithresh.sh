@@ -13,6 +13,7 @@ All notable changes to `maithresh.sh` are documented here. Format follows
 
 ### Changed
 
+- **Education Cleanup & Ergonomics:** Removed the `labs.sh` Hands-on Labs entry from Education & Applied Training (`3 CREDENTIALS` symmetrical 3-column grid), added sticky-header `scroll-margin-top` offsets across sections, split interactive Astryx controls into a dedicated bundle chunk, and cleaned temporary files.
 - **Responsiveness, Motion & Cleanup:** Added `@formkit/auto-animate` mobile drawer reveal, click-outside & resize auto-close, universal `--scroll-progress` reading indicator fallback, `480px` / `1040px` responsive breakpoints, Cobalt specimen card & featured row hover accents, `ErrorBoundary` reload action, responsive `SectionSkeleton` sizing, separated `stylex-runtime` bundle chunk, and `.DS_Store` static copy filtering in `vite.config.js`.
 - **Identity & Target URL:** Updated navbar brand to `~/maithresh`, Cloudflare Pages project name to `maithresh` (`https://maithresh.pages.dev/`), canonical/OG/sitemap/ARD links, `README.md`, and `design-system/` spec (`3.4.0`).
 - **Script Name Consistency:** Fixed `npm run refresh:contrib` comments in `scripts/refresh-contributions.mjs` and `src/data/contributions.json` to `npm run refresh:contributions`.

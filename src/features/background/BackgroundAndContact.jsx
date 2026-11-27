@@ -175,7 +175,10 @@ export default function BackgroundAndContact() {
   } else if (hoveredMonth) {
     const noun = hoveredMonth.count === 1 ? 'contribution' : 'contributions'
     readoutText = `${hoveredMonth.label} ${hoveredMonth.year} · ${hoveredMonth.count} ${noun} across ${hoveredMonth.activeDays} active days`
-    readoutLevel = hoveredMonth.count === 0 ? 0 : hoveredMonth.count >= 80 ? 4 : 3
+    let monthLvl = 3
+    if (hoveredMonth.count === 0) monthLvl = 0
+    else if (hoveredMonth.count >= 80) monthLvl = 4
+    readoutLevel = monthLvl
   } else if (activeLevel !== null) {
     const matchingDays = grid.days.filter((d) => d.level === activeLevel).length
     readoutText = `Intensity ${activeLevel}/4 (${LEVEL_LABELS[activeLevel]}) · ${matchingDays} days highlighted`
@@ -190,7 +193,7 @@ export default function BackgroundAndContact() {
             <Heading level={2} className="section-title">
               Education &amp; Applied Training
             </Heading>
-            <span className="section-index-meta">KMIT 2023–2027 · CREDENTIALS</span>
+            <span className="section-index-meta">KMIT 2023–2027 · 3 CREDENTIALS</span>
           </div>
 
           <article className="ledger-entry ledger-entry--spaced">
@@ -211,7 +214,7 @@ export default function BackgroundAndContact() {
             </div>
           </article>
 
-          <div className="editorial-ledger-grid">
+          <div className="editorial-ledger-grid editorial-ledger-grid--three">
             {CERTS.map((cert) => (
               <article className="ledger-entry" key={cert.title}>
                 <div>

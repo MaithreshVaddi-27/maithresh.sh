@@ -78,12 +78,6 @@ export const CERTS = [
     body: 'Custom GPTs, Claude Artifacts, AI image/video generation, and rapid prototype builds behind the production systems listed above.',
     stack: ['Custom GPTs', 'Claude Artifacts', 'Rapid prototyping'],
   },
-  {
-    file: 'labs.sh',
-    title: 'AWS · Kubernetes · Jenkins — Hands-on Labs',
-    body: 'Coursework labs across EC2, S3, Lambda, container orchestration, and CI pipelines — the deployment footing behind the Docker-based hardening noted above.',
-    stack: ['AWS', 'Kubernetes', 'Jenkins', 'Docker'],
-  },
 ]
 
 export const CONTACT_LINKS = [

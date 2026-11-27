@@ -50,6 +50,14 @@ export default defineConfig({
           if (id.includes('node_modules/@stylexjs')) {
             return 'stylex-runtime'
           }
+          if (
+            id.includes('node_modules/@astryxdesign/core/dist/components/SegmentedControl') ||
+            id.includes('node_modules/@astryxdesign/core/dist/components/TabList') ||
+            id.includes('SegmentedControl') ||
+            id.includes('TabList')
+          ) {
+            return 'astryx-controls'
+          }
           if (id.includes('node_modules/@astryxdesign')) {
             return 'astryx-ui'
           }

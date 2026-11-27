@@ -167,6 +167,11 @@
 }
 
 /* ── Section Rhythm ───────────────────────────────────────────────────────── */
+.mono-section,
+.hero-section {
+  scroll-margin-top: 84px;
+}
+
 .mono-section {
   padding-block: 84px;
   border-bottom: 1px solid var(--hairline);
@@ -491,7 +496,7 @@
 }
 
 .stage-node {
-  background: #0d1016;
+  background: var(--inset);
   border: 1px solid var(--hairline);
   border-radius: 8px;
   padding: 15px;
@@ -499,6 +504,10 @@
     border-color 200ms var(--ease-editorial) var(--stage-delay, 0ms),
     background-color 200ms var(--ease-editorial) var(--stage-delay, 0ms),
     box-shadow 220ms var(--ease-editorial) var(--stage-delay, 0ms);
+}
+
+.stage-node:not(.is-active):not(.is-warn):not(.is-danger):hover {
+  border-color: var(--hairline-strong);
 }
 
 .stage-node.is-active {
@@ -571,7 +580,7 @@
 .defense-panel code {
   font-family: var(--font-mono);
   font-size: 12px;
-  background: #181d28;
+  background: var(--surface-muted);
   padding: 2px 6px;
   border-radius: 4px;
   color: var(--cobalt-300);
@@ -777,6 +786,11 @@
 
 .editorial-ledger-grid--tight {
   margin-top: 20px;
+}
+
+.editorial-ledger-grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 28px;
 }
 
 .ledger-entry {
@@ -1265,7 +1279,8 @@ button:active {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .editorial-ledger-grid {
+  .editorial-ledger-grid,
+  .editorial-ledger-grid--three {
     grid-template-columns: 1fr;
   }
 }
@@ -1356,8 +1371,11 @@ button:active {
   .nav-link,
   .brand-mark,
   .mobile-nav-link,
+  .site-footer a,
   .contrib-metric-tile--interactive {
     min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .contrib-legend-swatch {

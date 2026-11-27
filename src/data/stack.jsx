@@ -45,7 +45,7 @@ export const STACK = [
       'Kubernetes', 'Jenkins', 'TensorFlow / Keras', 'Scikit-learn', 'YOLO',
       'CNN / RNN / LSTM', 'Git',
     ],
-    note: 'AWS / K8s / Jenkins: coursework + hands-on labs, no named production deployment. Frontend: React 19, Framer Motion, Gradio, Bootstrap 4.5 · Design: Figma (UX research, wireframing).',
+    note: 'AWS / Kubernetes / Jenkins: academic coursework and lab environments, no named production deployment. Frontend: React 19, Framer Motion, Gradio, Bootstrap 4.5 · Design: Figma (UX research, wireframing).',
   },
 ]
 

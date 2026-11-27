@@ -1,6 +1,8 @@
 # Systems Monograph Portfolio — Senior Engineering & Design Audit
 
-**Branch:** `feat/independent-ai-portfolio`  
+> **Status (2026-11-27):** Resolved on `main` / `systems-monograph` (`v3.4.0`, live at `https://maithresh.pages.dev/`). The 2026-11-26 audit baseline is preserved below for traceability.
+
+**Baseline Branch:** `feat/independent-ai-portfolio`  
 **Audit Date:** 2026-11-26  
 **Audited Target:** `http://localhost:4179/` (production `dist/` build) + repository source  
 **Skills Applied:** `impeccable` (`audit`, `critique`, `craft-floor`), `ui-review`, `ui-a11y`, `code-reviewer`, `seo-audit`, `fixing-motion-performance`, `astryx`, `logo-design`
